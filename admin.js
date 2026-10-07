@@ -294,10 +294,8 @@
     var s = getSettings(), cr = getCreds();
     return '<div class="ax-settings">' +
       '<div class="ax-panel"><h2>Business configuration</h2><form class="ax-form" id="ax-settings-form"><label class="ax-field full">Brand name<input name="brandName" value="' + esc(s.brandName) + '"></label><label class="ax-field full">WhatsApp number (with country code, e.g. 917092722605)<input name="whatsappNumber" inputmode="numeric" value="' + esc(s.whatsappNumber) + '"></label><label class="ax-field full">Instagram URL<input name="instagramUrl" value="' + esc(s.instagramUrl) + '"></label><label class="ax-field">Phone<input name="phone" value="' + esc(s.phone) + '"></label><label class="ax-field">Email<input name="email" type="email" value="' + esc(s.email) + '"></label><label class="ax-field full">Address<input name="address" value="' + esc(s.address) + '"></label><div class="full"><button class="ax-btn" type="submit">Save settings</button></div></form></div>' +
-      '<div class="ax-panel"><h2>Admin login</h2><p class="ax-muted">Supabase mode uses the admin email/password created under Authentication → Users. Do not store production credentials in this website.</p><form class="ax-form" id="ax-pass-form" autocomplete="off"><label class="ax-field full">Admin ID<input name="username" value="' + esc(cr ? cr.username : ADMIN_CONFIG.username) + '" required></label><label class="ax-field full">Current password<input name="current" type="password" required></label><label class="ax-field">New password (min 6)<input name="next" type="password" minlength="6" required></label><label class="ax-field">Confirm new password<input name="again" type="password" minlength="6" required></label><div class="full"><button class="ax-btn" type="submit">Update login</button></div></form></div>' +
       '<div class="ax-panel"><h2>Backup</h2><p class="ax-note" style="margin:0 0 14px">Data is stored in this browser only. Export a backup regularly.</p><div class="ax-actions"><button class="ax-btn ghost" id="ax-export">Export data</button><label class="ax-btn ghost" style="cursor:pointer">Import data<input id="ax-import" type="file" accept=".json,application/json" hidden></label></div><p class="ax-muted" style="margin:12px 0 0">Export includes products, online orders, offline orders and settings.</p></div>' +
-      '<div class="ax-panel ax-danger"><h2>Danger zone</h2><div class="ax-actions"><button class="ax-btn danger" id="ax-clear-orders">Clear orders</button><button class="ax-btn danger" id="ax-reset-products">Reset products</button><button class="ax-btn danger" id="ax-clear-all">Clear all local data</button></div></div>' +
-      '<div class="ax-panel" style="grid-column:1/-1"><h2>Supabase status</h2><p class="ax-note" style="margin:0">When <strong>supabase-config.js</strong> is configured, products and online COD orders are stored in Supabase, admin login uses Supabase Auth, and Realtime keeps stock and online orders synchronized across devices. Without configuration, the site safely falls back to browser-local storage.</p></div></div>';
+      '<div class="ax-panel ax-danger"><h2>Danger zone</h2><div class="ax-actions"><button class="ax-btn danger" id="ax-clear-orders">Clear orders</button><button class="ax-btn danger" id="ax-reset-products">Reset products</button><button class="ax-btn danger" id="ax-clear-all">Clear all local data</button></div></div>'
   }
 
   /* ---------------- events ---------------- */
@@ -475,13 +473,256 @@
     }
   }
 
-  function printOrder(o) {
-    var w = window.open("", "_blank", "width=800,height=900");
-    if (!w) return toast("Please allow pop-ups to print the order.", "warn");
-    var rows = safeProducts(o).map(function (p) { return esc(p.name) + " - " + esc(p.weight) + " × " + Number(p.quantity || 0) + " — " + money(Number(p.price || 0) * Number(p.quantity || 0)); }).join("<br>");
-    w.document.write("<html><head><title>" + esc(o.id) + "</title><style>body{font:14px Arial;padding:40px;color:#2b1b12}h1{font:700 28px Georgia}.line{padding:9px 0;border-bottom:1px solid #ddd}small{color:#777}</style></head><body><h1>MADHURAVANA Pure Honey</h1><p><strong>" + esc(o.id) + "</strong> · " + esc(o.orderType || "") + '</p><div class="line"><strong>Customer:</strong> ' + esc(o.customerName) + " · " + esc(o.phone) + '</div><div class="line"><strong>Products:</strong><br>' + rows + '</div><div class="line"><strong>Total:</strong> ' + money(o.total || 0) + '</div><div class="line"><strong>Payment:</strong> ' + esc(o.paymentMethod || "Cash on Delivery") + '</div><div class="line"><strong>Address:</strong> ' + esc(addr(o)) + '</div><div class="line"><strong>Status:</strong> ' + esc(o.status) + "</div><p><small>Printed " + new Date().toLocaleString("en-IN") + "</small></p><script>window.onload=function(){window.print()}<\/script></body></html>");
-    w.document.close();
-  }
+function printOrder(o) {
+  var w = window.open("", "_blank", "width=900,height=1000");
+  if (!w) return toast("Please allow pop-ups to print the order.", "warn");
+
+  var s = getSettings();
+  var a = o.address || {};
+  var isOnline = String(o.orderType || "").toUpperCase() === "ONLINE";
+  var logo = new URL("images/madhuravana-front-bottle.png", location.href).href;
+  var status = o.status || "Order Placed";
+  var statusCls = String(status).toLowerCase().replace(/\s+/g, "-");
+
+  var rows = safeProducts(o).map(function (p, i) {
+    var qty = Number(p.quantity || 0);
+    var price = Number(p.price || 0);
+
+    return '<tr>' +
+      '<td class="n">' + (i + 1) + '</td>' +
+      '<td>' +
+        '<strong>' + esc(p.name || "MADHURAVANA Pure Honey") + '</strong>' +
+        '<span>' + esc(p.weight || "") + '</span>' +
+      '</td>' +
+      '<td class="c">' + qty + '</td>' +
+      '<td class="r">' + money(price) + '</td>' +
+      '<td class="r"><strong>' + money(price * qty) + '</strong></td>' +
+    '</tr>';
+  }).join("");
+
+  var totalQty = safeProducts(o).reduce(function (t, p) {
+    return t + Number(p.quantity || 0);
+  }, 0);
+
+  var addrLines = [
+    a.street,
+    [a.city, a.state].filter(Boolean).join(", "),
+    a.pincode ? "PIN " + a.pincode : ""
+  ].filter(Boolean).map(esc).join("<br>");
+
+  var locBlock = o.location
+    ? '<div class="loc"><b>Delivery location</b><br>' + esc(o.location) + '</div>'
+    : "";
+
+  var css = [
+    '@page{size:A4;margin:0}',
+    '*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}',
+    'html,body{margin:0;background:#e9e3d3}',
+    'body{font:13px/1.5 "Segoe UI",Arial,sans-serif;color:#2b1b12}',
+    '.sheet{width:210mm;min-height:297mm;margin:0 auto;background:#fffdf7;position:relative;overflow:hidden}',
+    '.head{position:relative;padding:34px 44px 56px;color:#173b25;',
+      'background:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'56\' height=\'100\' viewBox=\'0 0 56 100\'%3E%3Cpath d=\'M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100\' fill=\'none\' stroke=\'%23ffffff\' stroke-opacity=\'.28\' stroke-width=\'2\'/%3E%3Cpath d=\'M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34\' fill=\'none\' stroke=\'%23ffffff\' stroke-opacity=\'.28\' stroke-width=\'2\'/%3E%3C/svg%3E"),',
+      'linear-gradient(135deg,#ffd45c,#f6a800 60%,#e48a00)}',
+    '.head:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22px;background:#fffdf7;border-radius:22px 22px 0 0}',
+    '.top{display:flex;justify-content:space-between;align-items:center;gap:20px}',
+    '.brand{font:700 34px/1 Georgia,"Times New Roman",serif;letter-spacing:.04em;color:#173b25}',
+    '.brand small{display:block;margin-top:8px;font:800 11px/1 "Segoe UI",Arial,sans-serif;letter-spacing:.42em;color:#6b3a00}',
+    '.tag{margin-top:10px;font:italic 13px Georgia,serif;color:#5a2f00}',
+    '.jar{height:104px;width:auto;filter:drop-shadow(0 8px 8px rgba(90,47,0,.35));margin:-6px 6px -22px 0}',
+    '.body{padding:6px 44px 0}',
+    '.titlebar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin:2px 0 22px;padding-bottom:14px;border-bottom:2px solid #173b25}',
+    '.titlebar h1{margin:0;font:600 26px Georgia,serif;color:#173b25;letter-spacing:.02em}',
+    '.titlebar .id{font:700 13px "Courier New",monospace;color:#8a4a00;letter-spacing:.06em;margin-top:4px}',
+    '.badges{display:flex;gap:8px;align-items:center}',
+    '.badge{display:inline-block;padding:6px 14px;border-radius:99px;font:800 10.5px "Segoe UI",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}',
+    '.badge.type{background:#173b25;color:#ffd45c}',
+    '.badge.st{background:#fff1ce;color:#805d15;border:1px solid #e6c25f}',
+    '.badge.st.delivered{background:#e2f0df;color:#41613b;border-color:#a9cfa0}',
+    '.badge.st.cancelled{background:#f5ded9;color:#913c2d;border-color:#e0a79d}',
+    '.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px}',
+    '.card{border:1px solid #ecd9a4;border-radius:14px;padding:14px 16px;background:#fff9e8}',
+    '.card h4{margin:0 0 7px;font:800 9.5px "Segoe UI",Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a56a00}',
+    '.card p{margin:0;font-size:12.5px;color:#2b1b12}',
+    '.card p strong{font-size:14px;color:#173b25}',
+    '.loc{margin-top:8px;font-size:10.5px;color:#6b5a48;word-break:break-all}',
+    'table{width:100%;border-collapse:separate;border-spacing:0;margin-top:4px}',
+    'thead th{background:#173b25;color:#ffd45c;font:800 10px "Segoe UI",Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:11px 12px;text-align:left}',
+    'thead th:first-child{border-radius:12px 0 0 12px}',
+    'thead th:last-child{border-radius:0 12px 12px 0}',
+    'td{padding:13px 12px;border-bottom:1px solid #f0e3bd;vertical-align:middle}',
+    'td strong{display:block;color:#173b25}',
+    'td span{color:#8a6a30;font-size:11.5px}',
+    '.n{width:34px;color:#a56a00;font-weight:700}',
+    '.c{text-align:center;width:60px}',
+    '.r{text-align:right;width:104px}',
+    'th.c{text-align:center}',
+    'th.r{text-align:right}',
+    '.sum{display:flex;justify-content:space-between;align-items:stretch;gap:20px;margin-top:22px}',
+    '.cod{flex:1;border:2px dashed #e6a800;border-radius:16px;padding:14px 18px;background:#fffaf0}',
+    '.cod b{display:block;font:800 10px "Segoe UI",Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#a56a00;margin-bottom:5px}',
+    '.cod span{font-size:12px;color:#5a4630}',
+    '.total{min-width:230px;border-radius:16px;padding:14px 20px;color:#fff;background:linear-gradient(135deg,#173b25,#245a38)}',
+    '.total .row{display:flex;justify-content:space-between;font-size:12px;opacity:.85;padding:2px 0}',
+    '.total .grand{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:9px;border-top:1px solid rgba(255,212,92,.45)}',
+    '.total .grand span{font:800 10px "Segoe UI",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ffd45c}',
+    '.total .grand strong{font:700 26px Georgia,serif;color:#ffd45c}',
+    '.thanks{margin:30px 0 0;text-align:center}',
+    '.thanks h3{margin:0;font:italic 600 21px Georgia,serif;color:#173b25}',
+    '.thanks p{margin:5px 0 0;color:#8a6a30;font-size:12px}',
+    '.sign{display:flex;justify-content:space-between;margin:34px 6px 0}',
+    '.sign div{width:190px;text-align:center;border-top:1px solid #b99a4a;padding-top:6px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#8a6a30}',
+    '.foot{position:absolute;left:0;right:0;bottom:0;padding:15px 44px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11px;color:#fff3cf;background:#173b25}',
+    '.foot b{color:#ffd45c;letter-spacing:.14em}',
+    '@media print{html,body{background:#fffdf7}.sheet{margin:0;box-shadow:none}}'
+  ].join("");
+
+  var html =
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' +
+    esc(o.id) +
+    ' | MADHURAVANA Pure Honey</title>' +
+
+    '<style>' + css + '</style></head><body><div class="sheet">' +
+
+    '<div class="head"><div class="top"><div>' +
+    '<div class="brand">MADHURAVANA<small>PURE HONEY</small></div>' +
+    '<div class="tag">Pure. Natural. Unprocessed. From the heart of Kerala.</div>' +
+    '</div>' +
+
+    '<img class="jar" src="' + logo + '" alt=""></div></div>' +
+
+    '<div class="body">' +
+
+    '<div class="titlebar"><div>' +
+    '<h1>' + (isOnline ? "Online Order" : "Offline Order") + ' Slip</h1>' +
+    '<div class="id">' + esc(o.id) + '</div>' +
+    '</div>' +
+
+    '<div class="badges">' +
+    '<span class="badge type">' +
+    esc(o.orderType || (isOnline ? "ONLINE" : "OFFLINE")) +
+    '</span>' +
+
+    '<span class="badge st ' + statusCls + '">' +
+    esc(status) +
+    '</span>' +
+
+    '</div></div>' +
+
+    '<div class="grid">' +
+
+    '<div class="card">' +
+    '<h4>Customer</h4>' +
+    '<p><strong>' + esc(o.customerName) + '</strong><br>' +
+    esc(o.phone) +
+    '</p>' +
+    '</div>' +
+
+    '<div class="card">' +
+    '<h4>Deliver to</h4>' +
+    '<p>' + (addrLines || "—") + '</p>' +
+    locBlock +
+    '</div>' +
+
+    '<div class="card">' +
+    '<h4>Order details</h4>' +
+    '<p>Date: <strong style="font-size:12.5px">' +
+    esc(o.orderDate || "") +
+    '</strong><br>Time: ' +
+    esc(o.orderTime || "") +
+    '<br>Items: ' +
+    totalQty +
+    '</p>' +
+    '</div>' +
+
+    '</div>' +
+
+    '<table>' +
+    '<thead>' +
+    '<tr>' +
+    '<th>#</th>' +
+    '<th>Product</th>' +
+    '<th class="c">Qty</th>' +
+    '<th class="r">Price</th>' +
+    '<th class="r">Amount</th>' +
+    '</tr>' +
+    '</thead>' +
+    '<tbody>' +
+    rows +
+    '</tbody>' +
+    '</table>' +
+
+    '<div class="sum">' +
+
+    '<div class="cod">' +
+    '<b>Payment</b>' +
+    '<strong style="color:#173b25;font-size:15px">' +
+    esc(o.paymentMethod || "Cash on Delivery") +
+    '</strong><br>' +
+    '<span>Please collect the amount shown when the parcel is delivered.</span>' +
+    '</div>' +
+
+    '<div class="total">' +
+
+    '<div class="row">' +
+    '<span>Subtotal (' +
+    totalQty +
+    ' item' +
+    (totalQty === 1 ? "" : "s") +
+    ')</span>' +
+    '<span>' +
+    money(o.total || 0) +
+    '</span>' +
+    '</div>' +
+
+    '<div class="grand">' +
+    '<span>Total</span>' +
+    '<strong>' +
+    money(o.total || 0) +
+    '</strong>' +
+    '</div>' +
+
+    '</div>' +
+    '</div>' +
+
+    '<div class="thanks">' +
+    '<h3>Thank you for choosing pure honey.</h3>' +
+    '<p>Every jar carries a taste of Kerala\'s natural warmth.</p>' +
+    '</div>' +
+
+    '<div class="sign">' +
+    '<div>Packed by</div>' +
+    '<div>Received by</div>' +
+    '</div>' +
+
+    '</div>' +
+
+    '<div class="foot">' +
+    '<span><b>MADHURAVANA PURE HONEY</b></span>' +
+    '<span>' + esc(s.phone || "") + '</span>' +
+    '<span>' + esc(s.email || "") + '</span>' +
+    '<span>' + esc(s.address || "") + '</span>' +
+    '</div>' +
+
+    '</div>' +
+
+    '<script>' +
+    '(function(){' +
+    'var done=false;' +
+    'function go(){if(done)return;done=true;window.print()}' +
+    'var imgs=[].slice.call(document.images);' +
+    'Promise.all(imgs.map(function(i){' +
+    'return i.complete?1:new Promise(function(r){i.onload=i.onerror=r})' +
+    '})).then(go);' +
+    'setTimeout(go,2500)' +
+    '})()' +
+    '<\/script>' +
+
+    '</body></html>';
+
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
   function csvCell(v) { v = String(v == null ? "" : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
   function exportCsv(type) {
     var list = ordersOf(type); if (!list.length) return toast("No orders to export.", "warn");
