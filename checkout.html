@@ -259,6 +259,43 @@
         flex-basis: 38px;
       }
     }
+
+    /* =========================================================
+   CENTERED WARNING / TOAST MESSAGES
+   ========================================================= */
+
+#toast-root {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  width: min(92vw, 430px) !important;
+  max-width: 430px !important;
+
+  z-index: 999999 !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  pointer-events: none !important;
+}
+
+#toast-root > * {
+  pointer-events: auto !important;
+  width: 100% !important;
+  max-width: 430px !important;
+
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+
+  text-align: center !important;
+}
   </style>
 </head>
 
