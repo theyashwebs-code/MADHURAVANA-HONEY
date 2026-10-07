@@ -22,6 +22,18 @@ const KEYS = {
   settings:"madhuravana_settings", counter:"madhuravana_order_counter"
 };
 
+/* One-time reset: clears old test orders from every device */
+(function(){
+  const RESET_VERSION = "launch-1";
+  try{
+    if(localStorage.getItem("madhuravana_reset") !== RESET_VERSION){
+      localStorage.removeItem(KEYS.online);
+      localStorage.removeItem(KEYS.lastOrder);
+      localStorage.setItem("madhuravana_reset", RESET_VERSION);
+    }
+  }catch(e){}
+})();
+
 function safeParse(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch(e){console.warn("localStorage read failed",key,e);return fallback}}
 function safeSave(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){showToast("Browser storage is unavailable. Please check storage permissions.","warn");return false}}
 function getProducts(){const p=safeParse(KEYS.products,null);if(!Array.isArray(p)){safeSave(KEYS.products,DEFAULT_PRODUCTS);return structuredClone(DEFAULT_PRODUCTS)}return p}
