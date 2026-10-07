@@ -6,22 +6,215 @@
   <meta name="description" content="Shop MADHURAVANA Pure Honey in 250g, 500g and 1kg sizes.">
   <title>Shop | MADHURAVANA Pure Honey</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="magic-upgrade.css"><link rel="stylesheet" href="wow.css"><link rel="stylesheet" href="static-premium.css"><link rel="stylesheet" href="mobile-premium.css">
+
+  <style>
+    body[data-page="shop"]{
+      --honey:#f6a800; --amber:#e48a00; --deep:#8a4a00; --brown:#3b2008;
+      /* change this number to make bottles bigger or smaller */
+      --jar-size:120%;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23c88a10' stroke-opacity='.10' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23c88a10' stroke-opacity='.10' stroke-width='2'/%3E%3C/svg%3E"),
+        linear-gradient(180deg,#fff7de,#ffefbd);
+    }
+
+    /* ---------- HERO ---------- */
+    body[data-page="shop"] .page-hero{
+      position:relative;overflow:visible;text-align:center;
+      padding:48px 20px 56px !important;min-height:0 !important;height:auto !important;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='2'/%3E%3C/svg%3E"),
+        radial-gradient(500px 260px at 50% 0%,rgba(255,236,150,.8),transparent 70%),
+        linear-gradient(180deg,#ffc83d,#f6a800 55%,#e48a00);
+      margin-bottom:70px;
+    }
+    .honey-drips{position:absolute;left:0;right:0;top:calc(100% - 1px);width:100%;height:64px;display:block;pointer-events:none}
+    .honey-drips path{fill:#e48a00}
+    body[data-page="shop"] .page-hero .eyebrow{color:#5a2f00 !important;letter-spacing:.3em;font-size:.72rem;font-weight:800}
+    body[data-page="shop"] .page-hero h1{
+      margin:10px 0 8px !important;color:#3b2008 !important;font-weight:600;
+      font-size:clamp(2.2rem,7vw,3.8rem) !important;letter-spacing:-.01em;line-height:1.05;
+      text-shadow:0 2px 0 rgba(255,255,255,.35);
+    }
+    body[data-page="shop"] .page-hero h1 em{font-style:italic;color:#fff;text-shadow:0 2px 6px rgba(120,60,0,.35)}
+    body[data-page="shop"] .page-hero p{margin:0 auto;color:#5a2f00;font-size:1rem;max-width:460px;font-weight:600}
+    .shop-marks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px}
+    .shop-marks span{
+      padding:8px 16px;border-radius:99px;background:rgba(255,247,222,.92);
+      color:#6b3a00;font-size:.76rem;font-weight:800;letter-spacing:.04em;
+      box-shadow:0 6px 14px rgba(120,60,0,.18);
+    }
+    .bee{position:absolute;font-size:1.6rem;animation:beeFly 6s ease-in-out infinite;pointer-events:none}
+    .bee.b1{top:22px;left:9%}
+    .bee.b2{top:60px;right:10%;animation-delay:-3s;font-size:1.3rem}
+    @keyframes beeFly{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(18px,-12px) rotate(8deg)}}
+
+    /* ---------- TOOLBAR ---------- */
+    body[data-page="shop"] main .section{padding-top:0 !important}
+    body[data-page="shop"] .shop-toolbar{
+      display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+      padding:14px 20px;margin-bottom:28px;
+      background:#fff9e6;border:2px solid #f2c04a;border-radius:99px;
+      box-shadow:0 10px 24px rgba(200,130,0,.15);
+    }
+    body[data-page="shop"] .shop-toolbar strong{color:var(--brown)}
+    body[data-page="shop"] .shop-toolbar .muted{color:#8a6a30;font-size:.86rem}
+    body[data-page="shop"] .shop-toolbar select{
+      min-height:42px;padding:0 36px 0 18px;border-radius:99px;
+      border:2px solid var(--honey);background:#fff;
+      font:inherit;font-weight:700;color:var(--brown);cursor:pointer;outline:none;
+    }
+
+    /* ---------- PRODUCT GRID: centered, fixed-size cards ---------- */
+    body[data-page="shop"] #shop-products{
+      display:flex !important;
+      flex-wrap:wrap !important;
+      justify-content:center !important;
+      align-items:flex-start;
+      gap:28px !important;
+    }
+    body[data-page="shop"] #shop-products .product-card{
+      flex:0 0 auto !important;
+      width:300px !important;
+      max-width:100% !important;
+      opacity:1 !important;visibility:visible !important;
+      position:relative;display:flex !important;flex-direction:column;padding:0 !important;overflow:hidden;
+      background:#fffaf0;border:2px solid #f2c04a;border-radius:30px;
+      box-shadow:0 18px 40px rgba(200,130,0,.20);
+      transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+    }
+    body[data-page="shop"] #shop-products .product-card:hover{
+      transform:translateY(-8px);border-color:var(--amber);
+      box-shadow:0 30px 60px rgba(200,130,0,.34);
+    }
+
+ /* ---------- BIG BOTTLE (fully visible) ---------- */
+body[data-page="shop"] #shop-products .product-card .product-visual{
+  position:relative !important;display:flex !important;
+  align-items:center;justify-content:center;
+  width:100% !important;height:320px !important;padding:18px 0 14px !important;margin:0 !important;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 55%,rgba(255,255,255,.75),rgba(255,214,102,.5) 45%,transparent 72%),
+    linear-gradient(180deg,#ffe08a,#ffc83d);
+}
+body[data-page="shop"] #shop-products .product-card .product-visual::before{
+  content:"";position:absolute;left:50%;top:50%;width:200px;height:230px;
+  transform:translate(-50%,-50%);background:rgba(255,255,255,.4);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+}
+body[data-page="shop"] #shop-products .product-card .product-visual img{
+  position:relative !important;
+  left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;
+  height:100% !important;
+  width:auto !important;max-width:90% !important;max-height:100% !important;
+  object-fit:contain !important;
+  transform:none !important;
+  filter:drop-shadow(0 16px 16px rgba(120,60,0,.4));
+  transition:transform .4s ease;
+  z-index:1;
+}
+body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
+  transform:scale(1.05) !important;
+}
+
+    /* ---------- CARD TEXT ---------- */
+    body[data-page="shop"] .p-name{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin:18px 20px 0;font-weight:700;font-size:1.1rem;color:var(--brown);line-height:1.2;
+    }
+    body[data-page="shop"] .p-name small{
+      flex:none;margin:0;padding:5px 13px;border-radius:99px;
+      background:var(--honey);color:#3b2008;
+      font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:none;
+    }
+    body[data-page="shop"] .p-desc{margin:10px 20px 0;font-size:.86rem;line-height:1.5;color:#6e5430;flex:1}
+    body[data-page="shop"] .stock-badge{margin-top:10px !important;color:#2f7a38;font-weight:800;font-size:.76rem}
+    body[data-page="shop"] .stock-badge.out{color:#a33a2d}
+    body[data-page="shop"] .p-buy{
+      display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;
+      margin:16px 20px 20px;padding-top:14px;border-top:2px dotted #f2c04a;
+    }
+    body[data-page="shop"] .p-fig{font-size:1.6rem;font-weight:700;color:var(--deep);letter-spacing:-.02em}
+    body[data-page="shop"] .p-buy .reserve-link{color:var(--deep);font-weight:800;font-size:.84rem;text-decoration:underline;text-underline-offset:4px}
+    body[data-page="shop"] .p-buy .add-btn{
+      grid-column:1/-1;min-height:48px;border-radius:99px;border:0;cursor:pointer;
+      background:linear-gradient(180deg,#ffc83d,#f19a00);color:#3b2008;
+      font:inherit;font-weight:900;letter-spacing:.05em;
+      box-shadow:0 10px 22px rgba(228,138,0,.45),inset 0 2px 0 rgba(255,255,255,.5);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    body[data-page="shop"] .p-buy .add-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 16px 30px rgba(228,138,0,.6),inset 0 2px 0 rgba(255,255,255,.5)}
+    body[data-page="shop"] .p-buy .add-btn:disabled{opacity:.5;cursor:not-allowed}
+
+    /* ---------- PROMISE STRIP ---------- */
+    .shop-promise{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;
+      margin-top:56px;padding:28px;border-radius:32px;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-opacity='.2' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-opacity='.2' stroke-width='2'/%3E%3C/svg%3E"),
+        linear-gradient(180deg,#f6a800,#e48a00);
+      color:#3b2008;
+    }
+    .shop-promise div{text-align:center;padding:6px 10px}
+    .shop-promise b{display:block;font-size:1.8rem;margin-bottom:6px}
+    .shop-promise strong{display:block;font-size:1rem;font-weight:800}
+    .shop-promise small{display:block;margin-top:4px;color:#5a2f00;font-size:.84rem;font-weight:600}
+
+    @media (max-width:600px){
+      body[data-page="shop"] .page-hero{padding:34px 16px 44px !important;margin-bottom:56px}
+      .honey-drips{height:48px}
+      body[data-page="shop"] .page-hero p{font-size:.92rem}
+      .shop-marks{gap:8px;margin-top:16px}
+      .shop-marks span{padding:6px 12px;font-size:.7rem}
+      body[data-page="shop"] .shop-toolbar{border-radius:22px;padding:12px 14px}
+      body[data-page="shop"] .shop-toolbar .muted{display:none}
+      body[data-page="shop"] #shop-products{gap:22px !important}
+      body[data-page="shop"] #shop-products .product-card{width:100% !important;max-width:340px !important}
+      body[data-page="shop"] #shop-products .product-card .product-visual{height:280px !important}
+      .shop-promise{padding:20px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .bee{animation:none}
+      body[data-page="shop"] #shop-products .product-card,
+      body[data-page="shop"] #shop-products .product-card .product-visual img,
+      body[data-page="shop"] .p-buy .add-btn{transition:none}
+    }
+  </style>
 </head>
 <body data-page="shop">
   <div id="site-header"></div>
   <main>
     <section class="page-hero">
-      <div class="container center reveal"><span class="eyebrow">The collection</span><h1>Pure honey, your way.</h1><p>Choose the jar that fits your everyday ritual.</p></div>
+      <span class="bee b1" aria-hidden="true">🐝</span>
+      <span class="bee b2" aria-hidden="true">🐝</span>
+      <div class="container center">
+        <span class="eyebrow">THE COLLECTION</span>
+        <h1>Pure honey, <em>your way.</em></h1>
+        <p>Choose the jar that fits your everyday ritual.</p>
+        <div class="shop-marks"><span>🍯 100% Natural</span><span>🌴 Kerala Heritage</span><span>💵 Cash on Delivery</span></div>
+      </div>
+      <svg class="honey-drips" viewBox="0 0 1200 64" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0H1200V12C1170 12 1160 12 1150 30C1142 48 1126 48 1118 30C1110 12 1090 12 1060 12C1030 12 1020 12 1012 24C1004 36 992 36 984 24C976 12 940 12 900 12C860 12 850 12 842 40C834 64 814 64 806 40C798 12 760 12 720 12C680 12 668 12 660 26C652 40 640 40 632 26C624 12 590 12 540 12C490 12 478 12 470 34C462 54 446 54 438 34C430 12 400 12 360 12C320 12 308 12 300 24C292 36 280 36 272 24C264 12 230 12 190 12C150 12 138 12 130 44C122 64 104 64 96 44C88 12 60 12 0 12Z"/>
+      </svg>
     </section>
+
     <section class="section">
       <div class="container shop-toolbar">
         <div><strong id="shop-count">3 products</strong><span class="muted"> · Natural sweetness, beautifully presented</span></div>
         <select id="shop-sort" aria-label="Sort products"><option value="default">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select>
       </div>
+
       <div class="container product-grid product-grid-wide" id="shop-products"></div>
+
+      <div class="container">
+        <div class="shop-promise">
+          <div><b>🍯</b><strong>Raw &amp; Unprocessed</strong><small>Nothing added, nothing removed</small></div>
+          <div><b>🐝</b><strong>Supports Beekeepers</strong><small>Sourced with care in Kerala</small></div>
+          <div><b>💵</b><strong>Pay on Delivery</strong><small>Pay at your door</small></div>
+        </div>
+      </div>
     </section>
   </main>
   <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
-  <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script>
+  <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js?v=2"></script><script src="admin.js"></script><script src="motion.js"></script>
 </body>
 </html>
