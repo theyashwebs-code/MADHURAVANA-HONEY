@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Checkout | MADHURAVANA Pure Honey</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="premium.css">
+  <link rel="stylesheet" href="magic-upgrade.css">
+  <link rel="stylesheet" href="wow.css">
+  <link rel="stylesheet" href="static-premium.css">
+  <link rel="stylesheet" href="mobile-premium.css">
+
+  <style>
+    /* =========================================================
+       MADHURAVANA — FAST CHECKOUT
+       Direct checkout → WhatsApp
+       No success page
+       ========================================================= */
+
+    .fast-checkout {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .checkout-layout {
+      align-items: start;
+    }
+
+    .form-card {
+      position: relative;
+    }
+
+    /* LOCATION BOX */
+
+    .location-box {
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid rgba(120, 78, 20, .15);
+      border-radius: 18px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.96),
+          rgba(255,249,235,.92)
+        );
+    }
+
+    .location-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .location-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 42px;
+      border-radius: 50%;
+      background: #f4c44f;
+      color: #351d08;
+      font-size: 20px;
+    }
+
+    .location-head strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .location-head span {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      opacity: .68;
+    }
+
+    .location-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .location-btn {
+      min-height: 48px;
+      border: 1px solid rgba(100, 60, 10, .16);
+      border-radius: 12px;
+      background: #fff;
+      color: #2e1a08;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .location-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(100, 60, 10, .35);
+      box-shadow: 0 8px 20px rgba(67, 39, 8, .08);
+    }
+
+    .location-btn.primary-location {
+      background: #231407;
+      color: #fff;
+      border-color: #231407;
+    }
+
+    .location-status {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 13px;
+      border-radius: 11px;
+      background: rgba(63, 132, 68, .09);
+      color: #28612d;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .location-status.show {
+      display: block;
+    }
+
+    .location-status.error {
+      background: rgba(180, 50, 40, .08);
+      color: #8d2923;
+    }
+
+    .maps-link-input {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .maps-link-input.show {
+      display: block;
+    }
+
+    .maps-link-input input {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid rgba(100,60,10,.16);
+      border-radius: 11px;
+      background: #fff;
+      outline: none;
+      font: inherit;
+    }
+
+    .maps-link-input input:focus {
+      border-color: #c79226;
+      box-shadow: 0 0 0 3px rgba(199,146,38,.1);
+    }
+
+    /* QUICK INFO */
+
+    .checkout-speed-note {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 14px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: .7;
+    }
+
+    .checkout-speed-note b {
+      opacity: 1;
+    }
+
+    /* WHATSAPP BUTTON */
+
+    .whatsapp-order-btn {
+      position: relative;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .whatsapp-order-btn.loading {
+      pointer-events: none;
+      opacity: .75;
+    }
+
+    .whatsapp-order-btn.loading span {
+      animation: checkoutSpin .7s linear infinite;
+    }
+
+    @keyframes checkoutSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* SUMMARY */
+
+    .summary-card {
+      position: sticky;
+      top: 100px;
+    }
+
+    .summary-card:empty {
+      min-height: 200px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 760px) {
+
+      .checkout-layout {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-card {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .summary-card {
+        position: static;
+        width: 100%;
+      }
+
+      .location-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .location-btn {
+        min-height: 52px;
+      }
+
+      .whatsapp-order-btn {
+        min-height: 56px;
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .location-box {
+        padding: 14px;
+      }
+
+      .location-head {
+        align-items: flex-start;
+      }
+
+      .location-icon {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body data-page="checkout">
+
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero small">
+      <div class="container center">
+
+        <span class="eyebrow">Cash on Delivery</span>
+
+        <h1>Almost yours.</h1>
+
+        <p>
+          Enter your details and send your order directly to us on WhatsApp.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- CHECKOUT -->
+    <section class="section">
+
+      <div class="container checkout-layout fast-checkout">
+
+        <!-- FORM -->
+        <form
+          id="checkout-form"
+          class="form-card"
+          novalidate
+        >
+
+          <div class="form-heading">
+
+            <span class="eyebrow">Delivery details</span>
+
+            <h2>Where should we send it?</h2>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <label>
+              Full Name
+
+              <input
+                name="name"
+                autocomplete="name"
+                required
+                maxlength="80"
+                placeholder="Your full name"
+              >
+            </label>
+
+
+            <label>
+              Mobile Number
+
+              <input
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                required
+                maxlength="15"
+                placeholder="10-digit mobile number"
+              >
+            </label>
+
+
+            <label class="full">
+              House / Street Address
+
+              <input
+                name="address"
+                autocomplete="street-address"
+                required
+                maxlength="180"
+                placeholder="House no., street, area"
+              >
+            </label>
+
+
+            <label>
+              City
+
+              <input
+                name="city"
+                autocomplete="address-level2"
+                required
+                maxlength="60"
+                placeholder="City"
+              >
+            </label>
+
+
+            <label>
+              State
+
+              <input
+                name="state"
+                autocomplete="address-level1"
+                required
+                maxlength="60"
+                placeholder="State"
+              >
+            </label>
+
+
+            <label>
+              Pincode
+
+              <input
+                name="pincode"
+                type="text"
+                inputmode="numeric"
+                autocomplete="postal-code"
+                required
+                maxlength="6"
+                placeholder="6-digit pincode"
+              >
+            </label>
+
+          </div>
+
+
+          <!-- LOCATION -->
+          <div class="location-box">
+
+            <div class="location-head">
+
+              <div class="location-icon">
+                📍
+              </div>
+
+              <div>
+                <strong>Make delivery easier</strong>
+
+                <span>
+                  Share your exact delivery location with us.
+                </span>
+              </div>
+
+            </div>
+
+
+            <div class="location-actions">
+
+              <button
+                type="button"
+                id="use-location-btn"
+                class="location-btn primary-location"
+              >
+                📍 Use My Current Location
+              </button>
+
+
+              <button
+                type="button"
+                id="maps-btn"
+                class="location-btn"
+              >
+                🗺️ Add Google Maps Link
+              </button>
+
+            </div>
+
+
+            <div
+              id="location-status"
+              class="location-status"
+            ></div>
+
+
+            <div
+              id="maps-link-input"
+              class="maps-link-input"
+            >
+
+              <input
+                id="maps-url"
+                type="url"
+                placeholder="Paste your Google Maps location link"
+                autocomplete="off"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- COD -->
+          <div class="payment-box">
+
+            <span class="payment-check">
+              ✓
+            </span>
+
+            <div>
+
+              <strong>
+                Cash on Delivery
+              </strong>
+
+              <p>
+                Pay only when your honey arrives.
+                No online payment is collected here.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <p class="checkout-speed-note">
+            🔒 <span><b>Fast & simple:</b> Your order is sent directly to WhatsApp. No extra confirmation page.</span>
+          </p>
+
+
+          <!-- ORDER BUTTON -->
+          <button
+            class="btn btn-primary btn-block whatsapp-order-btn"
+            id="whatsapp-order-btn"
+            type="submit"
+          >
+
+            <span>💬</span>
+
+            Confirm Order on WhatsApp
+
+            <span>↗</span>
+
+          </button>
+
+
+        </form>
+
+
+        <!-- ORDER SUMMARY -->
+        <aside
+          id="checkout-summary"
+          class="summary-card"
+        ></aside>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <div id="site-footer"></div>
+
+  <div id="modal-root"></div>
+
+  <div id="toast-root"></div>
+
+
+  <!-- EXISTING FILES -->
+  <script src="supabase-config.js"></script>
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
+  <script src="admin.js"></script>
+  <script src="motion.js"></script>
+
+
+</body>
+</html>

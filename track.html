@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Order | MADHURAVANA Pure Honey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet"> <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="premium.css"> <link rel="stylesheet" href="magic-upgrade.css"> <link rel="stylesheet" href="wow.css"> <link rel="stylesheet" href="static-premium.css"> <link rel="stylesheet" href="mobile-premium.css"> <link rel="stylesheet" href="track.css">
+</head>
+<body data-page="track">
+  <div id="site-header"></div>
+  <main>
+    <section class="section tk-section"><div class="container narrow">
+      <span class="eyebrow">ORDER TRACKING</span>
+      <h1>Where is my honey?</h1>
+      <p>Enter your Order ID and the phone number you ordered with.</p>
+      <form class="tk-form" id="tk-form" autocomplete="off">
+        <label>Order ID<input id="tk-id" placeholder="MH20261007ABCD1234" required></label>
+        <label>Phone number<input id="tk-phone" inputmode="numeric" placeholder="10-digit mobile number" required></label>
+        <button class="btn btn-primary" type="submit" id="tk-btn">Track order</button>
+      </form>
+      <div id="tk-result" aria-live="polite"></div>
+      <div id="tk-orders"></div>
+    </div></section>
+  </main>
+  <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
+  <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script><script src="track.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+/* MADHURAVANA luxe layer — smooth scroll, orchestrated reveals, honeycomb ritual. Loaded last. */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+.lx-bar{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(var(--lx-p,0));background:linear-gradient(90deg,#e6b04a,#f6d58a,#bd7c0d);z-index:300;pointer-events:none}
+/* intro: the hero builds itself once */
+.lx .mh-hero-copy>*{opacity:0;transform:translateY(34px);filter:blur(6px)}
+.lx .mh-hero-product{opacity:0}
+.lx.lx-go .mh-hero-copy>*{opacity:1;transform:none;filter:none;transition:opacity 1.1s cubic-bezier(.2,.7,.1,1),transform 1.2s cubic-bezier(.2,.7,.1,1),filter 1.1s;transition-delay:calc(var(--i)*.14s + .15s)}
+.lx.lx-go .mh-hero-product{opacity:1;transition:opacity 1.6s ease .5s}
+/* scroll reveals: soft rise + unblur, staggered */
+.lx-r{opacity:0;transform:translateY(46px);filter:blur(5px);transition:opacity 1s cubic-bezier(.2,.7,.1,1),transform 1.1s cubic-bezier(.2,.7,.1,1),filter .9s;transition-delay:calc(var(--i,0)*.09s);will-change:transform,opacity}
+.lx-r.in{opacity:1;transform:none;filter:none}
+.mh-golden-product.lx-r{transform:translateY(60px) scale(.94)}.mh-golden-product.lx-r.in{transform:none}
+/* ritual: real honeycomb photo, parallax */
+.mh-ritual{background:#0d2236;isolation:isolate}
+.mh-ritual-bg{display:none}
+.mh-ritual-photo{position:absolute;inset:-12% 0;z-index:-2;background:url("images/comb-reveal.jpg") center/cover no-repeat;transform:translate3d(0,var(--ry,0px),0) scale(var(--rs,1.08));will-change:transform}
+.mh-ritual:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,30,60,.94) 0%,rgba(20,55,90,.62) 42%,rgba(10,30,60,0) 100%)}
+.mh-ritual-inner{grid-template-columns:1fr}.mh-ritual-product,.mh-bee{display:none}
+.mh-ritual h2{text-shadow:0 6px 40px rgba(0,0,0,.35)}
+/* marquee ribbon */
+.lx-ribbon{background:#143a23;color:#f6d58a;overflow:hidden;white-space:nowrap;padding:18px 0;border-block:1px solid rgba(246,213,138,.18)}
+.lx-ribbon div{display:inline-block;animation:lxm 38s linear infinite;font:500 1.15rem Fraunces,Georgia,serif;letter-spacing:.04em}
+.lx-ribbon span{margin:0 26px}.lx-ribbon i{color:#bd7c0d;font-style:normal}
+@keyframes lxm{to{transform:translateX(-50%)}}
+/* touch of finish */
+.mh-btn{will-change:transform}
+.mh-btn:hover{box-shadow:0 22px 50px rgba(189,124,13,.35)}
+.product-card{transition:transform .6s cubic-bezier(.2,.7,.1,1),box-shadow .6s}
+.product-card:hover{transform:translateY(-10px);box-shadow:0 34px 70px rgba(70,39,11,.18)}
+.mh-how li{transition:padding-left .5s cubic-bezier(.2,.7,.1,1),background .5s}
+.mh-how li:hover{padding-left:16px;background:rgba(255,255,255,.04)}
+::selection{background:#e6b04a;color:#143a23}
+@media(prefers-reduced-motion:reduce){.lx .mh-hero-copy>*,.lx .mh-hero-product,.lx-r{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}.lx-ribbon div{animation:none}.mh-ritual-photo{transform:none}}

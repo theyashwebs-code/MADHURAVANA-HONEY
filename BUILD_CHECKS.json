@@ -1,0 +1,19 @@
+{
+  "html_files": [
+    "cart.html",
+    "checkout.html",
+    "index.html",
+    "order-success.html",
+    "product.html",
+    "shop.html"
+  ],
+  "required_files_present": true,
+  "forbidden_framework_tokens": [
+    "spring boot",
+    "mysql"
+  ],
+  "key_localstorage_keys": true,
+  "admin_shortcut": true,
+  "whatsapp": true,
+  "export_import": true
+}
