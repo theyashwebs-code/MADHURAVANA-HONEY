@@ -271,6 +271,42 @@ body[data-page="checkout"] main{
 .summary-card{animation:ckRise 1s .42s var(--ease) both}
 .summary-card:empty{animation:ckShim 1.4s linear infinite}
 
+/* ---------- Order placed card (shows ~2s, then WhatsApp opens) ---------- */
+.ck-placed{
+  position:fixed;inset:0;z-index:999998;display:grid;place-items:center;padding:20px;
+  background:rgba(14,8,4,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .35s ease;font-family:"Manrope",system-ui,sans-serif;
+}
+.ck-placed[hidden]{display:none}
+.ck-placed.on{opacity:1}
+.ck-placed-card{
+  position:relative;width:min(92vw,400px);padding:38px 28px 30px;text-align:center;
+  background:linear-gradient(180deg,#fffdf8,#fbf4e3);border:1px solid rgba(201,162,75,.5);border-radius:26px;
+  box-shadow:0 1px 0 #fff inset,0 60px 100px -30px rgba(0,0,0,.85),0 0 0 6px rgba(232,207,148,.06);
+  transform:translateY(18px) scale(.97);transition:transform .5s var(--ease);
+}
+.ck-placed.on .ck-placed-card{transform:none}
+.ck-placed-card::before{
+  content:"";position:absolute;left:40px;right:40px;top:-1px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-hi),transparent);
+}
+.ck-placed-ring{
+  width:76px;height:76px;margin:0 auto 20px;display:grid;place-items:center;border-radius:50%;
+  background:var(--forest);color:#fbf1d9;box-shadow:0 0 0 8px rgba(31,90,58,.12),0 18px 30px -12px rgba(23,67,43,.7);
+}
+.ck-placed-ring svg{width:38px;height:38px}
+.ck-placed-ring path{stroke-dasharray:30;stroke-dashoffset:30}
+.ck-placed.on .ck-placed-ring path{animation:ckDraw .6s .25s var(--ease) forwards}
+@keyframes ckDraw{to{stroke-dashoffset:0}}
+.ck-placed-card h3{margin:0 0 10px;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.65rem;letter-spacing:-.015em;color:var(--ink)}
+.ck-placed-card p{margin:0 auto;max-width:30ch;font-size:.92rem;line-height:1.65;color:var(--cocoa)}
+.ck-placed-card p b{color:var(--gold-lo);font-weight:800}
+.ck-placed-go{margin-top:20px !important;font-size:.78rem !important;color:var(--muted) !important;font-weight:600}
+.ck-placed-bar{height:3px;margin:12px auto 0;width:70%;border-radius:3px;background:var(--line-soft);overflow:hidden}
+.ck-placed-bar b{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi))}
+.ck-placed.on .ck-placed-bar b{animation:ckFill 2s linear forwards}
+@keyframes ckFill{to{width:100%}}
+
 /* ---------- Keyboard focus ---------- */
 .ck-chip:focus-visible,.location-btn:focus-visible,.whatsapp-order-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
@@ -297,6 +333,9 @@ body[data-page="checkout"] main{
   .ck-hero > *,.ck-card,.summary-card,.ck-pin,.summary-card:empty,.ck-spin,.whatsapp-order-btn.loading span{animation:none}
   .whatsapp-order-btn::after{display:none}
   .ck-bar b{transition:none}
+  .ck-placed,.ck-placed-card{transition:none}
+  .ck-placed.on .ck-placed-ring path{animation:none;stroke-dashoffset:0}
+  .ck-placed.on .ck-placed-bar b{animation:none;width:100%}
 }
 </style>
 </head>
@@ -308,7 +347,7 @@ body[data-page="checkout"] main{
 <main>
 
   <!-- HERO -->
-  <section class="ck-hero"><br>
+  <section class="ck-hero">
     <span class="ck-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
       Cash on Delivery
@@ -493,6 +532,19 @@ body[data-page="checkout"] main{
 
 <div id="site-footer"></div>
 <div id="modal-root"></div>
+
+<!-- ORDER PLACED CARD (appears for 2 seconds, then WhatsApp opens) -->
+<div class="ck-placed" id="ck-placed" role="status" aria-live="polite" hidden>
+  <div class="ck-placed-card">
+    <div class="ck-placed-ring">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    </div>
+    <h3>Your order is placed</h3>
+    <p>Kindly check <b>Track Order</b> for updates on your honey.</p>
+    <p class="ck-placed-go">Opening WhatsApp to confirm…</p>
+    <div class="ck-placed-bar"><b></b></div>
+  </div>
+</div>
 <div id="toast-root"></div>
 
 <!-- EXISTING FILES (they build the summary and send the WhatsApp order) -->
@@ -523,6 +575,20 @@ body[data-page="checkout"] main{
   var fill = document.getElementById("ck-fill");
   var count = document.getElementById("ck-count");
   var pinField = f.pincode.closest(".ck-field");
+  var placed = document.getElementById("ck-placed");
+  var busy = false, bypass = false;
+
+  /* The WhatsApp link now opens ~2s after the tap, which some phones treat as a blocked popup.
+     If that happens, open WhatsApp in this tab instead so it never fails. */
+  var realOpen = window.open;
+  window.open = function (url) {
+    var w = realOpen.apply(window, arguments);
+    var feat = String(arguments[2] || "");
+    if (!w && !/noopener|noreferrer/i.test(feat) && /wa\.me|whatsapp\.com/i.test(String(url || ""))) {
+      window.location.href = url;
+    }
+    return w;
+  };
 
   /* ---------- helpers ---------- */
   function fieldOf(input) { return input.closest(".ck-field"); }
@@ -735,6 +801,30 @@ body[data-page="checkout"] main{
     var addr = f.address.value.trim();
     if (a && addr.toLowerCase().indexOf(a.toLowerCase()) < 0) {
       f.address.value = addr + ", " + a;
+    }
+
+    /* show the "order placed" card for 2 seconds, then let script.js send the order to WhatsApp */
+    if (!bypass) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if (busy) return;
+      busy = true;
+      placed.hidden = false;
+      void placed.offsetWidth;
+      placed.classList.add("on");
+      document.body.style.overflow = "hidden";
+      setTimeout(function () {
+        bypass = true;
+        if (form.requestSubmit) form.requestSubmit();
+        else form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+        bypass = false;
+        setTimeout(function () {
+          placed.classList.remove("on");
+          placed.hidden = true;
+          document.body.style.overflow = "";
+          busy = false;
+        }, 2500);
+      }, 2000);
     }
   }, true);
 
