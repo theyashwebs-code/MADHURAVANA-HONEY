@@ -1285,11 +1285,6 @@
       '\<div class="ax-panel">\<h2>Business configuration\</h2>\<form class="ax-form" id="ax-settings-form">\<label class="ax-field full">Brand name\<input name="brandName" value="' + esc(s.brandName) + '">\</label>\<label class="ax-field full">WhatsApp number (with country code, e.g. 917092722605)\<input name="whatsappNumber" inputmode="numeric" value="' + esc(s.whatsappNumber) + '">\</label>\<label class="ax-field full">Instagram URL\<input name="instagramUrl" value="' + esc(s.instagramUrl) + '">\</label>\<label class="ax-field">Phone\<input name="phone" value="' + esc(s.phone) + '">\</label>\<label class="ax-field">Email\<input name="email" type="email" value="' + esc(s.email) + '">\</label>\<label class="ax-field full">Address\<input name="address" value="' + esc(s.address) + '">\</label>\<div class="full">\<button class="ax-btn" type="submit">Save settings\</button>\</div>\</form>\</div>' +
 
 
-
-      '\<div class="ax-panel">\<h2>Backup\</h2>\<p class="ax-note" style="margin:0 0 14px">Data is stored in this browser only. Export a backup regularly.\</p>\<div class="ax-actions">\<button class="ax-btn ghost" id="ax-export">Export data\</button>\<label class="ax-btn ghost" style="cursor:pointer">Import data\<input id="ax-import" type="file" accept=".json,application/json" hidden>\</label>\</div>\<p class="ax-muted" style="margin:12px 0 0">Export includes products, online orders, offline orders and settings.\</p>\</div>' +
-
-
-
       '\<div class="ax-panel">\<h2>Device security\</h2>\<p class="ax-note">This admin dashboard is locked to authorized browser devices. Generate a one-time code to authorize another device.\</p>\<div class="ax-actions">\<button class="ax-btn" id="ax-device-security">Manage authorized devices\</button>\</div>\</div>' +
 
 
@@ -2488,7 +2483,7 @@ function printOrder(o) {
 
 
 
-    '\<h1>' + (isOnline ? "Online Order" : "Offline Order") + ' Slip\</h1>' +
+    '\<h1>' + (isOnline ? "Online Order" : "Offline Order") + ' invoice\</h1>' +
 
 
 
