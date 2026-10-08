@@ -1113,3 +1113,591 @@ textarea {
     bottom: max(12px, env(safe-area-inset-bottom));
   }
 }
+/* =========================================================
+   MADHURAVANA — ULTRA PREMIUM HONEY MOTION
+   Visual enhancement only — no layout/functionality changes
+   ========================================================= */
+
+:root {
+  --mh-gold: #e8a317;
+  --mh-gold-light: #ffe8a3;
+  --mh-honey-glow: rgba(232, 163, 23, .45);
+}
+
+/* -------------------------------
+   PREMIUM BOTTLE BASE
+-------------------------------- */
+
+.premium-honey-bottle {
+  position: relative;
+  z-index: 8;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+  transition:
+    filter 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
+}
+
+/* Hero bottle cinematic entrance */
+.mh-hero-bottle {
+  animation:
+    mhBottleReveal 1.8s cubic-bezier(.16,1,.3,1) .35s both,
+    mhBottleFloat 6s ease-in-out 2s infinite;
+}
+
+/* Golden section bottle */
+.mh-golden-bottle {
+  animation:
+    mhGoldenBottleReveal 1.5s cubic-bezier(.16,1,.3,1) both,
+    mhBottleFloat 7s ease-in-out 1.5s infinite;
+}
+
+
+/* -------------------------------
+   BOTTLE FLOAT
+-------------------------------- */
+
+@keyframes mhBottleFloat {
+
+  0%,
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateZ(0deg)
+      rotateY(0deg);
+  }
+
+  25% {
+    transform:
+      translate3d(0, -12px, 0)
+      rotateZ(-.7deg)
+      rotateY(-2deg);
+  }
+
+  50% {
+    transform:
+      translate3d(0, -20px, 0)
+      rotateZ(0deg)
+      rotateY(2deg);
+  }
+
+  75% {
+    transform:
+      translate3d(0, -10px, 0)
+      rotateZ(.7deg)
+      rotateY(-1deg);
+  }
+}
+
+
+/* -------------------------------
+   ENTRANCE
+-------------------------------- */
+
+@keyframes mhBottleReveal {
+
+  0% {
+    opacity: 0;
+    transform:
+      translate3d(80px, 80px, 0)
+      scale(.72)
+      rotateZ(-8deg);
+    filter:
+      blur(14px)
+      brightness(.65)
+      drop-shadow(0 0 0 transparent);
+  }
+
+  55% {
+    opacity: 1;
+    filter:
+      blur(0)
+      brightness(1.15)
+      drop-shadow(0 30px 55px rgba(0,0,0,.28));
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotateZ(0);
+    filter:
+      blur(0)
+      brightness(1)
+      drop-shadow(0 30px 45px rgba(65,35,5,.32));
+  }
+}
+
+@keyframes mhGoldenBottleReveal {
+
+  0% {
+    opacity: 0;
+    transform:
+      translateY(80px)
+      scale(.82)
+      rotateZ(-5deg);
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1)
+      rotateZ(0);
+    filter: blur(0);
+  }
+}
+
+
+/* -------------------------------
+   CINEMATIC GOLDEN LIGHT
+-------------------------------- */
+
+.mh-hero-product::before {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,244,190,.55) 0%,
+      rgba(255,196,65,.25) 30%,
+      rgba(232,163,23,.10) 48%,
+      transparent 72%
+    );
+
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: 1;
+
+  animation:
+    mhAuraPulse 4.5s ease-in-out infinite;
+}
+
+@keyframes mhAuraPulse {
+
+  0%,
+  100% {
+    opacity: .65;
+    transform: translate(-50%, -50%) scale(.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
+
+
+/* -------------------------------
+   MOVING LIGHT AROUND BOTTLE
+-------------------------------- */
+
+.mh-hero-product::after {
+  content: "";
+  position: absolute;
+
+  width: 430px;
+  height: 430px;
+
+  left: 50%;
+  top: 48%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,222,133,.25);
+
+  box-shadow:
+    0 0 45px rgba(232,163,23,.12),
+    inset 0 0 45px rgba(255,222,133,.08);
+
+  animation: mhOrbitGlow 12s linear infinite;
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes mhOrbitGlow {
+
+  0% {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg)
+      scale(.96);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      rotate(180deg)
+      scale(1.05);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg)
+      scale(.96);
+  }
+}
+
+
+/* -------------------------------
+   HERO PRODUCT GLOW
+-------------------------------- */
+
+.mh-product-glow {
+  animation:
+    mhGlowBreath 5s ease-in-out infinite;
+}
+
+@keyframes mhGlowBreath {
+
+  0%,
+  100% {
+    opacity: .65;
+    transform: scale(.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+
+/* -------------------------------
+   WOOD PLINTH LIGHT
+-------------------------------- */
+
+.mh-wood-plinth {
+  animation:
+    mhPlinthPulse 4s ease-in-out infinite;
+}
+
+@keyframes mhPlinthPulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 22px 25px rgba(72,40,8,.25),
+      0 0 0 rgba(232,163,23,0);
+  }
+
+  50% {
+    box-shadow:
+      0 30px 35px rgba(72,40,8,.3),
+      0 0 35px rgba(232,163,23,.18);
+  }
+}
+
+
+/* -------------------------------
+   GOLDEN ESSENTIALS BOTTLE
+-------------------------------- */
+
+.mh-golden-product {
+  perspective: 1000px;
+}
+
+.mh-golden-product::before {
+  content: "";
+
+  position: absolute;
+
+  width: 80%;
+  height: 80%;
+
+  left: 10%;
+  top: 10%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,213,104,.38),
+      rgba(232,163,23,.12) 45%,
+      transparent 70%
+    );
+
+  filter: blur(18px);
+
+  animation: mhGoldenAura 5s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+@keyframes mhGoldenAura {
+
+  0%,
+  100% {
+    transform: scale(.9);
+    opacity: .55;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: .95;
+  }
+}
+
+
+/* -------------------------------
+   BOTTLE HOVER
+-------------------------------- */
+
+@media (pointer:fine) {
+
+  .premium-honey-bottle:hover {
+
+    filter:
+      brightness(1.08)
+      saturate(1.08)
+      drop-shadow(0 35px 50px rgba(71,39,4,.35));
+
+  }
+
+}
+
+
+/* -------------------------------
+   GOLDEN SHIMMER OVER BOTTLE
+-------------------------------- */
+
+.mh-hero-product .premium-honey-bottle,
+.mh-golden-product .premium-honey-bottle {
+  isolation: isolate;
+}
+
+.mh-hero-product .premium-honey-bottle::after,
+.mh-golden-product .premium-honey-bottle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255,255,255,.28) 42%,
+      rgba(255,244,188,.55) 50%,
+      rgba(255,255,255,.18) 58%,
+      transparent 75%
+    );
+
+  transform:
+    translateX(-130%)
+    skewX(-18deg);
+
+  pointer-events: none;
+}
+
+
+/* -------------------------------
+   HERO COPY DEPTH
+-------------------------------- */
+
+.mh-hero-copy {
+  will-change: transform;
+}
+
+.mh-eyebrow {
+  transition:
+    letter-spacing .8s cubic-bezier(.16,1,.3,1),
+    opacity .5s ease;
+}
+
+.mh-hero:hover .mh-eyebrow {
+  letter-spacing: .24em;
+}
+
+
+/* -------------------------------
+   PREMIUM BUTTON MAGNET FEEL
+-------------------------------- */
+
+.mh-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.mh-btn::before {
+  content: "";
+
+  position: absolute;
+  inset: -100%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,.3),
+      transparent 35%
+    );
+
+  transform: translate(-100%, -100%);
+  transition: transform .8s cubic-bezier(.16,1,.3,1);
+
+  pointer-events: none;
+}
+
+.mh-btn:hover::before {
+  transform: translate(0,0);
+}
+
+
+/* -------------------------------
+   PRODUCT CARD PREMIUM DEPTH
+-------------------------------- */
+
+.product-card {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.product-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at var(--mx,50%) var(--my,50%),
+      rgba(255,213,110,.25),
+      transparent 38%
+    );
+
+  opacity: 0;
+  transition: opacity .5s ease;
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+
+/* -------------------------------
+   SECTION REVEAL DEPTH
+-------------------------------- */
+
+.mh-golden,
+.mh-ritual,
+.mh-shop,
+.mh-how {
+  position: relative;
+}
+
+.mh-golden::after,
+.mh-shop::after,
+.mh-how::after {
+  content: "";
+
+  position: absolute;
+
+  width: 40vw;
+  height: 40vw;
+
+  max-width: 550px;
+  max-height: 550px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(232,163,23,.08),
+      transparent 70%
+    );
+
+  pointer-events: none;
+
+  opacity: .65;
+}
+
+
+/* -------------------------------
+   FLOATING GOLD PARTICLES
+-------------------------------- */
+
+.mh-gold-particle {
+  position: absolute;
+
+  width: var(--ps);
+  height: var(--ps);
+
+  border-radius: 50%;
+
+  background: #ffe4a0;
+
+  box-shadow:
+    0 0 8px rgba(255,218,130,.8),
+    0 0 18px rgba(232,163,23,.35);
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  animation:
+    mhParticleRise var(--pd) linear var(--delay) infinite;
+}
+
+@keyframes mhParticleRise {
+
+  0% {
+    opacity: 0;
+    transform:
+      translate3d(0,20px,0)
+      scale(.4);
+  }
+
+  15% {
+    opacity: .8;
+  }
+
+  70% {
+    opacity: .45;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate3d(var(--drift),-75vh,0)
+      scale(1);
+  }
+}
+
+
+/* -------------------------------
+   REDUCED MOTION
+-------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .premium-honey-bottle,
+  .mh-product-glow,
+  .mh-wood-plinth,
+  .mh-hero-product::before,
+  .mh-hero-product::after,
+  .mh-golden-product::before,
+  .mh-gold-particle {
+    animation: none !important;
+    transition: none !important;
+  }
+
+}
