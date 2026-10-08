@@ -1,572 +1,757 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Checkout | MADHURAVANA Pure Honey</title>
 
-  <title>Checkout | MADHURAVANA Pure Honey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Manrope:wght@400;500;600;700;800&family=Caveat+Brush&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="premium.css">
+<link rel="stylesheet" href="magic-upgrade.css">
+<link rel="stylesheet" href="wow.css">
+<link rel="stylesheet" href="static-premium.css">
+<link rel="stylesheet" href="mobile-premium.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="premium.css">
-  <link rel="stylesheet" href="magic-upgrade.css">
-  <link rel="stylesheet" href="wow.css">
-  <link rel="stylesheet" href="static-premium.css">
-  <link rel="stylesheet" href="mobile-premium.css">
-
-  <style>
-    /* =========================================================
-       MADHURAVANA — FAST CHECKOUT
-       Direct checkout → WhatsApp
-       No success page
-       ========================================================= */
-
-    .fast-checkout {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-
-    .checkout-layout {
-      align-items: start;
-    }
-
-    .form-card {
-      position: relative;
-    }
-
-    /* LOCATION BOX */
-
-    .location-box {
-      margin-top: 22px;
-      padding: 18px;
-      border: 1px solid rgba(120, 78, 20, .15);
-      border-radius: 18px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.96),
-          rgba(255,249,235,.92)
-        );
-    }
-
-    .location-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .location-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 42px;
-      border-radius: 50%;
-      background: #f4c44f;
-      color: #351d08;
-      font-size: 20px;
-    }
-
-    .location-head strong {
-      display: block;
-      font-size: 15px;
-    }
-
-    .location-head span {
-      display: block;
-      margin-top: 3px;
-      font-size: 12px;
-      opacity: .68;
-    }
-
-    .location-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .location-btn {
-      min-height: 48px;
-      border: 1px solid rgba(100, 60, 10, .16);
-      border-radius: 12px;
-      background: #fff;
-      color: #2e1a08;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .location-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(100, 60, 10, .35);
-      box-shadow: 0 8px 20px rgba(67, 39, 8, .08);
-    }
-
-    .location-btn.primary-location {
-      background: #231407;
-      color: #fff;
-      border-color: #231407;
-    }
-
-    .location-status {
-      display: none;
-      margin-top: 12px;
-      padding: 11px 13px;
-      border-radius: 11px;
-      background: rgba(63, 132, 68, .09);
-      color: #28612d;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .location-status.show {
-      display: block;
-    }
-
-    .location-status.error {
-      background: rgba(180, 50, 40, .08);
-      color: #8d2923;
-    }
-
-    .maps-link-input {
-      display: none;
-      margin-top: 10px;
-    }
-
-    .maps-link-input.show {
-      display: block;
-    }
-
-    .maps-link-input input {
-      width: 100%;
-      box-sizing: border-box;
-      min-height: 46px;
-      padding: 0 14px;
-      border: 1px solid rgba(100,60,10,.16);
-      border-radius: 11px;
-      background: #fff;
-      outline: none;
-      font: inherit;
-    }
-
-    .maps-link-input input:focus {
-      border-color: #c79226;
-      box-shadow: 0 0 0 3px rgba(199,146,38,.1);
-    }
-
-    /* QUICK INFO */
-
-    .checkout-speed-note {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin: 14px 0 0;
-      font-size: 12px;
-      line-height: 1.5;
-      opacity: .7;
-    }
-
-    .checkout-speed-note b {
-      opacity: 1;
-    }
-
-    /* WHATSAPP BUTTON */
-
-    .whatsapp-order-btn {
-      position: relative;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .whatsapp-order-btn.loading {
-      pointer-events: none;
-      opacity: .75;
-    }
-
-    .whatsapp-order-btn.loading span {
-      animation: checkoutSpin .7s linear infinite;
-    }
-
-    @keyframes checkoutSpin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* SUMMARY */
-
-    .summary-card {
-      position: sticky;
-      top: 100px;
-    }
-
-    .summary-card:empty {
-      min-height: 200px;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 760px) {
-
-      .checkout-layout {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .form-card {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .summary-card {
-        position: static;
-        width: 100%;
-      }
-
-      .location-actions {
-        grid-template-columns: 1fr;
-      }
-
-      .location-btn {
-        min-height: 52px;
-      }
-
-      .whatsapp-order-btn {
-        min-height: 56px;
-        font-size: 15px;
-      }
-    }
-
-    @media (max-width: 430px) {
-
-      .location-box {
-        padding: 14px;
-      }
-
-      .location-head {
-        align-items: flex-start;
-      }
-
-      .location-icon {
-        width: 38px;
-        height: 38px;
-        flex-basis: 38px;
-      }
-    }
-
-    /* =========================================================
-   CENTERED WARNING / TOAST MESSAGES
-   ========================================================= */
-
-#toast-root {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  right: auto !important;
-  bottom: auto !important;
-
-  transform: translate(-50%, -50%) !important;
-
-  width: min(92vw, 430px) !important;
-  max-width: 430px !important;
-
-  z-index: 999999 !important;
-
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  pointer-events: none !important;
+<style>
+/* =====================================================================
+   MADHURAVANA · CHECKOUT  (Cash on Delivery → WhatsApp)
+   Premium pass: deep espresso stage, antique gold, paper-cream cards,
+   quiet forest-green action. Same IDs, names and behaviour as before.
+===================================================================== */
+body[data-page="checkout"]{
+  --ink:#1a110a;--espresso:#120b06;--cocoa:#3b2818;--muted:#8b7a66;
+  --gold:#c9a24b;--gold-hi:#e8cf94;--gold-lo:#9a7424;
+  --paper:#fffcf5;--cream:#f6efe0;--line:#e9dfc8;--line-soft:#f1e9d6;
+  --forest:#1f5a3a;--forest-hi:#2b7a50;--ok:#3f7a3a;--bad:#b4503f;
+  --ease:cubic-bezier(.2,.8,.1,1);
+}
+body[data-page="checkout"] main{
+  background:
+    radial-gradient(900px 480px at 50% -80px,rgba(201,162,75,.16),transparent 70%),
+    linear-gradient(180deg,#160d07 0,#0e0804 100%);
 }
 
-#toast-root > * {
-  pointer-events: auto !important;
-  width: 100% !important;
-  max-width: 430px !important;
-
-  box-sizing: border-box !important;
-  margin: 0 auto !important;
-
-  text-align: center !important;
+/* ---------- Hero ---------- */
+.ck-hero{
+  position:relative;overflow:hidden;text-align:center;color:var(--cream);
+  padding:68px 20px 96px;font-family:"Manrope",system-ui,sans-serif;
 }
-  </style>
+.ck-hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 2l26 15v30L28 62 2 47V17z M28 62v34' fill='none' stroke='%23e8cf94' stroke-opacity='.06'/%3E%3C/svg%3E");
+  -webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 72%);
+          mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 72%);
+}
+.ck-hero > *{position:relative}
+.ck-pill{
+  display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;
+  font-size:.78rem;font-weight:600;letter-spacing:.02em;color:var(--gold-hi);
+  background:rgba(232,207,148,.07);border:1px solid rgba(232,207,148,.28);
+}
+.ck-pill svg{width:16px;height:16px;flex:none}
+.ck-hero h1{
+  margin:22px 0 12px;font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-variation-settings:"SOFT" 40,"opsz" 144;font-size:clamp(2.6rem,6.4vw,4.2rem);
+  line-height:1.02;letter-spacing:-.025em;color:#fbf1d9;
+}
+.ck-hero p{margin:0 auto;max-width:42ch;color:#bfae92;line-height:1.7;font-size:1rem}
+.ck-hero p::after{
+  content:"";display:block;width:56px;height:1px;margin:26px auto 0;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+.ck-steps{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:26px;font-size:.82rem;color:#8f7f68;flex-wrap:wrap}
+.ck-steps span{display:inline-flex;align-items:center;gap:10px;font-weight:600}
+.ck-steps i{
+  width:26px;height:26px;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:.72rem;border-radius:50%;
+  border:1px solid #4a3622;color:#8f7f68;background:transparent;
+}
+.ck-steps .done i{background:rgba(232,207,148,.14);border-color:rgba(232,207,148,.5);color:var(--gold-hi)}
+.ck-steps .now i{background:linear-gradient(145deg,var(--gold-hi),var(--gold));border-color:transparent;color:var(--ink)}
+.ck-steps .now{color:var(--gold-hi)}
+.ck-steps .done{color:#c9b895}
+.ck-steps em{width:34px;height:1px;background:linear-gradient(90deg,#4a3622,rgba(232,207,148,.35),#4a3622)}
+
+/* ---------- Page ---------- */
+.ck-section{position:relative;padding:0 0 120px;margin-top:-56px;font-family:"Manrope",system-ui,sans-serif}
+.checkout-layout.fast-checkout{
+  max-width:1120px;margin:0 auto;padding:0 18px;
+  display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:28px;align-items:start;
+}
+
+/* ---------- Form card ---------- */
+.ck-card{
+  position:relative;background:var(--paper);border:1px solid rgba(201,162,75,.4);border-radius:26px;
+  padding:clamp(22px,3.4vw,42px);
+  box-shadow:0 1px 0 #fff inset,0 60px 90px -40px rgba(0,0,0,.75),0 0 0 6px rgba(232,207,148,.04);
+}
+.ck-card::before{
+  content:"";position:absolute;left:42px;right:42px;top:-1px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-hi),transparent);opacity:.9;
+}
+.ck-progress{margin:0 0 30px}
+.ck-progress-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px}
+.ck-progress h2{margin:0;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:clamp(1.45rem,3.4vw,1.9rem);color:var(--ink);letter-spacing:-.015em}
+.ck-progress small{font-size:.78rem;color:var(--muted);white-space:nowrap;font-weight:600}
+.ck-bar{height:3px;border-radius:3px;background:var(--line-soft);overflow:hidden}
+.ck-bar b{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi));transition:width .6s var(--ease)}
+
+.ck-group{margin:0 0 30px}
+.ck-group-title{
+  display:flex;align-items:center;gap:12px;margin:0 0 16px;
+  font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.12rem;color:var(--ink);letter-spacing:-.005em;
+}
+.ck-group-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.ck-group-title i{
+  width:28px;height:28px;display:grid;place-items:center;font-style:normal;font:700 .76rem "Manrope",system-ui,sans-serif;
+  color:var(--gold-lo);border:1px solid rgba(201,162,75,.55);border-radius:50%;background:rgba(232,207,148,.12);
+}
+.ck-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ck-grid .full{grid-column:1/-1}
+
+.ck-field{position:relative;display:block;font-size:.82rem;font-weight:700;color:var(--cocoa)}
+.ck-field > span.lbl{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 8px 2px;letter-spacing:.005em}
+.ck-field .hint{font-weight:500;font-size:.72rem;color:var(--muted)}
+.ck-input{position:relative}
+.ck-input input{
+  display:block;width:100%;box-sizing:border-box;min-height:56px;padding:0 46px 0 18px;
+  border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);
+  font:600 1rem/1.2 "Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;outline:none;
+  box-shadow:0 1px 2px rgba(58,36,21,.04) inset;
+  transition:border-color .25s,box-shadow .25s,background .25s;
+}
+.ck-input input:hover{border-color:#dccfae}
+.ck-input input::placeholder{color:#b8a98f;font-weight:500}
+.ck-input input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(201,162,75,.18)}
+.ck-input .tick{
+  position:absolute;right:15px;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:50%;display:grid;place-items:center;
+  font-size:.7rem;font-weight:800;color:#fff;background:var(--ok);opacity:0;transform:scale(.5);transition:.3s var(--ease);pointer-events:none;
+}
+.ck-field.ok .ck-input input{border-color:#c4d9bf;background:#fcfef9}
+.ck-field.ok .tick{opacity:1;transform:none}
+.ck-field.bad .ck-input input{border-color:var(--bad);background:#fff8f5;box-shadow:0 0 0 4px rgba(180,80,63,.1)}
+.ck-field .err{display:none;margin:7px 2px 0;font-size:.76rem;font-weight:600;color:var(--bad)}
+.ck-field.bad .err{display:block}
+.ck-input .prefix{
+  position:absolute;left:1px;top:1px;bottom:1px;display:grid;place-items:center;padding:0 13px 0 16px;
+  font-weight:700;color:var(--cocoa);background:var(--cream);border-radius:11px 0 0 11px;border-right:1px solid var(--line);font-size:.9rem;
+}
+.ck-input.has-prefix input{padding-left:76px}
+.ck-spin{
+  position:absolute;right:15px;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;
+  border:2px solid #eadcb8;border-top-color:var(--gold-lo);opacity:0;animation:ckSpin .7s linear infinite;pointer-events:none;
+}
+.ck-field.loading .ck-spin{opacity:1}
+.ck-field.loading .tick{opacity:0}
+@keyframes ckSpin{to{transform:rotate(360deg)}}
+
+/* pincode result */
+.ck-pin{display:none;margin-top:12px;padding:15px 16px;border-radius:14px;background:linear-gradient(135deg,#f3f8ef,#fcfef9);border:1px solid #d3e3cd;animation:ckIn .45s var(--ease) both}
+.ck-pin.show{display:block}
+.ck-pin.warn{background:#fff8ef;border-color:#f0d9bd}
+.ck-pin-main{display:flex;gap:13px;align-items:center}
+.ck-pin-main .hex{flex:none;width:34px;height:34px;display:grid;place-items:center;font-size:.9rem;font-weight:800;border-radius:50%;background:var(--forest);color:#fff}
+.ck-pin.warn .hex{background:linear-gradient(145deg,var(--gold-hi),var(--gold));color:var(--ink)}
+.ck-pin-main strong{display:block;font-size:.95rem;color:var(--ink);font-weight:700}
+.ck-pin-main span{display:block;margin-top:3px;font-size:.78rem;color:var(--muted);font-weight:500;line-height:1.5}
+.ck-areas{margin-top:14px;padding-top:12px;border-top:1px solid rgba(63,122,58,.15)}
+.ck-areas p{margin:0 0 9px;font-size:.74rem;font-weight:700;color:var(--cocoa)}
+.ck-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ck-chip{
+  cursor:pointer;border:1px solid #cfe0c9;background:#fff;color:var(--cocoa);border-radius:99px;padding:8px 15px;
+  font:600 .8rem "Manrope",system-ui,sans-serif;transition:.2s;
+}
+.ck-chip:hover{border-color:var(--forest)}
+.ck-chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.ck-autobadge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;background:#e6f0e1;color:#3d5f37;font-size:.66rem;font-weight:700}
+@keyframes ckIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- Location ---------- */
+.location-box{
+  margin:0 0 28px;padding:22px;border:1px solid rgba(201,162,75,.4);border-radius:18px;
+  background:linear-gradient(145deg,#fffdf7,#fbf4e2);
+}
+.location-head{display:flex;align-items:center;gap:15px;margin-bottom:16px}
+.location-icon{
+  width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:50%;
+  background:var(--espresso);color:var(--gold-hi);box-shadow:0 0 0 4px rgba(201,162,75,.16);
+}
+.location-icon svg{width:21px;height:21px}
+.location-head strong{display:block;font-size:.95rem;color:var(--ink);font-weight:700;line-height:1.4}
+.location-head span{display:block;margin-top:3px;font-size:.8rem;color:var(--muted);font-weight:500}
+.location-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.location-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:52px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--cocoa);
+  font:700 .86rem "Manrope",system-ui,sans-serif;cursor:pointer;transition:.25s var(--ease);
+}
+.location-btn svg{width:17px;height:17px;flex:none}
+.location-btn:hover{transform:translateY(-1px);border-color:var(--gold);box-shadow:0 14px 26px -14px rgba(58,36,21,.4)}
+.location-btn.primary-location{background:var(--espresso);color:var(--gold-hi);border-color:var(--espresso)}
+.location-btn.primary-location:hover{border-color:var(--gold)}
+.location-status{display:none;margin-top:12px;padding:12px 15px;border-radius:12px;background:rgba(63,122,58,.09);color:#2d6429;font-size:.82rem;line-height:1.55;font-weight:600}
+.location-status.show{display:block}
+.location-status.error{background:rgba(180,80,63,.09);color:#8d2923}
+.maps-link-input{display:none;margin-top:10px}
+.maps-link-input.show{display:block}
+.maps-link-input input{
+  width:100%;box-sizing:border-box;min-height:52px;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none;font:600 .95rem "Manrope",system-ui,sans-serif;
+}
+.maps-link-input input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,162,75,.18)}
+
+/* ---------- Payment ---------- */
+.payment-box{display:flex;gap:15px;align-items:flex-start;margin:0 0 22px;padding:19px 20px;border-radius:16px;background:#f4f8f1;border:1px solid #d3e3cd}
+.payment-check{flex:none;width:34px;height:34px;display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff;border-radius:50%;background:var(--forest)}
+.payment-box strong{display:block;color:var(--ink);font-size:.97rem;font-weight:700}
+.payment-box p{margin:4px 0 0;font-size:.83rem;line-height:1.6;color:#5d6c57}
+
+/* ---------- Submit ---------- */
+.ck-submit{position:sticky;bottom:0;z-index:5;padding:16px 0 2px;background:linear-gradient(180deg,rgba(255,252,245,0),var(--paper) 38%)}
+.whatsapp-order-btn{
+  position:relative;overflow:hidden;width:100%;min-height:64px;display:flex;align-items:center;justify-content:center;gap:12px;
+  border:1px solid rgba(232,207,148,.35);border-radius:14px;cursor:pointer;
+  font:700 1rem "Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.015em;color:#fbf1d9;
+  background:linear-gradient(135deg,#246a45,#17432b);
+  box-shadow:0 22px 38px -16px rgba(23,67,43,.85),0 1px 0 rgba(255,255,255,.18) inset;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s;
+}
+.whatsapp-order-btn svg{width:21px;height:21px;flex:none}
+.whatsapp-order-btn::after{content:"";position:absolute;inset:0;transform:translateX(-120%) skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:transform .9s}
+.whatsapp-order-btn:hover{transform:translateY(-2px);border-color:var(--gold-hi);box-shadow:0 30px 44px -16px rgba(23,67,43,.95),0 1px 0 rgba(255,255,255,.18) inset}
+.whatsapp-order-btn:hover::after{transform:translateX(120%) skewX(-20deg)}
+.whatsapp-order-btn:active{transform:translateY(0)}
+.whatsapp-order-btn.loading{pointer-events:none;opacity:.85}
+.whatsapp-order-btn.loading span{animation:ckPulse .9s ease-in-out infinite}
+@keyframes ckPulse{50%{opacity:.35}}
+.ck-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:14px 4px 0;font-size:.78rem;line-height:1.55;color:var(--muted);text-align:center}
+.ck-note svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--gold-lo)}
+
+.ck-trust{display:grid;grid-template-columns:repeat(3,1fr);margin-top:26px;border-top:1px solid var(--line)}
+.ck-trust div{
+  padding:18px 10px 0;text-align:center;font-size:.74rem;line-height:1.4;color:var(--cocoa);font-weight:700;
+}
+.ck-trust div + div{border-left:1px solid var(--line-soft)}
+.ck-trust b{display:grid;place-items:center;width:38px;height:38px;margin:0 auto 9px;border-radius:50%;color:var(--gold-lo);background:rgba(232,207,148,.2);border:1px solid rgba(201,162,75,.35)}
+.ck-trust svg{width:18px;height:18px}
+
+/* ---------- Summary ---------- */
+.summary-card{
+  position:sticky;top:100px;border-radius:26px;padding:clamp(20px,2.8vw,32px);
+  background:linear-gradient(180deg,#fffdf8,#fbf4e3);
+  border:1px solid rgba(201,162,75,.4);
+  box-shadow:0 1px 0 #fff inset,0 60px 90px -40px rgba(0,0,0,.75),0 0 0 6px rgba(232,207,148,.04);
+}
+.summary-card:empty{min-height:260px;background:linear-gradient(90deg,#fbf4e3 25%,#f6e9c8 50%,#fbf4e3 75%);background-size:200% 100%;animation:ckShim 1.4s linear infinite}
+.summary-card h2,.summary-card h3{font-family:"Fraunces",Georgia,serif;font-weight:500;color:var(--ink);letter-spacing:-.01em}
+.summary-card img{border-radius:12px}
+@keyframes ckShim{to{background-position:-200% 0}}
+
+/* ---------- Centered toasts ---------- */
+#toast-root{
+  position:fixed !important;top:50% !important;left:50% !important;right:auto !important;bottom:auto !important;
+  transform:translate(-50%,-50%) !important;width:min(92vw,430px) !important;max-width:430px !important;z-index:999999 !important;
+  display:flex !important;flex-direction:column !important;align-items:center !important;justify-content:center !important;pointer-events:none !important;
+}
+#toast-root > *{pointer-events:auto !important;width:100% !important;max-width:430px !important;box-sizing:border-box !important;margin:0 auto !important;text-align:center !important}
+
+.ck-shake{animation:ckShake .4s}
+@keyframes ckShake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+/* ---------- One orchestrated entrance ---------- */
+@keyframes ckRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.ck-hero > *{animation:ckRise .9s var(--ease) both}
+.ck-hero > :nth-child(2){animation-delay:.08s}
+.ck-hero > :nth-child(3){animation-delay:.16s}
+.ck-hero > :nth-child(4){animation-delay:.24s}
+.ck-card{animation:ckRise 1s .3s var(--ease) both}
+.summary-card{animation:ckRise 1s .42s var(--ease) both}
+.summary-card:empty{animation:ckShim 1.4s linear infinite}
+
+/* ---------- Keyboard focus ---------- */
+.ck-chip:focus-visible,.location-btn:focus-visible,.whatsapp-order-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- Mobile ---------- */
+@media(max-width:860px){
+  .checkout-layout.fast-checkout{grid-template-columns:minmax(0,1fr);gap:20px;padding:0 14px}
+  .summary-card{position:static;order:-1}
+  .ck-card{order:1}
+}
+@media(max-width:560px){
+  .ck-hero{padding:48px 16px 80px}
+  .ck-steps em{width:18px}
+  .ck-grid{grid-template-columns:1fr}
+  .ck-card{border-radius:22px;padding:22px 16px}
+  .ck-card::before{left:24px;right:24px}
+  .location-box{padding:18px 16px}
+  .location-actions{grid-template-columns:1fr}
+  .location-btn{min-height:54px}
+  .ck-trust div{padding:16px 4px 0;font-size:.7rem}
+  .ck-submit{padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+  .whatsapp-order-btn{min-height:58px;font-size:.93rem;gap:9px;white-space:nowrap}
+}
+@media(prefers-reduced-motion:reduce){
+  .ck-hero > *,.ck-card,.summary-card,.ck-pin,.summary-card:empty,.ck-spin,.whatsapp-order-btn.loading span{animation:none}
+  .whatsapp-order-btn::after{display:none}
+  .ck-bar b{transition:none}
+}
+</style>
 </head>
 
 <body data-page="checkout">
 
-  <div id="site-header"></div>
+<div id="site-header"></div>
 
-  <main>
+<main>
 
-    <!-- HERO -->
-    <section class="page-hero small">
-      <div class="container center">
+  <!-- HERO -->
+  <section class="ck-hero"><br>
+    <span class="ck-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
+      Cash on Delivery
+    </span>
+    <h1>Almost yours.</h1>
+    <p>Tell us where to send your honey. We confirm everything with you on WhatsApp.</p>
+    <div class="ck-steps" aria-label="Order steps">
+      <span class="done"><i>✓</i>Cart</span><em></em>
+      <span class="now"><i>2</i>Your details</span><em></em>
+      <span><i>3</i>Confirm on WhatsApp</span>
+    </div>
+  </section>
 
-        <span class="eyebrow">Cash on Delivery</span>
+  <!-- CHECKOUT -->
+  <section class="ck-section">
+    <div class="container checkout-layout fast-checkout">
 
-        <h1>Almost yours.</h1>
+      <!-- FORM -->
+      <form id="checkout-form" class="ck-card" novalidate>
 
-        <p>
-          Enter your details and send your order directly to us on WhatsApp.
+        <div class="ck-progress">
+          <div class="ck-progress-top">
+            <h2>Where should we send it?</h2>
+            <small id="ck-count">0 of 6 done</small>
+          </div>
+          <div class="ck-bar"><b id="ck-fill"></b></div>
+        </div>
+
+        <!-- 1. Contact -->
+        <div class="ck-group">
+          <p class="ck-group-title"><i>1</i>Who is this for?</p>
+          <div class="ck-grid">
+
+            <label class="ck-field" data-for="name">
+              <span class="lbl">Full name</span>
+              <span class="ck-input">
+                <input name="name" autocomplete="name" required maxlength="80" placeholder="Your full name">
+                <span class="tick">✓</span>
+              </span>
+              <span class="err">Please enter your name.</span>
+            </label>
+
+            <label class="ck-field" data-for="phone">
+              <span class="lbl">Mobile number <span class="hint">for delivery updates</span></span>
+              <span class="ck-input has-prefix">
+                <span class="prefix">+91</span>
+                <input name="phone" type="tel" inputmode="numeric" autocomplete="tel" required maxlength="15" placeholder="10-digit number">
+                <span class="tick">✓</span>
+              </span>
+              <span class="err">Enter a 10-digit mobile number.</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- 2. Address -->
+        <div class="ck-group">
+          <p class="ck-group-title"><i>2</i>Delivery address</p>
+          <div class="ck-grid">
+
+            <label class="ck-field full" data-for="pincode">
+              <span class="lbl">Pincode <span class="hint">type it and we fill the rest</span></span>
+              <span class="ck-input">
+                <input name="pincode" type="text" inputmode="numeric" autocomplete="postal-code" required maxlength="6" placeholder="e.g. 600019">
+                <span class="tick">✓</span><span class="ck-spin"></span>
+              </span>
+              <span class="err">Enter a valid 6-digit pincode.</span>
+              <div class="ck-pin" id="ck-pin" aria-live="polite"></div>
+            </label>
+
+            <label class="ck-field full" data-for="address">
+              <span class="lbl">House / street address</span>
+              <span class="ck-input">
+                <input name="address" autocomplete="street-address" required maxlength="180" placeholder="House no., street, landmark">
+                <span class="tick">✓</span>
+              </span>
+              <span class="err">Please add your house number and street.</span>
+            </label>
+
+            <label class="ck-field" data-for="city">
+              <span class="lbl">City / district <span id="ck-auto-city"></span></span>
+              <span class="ck-input">
+                <input name="city" autocomplete="address-level2" required maxlength="60" placeholder="City">
+                <span class="tick">✓</span>
+              </span>
+              <span class="err">Please enter your city.</span>
+            </label>
+
+            <label class="ck-field" data-for="state">
+              <span class="lbl">State <span id="ck-auto-state"></span></span>
+              <span class="ck-input">
+                <input name="state" autocomplete="address-level1" required maxlength="60" placeholder="State">
+                <span class="tick">✓</span>
+              </span>
+              <span class="err">Please enter your state.</span>
+            </label>
+
+          </div>
+          <input type="hidden" name="area" value="">
+        </div>
+
+        <!-- 3. Location (optional) -->
+        <div class="location-box">
+          <div class="location-head">
+            <div class="location-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <strong>Help our delivery partner find you <span style="font-weight:500;color:var(--muted)">(optional)</span></strong>
+              <span>Share your exact location. It makes delivery faster.</span>
+            </div>
+          </div>
+
+          <div class="location-actions">
+            <button type="button" id="use-location-btn" class="location-btn primary-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7.5"/></svg>
+              Use my current location
+            </button>
+            <button type="button" id="maps-btn" class="location-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>
+              Add Google Maps link
+            </button>
+          </div>
+
+          <div id="location-status" class="location-status"></div>
+
+          <div id="maps-link-input" class="maps-link-input">
+            <input id="maps-url" type="url" placeholder="Paste your Google Maps location link" autocomplete="off">
+          </div>
+        </div>
+
+        <!-- 4. Payment -->
+        <div class="payment-box">
+          <span class="payment-check">✓</span>
+          <div>
+            <strong>Cash on Delivery</strong>
+            <p>Pay only when your honey arrives. No online payment is collected here.</p>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="ck-submit">
+          <button class="whatsapp-order-btn" id="whatsapp-order-btn" type="submit">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8L4 20z"/><path d="M9.2 9.2c.2 2.6 2.4 4.9 5.6 5.6l1-1.3-1.9-.9-.8.6c-.9-.4-1.7-1.2-2.1-2.1l.6-.8-.9-1.9z"/></svg>
+            </span>
+            Confirm order on WhatsApp
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            </span>
+          </button>
+        </div>
+        <p class="ck-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span>Your order opens in WhatsApp, ready to send. Nothing is charged now.</span>
         </p>
 
-      </div>
-    </section>
-
-
-    <!-- CHECKOUT -->
-    <section class="section">
-
-      <div class="container checkout-layout fast-checkout">
-
-        <!-- FORM -->
-        <form
-          id="checkout-form"
-          class="form-card"
-          novalidate
-        >
-
-          <div class="form-heading">
-
-            <span class="eyebrow">Delivery details</span>
-
-            <h2>Where should we send it?</h2>
-
+        <div class="ck-trust">
+          <div>
+            <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4.2 5.5 7 5.5 10.2a5.5 5.5 0 0 1-11 0C6.5 10 9 7.2 12 3z"/><path d="M9.5 14a2.6 2.6 0 0 0 2.5 2.4"/></svg></b>
+            Pure, unprocessed honey
           </div>
-
-
-          <div class="form-grid">
-
-            <label>
-              Full Name
-
-              <input
-                name="name"
-                autocomplete="name"
-                required
-                maxlength="80"
-                placeholder="Your full name"
-              >
-            </label>
-
-
-            <label>
-              Mobile Number
-
-              <input
-                name="phone"
-                type="tel"
-                inputmode="numeric"
-                autocomplete="tel"
-                required
-                maxlength="15"
-                placeholder="10-digit mobile number"
-              >
-            </label>
-
-
-            <label class="full">
-              House / Street Address
-
-              <input
-                name="address"
-                autocomplete="street-address"
-                required
-                maxlength="180"
-                placeholder="House no., street, area"
-              >
-            </label>
-
-
-            <label>
-              City
-
-              <input
-                name="city"
-                autocomplete="address-level2"
-                required
-                maxlength="60"
-                placeholder="City"
-              >
-            </label>
-
-
-            <label>
-              State
-
-              <input
-                name="state"
-                autocomplete="address-level1"
-                required
-                maxlength="60"
-                placeholder="State"
-              >
-            </label>
-
-
-            <label>
-              Pincode
-
-              <input
-                name="pincode"
-                type="text"
-                inputmode="numeric"
-                autocomplete="postal-code"
-                required
-                maxlength="6"
-                placeholder="6-digit pincode"
-              >
-            </label>
-
+          <div>
+            <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></b>
+            Pay on delivery
           </div>
-
-
-          <!-- LOCATION -->
-          <div class="location-box">
-
-            <div class="location-head">
-
-              <div class="location-icon">
-                📍
-              </div>
-
-              <div>
-                <strong>Make delivery easier</strong>
-
-                <span>
-                  Share your exact delivery location with us.
-                </span>
-              </div>
-
-            </div>
-
-
-            <div class="location-actions">
-
-              <button
-                type="button"
-                id="use-location-btn"
-                class="location-btn primary-location"
-              >
-                📍 Use My Current Location
-              </button>
-
-
-              <button
-                type="button"
-                id="maps-btn"
-                class="location-btn"
-              >
-                🗺️ Add Google Maps Link
-              </button>
-
-            </div>
-
-
-            <div
-              id="location-status"
-              class="location-status"
-            ></div>
-
-
-            <div
-              id="maps-link-input"
-              class="maps-link-input"
-            >
-
-              <input
-                id="maps-url"
-                type="url"
-                placeholder="Paste your Google Maps location link"
-                autocomplete="off"
-              >
-
-            </div>
-
+          <div>
+            <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10h7"/></svg></b>
+            Personal confirmation
           </div>
+        </div>
 
+      </form>
 
-          <!-- COD -->
-          <div class="payment-box">
+      <!-- ORDER SUMMARY -->
+      <aside id="checkout-summary" class="summary-card"></aside>
 
-            <span class="payment-check">
-              ✓
-            </span>
+    </div>
+  </section>
 
-            <div>
+</main>
 
-              <strong>
-                Cash on Delivery
-              </strong>
+<div id="site-footer"></div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
 
-              <p>
-                Pay only when your honey arrives.
-                No online payment is collected here.
-              </p>
+<!-- EXISTING FILES (they build the summary and send the WhatsApp order) -->
+<script src="supabase-config.js"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+<script src="admin.js"></script>
+<script src="motion.js"></script>
 
-            </div>
+<script>
+/* =====================================================================
+   Checkout helpers: pincode lookup, friendly validation, progress.
+   This script only fills / checks the form fields. Your existing
+   script.js still builds the summary and sends the WhatsApp order.
+===================================================================== */
+(function () {
+  "use strict";
 
-          </div>
+  var form = document.getElementById("checkout-form");
+  if (!form) return;
 
+  var f = {
+    name: form.elements.name, phone: form.elements.phone, address: form.elements.address,
+    city: form.elements.city, state: form.elements.state, pincode: form.elements.pincode,
+    area: form.elements.area
+  };
+  var pinBox = document.getElementById("ck-pin");
+  var fill = document.getElementById("ck-fill");
+  var count = document.getElementById("ck-count");
+  var pinField = f.pincode.closest(".ck-field");
 
-          <p class="checkout-speed-note">
-            🔒 <span><b>Fast & simple:</b> Your order is sent directly to WhatsApp. No extra confirmation page.</span>
-          </p>
+  /* ---------- helpers ---------- */
+  function fieldOf(input) { return input.closest(".ck-field"); }
+  function setVal(input, val) {
+    input.value = val;
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function title(s) {
+    return String(s || "").toLowerCase().replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); }).trim();
+  }
 
+  /* ---------- rules ---------- */
+  var rules = {
+    name: function (v) { return v.trim().length >= 2; },
+    phone: function (v) { return /^[6-9]\d{9}$/.test(onlyPhone(v)); },
+    pincode: function (v) { return /^[1-9]\d{5}$/.test(v); },
+    address: function (v) { return v.trim().length >= 5; },
+    city: function (v) { return v.trim().length >= 2; },
+    state: function (v) { return v.trim().length >= 2; }
+  };
+  var order = ["name", "phone", "pincode", "address", "city", "state"];
 
-          <!-- ORDER BUTTON -->
-          <button
-            class="btn btn-primary btn-block whatsapp-order-btn"
-            id="whatsapp-order-btn"
-            type="submit"
-          >
+  function onlyPhone(v) {
+    var d = String(v || "").replace(/\D/g, "");
+    if (d.length >= 12 && d.indexOf("91") === 0) d = d.slice(2);
+    if (d.length === 11 && d.charAt(0) === "0") d = d.slice(1);
+    return d.slice(0, 10);
+  }
 
-            <span>💬</span>
+  function refresh() {
+    var done = 0;
+    order.forEach(function (k) {
+      var ok = rules[k](f[k].value);
+      var fl = fieldOf(f[k]);
+      fl.classList.toggle("ok", ok);
+      if (ok) fl.classList.remove("bad");
+      if (ok) done++;
+    });
+    fill.style.width = Math.round(done / order.length * 100) + "%";
+    count.textContent = done === order.length ? "All set ✓" : done + " of " + order.length + " done";
+  }
 
-            Confirm Order on WhatsApp
+  /* ---------- input cleaning ---------- */
+  f.phone.addEventListener("input", function () {
+    var c = onlyPhone(f.phone.value);
+    if (f.phone.value !== c) f.phone.value = c;
+  });
+  f.pincode.addEventListener("input", function () {
+    var c = f.pincode.value.replace(/\D/g, "").slice(0, 6);
+    if (f.pincode.value !== c) f.pincode.value = c;
+    if (c.length === 6) lookup(c); else resetPin();
+  });
+  form.addEventListener("input", refresh);
 
-            <span>↗</span>
+  /* ---------- pincode lookup (India Post) ---------- */
+  var cache = {};
+  var token = 0;
 
-          </button>
+  /* Fallback only: approximate state from the first 2 digits */
+  var STATE_BY_PREFIX = {
+    "11": "Delhi", "12": "Haryana", "13": "Haryana", "14": "Punjab", "15": "Punjab", "16": "Punjab", "17": "Himachal Pradesh",
+    "18": "Jammu and Kashmir", "19": "Jammu and Kashmir", "30": "Rajasthan", "31": "Rajasthan", "32": "Rajasthan", "33": "Rajasthan", "34": "Rajasthan",
+    "36": "Gujarat", "37": "Gujarat", "38": "Gujarat", "39": "Gujarat", "40": "Maharashtra", "41": "Maharashtra", "42": "Maharashtra", "43": "Maharashtra", "44": "Maharashtra",
+    "45": "Madhya Pradesh", "46": "Madhya Pradesh", "47": "Madhya Pradesh", "48": "Madhya Pradesh", "49": "Chhattisgarh", "50": "Telangana",
+    "51": "Andhra Pradesh", "52": "Andhra Pradesh", "53": "Andhra Pradesh", "56": "Karnataka", "57": "Karnataka", "58": "Karnataka", "59": "Karnataka",
+    "60": "Tamil Nadu", "61": "Tamil Nadu", "62": "Tamil Nadu", "63": "Tamil Nadu", "64": "Tamil Nadu", "67": "Kerala", "68": "Kerala", "69": "Kerala",
+    "70": "West Bengal", "71": "West Bengal", "72": "West Bengal", "73": "West Bengal", "74": "West Bengal", "75": "Odisha", "76": "Odisha", "77": "Odisha", "78": "Assam"
+  };
 
+  function resetPin() {
+    token++;
+    pinField.classList.remove("loading");
+    pinBox.className = "ck-pin";
+    pinBox.innerHTML = "";
+    f.area.value = "";
+    document.getElementById("ck-auto-city").innerHTML = "";
+    document.getElementById("ck-auto-state").innerHTML = "";
+  }
 
-        </form>
+  function fetchPin(pin) {
+    if (cache[pin]) return Promise.resolve(cache[pin]);
+    var ctrl = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 7000);
+    return fetch("https://api.postalpincode.in/pincode/" + pin, ctrl ? { signal: ctrl.signal } : undefined)
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        clearTimeout(timer);
+        var d = j && j[0];
+        if (!d || d.Status !== "Success" || !d.PostOffice || !d.PostOffice.length) return { ok: false, notFound: true };
+        var po = d.PostOffice;
+        var areas = [];
+        po.forEach(function (p) { var n = title(p.Name); if (n && areas.indexOf(n) < 0) areas.push(n); });
+        var res = {
+          ok: true,
+          city: title(po[0].District || po[0].Block || po[0].Division),
+          state: title(po[0].State),
+          areas: areas.slice(0, 10)
+        };
+        cache[pin] = res;
+        return res;
+      })
+      .catch(function () { clearTimeout(timer); return { ok: false, offline: true }; });
+  }
 
+  function lookup(pin) {
+    var my = ++token;
+    pinField.classList.add("loading");
+    pinBox.className = "ck-pin";
+    fetchPin(pin).then(function (res) {
+      if (my !== token) return;
+      pinField.classList.remove("loading");
+      if (res.ok) showFound(res); else showMiss(pin, res);
+      refresh();
+    });
+  }
 
-        <!-- ORDER SUMMARY -->
-        <aside
-          id="checkout-summary"
-          class="summary-card"
-        ></aside>
+  function badge() { return '<span class="ck-autobadge">auto-filled</span>'; }
 
-      </div>
+  function showFound(res) {
+    setVal(f.city, res.city);
+    setVal(f.state, res.state);
+    document.getElementById("ck-auto-city").innerHTML = badge();
+    document.getElementById("ck-auto-state").innerHTML = badge();
 
-    </section>
+    var first = res.areas[0] || "";
+    f.area.value = first;
 
-  </main>
+    var chips = "";
+    if (res.areas.length > 1) {
+      chips =
+        '<div class="ck-areas"><p>Pick your area</p><div class="ck-chips">' +
+        res.areas.map(function (a, i) {
+          return '<button type="button" class="ck-chip' + (i === 0 ? " on" : "") + '" data-a="' + esc(a) + '">' + esc(a) + "</button>";
+        }).join("") + "</div></div>";
+    }
 
+    pinBox.className = "ck-pin show";
+    pinBox.innerHTML =
+      '<div class="ck-pin-main"><div class="hex">✓</div><div>' +
+      '<strong id="ck-pin-title"></strong>' +
+      "<span>We filled in your city and state. You can change them if needed.</span></div></div>" + chips;
+    paintTitle(res);
 
-  <div id="site-footer"></div>
+    pinBox.querySelectorAll(".ck-chip").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        pinBox.querySelectorAll(".ck-chip").forEach(function (x) { x.classList.toggle("on", x === b); });
+        f.area.value = b.getAttribute("data-a");
+        paintTitle(res);
+      });
+    });
+  }
 
-  <div id="modal-root"></div>
+  function paintTitle(res) {
+    var t = document.getElementById("ck-pin-title");
+    if (!t) return;
+    var parts = [f.area.value, res.city, res.state].filter(Boolean);
+    t.textContent = parts.join(", ");
+  }
 
-  <div id="toast-root"></div>
+  function showMiss(pin, res) {
+    var st = STATE_BY_PREFIX[pin.slice(0, 2)];
+    if (st && !f.state.value.trim()) setVal(f.state, st);
+    pinBox.className = "ck-pin show warn";
+    pinBox.innerHTML =
+      '<div class="ck-pin-main"><div class="hex">!</div><div>' +
+      "<strong>" + (res.notFound ? "We could not find this pincode" : "Could not check the pincode right now") + "</strong>" +
+      "<span>" + (res.notFound ? "Please check the number, or type your city and state below." : "No problem. Please type your city and state below.") + "</span></div></div>";
+  }
 
+  /* ---------- friendly validation on submit ---------- */
+  var messages = {
+    name: "Please enter your name.",
+    phone: "Enter a 10-digit mobile number.",
+    pincode: "Enter a valid 6-digit pincode.",
+    address: "Please add your house number and street.",
+    city: "Please enter your city.",
+    state: "Please enter your state."
+  };
 
-  <!-- EXISTING FILES -->
-  <script src="supabase-config.js"></script>
-  <script src="supabase.js"></script>
-  <script src="script.js"></script>
-  <script src="admin.js"></script>
-  <script src="motion.js"></script>
+  form.addEventListener("submit", function (e) {
+    var firstBad = null;
 
+    order.forEach(function (k) {
+      var ok = rules[k](f[k].value);
+      var fl = fieldOf(f[k]);
+      fl.classList.toggle("bad", !ok);
+      if (!ok && !firstBad) firstBad = k;
+    });
+
+    if (firstBad) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var fl = fieldOf(f[firstBad]);
+      fl.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(function () { f[firstBad].focus({ preventScroll: true }); }, 350);
+      form.classList.remove("ck-shake"); void form.offsetWidth; form.classList.add("ck-shake");
+      return;
+    }
+
+    /* clean the phone and add the chosen area to the address so the order has it */
+    f.phone.value = onlyPhone(f.phone.value);
+    var a = (f.area.value || "").trim();
+    var addr = f.address.value.trim();
+    if (a && addr.toLowerCase().indexOf(a.toLowerCase()) < 0) {
+      f.address.value = addr + ", " + a;
+    }
+  }, true);
+
+  /* a fixed field loses its red state as soon as the person edits it */
+  form.addEventListener("input", function (e) {
+    var fl = e.target.closest && e.target.closest(".ck-field");
+    if (fl) fl.classList.remove("bad");
+  });
+
+  /* if the browser autofills the pincode, look it up */
+  setTimeout(function () {
+    if (/^\d{6}$/.test(f.pincode.value)) lookup(f.pincode.value);
+    refresh();
+  }, 400);
+  refresh();
+})();
+</script>
 
 </body>
 </html>
