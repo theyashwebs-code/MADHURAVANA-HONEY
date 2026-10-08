@@ -454,3 +454,434 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 });
 window.MADHURAVANA={BUSINESS_CONFIG,DEFAULT_PRODUCTS,KEYS,getProducts,saveProducts,getCart,saveCart,getOnlineOrders,saveOnlineOrders,getOfflineOrders,saveOfflineOrders,getSettings,saveSettings,money,showToast,whatsappUrl,buildWhatsAppMessage,updateCartCount,renderPublicProductViews};
+/* =========================================================
+   MADHURAVANA — ULTRA PREMIUM INTERACTION ENGINE
+   Visual only. Does not touch cart / checkout / Supabase.
+   ========================================================= */
+
+(function () {
+  "use strict";
+
+  function initPremiumHoneyMotion() {
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    /* -----------------------------------------
+       GOLD PARTICLES
+    ----------------------------------------- */
+
+    var hero = document.querySelector(".mh-hero");
+
+    if (hero) {
+
+      var particleLayer = document.createElement("div");
+
+      particleLayer.className = "mh-premium-particles";
+
+      particleLayer.style.cssText =
+        "position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3;";
+
+      hero.appendChild(particleLayer);
+
+      for (var i = 0; i < 22; i++) {
+
+        var particle = document.createElement("span");
+
+        particle.className = "mh-gold-particle";
+
+        particle.style.setProperty(
+          "--ps",
+          (2 + Math.random() * 4) + "px"
+        );
+
+        particle.style.setProperty(
+          "--pd",
+          (7 + Math.random() * 8) + "s"
+        );
+
+        particle.style.setProperty(
+          "--delay",
+          (-Math.random() * 10) + "s"
+        );
+
+        particle.style.setProperty(
+          "--drift",
+          ((Math.random() * 140) - 70) + "px"
+        );
+
+        particle.style.left =
+          (Math.random() * 100) + "%";
+
+        particle.style.bottom =
+          (-10 - Math.random() * 10) + "%";
+
+        particleLayer.appendChild(particle);
+      }
+    }
+
+
+    /* -----------------------------------------
+       CINEMATIC BOTTLE PARALLAX
+    ----------------------------------------- */
+
+    var heroBottle =
+      document.querySelector(".mh-hero-bottle");
+
+    if (heroBottle && hero) {
+
+      var ticking = false;
+
+      function updateBottleParallax() {
+
+        var rect = hero.getBoundingClientRect();
+
+        var viewportCenter =
+          window.innerHeight / 2;
+
+        var heroCenter =
+          rect.top + rect.height / 2;
+
+        var distance =
+          (heroCenter - viewportCenter) / window.innerHeight;
+
+        var move =
+          Math.max(-28, Math.min(28, distance * -34));
+
+        heroBottle.style.setProperty(
+          "--scroll-bottle-y",
+          move + "px"
+        );
+
+        heroBottle.style.transform =
+          "translate3d(0," +
+          move +
+          "px,0)";
+
+        ticking = false;
+      }
+
+      window.addEventListener(
+        "scroll",
+        function () {
+
+          if (!ticking) {
+
+            requestAnimationFrame(
+              updateBottleParallax
+            );
+
+            ticking = true;
+          }
+
+        },
+        { passive: true }
+      );
+
+      updateBottleParallax();
+    }
+
+
+    /* -----------------------------------------
+       MOUSE DEPTH / 3D HERO
+    ----------------------------------------- */
+
+    if (
+      hero &&
+      window.matchMedia("(pointer:fine)").matches
+    ) {
+
+      var bottle =
+        document.querySelector(".mh-hero-bottle");
+
+      hero.addEventListener(
+        "pointermove",
+        function (event) {
+
+          var rect =
+            hero.getBoundingClientRect();
+
+          var x =
+            (event.clientX - rect.left) /
+            rect.width -
+            0.5;
+
+          var y =
+            (event.clientY - rect.top) /
+            rect.height -
+            0.5;
+
+          var rotateY =
+            x * 8;
+
+          var rotateX =
+            y * -6;
+
+          if (bottle) {
+
+            bottle.style.transform =
+              "translate3d(" +
+              (x * 10) +
+              "px," +
+              (y * 8) +
+              "px,0) " +
+              "rotateY(" +
+              rotateY +
+              "deg) " +
+              "rotateX(" +
+              rotateX +
+              "deg)";
+          }
+
+          hero.style.setProperty(
+            "--mouse-x",
+            (x * 20) + "px"
+          );
+
+          hero.style.setProperty(
+            "--mouse-y",
+            (y * 15) + "px"
+          );
+        }
+      );
+
+      hero.addEventListener(
+        "pointerleave",
+        function () {
+
+          if (bottle) {
+
+            bottle.style.transform =
+              "translate3d(0,0,0) " +
+              "rotateY(0deg) " +
+              "rotateX(0deg)";
+          }
+        }
+      );
+    }
+
+
+    /* -----------------------------------------
+       PRODUCT CARD 3D TILT
+    ----------------------------------------- */
+
+    if (
+      window.matchMedia("(pointer:fine)").matches
+    ) {
+
+      document
+        .querySelectorAll(".product-card")
+        .forEach(function (card) {
+
+          card.addEventListener(
+            "pointermove",
+            function (event) {
+
+              var rect =
+                card.getBoundingClientRect();
+
+              var x =
+                (event.clientX - rect.left) /
+                rect.width;
+
+              var y =
+                (event.clientY - rect.top) /
+                rect.height;
+
+              var rotateY =
+                (x - 0.5) * 7;
+
+              var rotateX =
+                (0.5 - y) * 7;
+
+              card.style.setProperty(
+                "--mx",
+                (x * 100) + "%"
+              );
+
+              card.style.setProperty(
+                "--my",
+                (y * 100) + "%"
+              );
+
+              card.style.transform =
+                "perspective(900px) " +
+                "rotateX(" +
+                rotateX +
+                "deg) " +
+                "rotateY(" +
+                rotateY +
+                "deg) " +
+                "translateY(-8px)";
+            }
+          );
+
+          card.addEventListener(
+            "pointerleave",
+            function () {
+
+              card.style.transform = "";
+
+            }
+          );
+
+        });
+    }
+
+
+    /* -----------------------------------------
+       MAGNETIC BUTTONS
+    ----------------------------------------- */
+
+    if (
+      window.matchMedia("(pointer:fine)").matches
+    ) {
+
+      document
+        .querySelectorAll(".mh-btn, .reserve-link")
+        .forEach(function (button) {
+
+          button.addEventListener(
+            "pointermove",
+            function (event) {
+
+              var rect =
+                button.getBoundingClientRect();
+
+              var x =
+                event.clientX -
+                (rect.left + rect.width / 2);
+
+              var y =
+                event.clientY -
+                (rect.top + rect.height / 2);
+
+              button.style.transform =
+                "translate(" +
+                (x * 0.08) +
+                "px," +
+                (y * 0.08) +
+                "px)";
+            }
+          );
+
+          button.addEventListener(
+            "pointerleave",
+            function () {
+
+              button.style.transform = "";
+
+            }
+          );
+
+        });
+    }
+
+
+    /* -----------------------------------------
+       GOLDEN SECTION BOTTLE SCROLL SCALE
+    ----------------------------------------- */
+
+    var goldenBottle =
+      document.querySelector(".mh-golden-bottle");
+
+    var goldenSection =
+      document.querySelector(".mh-golden");
+
+    if (goldenBottle && goldenSection) {
+
+      function goldenMotion() {
+
+        var rect =
+          goldenSection.getBoundingClientRect();
+
+        var progress =
+          1 -
+          (
+            rect.top /
+            (window.innerHeight + rect.height)
+          );
+
+        progress =
+          Math.max(
+            0,
+            Math.min(1, progress)
+          );
+
+        var scale =
+          0.94 +
+          progress * 0.08;
+
+        var rotate =
+          (progress - 0.5) * 3;
+
+        goldenBottle.style.transform =
+          "translateY(" +
+          ((progress - 0.5) * -24) +
+          "px) " +
+          "scale(" +
+          scale +
+          ") " +
+          "rotateZ(" +
+          rotate +
+          "deg)";
+      }
+
+      window.addEventListener(
+        "scroll",
+        goldenMotion,
+        { passive: true }
+      );
+
+      goldenMotion();
+    }
+
+
+    /* -----------------------------------------
+       IMAGE SHINE EFFECT
+    ----------------------------------------- */
+
+    document
+      .querySelectorAll(".premium-honey-bottle")
+      .forEach(function (bottle) {
+
+        bottle.addEventListener(
+          "mouseenter",
+          function () {
+
+            bottle.style.filter =
+              "brightness(1.08) " +
+              "saturate(1.08) " +
+              "drop-shadow(0 35px 50px rgba(71,39,4,.35))";
+          }
+        );
+
+        bottle.addEventListener(
+          "mouseleave",
+          function () {
+
+            bottle.style.filter = "";
+
+          }
+        );
+
+      });
+
+  }
+
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initPremiumHoneyMotion
+    );
+
+  } else {
+
+    initPremiumHoneyMotion();
+
+  }
+
+})();
