@@ -4,13 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="same-origin">
   <title>Admin | MADHURAVANA Pure Honey</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100&display=swap" rel="stylesheet">
+
+  <!-- Cache-busted admin assets so phones/browsers cannot keep an older
+       device-authorization JavaScript version after deployment. -->
+  <link rel="stylesheet" href="style.css?v=20261008-device-lock-final?v=20261008-admin2">
+  <link rel="stylesheet" href="admin.css?v=20261008-device-lock-final?v=20261008-admin2">
 </head>
 <body data-page="admin">
   <div id="ax-root"></div>
-  <div id="modal-root"></div><div id="toast-root"></div>
-  <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script>
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+
+  <script src="supabase-config.js?v=20261008-device-lock-final?v=20261008-admin2"></script>
+  <script src="supabase.js?v=20261008-device-lock-final?v=20261008-admin2"></script>
+  <script src="script.js?v=20261008-device-lock-final?v=20261008-admin2"></script>
+  <script src="admin.js?v=20261008-device-lock-final?v=20261008-admin2"></script>
 </body>
 </html>
