@@ -1038,11 +1038,13 @@
 
 
 
+        var isCancelled = String(o.status || "").toLowerCase() === "cancelled";
+
         var st = editable
 
 
 
-          ? '\<select class="ax-status ax-pill ' + statusClass(o.status) + '" data-order-status="' + esc(o.id) + '" aria-label="Order status">' + STATUSES.map(function (s) { return "\<option" + (s === o.status ? " selected" : "") + ">" + s + "\</option>"; }).join("") + "\</select>"
+          ? '\<select class="ax-status ax-pill ' + statusClass(o.status) + '" data-order-status="' + esc(o.id) + '" aria-label="Order status"' + (isCancelled ? ' disabled title="Cancelled orders are locked"' : '') + '>' + STATUSES.map(function (s) { return "\<option" + (s === o.status ? " selected" : "") + ">" + s + "\</option>"; }).join("") + "\</select>"
 
 
 
@@ -1050,7 +1052,7 @@
 
 
 
-        return "\<tr>\<td>\<strong>" + esc(o.id) + '\</strong>\<span class="ax-muted">' + esc(o.orderType || "") + "\</span>\</td>\<td>" + esc(o.customerName) + '\<span class="ax-muted">' + esc(o.phone) + "\</span>\</td>\<td>" + items + "\</td>\<td>\<strong>" + money(o.total || 0) + "\</strong>\</td>\<td>" + st + "\</td>\<td>" + esc(o.orderDate || "") + '\<span class="ax-muted">' + esc(o.orderTime || "") + '\</span>\</td>\<td>\<button class="ax-btn ghost sm" data-order-view="' + esc(o.id) + '">Details\</button>\</td>\</tr>';
+        return "\<tr" + (isCancelled ? ' class="ax-order-cancelled"' : '') + ">\<td>\<strong>" + esc(o.id) + '\</strong>\<span class="ax-muted">' + esc(o.orderType || "") + "\</span>\</td>\<td>" + esc(o.customerName) + '\<span class="ax-muted">' + esc(o.phone) + "\</span>\</td>\<td>" + items + "\</td>\<td>\<strong>" + money(o.total || 0) + "\</strong>\</td>\<td>" + st + "\</td>\<td>" + esc(o.orderDate || "") + '\<span class="ax-muted">' + esc(o.orderTime || "") + '\</span>\</td>\<td>\<button class="ax-btn ghost sm" data-order-view="' + esc(o.id) + '">Details\</button>\</td>\</tr>';
 
 
 
@@ -1702,6 +1704,13 @@
     var f = findOrder(id); if (!f) return toast("Order not found.", "warn");
 
 
+
+    // Cancellation is terminal: cancelled orders cannot be reopened or edited.
+    if (String(f.order.status || "").toLowerCase() === "cancelled" && status !== "Cancelled") {
+      toast("Cancelled orders are locked and cannot be changed.", "warn");
+      if (fromTable) repaintTable();
+      return;
+    }
 
     f.order.status = status; if (!saveOrdersOf(f.type, f.list)) return;
 
