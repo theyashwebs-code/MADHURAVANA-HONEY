@@ -61,6 +61,17 @@ body[data-page="admin"] *{-webkit-tap-highlight-color:transparent}
 .ax-table th,.ax-table td{padding:12px 10px;border-bottom:1px solid #f0ebe3;text-align:left;vertical-align:middle}
 .ax-table th{color:#8a7d73;font-size:.64rem;text-transform:uppercase;letter-spacing:.09em;white-space:nowrap}
 .ax-table tbody tr{transition:background .15s}.ax-table tbody tr:hover{background:#fbf8f2}
+
+/* Cancelled orders are terminal and visually unmistakable in every order table. */
+.ax-table tbody tr.ax-order-cancelled,
+.ax-table tbody tr.ax-order-cancelled:hover{background:#f8d7d3!important;box-shadow:inset 5px 0 0 #b42318}
+.ax-table tbody tr.ax-order-cancelled td{background:#f8d7d3!important;border-bottom-color:#e9aaa3;color:#79251f}
+.ax-table tbody tr.ax-order-cancelled td strong{color:#79251f}
+.ax-table tbody tr.ax-order-cancelled .ax-muted{color:#a34b43}
+.ax-table tbody tr.ax-order-cancelled .ax-pill.cancelled{background:#b42318!important;color:#fff!important;border:1px solid #8f1710}
+.ax-table tbody tr.ax-order-cancelled .ax-status:disabled{opacity:1;cursor:not-allowed;background:#b42318!important;color:#fff!important;border-color:#8f1710;pointer-events:none}
+.ax-table tbody tr.ax-order-cancelled .ax-btn{border-color:#e3aaa4;color:#79251f;background:#fff5f4}
+
 .ax-table td .ax-muted{display:block}
 .ax-pill{display:inline-flex;padding:5px 10px;border-radius:99px;font-size:.66rem;font-weight:900;letter-spacing:.03em;background:#eee;white-space:nowrap}
 .ax-pill.order-placed{background:#e8eefb;color:#2f4f86}.ax-pill.processing{background:#fff1ce;color:#805d15}.ax-pill.shipped{background:#e0ebf7;color:#315a80}
@@ -114,4 +125,29 @@ body[data-page="admin"] *{-webkit-tap-highlight-color:transparent}
   .ax-prow{grid-template-columns:1fr 84px 40px}
   #modal-root .ax-backdrop{align-items:end;padding:0}
   .ax-modal{border-radius:22px 22px 0 0;width:100%!important;max-height:92vh}
+}
+
+
+
+/* Admin feedback messages appear in the centre of the screen, not at the bottom. */
+body[data-page="admin"] #toast-root {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  display: grid !important;
+  place-items: center !important;
+  gap: 10px;
+  padding: 20px;
+  pointer-events: none;
+}
+body[data-page="admin"] #toast-root .toast {
+  width: max-content;
+  max-width: min(440px, calc(100vw - 40px));
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  padding: 16px 22px;
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 18px 55px rgba(33, 21, 15, .28);
+  pointer-events: none;
 }
