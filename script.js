@@ -6,7 +6,7 @@ const BUSINESS_CONFIG = {
   whatsappNumber: "917092722605", // Replace with business WhatsApp number, digits only, country code included.
   instagramUrl: "https://www.instagram.com/madhuravanahoney/", // Replace with real Instagram URL.
   phone: "7092722605",
-  email: "yashwantchatti@gmail.com",
+  email: "madhuravana@gmail.com",
   address: "Hyderabad, Telangana"
 };
 
@@ -81,15 +81,90 @@ function renderHeader(){
   document.querySelectorAll("[data-whatsapp]").forEach(a=>a.href=whatsappUrl("Hello MADHURAVANA, I have a question about your honey products."));
   updateCartCount();
 }
-function renderFooter(){
-  const root=document.getElementById("site-footer");if(!root)return;
-  root.innerHTML=`<footer class="site-footer"><div class="container footer-grid">
-    <div><div class="footer-brand">MADHURAVANA<small>PURE HONEY</small></div><p style="margin-top:15px">Natural sweetness, thoughtfully presented. Premium honey for everyday rituals and special moments.</p></div>
-    <div class="footer-col"><h4>Explore</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></div>
-    <div class="footer-col"><h4>Connect</h4><a data-instagram target="_blank" rel="noopener">Instagram ↗</a><a data-whatsapp>WhatsApp ↗</a><p>${esc(getSettings().email)}</p><p>${esc(getSettings().phone)}</p></div>
-  </div><div class="container footer-bottom"><span>© ${new Date().getFullYear()} MADHURAVANA Pure Honey</span><span>Made with natural warmth.</span></div></footer>`;
-  document.querySelectorAll("[data-instagram]").forEach(a=>a.href=getSettings().instagramUrl);
-  document.querySelectorAll("[data-whatsapp]").forEach(a=>a.href=whatsappUrl("Hello MADHURAVANA, I have a question about your honey products."));
+function renderFooter() {
+  const root = document.getElementById("site-footer");
+  if (!root) return;
+
+  root.innerHTML = `
+    <footer class="site-footer">
+      <div class="container footer-grid">
+
+        <div>
+          <div class="footer-brand">
+            MADHURAVANA
+            <small>PURE HONEY</small>
+          </div>
+          <p style="margin-top:15px">
+            Natural sweetness, thoughtfully presented.
+            Premium honey for everyday rituals and special moments.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="shop.html">Shop</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+
+          <a
+            href="https://www.instagram.com/madhuravanahoney/"
+            target="_blank"
+            rel="noopener noreferrer">
+            Instagram ↗
+          </a>
+
+          <a
+            href="https://wa.me/917092722605?text=Hello%20MADHURAVANA%2C%20I%20have%20a%20question%20about%20your%20honey%20products."
+            target="_blank"
+            rel="noopener noreferrer">
+            WhatsApp ↗
+          </a>
+
+          <a href="mailto:madhuravana@gmail.com">
+            madhuravana@gmail.com
+          </a>
+
+          <a href="tel:+917092722605">
+            +91 70927 22605
+          </a>
+        </div>
+
+      </div>
+
+      <div class="container footer-bottom">
+        <span>© ${new Date().getFullYear()} MADHURAVANA Pure Honey</span>
+        <span>Made with natural warmth.</span>
+      </div>
+
+      <div class="container yashwebs-credit">
+        <p>
+          Website by
+          <a href="https://yashwebs.in"
+             target="_blank"
+             rel="noopener noreferrer">YashWebs ↗</a>
+        </p>
+
+        <p>
+          Founder:
+          <a href="https://yashwant-chatti-portfolio.vercel.app/"
+             target="_blank"
+             rel="noopener noreferrer">Yaswanth Chatti ↗</a>
+        </p>
+      </div>
+    </footer>
+  `;
+
+  // Keep footer links clickable, even if other styles interfere.
+  root.querySelectorAll("a").forEach(link => {
+    link.style.pointerEvents = "auto";
+    link.style.position = "relative";
+    link.style.zIndex = "2";
+  });
 }
 function whatsappUrl(message){const n=getSettings().whatsappNumber.replace(/\D/g,"");return n&&n.length>=8?`https://wa.me/${n}?text=${encodeURIComponent(message)}`:"#"}
 function updateCartCount(){const el=document.getElementById("cart-count");if(el)el.textContent=getCart().reduce((a,i)=>a+i.quantity,0)}
