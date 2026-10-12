@@ -1,0 +1,70 @@
+/* MADHURAVANA static-premium pass: elegant normal scrolling, real product photography */
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{overflow-x:hidden}
+
+/* Kill the old long pinned-scroll choreography. */
+.stage{position:relative;height:auto!important;min-height:0!important}
+.stage .pin{position:relative;top:auto;height:auto;min-height:0;overflow:visible}
+.hero-stage{min-height:82svh!important;background:#f4d078}
+.hero-stage .pin{min-height:82svh;display:grid;place-items:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none!important;mix-blend-mode:normal;filter:none;opacity:1}
+.hero-stage .pin:after{background:linear-gradient(180deg,rgba(255,239,190,.06),rgba(43,26,8,.24))!important}
+.hero-type{transform:none!important;opacity:1!important;visibility:visible!important;padding:clamp(90px,12vh,130px) var(--pad) 130px;max-width:1100px;justify-self:center}
+.hero-type .wordmark{font-size:clamp(3.2rem,11vw,10rem);white-space:normal;line-height:.84}
+.straps{position:absolute}
+
+/* Product photography replaces the old honeycomb reveal. */
+.reveal-stage{min-height:62svh!important;background:#2b1a08}
+.reveal-stage .pin{min-height:62svh;display:grid;place-items:center;overflow:hidden;background:#2b1a08}
+.reveal-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:none!important;filter:none;transform:none!important;opacity:1!important}
+.reveal-stage .pin:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,16,4,.06),rgba(30,16,4,.55));pointer-events:none}
+.diff-head{z-index:2;position:relative;top:auto;inset:auto;transform:none;opacity:1!important;color:#fff8df;mix-blend-mode:normal;font-size:clamp(2.5rem,7vw,7rem)}
+.rev-cap{z-index:3;bottom:auto;left:auto;right:auto;position:absolute;bottom:30px;opacity:1!important}
+
+.notes-stage{min-height:0!important;background:#24150a}
+.notes-stage .pin{min-height:0;position:relative;display:grid;overflow:visible}
+.crow{opacity:1!important}
+.still-frame{width:min(100%,430px);aspect-ratio:4/5}
+.still-frame .jar-thumb{transform:none!important}
+
+/* Real product image on every product card. */
+.product-card{grid-template-columns:96px minmax(0,.85fr) minmax(0,1.35fr) auto;align-items:center}
+.product-card .product-visual{width:96px;height:116px;overflow:hidden;border-radius:12px;background:#fff3ce;box-shadow:0 8px 24px rgba(80,43,5,.12)}
+.product-card .product-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.product-card .product-visual img:hover{transform:scale(1.03)}
+
+/* Make the actual product photo the main visual on detail/cart too. */
+.detail-visual{background:#fff3ce!important;padding:0;min-height:520px}
+.detail-visual .jar-thumb{width:100%;height:100%;object-fit:cover;display:block;transform:none!important}
+.cart-thumb .jar-thumb,.cart-modal-jar .jar-thumb{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Comfortable, premium section spacing without excessive scroll. */
+.statement-band,.price-band,.faq-band{padding-block:clamp(64px,8vw,112px)}
+.close-band{padding-block:clamp(74px,9vw,130px)}
+.price-band .product-grid{margin-top:clamp(30px,4vw,54px)}
+
+@media(max-width:900px){
+  .product-card{grid-template-columns:82px 1fr;align-items:start}
+  .product-card .product-visual{width:82px;height:102px;grid-row:span 2}
+  .product-card .p-buy{grid-column:2;margin-top:8px}
+  .notes-stage .pin{padding-top:64px;padding-bottom:64px}
+  .detail-visual{min-height:420px}
+}
+@media(max-width:700px){
+  .hero-stage,.hero-stage .pin{min-height:76svh}
+  .hero-type{padding-top:100px;padding-bottom:105px}
+  .hero-type .wordmark{font-size:clamp(3rem,15vw,6rem)}
+  .reveal-stage,.reveal-stage .pin{min-height:58svh}
+  .diff-head{font-size:clamp(2.2rem,12vw,5rem)}
+  .rev-cap{left:18px;right:18px;bottom:18px;max-width:none}
+  .product-card{grid-template-columns:76px 1fr;padding:18px}
+  .product-card .product-visual{width:76px;height:94px}
+  .product-card .p-desc{grid-column:2}
+  .product-card .p-buy{grid-column:2}
+  .detail-visual{min-height:360px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Product page: show the whole bottle clearly (no cropping/stretching) */
+.detail-visual{display:grid;place-items:center;overflow:visible;padding:28px 0}
+.detail-visual .jar-thumb{width:auto;height:100%;max-width:100%;max-height:560px;object-fit:contain;filter:drop-shadow(0 26px 28px rgba(75,39,8,.28))}
