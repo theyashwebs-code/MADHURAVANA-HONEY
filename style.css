@@ -1,1703 +1,962 @@
-:root{
-  --gold:#c58b2a;--gold2:#e0ad55;--deep:#2b1b12;--brown:#4b3020;--cream:#fbf5e9;--paper:#fffdf8;
-  --beige:#efe1c7;--green:#53664b;--muted:#776b61;--line:rgba(75,48,32,.13);--shadow:0 22px 60px rgba(48,31,19,.11);
-  --radius:24px;--container:1180px;
+/* MADHURAVANA Pure Honey — shared frontend application.
+   Frontend-only MVP: localStorage is browser-specific and is not a secure/cloud database. */
+
+const BUSINESS_CONFIG = {
+  brandName: "MADHURAVANA Pure Honey",
+  whatsappNumber: "917092722605", // Replace with business WhatsApp number, digits only, country code included.
+  instagramUrl: "https://www.instagram.com/madhuravanahoney/", // Replace with real Instagram URL.
+  phone: "7092722605",
+  email: "madhuravana@gmail.com",
+  address: "Hyderabad, Telangana"
+};
+
+const DEFAULT_PRODUCTS = [
+  {id:"MH001",name:"MADHURAVANA Pure Honey",weight:"250g",price:299,description:"A beautiful everyday jar of naturally golden honey, ideal for morning rituals, tea and recipes.",inStock:true,amazonUrl:""},
+  {id:"MH002",name:"MADHURAVANA Pure Honey",weight:"500g",price:499,description:"Our balanced everyday size for homes that love keeping a little more golden goodness close.",inStock:true,amazonUrl:""},
+  {id:"MH003",name:"MADHURAVANA Pure Honey",weight:"1kg",price:899,description:"A generous family jar made for regular use, gifting and those who simply love honey.",inStock:true,amazonUrl:""}
+];
+
+const KEYS = {
+  cart:"madhuravana_cart", products:"madhuravana_products", online:"madhuravana_online_orders",
+  offline:"madhuravana_offline_orders", session:"madhuravana_admin_session", lastOrder:"madhuravana_last_order",
+  settings:"madhuravana_settings", counter:"madhuravana_order_counter"
+};
+
+/* One-time reset: clears old test orders from every device */
+(function(){
+  const RESET_VERSION = "launch-1";
+  try{
+    if(localStorage.getItem("madhuravana_reset") !== RESET_VERSION){
+      localStorage.removeItem(KEYS.online);
+      localStorage.removeItem(KEYS.lastOrder);
+      localStorage.setItem("madhuravana_reset", RESET_VERSION);
+    }
+  }catch(e){}
+})();
+
+function safeParse(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch(e){console.warn("localStorage read failed",key,e);return fallback}}
+function safeSave(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){showToast("Browser storage is unavailable. Please check storage permissions.","warn");return false}}
+function getProducts(){const p=safeParse(KEYS.products,null);if(!Array.isArray(p)){safeSave(KEYS.products,DEFAULT_PRODUCTS);return structuredClone(DEFAULT_PRODUCTS)}return p}
+function saveProducts(v){
+  const ok=safeSave(KEYS.products,v);
+  const bridge=window.MADHURAVANA_SUPABASE;
+  if(bridge&&bridge.isConfigured&&bridge.isConfigured()){
+    Promise.all(v.map(p=>bridge.saveProduct(p))).then(rs=>{
+      const bad=rs.find(x=>x&&x.error);
+      if(bad) console.warn("Supabase product save failed:",bad.error);
+    }).catch(e=>console.warn("Supabase product save failed:",e));
+  }
+  return ok;
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}body.no-scroll{overflow:hidden}
-img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}
-.container{width:min(var(--container),calc(100% - 40px));margin:auto}.narrow{max-width:760px}.center{text-align:center}.section{padding:100px 0}.page-hero{padding:120px 0 75px;background:linear-gradient(180deg,var(--cream),var(--paper))}.page-hero.small{padding:90px 0 55px}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:800;color:var(--green)}h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.06;margin:0 0 20px}h1{font-size:clamp(3.2rem,7vw,6.6rem);letter-spacing:-.055em}h2{font-size:clamp(2.3rem,4vw,4rem);letter-spacing:-.04em}h3{font-size:1.55rem}p{color:var(--muted);margin:0 0 18px}.muted{color:var(--muted);font-size:.92rem}
-.site-header{position:sticky;top:0;z-index:50;background:rgba(255,253,248,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(75,48,32,.08)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{font-family:Georgia,serif;font-size:1.22rem;font-weight:700;letter-spacing:.02em}.brand small{display:block;font-family:inherit;font-size:.56rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}.nav-links{display:flex;align-items:center;gap:25px;font-size:.88rem;font-weight:650}.nav-links a{position:relative}.nav-links a:after{content:"";position:absolute;left:0;bottom:-7px;width:0;height:1px;background:var(--gold);transition:.25s}.nav-links a:hover:after{width:100%}.cart-link{display:flex;align-items:center;gap:8px}.cart-count{min-width:22px;height:22px;border-radius:99px;background:var(--deep);color:#fff;display:grid;place-items:center;font-size:.7rem}.menu-btn{display:none;background:none;border:0;font-size:1.5rem}
-.hero{padding:95px 0 110px;background:radial-gradient(circle at 80% 25%,#f5e6c5 0,transparent 34%),linear-gradient(135deg,var(--cream),#fffdf8)}.hero-grid{display:grid;grid-template-columns:1fr .9fr;align-items:center;gap:50px}.hero-copy h1 em{color:var(--gold);font-style:normal}.hero-text{max-width:590px;font-size:1.05rem}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;border:1px solid transparent;border-radius:999px;padding:14px 23px;font-weight:800;font-size:.88rem;transition:transform .2s,box-shadow .2s,background .2s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--deep);color:#fff;box-shadow:0 12px 28px rgba(43,27,18,.18)}.btn-primary:hover{background:#40271b}.btn-ghost{border-color:var(--line);background:rgba(255,255,255,.45)}.btn-dark{background:var(--brown);color:#fff}.btn-block{width:100%}.hero-trust{display:flex;flex-wrap:wrap;gap:18px;color:var(--green);font-size:.78rem;font-weight:700}.hero-art{min-height:500px;position:relative;display:grid;place-items:center}.hero-glow{position:absolute;width:410px;height:410px;border-radius:50%;background:radial-gradient(circle,#e6b75e66,transparent 67%);filter:blur(4px)}.honey-orbit{position:absolute;border:1px solid #c58b2a55;border-radius:50%;transform:rotate(-18deg)}.orbit-one{width:440px;height:150px}.orbit-two{width:360px;height:120px;transform:rotate(35deg)}.hero-jar{position:relative;width:245px;height:310px;filter:drop-shadow(0 25px 24px rgba(55,35,15,.22));z-index:2}.jar-lid{position:absolute;top:0;left:28px;width:189px;height:55px;border-radius:16px 16px 8px 8px;background:linear-gradient(#5b3b28,#2d1b12);box-shadow:inset 0 5px 0 #9a6c45}.jar-glass{position:absolute;left:17px;top:42px;width:211px;height:220px;border-radius:32px 32px 50px 50px;background:linear-gradient(90deg,#f5d27a55,#fff6c633 35%,#c8881e77 100%),#d99a2c;overflow:hidden;border:5px solid #e6c57c66}.jar-honey{position:absolute;left:28px;bottom:4px;width:189px;height:50px;border-radius:50%;background:#b66c15}.jar-label{position:absolute;left:30px;top:65px;width:150px;height:118px;background:#f8f0dc;border:1px solid #d3bc8d;border-radius:6px;display:grid;place-items:center;text-align:center;padding:12px;color:var(--deep);z-index:2}.jar-label small{font-size:.47rem;letter-spacing:.18em;color:var(--green)}.jar-label strong{font-family:Georgia,serif;font-size:1.35rem;line-height:.88}.jar-label span{font-size:.5rem;text-transform:uppercase;letter-spacing:.1em}.honey-shine{position:absolute;width:28px;height:160px;background:#fff8d955;transform:rotate(12deg);left:25px;top:25px;border-radius:50%}.bee-note{position:absolute;background:#fffdf8;border:1px solid var(--line);box-shadow:var(--shadow);padding:13px 16px;border-radius:15px;font-family:Georgia,serif;font-size:.9rem;line-height:1.1;z-index:3}.note-one{top:75px;right:20px}.note-two{bottom:70px;left:10px}.intro-section{background:#fffdf8}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}.feature-card{padding:30px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 12px 35px rgba(48,31,19,.05)}.feature-icon{font-size:1.4rem;color:var(--gold);display:block;margin-bottom:30px}.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:35px}.text-link{font-weight:800;font-size:.88rem;border-bottom:1px solid var(--deep);padding-bottom:3px}.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.product-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;transition:transform .25s,box-shadow .25s}.product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}.product-visual{height:320px;background:linear-gradient(145deg,#f4e8cf,#e5c17b);display:grid;place-items:center;position:relative;overflow:hidden}.product-visual:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;background:#ffffff38}.mini-jar{width:115px;height:160px;position:relative;z-index:1;filter:drop-shadow(0 16px 15px rgba(55,35,15,.22))}.mini-lid{height:28px;width:88px;margin:auto;background:#3a2417;border-radius:8px 8px 4px 4px}.mini-body{height:112px;width:100px;margin:-1px auto 0;background:linear-gradient(90deg,#e0a538,#f4d273 35%,#c98016);border-radius:13px 13px 28px 28px;border:3px solid #e2bd6e}.mini-label{position:absolute;top:63px;left:17px;width:66px;height:50px;background:#f8f0dc;text-align:center;border:1px solid #d3bc8d;font:700 .5rem Georgia,serif;padding-top:8px}.mini-label small{display:block;font:500 .28rem system-ui;letter-spacing:.1em}.product-content{padding:22px}.product-content h3{font-size:1.4rem;margin:7px 0 4px}.product-meta{display:flex;justify-content:space-between;align-items:center;gap:10px}.price{font-weight:900;font-size:1.1rem}.stock-badge{font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;padding:7px 9px;border-radius:99px;background:#e9f0e5;color:#46603d}.stock-badge.out{background:#f6e3df;color:#8e382a}.product-actions{display:flex;gap:8px;margin-top:18px}.product-actions .btn{flex:1;padding:11px 12px}.story-section{background:var(--cream)}.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.story-card{height:500px;border-radius:40px;background:linear-gradient(145deg,#76512f,#c68a2d);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow)}.story-card:before{content:"";position:absolute;width:500px;height:500px;border:1px solid #fff3;border-radius:50%}.story-stamp{position:absolute;top:30px;left:35px;color:#fff8;font-size:.65rem;letter-spacing:.2em}.story-honey-drop{width:180px;height:240px;border-radius:55% 45% 55% 45%;background:linear-gradient(135deg,#f7d67f,#a95d11);transform:rotate(45deg);box-shadow:inset -20px -25px 35px #713b0e55}.story-card p{position:absolute;bottom:30px;color:#fff;font-family:Georgia,serif;font-size:1.1rem}.story-copy p{font-size:1.02rem;max-width:560px}.contact-band{padding-top:40px}.contact-band-inner{border-radius:32px;background:var(--deep);color:#fff;padding:45px 55px;display:flex;align-items:center;justify-content:space-between;gap:30px}.contact-band h2{margin-top:8px}.contact-band p{color:#d6c8bb}.contact-band .eyebrow{color:#d8ae62}.contact-actions{display:flex;gap:10px}.contact-actions .btn-ghost{border-color:#ffffff33;color:#fff}.site-footer{background:#21150f;color:#e9ded4;padding:70px 0 25px}.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:50px}.footer-brand{font:700 1.4rem Georgia,serif}.footer-brand small{display:block;font:700 .55rem system-ui;letter-spacing:.2em;color:#d6a44c;margin-top:5px}.footer-col h4{margin:0 0 15px;color:#fff;font-size:.8rem;text-transform:uppercase;letter-spacing:.12em}.footer-col a,.footer-col p{display:block;color:#bbaea5;font-size:.86rem;margin:7px 0}.footer-bottom{margin-top:45px;padding-top:20px;border-top:1px solid #ffffff14;color:#8e8076;font-size:.75rem;display:flex;justify-content:space-between}.shop-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.shop-toolbar select{border:1px solid var(--line);background:#fff;padding:11px 15px;border-radius:12px;color:var(--deep)}.product-grid-wide{grid-template-columns:repeat(3,1fr)}.product-detail-section{padding-top:70px}.product-detail{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.detail-visual{height:600px;border-radius:35px;background:linear-gradient(145deg,#f3e4c7,#d4a044);display:grid;place-items:center}.detail-visual .mini-jar{transform:scale(1.7)}.detail-copy .price{font-size:1.5rem;margin:20px 0}.detail-copy .description{font-size:1rem;max-width:570px}.qty-control{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px;margin:15px 0}.qty-control button{width:36px;height:36px;border:0;background:transparent;border-radius:50%}.qty-control span{width:36px;text-align:center;font-weight:800}.availability{font-weight:800;margin:10px 0}.availability.ok{color:var(--green)}.availability.no{color:#9b3c2e}.cart-layout,.checkout-layout{display:grid;grid-template-columns:1fr 360px;gap:30px;align-items:start}.cart-item{display:grid;grid-template-columns:100px 1fr auto;gap:18px;align-items:center;border-bottom:1px solid var(--line);padding:20px 0}.cart-thumb{width:100px;height:100px;border-radius:18px;background:linear-gradient(145deg,#f4e7cc,#d6a44d);display:grid;place-items:center}.cart-thumb .mini-jar{transform:scale(.55)}.cart-item h3{font-size:1.15rem;margin:0}.cart-controls{display:flex;align-items:center;gap:10px;margin-top:8px}.circle-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#fff}.remove-btn{border:0;background:none;color:#9b3c2e;font-size:.78rem;font-weight:700}.summary-card,.form-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 10px 35px rgba(48,31,19,.05)}.summary-card{position:sticky;top:100px}.summary-card h3{font-size:1.35rem}.summary-row{display:flex;justify-content:space-between;gap:15px;padding:11px 0;color:var(--muted);font-size:.9rem}.summary-total{border-top:1px solid var(--line);margin-top:10px;padding-top:18px;display:flex;justify-content:space-between;font-weight:900;font-size:1.15rem}.form-heading{margin-bottom:28px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.form-grid label{font-size:.8rem;font-weight:800;color:var(--brown)}.form-grid label.full{grid-column:1/-1}.form-grid input{display:block;width:100%;margin-top:7px;border:1px solid var(--line);background:#fffdf8;border-radius:12px;padding:13px 14px;outline:none}.form-grid input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c58b2a16}.payment-box{margin:25px 0;padding:17px;border:1px solid #d7e0d0;background:#f5f8f1;border-radius:16px;display:flex;gap:12px}.payment-check{width:27px;height:27px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:.75rem}.payment-box p{font-size:.78rem;margin:3px 0 0}.form-note{font-size:.76rem;background:var(--cream);padding:13px;border-radius:12px}.success-section{padding-top:120px}.success-icon{width:75px;height:75px;border-radius:50%;display:grid;place-items:center;margin:0 auto 25px;background:#e7f0e2;color:var(--green);font-size:2rem;font-weight:900}.success-card{margin:35px auto;padding:24px;border:1px solid var(--line);border-radius:20px;background:#fff;text-align:left;max-width:520px}.center-actions{justify-content:center}.empty-state{padding:70px 20px;text-align:center;border:1px dashed var(--line);border-radius:24px}.empty-state h2{font-size:2rem}.toast-root{position:fixed;right:20px;bottom:20px;z-index:200;display:grid;gap:10px}.toast{background:var(--deep);color:#fff;padding:13px 17px;border-radius:14px;box-shadow:var(--shadow);animation:toastIn .3s ease;max-width:360px;font-size:.83rem}.toast.warn{background:#8d5d18}.modal-backdrop{position:fixed;inset:0;background:#21150f99;backdrop-filter:blur(7px);z-index:100;display:grid;place-items:center;padding:20px;animation:fade .2s ease}.modal{width:min(440px,100%);background:var(--paper);border-radius:25px;padding:30px;box-shadow:0 30px 100px #0004}.modal-head{display:flex;justify-content:space-between;gap:20px;align-items:start}.close-modal{border:0;background:none;font-size:1.4rem}.modal label{display:block;font-size:.78rem;font-weight:800;margin-top:15px}.modal input{display:block;width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;margin-top:7px;background:#fff}.modal .btn{width:100%;margin-top:20px}.admin-shell{min-height:100vh;background:#f4f2ed;display:flex;color:#29231f}.admin-sidebar{width:245px;background:#241811;color:#fff;padding:25px 18px;position:fixed;inset:0 auto 0 0;z-index:70}.admin-logo{font:700 1.25rem Georgia,serif;padding:8px 12px 28px}.admin-logo small{display:block;font:700 .5rem system-ui;letter-spacing:.2em;color:#d4a04a}.admin-nav{display:grid;gap:6px}.admin-nav button{border:0;background:transparent;color:#bdb0a7;text-align:left;padding:12px;border-radius:10px;font-weight:700}.admin-nav button.active,.admin-nav button:hover{background:#ffffff12;color:#fff}.admin-main{margin-left:245px;flex:1;padding:30px}.admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.admin-top h1{font-size:2.5rem}.admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.stat-card{background:#fff;border:1px solid #e5e0d8;border-radius:16px;padding:18px}.stat-card span{display:block;color:#8a7d73;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800}.stat-card strong{font-size:1.65rem;margin-top:7px;display:block}.admin-section{margin-top:28px;background:#fff;border:1px solid #e5e0d8;border-radius:18px;padding:22px}.admin-section h2{font-size:1.7rem;margin-bottom:18px}.admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.admin-toolbar input,.admin-toolbar select,.admin-form input,.admin-form select,.admin-form textarea{border:1px solid #ddd5cc;background:#fff;border-radius:10px;padding:10px 12px}.admin-toolbar input{min-width:240px}.admin-table{width:100%;border-collapse:collapse;font-size:.8rem}.admin-table th,.admin-table td{padding:13px 9px;border-bottom:1px solid #eee8e0;text-align:left;vertical-align:middle}.admin-table th{color:#8a7d73;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em}.admin-badge{display:inline-flex;padding:5px 8px;border-radius:99px;font-size:.65rem;font-weight:900;background:#eee}.admin-badge.delivered{background:#e2f0df;color:#41613b}.admin-badge.processing{background:#fff1ce;color:#805d15}.admin-badge.shipped{background:#e0ebf7;color:#315a80}.admin-badge.out-for-delivery{background:#f9e5cf;color:#9a5b1d}.admin-badge.cancelled{background:#f5ded9;color:#913c2d}.admin-actions{display:flex;gap:6px;flex-wrap:wrap}.mini-btn{border:1px solid #ddd5cc;background:#fff;border-radius:8px;padding:7px 9px;font-size:.7rem;font-weight:800}.mini-btn.danger{color:#9b3c2e}.admin-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.admin-form .full{grid-column:1/-1}.admin-form label{font-size:.72rem;font-weight:800}.admin-form input,.admin-form select,.admin-form textarea{display:block;width:100%;margin-top:5px}.admin-form textarea{min-height:80px;resize:vertical}.danger-zone{border:1px solid #d9a69d;background:#fff8f6}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.admin-note{font-size:.74rem;color:#786e66;background:#f7f4ef;padding:12px;border-radius:10px}.drawer-close{display:none}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
-@keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes fade{from{opacity:0}to{opacity:1}}
-@media(max-width:900px){.nav-links{display:none}.menu-btn{display:block}.nav-links.open{display:flex;position:absolute;top:78px;left:0;right:0;background:var(--paper);padding:20px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}.hero-grid,.story-grid,.product-detail,.cart-layout,.checkout-layout{grid-template-columns:1fr}.hero-art{min-height:430px;order:-1}.hero{padding-top:55px}.feature-grid,.product-grid,.product-grid-wide{grid-template-columns:repeat(2,1fr)}.story-visual{order:2}.contact-band-inner{align-items:flex-start;flex-direction:column}.footer-grid{grid-template-columns:1fr 1fr}.admin-grid{grid-template-columns:repeat(2,1fr)}.admin-sidebar{width:220px}.admin-main{margin-left:220px}.settings-grid{grid-template-columns:1fr}}
-@media(max-width:620px){.container{width:min(var(--container),calc(100% - 28px))}.section{padding:70px 0}.nav{height:68px}.nav-links.open{top:68px}.brand{font-size:1rem}.hero{padding:50px 0 70px}.hero-art{min-height:340px}.hero-jar{transform:scale(.78)}.hero-glow{width:290px;height:290px}.orbit-one{width:300px}.orbit-two{width:260px}.note-one{right:0;top:25px}.note-two{left:0;bottom:25px}.feature-grid,.product-grid,.product-grid-wide,.footer-grid,.form-grid,.admin-form{grid-template-columns:1fr}.form-grid label.full{grid-column:auto}.section-heading,.shop-toolbar{align-items:flex-start;flex-direction:column;gap:15px}.product-visual{height:280px}.story-card{height:390px}.contact-band-inner{padding:32px 25px}.contact-actions{flex-wrap:wrap}.cart-item{grid-template-columns:75px 1fr}.cart-item > .price{grid-column:2}.cart-thumb{width:75px;height:75px}.summary-card{position:static}.admin-sidebar{display:none}.admin-main{margin-left:0;padding:18px}.admin-grid{grid-template-columns:1fr 1fr}.admin-table{min-width:800px}.admin-section{overflow:auto}.admin-top h1{font-size:2rem}.admin-nav-mobile{display:block}.settings-grid{grid-template-columns:1fr}.success-section{padding-top:80px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{transition:none}.btn,.product-card{transition:none}}
+function getCart(){return safeParse(KEYS.cart,[])}
+function saveCart(v){return safeSave(KEYS.cart,v)}
+function getOnlineOrders(){return safeParse(KEYS.online,[])}
+function saveOnlineOrders(v){
+  return safeSave(KEYS.online, v);
+}
+function getOfflineOrders(){return safeParse(KEYS.offline,[])}
+function saveOfflineOrders(v){return safeSave(KEYS.offline,v)}
+function getSettings(){return {...BUSINESS_CONFIG,...safeParse(KEYS.settings,{})}}
+function saveSettings(v){return safeSave(KEYS.settings,v)}
+function money(n){return new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function page(){return document.body.dataset.page||""}
+
+function showToast(message,type=""){const root=document.getElementById("toast-root");if(!root)return;const el=document.createElement("div");el.className=`toast ${type}`;el.textContent=message;root.appendChild(el);setTimeout(()=>el.remove(),3200)}
+function miniJar(){return `<img class="jar-thumb" src="images/madhuravana-front-bottle.png" alt="MADHURAVANA Pure Honey product">`}
+
+function renderHeader(){
+  const root=document.getElementById("site-header"); if(!root)return;
+  root.innerHTML=`<header class="site-header"><div class="container nav">
+    <a class="brand" href="index.html" aria-label="MADHURAVANA Pure Honey">MADHURAVANA<small>Pure Honey</small></a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
+      <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="track.html">Track Order</a><a href="index.html#about">About</a>
+      <a class="cart-link" href="cart.html">Cart <span class="cart-count" id="cart-count">0</span></a>
+    </nav>
+  </div></header>`;
+  const btn=document.getElementById("menu-btn"), nav=document.getElementById("nav-links");
+  btn?.addEventListener("click",()=>{const open=nav.classList.toggle("open");btn.setAttribute("aria-expanded",String(open));});
+  document.querySelectorAll("[data-instagram]").forEach(a=>a.href=getSettings().instagramUrl);
+  document.querySelectorAll("[data-whatsapp]").forEach(a=>a.href=whatsappUrl("Hello MADHURAVANA, I have a question about your honey products."));
+  updateCartCount();
+}
+function renderFooter() {
+  const root = document.getElementById("site-footer");
+  if (!root) return;
+
+  root.innerHTML = `
+    <footer class="site-footer">
+      <div class="container footer-grid">
+
+        <div>
+          <div class="footer-brand">
+            MADHURAVANA
+            <small>PURE HONEY</small>
+          </div>
+          <p style="margin-top:15px">
+            Natural sweetness, thoughtfully presented.
+            Premium honey for everyday rituals and special moments.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="shop.html">Shop</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+
+          <a
+            href="https://www.instagram.com/madhuravanahoney/"
+            target="_blank"
+            rel="noopener noreferrer">
+            Instagram ↗
+          </a>
+
+          <a
+            href="https://wa.me/917092722605?text=Hello%20MADHURAVANA%2C%20I%20have%20a%20question%20about%20your%20honey%20products."
+            target="_blank"
+            rel="noopener noreferrer">
+            WhatsApp ↗
+          </a>
+
+          <a href="mailto:madhuravana@gmail.com">
+            madhuravana@gmail.com
+          </a>
+
+          <a href="tel:+917092722605">
+            +91 70927 22605
+          </a>
+        </div>
+
+      </div>
+
+      <div class="container footer-bottom">
+        <span>© ${new Date().getFullYear()} MADHURAVANA Pure Honey</span>
+        <span>Made with natural warmth.</span>
+      </div>
+
+      <div class="container yashwebs-credit">
+        <p>
+          Website by
+          <a href="https://yashwebs.in"
+             target="_blank"
+             rel="noopener noreferrer">YashWebs ↗</a>
+        </p>
+
+        <p>
+          Founder:
+          <a href="https://yashwant-chatti-portfolio.vercel.app/"
+             target="_blank"
+             rel="noopener noreferrer">Yaswanth Chatti ↗</a>
+        </p>
+      </div>
+    </footer>
+  `;
+
+  // Keep footer links clickable, even if other styles interfere.
+  root.querySelectorAll("a").forEach(link => {
+    link.style.pointerEvents = "auto";
+    link.style.position = "relative";
+    link.style.zIndex = "2";
+  });
+}
+function whatsappUrl(message){const n=getSettings().whatsappNumber.replace(/\D/g,"");return n&&n.length>=8?`https://wa.me/${n}?text=${encodeURIComponent(message)}`:"#"}
+function updateCartCount(){const el=document.getElementById("cart-count");if(el)el.textContent=getCart().reduce((a,i)=>a+i.quantity,0)}
+
+function productCard(p){
+  const out=!p.inStock,u=`product.html?id=${encodeURIComponent(p.id)}`;
+  return `<article class="product-card" data-rev="1"><a class="product-visual" href="${u}" aria-label="View ${esc(p.name)} ${esc(p.weight)}"><img src="images/madhuravana-front-bottle.png" alt="MADHURAVANA Pure Honey ${esc(p.weight)}" loading="lazy" decoding="async"></a><a class="p-name" href="${u}">${esc(p.name)}<small class="eyebrow">${esc(p.weight)}</small></a>
+  <p class="p-desc">${esc(p.description)}<span class="stock-badge ${out?"out":""}" style="display:block;margin-top:7px">${out?"Out of stock":"In stock"}</span></p>
+  <div class="p-buy"><span class="p-fig">${money(p.price)}</span><a class="reserve-link" href="${u}">View</a><button class="btn ${out?"btn-ghost":"btn-primary"} add-btn" data-add="${esc(p.id)}" ${out?"disabled":""}>${out?"Unavailable":"Add to cart"}</button></div></article>`;
+}
+function renderProductGrid(target,products){const el=document.getElementById(target);if(!el)return;el.innerHTML=products.map(productCard).join("")||`<div class="empty-state"><h2>No products found.</h2><p>Please check the product configuration.</p></div>`}
+function attachAddButtons(){document.querySelectorAll("[data-add]").forEach(btn=>btn.addEventListener("click",()=>addToCart(btn.dataset.add,1)))}
+function addToCart(id, quantity = 1) {
+  const p = getProducts().find(x => x.id === id);
+
+  if (!p) {
+    showToast("Product not found.", "warn");
+    return;
+  }
+
+  if (!p.inStock) {
+    showToast("This product is currently out of stock.", "warn");
+    return;
+  }
+
+  const cart = getCart();
+  const item = cart.find(x => x.id === id);
+
+  if (item) {
+    item.quantity += quantity;
+  } else {
+    cart.push({
+      id: id,
+      quantity: quantity
+    });
+  }
+
+  saveCart(cart);
+  updateCartCount();
+
+  showAddedToCartModal(p, quantity);
+}
+function showAddedToCartModal(product, quantity = 1) {
+  const root = document.getElementById("modal-root");
+
+  if (!root) {
+    showToast(`✓ ${product.name} ${product.weight} added to cart`);
+    return;
+  }
+
+  root.innerHTML = `
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+      <div class="cart-added-modal" role="dialog" aria-modal="true" aria-labelledby="cart-added-title">
+
+        <button
+          class="cart-modal-close"
+          id="cart-modal-close"
+          aria-label="Close"
+        >×</button>
+
+        <div class="cart-success-icon">✓</div>
+
+        <div class="cart-modal-content">
+
+          <span class="eyebrow">Added to your cart</span>
+
+          <h2 id="cart-added-title">
+            Product Added Successfully
+          </h2>
+
+          <div class="cart-modal-product">
+
+            <div class="cart-modal-jar">
+              ${miniJar()}
+            </div>
+
+            <div class="cart-modal-product-info">
+              <h3>${esc(product.name)}</h3>
+
+              <p>${esc(product.weight)}</p>
+
+              <div class="cart-modal-price">
+                ${money(product.price)}
+              </div>
+
+              <span class="cart-modal-quantity">
+                Quantity: ${quantity}
+              </span>
+            </div>
+
+          </div>
+
+          <div class="cart-modal-actions">
+
+            <a
+              href="cart.html"
+              class="btn btn-primary cart-view-btn"
+            >
+              View Cart →
+            </a>
+
+            <button
+              type="button"
+              class="btn btn-ghost cart-continue-btn"
+              id="cart-continue-shopping"
+            >
+              Continue Shopping
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  `;
+
+  const overlay = document.getElementById("cart-modal-overlay");
+  const closeButton = document.getElementById("cart-modal-close");
+  const continueButton = document.getElementById("cart-continue-shopping");
+
+  const closeModal = () => {
+    overlay.classList.add("closing");
+
+    setTimeout(() => {
+      root.innerHTML = "";
+    }, 220);
+  };
+
+  closeButton?.addEventListener("click", closeModal);
+  continueButton?.addEventListener("click", closeModal);
+
+  overlay?.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", function escHandler(e) {
+    if (e.key === "Escape") {
+      closeModal();
+      document.removeEventListener("keydown", escHandler);
+    }
+  });
+}
+function changeCart(id,delta){const cart=getCart();const item=cart.find(x=>x.id===id);if(!item)return;item.quantity+=delta;if(item.quantity<=0){saveCart(cart.filter(x=>x.id!==id));showToast("✓ Product removed")}else saveCart(cart);renderCart();updateCartCount()}
+function removeCart(id){saveCart(getCart().filter(x=>x.id!==id));renderCart();updateCartCount();showToast("✓ Product removed")}
+function cartDetailed(){const products=getProducts();return getCart().map(i=>{const p=products.find(x=>x.id===i.id);return p?{...p,quantity:i.quantity}:null}).filter(Boolean)}
+function cartTotal(){return cartDetailed().reduce((s,i)=>s+i.price*i.quantity,0)}
+
+function renderCart(){
+  const box=document.getElementById("cart-items"),summary=document.getElementById("cart-summary");if(!box||!summary)return;
+  const items=cartDetailed();
+  if(!items.length){box.innerHTML=`<div class="empty-state"><h2>Your cart is waiting.</h2><p>Choose a jar of MADHURAVANA Pure Honey and it will appear here.</p><a class="btn btn-primary" href="shop.html">Shop Honey</a></div>`;summary.innerHTML="";return}
+  box.innerHTML=items.map(i=>`<div class="cart-item"><div class="cart-thumb">${miniJar()}</div><div><h3>${esc(i.name)}</h3><div class="muted">${esc(i.weight)} · ${money(i.price)}</div><div class="cart-controls"><button class="circle-btn" data-minus="${i.id}" aria-label="Decrease quantity">−</button><strong>${i.quantity}</strong><button class="circle-btn" data-plus="${i.id}" aria-label="Increase quantity">+</button><button class="remove-btn" data-remove="${i.id}">Remove</button></div></div><div class="price">${money(i.price*i.quantity)}</div></div>`).join("");
+  const total=cartTotal();
+  summary.innerHTML=`<h3>Order summary</h3>${items.map(i=>`<div class="summary-row"><span>${esc(i.weight)} × ${i.quantity}</span><strong>${money(i.price*i.quantity)}</strong></div>`).join("")}<div class="summary-total"><span>Total</span><span>${money(total)}</span></div><p class="form-note" style="margin-top:18px">Cash on Delivery · WhatsApp order preparation</p><a class="btn btn-primary btn-block" href="checkout.html">Proceed to Checkout</a><button class="btn btn-ghost btn-block" id="empty-cart" style="margin-top:8px">Empty Cart</button>`;
+  box.querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>changeCart(b.dataset.minus,-1));box.querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>changeCart(b.dataset.plus,1));box.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>removeCart(b.dataset.remove));document.getElementById("empty-cart").onclick=()=>{if(confirm("Empty your entire cart?")){saveCart([]);renderCart();updateCartCount();}};
+}
+
+
+function generateOnlineId(){
+  const d=new Date(),date=`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}`;
+  const bytes=window.crypto&&crypto.getRandomValues?crypto.getRandomValues(new Uint8Array(4)):null;
+  const suffix=bytes?Array.from(bytes).map(x=>x.toString(16).padStart(2,"0")).join("").toUpperCase():Math.random().toString(36).slice(2,10).toUpperCase();
+  return `MH${date}${suffix}`;
+}
+function generateOfflineId(){const n=(safeParse("madhuravana_offline_counter",1000)||1000)+1;safeSave("madhuravana_offline_counter",n);return `OFF-MH-${n}`}
+
+
+function renderProduct(){
+  const root=document.getElementById("product-detail");if(!root)return;
+  const id=new URLSearchParams(location.search).get("id");const p=getProducts().find(x=>x.id===id);
+  if(!p){root.innerHTML=`<div class="empty-state"><h2>Product not found.</h2><a class="btn btn-primary" href="shop.html">Back to Shop</a></div>`;return}
+  root.innerHTML=`<div class="product-detail"><div class="detail-visual">${miniJar()}<span class="still-label">${esc(p.weight)}</span></div><div class="detail-copy"><span class="eyebrow">${esc(p.weight)}</span><h1>${esc(p.name)}</h1><div class="price">${money(p.price)}</div><p class="description">${esc(p.description)}</p><div class="availability ${p.inStock?"ok":"no"}">${p.inStock?"✓ In Stock":"× Currently Out of Stock"}</div>${p.inStock?`<div class="qty-control"><button id="qty-minus" aria-label="Decrease quantity">−</button><span id="qty">1</span><button id="qty-plus" aria-label="Increase quantity">+</button></div><div class="product-actions"><button class="btn btn-primary" id="detail-add">Add to Cart</button></div>`:`<p class="form-note">Currently unavailable. Please check back after stock is updated.</p>`}${p.amazonUrl?`<a class="text-link" style="display:inline-block;margin-top:20px" href="${esc(p.amazonUrl)}" target="_blank" rel="noopener">Buy on Amazon ↗</a>`:""}</div></div>`;
+  if(p.inStock){let q=1;document.getElementById("qty-minus").onclick=()=>{q=Math.max(1,q-1);document.getElementById("qty").textContent=q};document.getElementById("qty-plus").onclick=()=>{q=Math.min(20,q+1);document.getElementById("qty").textContent=q};document.getElementById("detail-add").onclick=()=>addToCart(p.id,q)}
+}
+
+let deliveryLocation = "";
+
+function isMapsLink(v){
+  return /google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(v);
+}
+
+function renderCheckout(){
+  const summary=document.getElementById("checkout-summary");if(!summary)return;
+  const form=document.getElementById("checkout-form");
+  const items=cartDetailed();
+  if(!items.length){
+    summary.innerHTML=`<div class="empty-state"><h2>Cart is empty.</h2><a class="btn btn-primary" href="shop.html">Shop Honey</a></div>`;
+    form.style.display="none";return;
+  }
+  summary.innerHTML=`<h3>Order summary</h3>${items.map(i=>`<div class="summary-row"><span>${esc(i.name)} · ${esc(i.weight)} × ${i.quantity}</span><strong>${money(i.price*i.quantity)}</strong></div>`).join("")}<div class="summary-total"><span>Total</span><span>${money(cartTotal())}</span></div>`;
+
+  form.addEventListener("submit",submitCheckout);
+  setupLocation();
+
+  form.elements.phone.addEventListener("input",function(){this.value=this.value.replace(/\D/g,"").slice(0,15)});
+  form.elements.pincode.addEventListener("input",function(){this.value=this.value.replace(/\D/g,"").slice(0,6)});
+}
+
+function setupLocation(){
+  const locBtn=document.getElementById("use-location-btn");
+  const mapsBtn=document.getElementById("maps-btn");
+  const status=document.getElementById("location-status");
+  const mapsBox=document.getElementById("maps-link-input");
+  const mapsUrl=document.getElementById("maps-url");
+  if(!locBtn||!mapsBtn||!status||!mapsBox||!mapsUrl)return;
+
+  const say=(msg,err=false)=>{status.textContent=msg;status.classList.add("show");status.classList.toggle("error",err)};
+
+  locBtn.addEventListener("click",()=>{
+    if(!navigator.geolocation){say("Your browser doesn't support location. Please add a Google Maps link instead.",true);return}
+    locBtn.disabled=true;locBtn.textContent="📍 Finding your location...";
+    navigator.geolocation.getCurrentPosition(
+      pos=>{
+        deliveryLocation=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+        mapsUrl.value="";
+        say("✓ Location captured. It will be sent with your order.");
+        locBtn.disabled=false;locBtn.textContent="✓ Location Added";
+      },
+      ()=>{
+        locBtn.disabled=false;locBtn.textContent="📍 Use My Current Location";
+        say("Couldn't get your location. Allow location access or add a Google Maps link.",true);
+      },
+      {enableHighAccuracy:true,timeout:10000,maximumAge:60000}
+    );
+  });
+
+  mapsBtn.addEventListener("click",()=>{
+    const open=mapsBox.classList.toggle("show");
+    mapsBtn.textContent=open?"✓ Google Maps Link":"🗺️ Add Google Maps Link";
+    if(open)mapsUrl.focus();
+  });
+
+  mapsUrl.addEventListener("input",()=>{
+    const v=mapsUrl.value.trim();
+    if(!v){deliveryLocation="";return}
+    if(isMapsLink(v)){deliveryLocation=v;say("✓ Google Maps location added to your order.")}
+    else{deliveryLocation="";say("Please paste a valid Google Maps link.",true)}
+  });
+}
+
+async function submitCheckout(e){
+  e.preventDefault();
+  const f=e.currentTarget;
+  const data=Object.fromEntries(new FormData(f).entries());
+
+  if(!String(data.name||"").trim())return showToast("Please enter your full name.","warn");
+
+  let phone=String(data.phone||"").replace(/\D/g,"");
+  if(phone.length===12&&phone.startsWith("91"))phone=phone.slice(2);
+  else if(phone.length===11&&phone.startsWith("0"))phone=phone.slice(1);
+  data.pincode=String(data.pincode||"").replace(/\D/g,"");
+
+  if(!/^[0-9]{10}$/.test(phone))return showToast("Please enter a valid 10-digit mobile number.","warn");
+  if(!String(data.address||"").trim()||!String(data.city||"").trim()||!String(data.state||"").trim())
+    return showToast("Please complete the delivery address.","warn");
+  if(!/^[0-9]{6}$/.test(data.pincode))return showToast("Please enter a valid 6-digit pincode.","warn");
+
+  const typed=(document.getElementById("maps-url")?.value||"").trim();
+  if(typed){
+    if(!isMapsLink(typed))return showToast("Please paste a valid Google Maps link.","warn");
+    deliveryLocation=typed;
+  }
+
+  const items=cartDetailed();
+  if(!items.length)return showToast("Your cart is empty.","warn");
+
+  const products=getProducts();
+  for(const i of items){
+    const live=products.find(p=>p.id===i.id);
+    if(!live||!live.inStock)return showToast(`${i.name} (${i.weight}) is currently out of stock.`,"warn");
+  }
+
+  const now=new Date();
+  const order={
+    id:generateOnlineId(),
+    customerName:data.name.trim(),
+    phone,
+    products:items.map(i=>({id:i.id,name:i.name,weight:i.weight,quantity:i.quantity,price:i.price})),
+    total:cartTotal(),
+    paymentMethod:"Cash on Delivery",
+    address:{street:data.address.trim(),city:data.city.trim(),state:data.state.trim(),pincode:data.pincode},
+    location:deliveryLocation||"",
+    orderType:"ONLINE",
+    orderDate:now.toLocaleDateString("en-IN"),
+    orderTime:now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}),
+    status:"Order Placed",
+    createdAt:now.toISOString()
+  };
+
+  const url=whatsappUrl(buildWhatsAppMessage(order));
+  if(url==="#")return showToast("Business WhatsApp number is not configured.","warn");
+
+  const btn=f.querySelector('button[type="submit"]');
+  const label=btn?btn.innerHTML:"";
+  if(btn){btn.disabled=true;btn.classList.add("loading");btn.innerHTML="<span>↗</span> Opening WhatsApp..."}
+
+  /* 1. save locally */
+  const orders=getOnlineOrders();orders.unshift(order);saveOnlineOrders(orders);
+  safeSave(KEYS.lastOrder,{...order,whatsappUrl:url});
+
+  /* 2. cloud backup: best effort, waits max ~3s, never blocks WhatsApp */
+  try{
+    const bridge=window.MADHURAVANA_SUPABASE;
+    if(bridge&&bridge.readyPromise){
+      const ready=await Promise.race([bridge.readyPromise,new Promise(r=>setTimeout(()=>r(false),1500))]);
+      if(ready&&bridge.isConfigured&&bridge.isConfigured()&&bridge.saveOrder){
+        await Promise.race([
+          Promise.resolve(bridge.saveOrder(order)).catch(err=>console.warn("Supabase save failed",err)),
+          new Promise(r=>setTimeout(r,3000))
+        ]);
+      }
+    }
+  }catch(err){console.warn("Supabase save skipped",err)}
+
+  /* 3. clear cart and go straight to WhatsApp (no success page) */
+  saveCart([]);updateCartCount();
+  window.location.href=url;
+
+  setTimeout(()=>{if(btn){btn.disabled=false;btn.classList.remove("loading");btn.innerHTML=label}},4000);
+}
+
+function buildWhatsAppMessage(o){
+  return `NEW MADHURAVANA HONEY ORDER\n\nOrder ID: ${o.id}\n\nCUSTOMER DETAILS\n\nName: ${o.customerName}\nPhone: ${o.phone}\n\nORDER DETAILS\n\n${o.products.map(p=>`${p.name} - ${p.weight}\nQuantity: ${p.quantity}\nPrice: ${money(p.price*p.quantity)}`).join("\n\n")}\n\nTOTAL: ${money(o.total)}\n\nPAYMENT METHOD:\nCash on Delivery\n\nDELIVERY ADDRESS:\n${o.address.street}\n${o.address.city}\n${o.address.state}\n${o.address.pincode}${o.location?`\n\nDELIVERY LOCATION:\n${o.location}`:""}`;
+}
+
+function renderPublicProductViews(){
+  const p=page();
+  if(p==="home")renderHome();
+  if(p==="shop")renderShop();
+  if(p==="product")renderProduct();
+  if(p==="cart")renderCart();
+  if(p==="checkout")renderCheckout();
+}
+function renderHome(){const target=document.getElementById("featured-products");if(target){renderProductGrid("featured-products",getProducts());attachAddButtons()}}
+function renderShop(){const all=getProducts();const sort=document.getElementById("shop-sort");const paint=()=>{let p=[...all];if(sort.value==="low")p.sort((a,b)=>a.price-b.price);if(sort.value==="high")p.sort((a,b)=>b.price-a.price);renderProductGrid("shop-products",p);attachAddButtons();document.getElementById("shop-count").textContent=`${p.length} product${p.length!==1?"s":""}`};sort?.addEventListener("change",paint);paint()}
+
+function renderSuccess(){
+  const data=safeParse(KEYS.lastOrder,null);const params=new URLSearchParams(location.search);const id=params.get("order");const o=data&&data.id===id?data:data;
+  if(!o)return;
+  document.getElementById("success-order-card").innerHTML=`<strong>${esc(o.id)}</strong><div class="summary-row"><span>Customer</span><span>${esc(o.customerName)}</span></div><div class="summary-row"><span>Items</span><span>${o.products.reduce((s,p)=>s+p.quantity,0)}</span></div><div class="summary-total"><span>Total</span><span>${money(o.total)}</span></div>`;
+  const a=document.getElementById("success-whatsapp");a.href=o.whatsappUrl||whatsappUrl(buildWhatsAppMessage(o));
+}
+
+function revealSetup(){const els=document.querySelectorAll(".reveal");if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("visible"));return}const io=new IntersectionObserver(entries=>entries.forEach(x=>x.isIntersecting&&x.target.classList.add("visible")),{threshold:.08});els.forEach(e=>io.observe(e))}
+function keyboardAdmin(){document.addEventListener("keydown",e=>{if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==="a"){e.preventDefault();window.dispatchEvent(new CustomEvent("open-admin-login"))}})}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  getProducts();renderHeader();renderFooter();keyboardAdmin();revealSetup();
+  if(page()==="home")renderHome();
+  if(page()==="shop")renderShop();
+  if(page()==="product")renderProduct();
+  if(page()==="cart")renderCart();
+  if(page()==="checkout")renderCheckout();
+  if(page()==="success")renderSuccess();
+
+  if(window.MADHURAVANA_SUPABASE && window.MADHURAVANA_SUPABASE.readyPromise){
+    window.MADHURAVANA_SUPABASE.readyPromise.then(function(ok){
+      if(ok && window.MADHURAVANA_SUPABASE.pullProducts) window.MADHURAVANA_SUPABASE.pullProducts();
+    });
+  }
+});
+window.MADHURAVANA={BUSINESS_CONFIG,DEFAULT_PRODUCTS,KEYS,getProducts,saveProducts,getCart,saveCart,getOnlineOrders,saveOnlineOrders,getOfflineOrders,saveOfflineOrders,getSettings,saveSettings,money,showToast,whatsappUrl,buildWhatsAppMessage,updateCartCount,renderPublicProductViews};
 /* =========================================================
-   ADDED TO CART MODAL
+   MADHURAVANA — ULTRA PREMIUM INTERACTION ENGINE
+   Visual only. Does not touch cart / checkout / Supabase.
    ========================================================= */
 
-.cart-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+(function () {
+  "use strict";
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  function initPremiumHoneyMotion() {
 
-  padding: 20px;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
 
-  background: rgba(35, 24, 12, 0.58);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+    /* -----------------------------------------
+       GOLD PARTICLES
+    ----------------------------------------- */
 
-  animation: cartOverlayIn 0.25s ease forwards;
-}
+    var hero = document.querySelector(".mh-hero");
 
-.cart-added-modal {
-  position: relative;
+    if (hero) {
 
-  width: min(100%, 500px);
-  max-height: calc(100vh - 40px);
-  overflow-y: auto;
+      var particleLayer = document.createElement("div");
 
-  background:
-    linear-gradient(
-      145deg,
-      #fffdf8 0%,
-      #fff8e9 55%,
-      #f9edcf 100%
+      particleLayer.className = "mh-premium-particles";
+
+      particleLayer.style.cssText =
+        "position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3;";
+
+      hero.appendChild(particleLayer);
+
+      for (var i = 0; i < 22; i++) {
+
+        var particle = document.createElement("span");
+
+        particle.className = "mh-gold-particle";
+
+        particle.style.setProperty(
+          "--ps",
+          (2 + Math.random() * 4) + "px"
+        );
+
+        particle.style.setProperty(
+          "--pd",
+          (7 + Math.random() * 8) + "s"
+        );
+
+        particle.style.setProperty(
+          "--delay",
+          (-Math.random() * 10) + "s"
+        );
+
+        particle.style.setProperty(
+          "--drift",
+          ((Math.random() * 140) - 70) + "px"
+        );
+
+        particle.style.left =
+          (Math.random() * 100) + "%";
+
+        particle.style.bottom =
+          (-10 - Math.random() * 10) + "%";
+
+        particleLayer.appendChild(particle);
+      }
+    }
+
+
+    /* -----------------------------------------
+       CINEMATIC BOTTLE PARALLAX
+    ----------------------------------------- */
+
+    var heroBottle =
+      document.querySelector(".mh-hero-bottle");
+
+    if (heroBottle && hero) {
+
+      var ticking = false;
+
+      function updateBottleParallax() {
+
+        var rect = hero.getBoundingClientRect();
+
+        var viewportCenter =
+          window.innerHeight / 2;
+
+        var heroCenter =
+          rect.top + rect.height / 2;
+
+        var distance =
+          (heroCenter - viewportCenter) / window.innerHeight;
+
+        var move =
+          Math.max(-28, Math.min(28, distance * -34));
+
+        heroBottle.style.setProperty(
+          "--scroll-bottle-y",
+          move + "px"
+        );
+
+        heroBottle.style.transform =
+          "translate3d(0," +
+          move +
+          "px,0)";
+
+        ticking = false;
+      }
+
+      window.addEventListener(
+        "scroll",
+        function () {
+
+          if (!ticking) {
+
+            requestAnimationFrame(
+              updateBottleParallax
+            );
+
+            ticking = true;
+          }
+
+        },
+        { passive: true }
+      );
+
+      updateBottleParallax();
+    }
+
+
+    /* -----------------------------------------
+       MOUSE DEPTH / 3D HERO
+    ----------------------------------------- */
+
+    if (
+      hero &&
+      window.matchMedia("(pointer:fine)").matches
+    ) {
+
+      var bottle =
+        document.querySelector(".mh-hero-bottle");
+
+      hero.addEventListener(
+        "pointermove",
+        function (event) {
+
+          var rect =
+            hero.getBoundingClientRect();
+
+          var x =
+            (event.clientX - rect.left) /
+            rect.width -
+            0.5;
+
+          var y =
+            (event.clientY - rect.top) /
+            rect.height -
+            0.5;
+
+          var rotateY =
+            x * 8;
+
+          var rotateX =
+            y * -6;
+
+          if (bottle) {
+
+            bottle.style.transform =
+              "translate3d(" +
+              (x * 10) +
+              "px," +
+              (y * 8) +
+              "px,0) " +
+              "rotateY(" +
+              rotateY +
+              "deg) " +
+              "rotateX(" +
+              rotateX +
+              "deg)";
+          }
+
+          hero.style.setProperty(
+            "--mouse-x",
+            (x * 20) + "px"
+          );
+
+          hero.style.setProperty(
+            "--mouse-y",
+            (y * 15) + "px"
+          );
+        }
+      );
+
+      hero.addEventListener(
+        "pointerleave",
+        function () {
+
+          if (bottle) {
+
+            bottle.style.transform =
+              "translate3d(0,0,0) " +
+              "rotateY(0deg) " +
+              "rotateX(0deg)";
+          }
+        }
+      );
+    }
+
+
+    /* -----------------------------------------
+       PRODUCT CARD 3D TILT
+    ----------------------------------------- */
+
+    if (
+      window.matchMedia("(pointer:fine)").matches
+    ) {
+
+      document
+        .querySelectorAll(".product-card")
+        .forEach(function (card) {
+
+          card.addEventListener(
+            "pointermove",
+            function (event) {
+
+              var rect =
+                card.getBoundingClientRect();
+
+              var x =
+                (event.clientX - rect.left) /
+                rect.width;
+
+              var y =
+                (event.clientY - rect.top) /
+                rect.height;
+
+              var rotateY =
+                (x - 0.5) * 7;
+
+              var rotateX =
+                (0.5 - y) * 7;
+
+              card.style.setProperty(
+                "--mx",
+                (x * 100) + "%"
+              );
+
+              card.style.setProperty(
+                "--my",
+                (y * 100) + "%"
+              );
+
+              card.style.transform =
+                "perspective(900px) " +
+                "rotateX(" +
+                rotateX +
+                "deg) " +
+                "rotateY(" +
+                rotateY +
+                "deg) " +
+                "translateY(-8px)";
+            }
+          );
+
+          card.addEventListener(
+            "pointerleave",
+            function () {
+
+              card.style.transform = "";
+
+            }
+          );
+
+        });
+    }
+
+
+    /* -----------------------------------------
+       MAGNETIC BUTTONS
+    ----------------------------------------- */
+
+    if (
+      window.matchMedia("(pointer:fine)").matches
+    ) {
+
+      document
+        .querySelectorAll(".mh-btn, .reserve-link")
+        .forEach(function (button) {
+
+          button.addEventListener(
+            "pointermove",
+            function (event) {
+
+              var rect =
+                button.getBoundingClientRect();
+
+              var x =
+                event.clientX -
+                (rect.left + rect.width / 2);
+
+              var y =
+                event.clientY -
+                (rect.top + rect.height / 2);
+
+              button.style.transform =
+                "translate(" +
+                (x * 0.08) +
+                "px," +
+                (y * 0.08) +
+                "px)";
+            }
+          );
+
+          button.addEventListener(
+            "pointerleave",
+            function () {
+
+              button.style.transform = "";
+
+            }
+          );
+
+        });
+    }
+
+
+    /* -----------------------------------------
+       GOLDEN SECTION BOTTLE SCROLL SCALE
+    ----------------------------------------- */
+
+    var goldenBottle =
+      document.querySelector(".mh-golden-bottle");
+
+    var goldenSection =
+      document.querySelector(".mh-golden");
+
+    if (goldenBottle && goldenSection) {
+
+      function goldenMotion() {
+
+        var rect =
+          goldenSection.getBoundingClientRect();
+
+        var progress =
+          1 -
+          (
+            rect.top /
+            (window.innerHeight + rect.height)
+          );
+
+        progress =
+          Math.max(
+            0,
+            Math.min(1, progress)
+          );
+
+        var scale =
+          0.94 +
+          progress * 0.08;
+
+        var rotate =
+          (progress - 0.5) * 3;
+
+        goldenBottle.style.transform =
+          "translateY(" +
+          ((progress - 0.5) * -24) +
+          "px) " +
+          "scale(" +
+          scale +
+          ") " +
+          "rotateZ(" +
+          rotate +
+          "deg)";
+      }
+
+      window.addEventListener(
+        "scroll",
+        goldenMotion,
+        { passive: true }
+      );
+
+      goldenMotion();
+    }
+
+
+    /* -----------------------------------------
+       IMAGE SHINE EFFECT
+    ----------------------------------------- */
+
+    document
+      .querySelectorAll(".premium-honey-bottle")
+      .forEach(function (bottle) {
+
+        bottle.addEventListener(
+          "mouseenter",
+          function () {
+
+            bottle.style.filter =
+              "brightness(1.08) " +
+              "saturate(1.08) " +
+              "drop-shadow(0 35px 50px rgba(71,39,4,.35))";
+          }
+        );
+
+        bottle.addEventListener(
+          "mouseleave",
+          function () {
+
+            bottle.style.filter = "";
+
+          }
+        );
+
+      });
+
+  }
+
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initPremiumHoneyMotion
     );
 
-  border: 1px solid rgba(180, 128, 38, 0.22);
-  border-radius: 28px;
+  } else {
 
-  padding: 38px 32px 32px;
+    initPremiumHoneyMotion();
 
-  box-shadow:
-    0 30px 80px rgba(43, 27, 10, 0.28),
-    0 8px 30px rgba(43, 27, 10, 0.12);
-
-  animation: cartModalIn 0.35s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-.cart-modal-overlay.closing {
-  animation: cartOverlayOut 0.22s ease forwards;
-}
-
-.cart-modal-overlay.closing .cart-added-modal {
-  animation: cartModalOut 0.22s ease forwards;
-}
-
-.cart-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 18px;
-
-  width: 38px;
-  height: 38px;
-
-  border: 0;
-  border-radius: 50%;
-
-  background: rgba(77, 49, 20, 0.07);
-  color: #4b321b;
-
-  font-size: 25px;
-  line-height: 1;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease;
-}
-
-.cart-modal-close:hover {
-  transform: rotate(90deg);
-  background: rgba(77, 49, 20, 0.13);
-}
-
-.cart-success-icon {
-  width: 68px;
-  height: 68px;
-
-  margin: 0 auto 18px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: linear-gradient(135deg, #d49a2a, #a96d12);
-  color: #fff;
-
-  font-size: 31px;
-  font-weight: 700;
-
-  box-shadow:
-    0 10px 30px rgba(169, 109, 18, 0.28);
-
-  animation: cartCheckPop 0.45s cubic-bezier(.2,.8,.2,1) 0.1s both;
-}
-
-.cart-modal-content {
-  text-align: center;
-}
-
-.cart-modal-content .eyebrow {
-  display: block;
-  margin-bottom: 7px;
-}
-
-.cart-modal-content h2 {
-  margin: 0 0 24px;
-  color: #3f2a17;
-  font-size: clamp(24px, 5vw, 32px);
-  line-height: 1.15;
-}
-
-.cart-modal-product {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-
-  padding: 18px;
-
-  text-align: left;
-
-  border: 1px solid rgba(180, 128, 38, 0.16);
-  border-radius: 20px;
-
-  background: rgba(255, 255, 255, 0.58);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-.cart-modal-jar {
-  flex: 0 0 82px;
-
-  width: 82px;
-  height: 100px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  border-radius: 16px;
-
-  background: linear-gradient(
-    145deg,
-    #fff8df,
-    #f4dfaa
-  );
-}
-
-.cart-modal-jar .mini-jar {
-  transform: scale(0.82);
-}
-
-.cart-modal-product-info {
-  min-width: 0;
-}
-
-.cart-modal-product-info h3 {
-  margin: 0 0 5px;
-
-  color: #3f2a17;
-
-  font-size: 17px;
-  line-height: 1.3;
-}
-
-.cart-modal-product-info p {
-  margin: 0 0 7px;
-
-  color: #806b51;
-
-  font-size: 14px;
-}
-
-.cart-modal-price {
-  color: #a96d12;
-  font-size: 19px;
-  font-weight: 700;
-}
-
-.cart-modal-quantity {
-  display: inline-block;
-
-  margin-top: 5px;
-
-  color: #75624b;
-  font-size: 13px;
-}
-
-.cart-modal-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  gap: 11px;
-
-  margin-top: 24px;
-}
-
-.cart-modal-actions .btn {
-  width: 100%;
-  justify-content: center;
-}
-
-@keyframes cartOverlayIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes cartModalIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px) scale(0.94);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes cartCheckPop {
-  from {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-
-  70% {
-    transform: scale(1.12);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes cartOverlayOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes cartModalOut {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(15px) scale(0.96);
-  }
-}
-
-
-/* Mobile */
-@media (max-width: 600px) {
-
-  .cart-modal-overlay {
-    padding: 14px;
-    align-items: center;
-  }
-
-  .cart-added-modal {
-    width: 100%;
-    border-radius: 24px;
-    padding: 32px 20px 22px;
-  }
-
-  .cart-success-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 27px;
-  }
-
-  .cart-modal-content h2 {
-    font-size: 25px;
-    margin-bottom: 20px;
-  }
-
-  .cart-modal-product {
-    gap: 13px;
-    padding: 14px;
-  }
-
-  .cart-modal-jar {
-    flex-basis: 70px;
-    width: 70px;
-    height: 88px;
-  }
-
-  .cart-modal-jar .mini-jar {
-    transform: scale(0.7);
-  }
-
-  .cart-modal-product-info h3 {
-    font-size: 15px;
-  }
-
-  .cart-modal-actions {
-    grid-template-columns: 1fr;
-    gap: 9px;
-  }
-
-  .cart-view-btn {
-    order: 1;
-  }
-
-  .cart-continue-btn {
-    order: 2;
-  }
-}
-
-/* =========================================================
-   EXTRA MOBILE RESPONSIVENESS — FINAL POLISH
-   Keeps desktop/tablet styles intact and improves phones.
-   ========================================================= */
-
-/* Prevent accidental horizontal overflow */
-html,
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-}
-
-img,
-svg,
-video,
-canvas {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Touch-friendly controls */
-button,
-.btn,
-select,
-input,
-textarea {
-  -webkit-tap-highlight-color: transparent;
-}
-
-@media (max-width: 900px) {
-  .container {
-    width: min(100% - 32px, var(--container));
-  }
-
-  .section {
-    padding: 78px 0;
-  }
-
-  .hero-grid,
-  .story-grid,
-  .product-detail,
-  .cart-layout,
-  .checkout-layout {
-    gap: 36px;
-  }
-
-  .hero-copy {
-    width: 100%;
-  }
-
-  .hero-copy h1 {
-    font-size: clamp(2.8rem, 10vw, 4.8rem);
-  }
-
-  .hero-text {
-    font-size: 1rem;
-  }
-
-  .hero-actions {
-    width: 100%;
-  }
-
-  .hero-actions .btn {
-    min-height: 48px;
-  }
-
-  .hero-art {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .feature-card,
-  .product-card {
-    min-width: 0;
-  }
-
-  .product-content {
-    min-width: 0;
-  }
-
-  .product-content h3 {
-    overflow-wrap: anywhere;
-  }
-
-  .contact-band-inner {
-    width: 100%;
-  }
-
-  .detail-copy {
-    min-width: 0;
-  }
-
-  .form-card,
-  .summary-card {
-    width: 100%;
-  }
-
-  /* Make admin content scroll safely without pushing the page wider */
-  .admin-main {
-    min-width: 0;
-    width: 100%;
-  }
-}
-
-@media (max-width: 620px) {
-  :root {
-    --radius: 18px;
-  }
-
-  .container {
-    width: calc(100% - 24px);
-  }
-
-  /* Header */
-  .site-header {
-    position: sticky;
-    top: 0;
-  }
-
-  .nav {
-    height: 64px;
-    gap: 10px;
-  }
-
-  .brand {
-    font-size: .96rem;
-    line-height: 1.1;
-  }
-
-  .brand small {
-    font-size: .46rem;
-    letter-spacing: .16em;
-  }
-
-  .menu-btn {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    flex: 0 0 44px;
-  }
-
-  .nav-links.open {
-    top: 64px;
-    padding: 14px 12px 18px;
-    gap: 2px;
-    box-shadow: 0 18px 35px rgba(48,31,19,.10);
-  }
-
-  .nav-links.open a,
-  .nav-links.open .cart-link {
-    width: 100%;
-    padding: 12px 10px;
-    border-radius: 10px;
-  }
-
-  .nav-links.open a:hover {
-    background: var(--cream);
-  }
-
-  .nav-links a:after {
-    display: none;
-  }
-
-  /* Typography */
-  h1 {
-    font-size: clamp(2.45rem, 13vw, 4rem);
-    letter-spacing: -.045em;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 9vw, 3rem);
-  }
-
-  h3 {
-    font-size: 1.35rem;
-  }
-
-  p {
-    font-size: .94rem;
-  }
-
-  .section {
-    padding: 62px 0;
-  }
-
-  .page-hero {
-    padding: 75px 0 48px;
-  }
-
-  .page-hero.small {
-    padding: 65px 0 42px;
-  }
-
-  /* Hero */
-  .hero {
-    padding: 42px 0 62px;
-  }
-
-  .hero-grid {
-    gap: 12px;
-  }
-
-  .hero-copy {
-    text-align: center;
-  }
-
-  .hero-copy h1 {
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-text {
-    max-width: 560px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: .96rem;
-  }
-
-  .hero-actions {
-    justify-content: center;
-    margin: 24px 0;
-    gap: 9px;
-  }
-
-  .hero-actions .btn {
-    flex: 1 1 145px;
-    min-width: 0;
-    padding: 13px 15px;
-  }
-
-  .hero-trust {
-    justify-content: center;
-    gap: 8px 14px;
-    font-size: .72rem;
-  }
-
-  .hero-art {
-    min-height: 315px;
-    height: 315px;
-    margin-top: -4px;
-  }
-
-  .hero-glow {
-    width: 245px;
-    height: 245px;
-  }
-
-  .honey-orbit {
-    max-width: 88vw;
-  }
-
-  .orbit-one {
-    width: 285px;
-    height: 112px;
-  }
-
-  .orbit-two {
-    width: 245px;
-    height: 95px;
-  }
-
-  .hero-jar {
-    width: 220px;
-    height: 280px;
-    transform: scale(.72);
-    transform-origin: center;
-  }
-
-  .note-one,
-  .note-two {
-    font-size: .72rem;
-    padding: 10px 11px;
-    max-width: 125px;
-  }
-
-  .note-one {
-    right: 2px;
-    top: 28px;
-  }
-
-  .note-two {
-    left: 2px;
-    bottom: 20px;
-  }
-
-  /* Section headings */
-  .section-heading {
-    margin-bottom: 25px;
-  }
-
-  .section-heading h2 {
-    max-width: 100%;
-  }
-
-  .text-link {
-    font-size: .8rem;
-  }
-
-  /* Features */
-  .feature-grid {
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .feature-card {
-    padding: 22px 18px;
-    border-radius: 18px;
-  }
-
-  .feature-icon {
-    margin-bottom: 18px;
-  }
-
-  /* Product cards */
-  .product-grid,
-  .product-grid-wide {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .product-card {
-    border-radius: 18px;
-  }
-
-  .product-visual {
-    height: 245px;
-  }
-
-  .product-content {
-    padding: 18px;
-  }
-
-  .product-content h3 {
-    font-size: 1.3rem;
-  }
-
-  .product-meta {
-    align-items: flex-start;
-  }
-
-  .product-actions {
-    gap: 8px;
-  }
-
-  .product-actions .btn {
-    min-height: 44px;
-    padding: 10px 8px;
-    font-size: .78rem;
-  }
-
-  /* Story */
-  .story-grid {
-    gap: 30px;
-  }
-
-  .story-card {
-    height: 330px;
-    border-radius: 24px;
-  }
-
-  .story-card:before {
-    width: 330px;
-    height: 330px;
-  }
-
-  .story-honey-drop {
-    width: 130px;
-    height: 175px;
-  }
-
-  .story-stamp {
-    top: 20px;
-    left: 20px;
-  }
-
-  .story-card p {
-    left: 20px;
-    right: 20px;
-    bottom: 18px;
-    font-size: .92rem;
-  }
-
-  /* Contact */
-  .contact-band {
-    padding-top: 20px;
-  }
-
-  .contact-band-inner {
-    padding: 28px 20px;
-    border-radius: 22px;
-    gap: 20px;
-  }
-
-  .contact-band h2 {
-    font-size: 1.9rem;
-  }
-
-  .contact-actions {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .contact-actions .btn {
-    width: 100%;
-  }
-
-  /* Footer */
-  .footer-grid {
-    gap: 28px;
-  }
-
-  .site-footer {
-    padding: 55px 0 22px;
-  }
-
-  .footer-bottom {
-    margin-top: 30px;
-    gap: 10px;
-    flex-direction: column;
-  }
-
-  /* Shop */
-  .shop-toolbar {
-    gap: 12px;
-    margin-bottom: 22px;
-  }
-
-  .shop-toolbar select {
-    width: 100%;
-    min-height: 46px;
-  }
-
-  /* Product detail */
-  .product-detail-section {
-    padding-top: 42px;
-  }
-
-  .product-detail {
-    gap: 30px;
-  }
-
-  .detail-visual {
-    height: 390px;
-    border-radius: 24px;
-  }
-
-  .detail-visual .mini-jar {
-    transform: scale(1.18);
-  }
-
-  .detail-copy .price {
-    font-size: 1.35rem;
-    margin: 15px 0;
-  }
-
-  .qty-control {
-    margin: 10px 0;
-  }
-
-  .qty-control button {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* Cart */
-  .cart-layout,
-  .checkout-layout {
-    gap: 22px;
-  }
-
-  .cart-item {
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 12px;
-    padding: 16px 0;
-  }
-
-  .cart-thumb {
-    width: 64px;
-    height: 64px;
-    border-radius: 14px;
-  }
-
-  .cart-thumb .mini-jar {
-    transform: scale(.45);
-  }
-
-  .cart-item h3 {
-    font-size: 1rem;
-    line-height: 1.25;
-  }
-
-  .cart-item > .price {
-    grid-column: 2;
-    font-size: .95rem;
-  }
-
-  .cart-controls {
-    gap: 7px;
-    flex-wrap: wrap;
-  }
-
-  .circle-btn {
-    width: 34px;
-    height: 34px;
-  }
-
-  .summary-card,
-  .form-card {
-    padding: 20px 17px;
-    border-radius: 18px;
-  }
-
-  .summary-card h3 {
-    font-size: 1.25rem;
-  }
-
-  /* Checkout form */
-  .form-grid {
-    gap: 13px;
-  }
-
-  .form-grid input {
-    min-height: 46px;
-    padding: 12px;
-  }
-
-  .payment-box {
-    padding: 14px;
-    margin: 20px 0;
-  }
-
-  /* Success */
-  .success-section {
-    padding-top: 70px;
-  }
-
-  .success-card {
-    margin: 25px auto;
-    padding: 18px;
-  }
-
-  /* Toast */
-  .toast-root {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-  }
-
-  .toast {
-    max-width: none;
-    width: 100%;
-  }
-
-  /* Generic modal */
-  .modal-backdrop {
-    padding: 12px;
-  }
-
-  .modal {
-    max-height: calc(100dvh - 24px);
-    overflow-y: auto;
-    border-radius: 20px;
-    padding: 23px 17px 20px;
-  }
-
-  /* Added-to-cart modal */
-  .cart-modal-overlay {
-    padding: 10px;
-  }
-
-  .cart-added-modal {
-    max-height: calc(100dvh - 20px);
-    padding: 28px 16px 18px;
-    border-radius: 21px;
-  }
-
-  .cart-modal-product {
-    align-items: flex-start;
-    gap: 11px;
-    padding: 12px;
-  }
-
-  .cart-modal-product-info {
-    flex: 1;
-  }
-
-  .cart-modal-actions {
-    margin-top: 18px;
-  }
-
-  /* Admin */
-  .admin-shell {
-    width: 100%;
-    min-height: 100dvh;
-  }
-
-  .admin-main {
-    padding: 14px 10px;
-  }
-
-  .admin-top {
-    gap: 12px;
-    margin-bottom: 18px;
-    align-items: flex-start;
-  }
-
-  .admin-top h1 {
-    font-size: 1.65rem;
-  }
-
-  .admin-grid {
-    gap: 9px;
-  }
-
-  .stat-card {
-    padding: 13px 11px;
-    border-radius: 13px;
-  }
-
-  .stat-card span {
-    font-size: .6rem;
-  }
-
-  .stat-card strong {
-    font-size: 1.25rem;
-  }
-
-  .admin-section {
-    margin-top: 18px;
-    padding: 15px;
-    border-radius: 15px;
-    overflow-x: auto;
-  }
-
-  .admin-section h2 {
-    font-size: 1.35rem;
-  }
-
-  .admin-toolbar {
-    flex-direction: column;
-  }
-
-  .admin-toolbar input,
-  .admin-toolbar select,
-  .admin-toolbar .btn {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .admin-form {
-    gap: 11px;
-  }
-
-  .admin-form .full {
-    grid-column: auto;
-  }
-
-  /* Keep tables readable on small screens */
-  .admin-table {
-    min-width: 720px;
-  }
-
-  /* Better touch targets */
-  .mini-btn {
-    min-height: 38px;
-  }
-}
-
-/* Very small phones */
-@media (max-width: 380px) {
-  .container {
-    width: calc(100% - 20px);
-  }
-
-  .hero {
-    padding-top: 34px;
-  }
-
-  .hero-copy h1 {
-    font-size: 2.35rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-    flex-basis: auto;
-  }
-
-  .hero-art {
-    min-height: 285px;
-    height: 285px;
-  }
-
-  .hero-jar {
-    transform: scale(.62);
-  }
-
-  .note-one,
-  .note-two {
-    font-size: .65rem;
-    max-width: 108px;
-    padding: 8px 9px;
-  }
-
-  .orbit-one {
-    width: 250px;
-  }
-
-  .orbit-two {
-    width: 215px;
-  }
-
-  .product-visual {
-    height: 220px;
-  }
-
-  .contact-band-inner {
-    padding: 24px 16px;
-  }
-
-  .admin-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cart-modal-product {
-    padding: 10px;
-  }
-
-  .cart-modal-jar {
-    flex-basis: 62px;
-    width: 62px;
-    height: 78px;
-  }
-
-  .cart-modal-jar .mini-jar {
-    transform: scale(.6);
-  }
-}
-
-/* Respect devices with a bottom safe-area */
-@supports (padding: max(0px)) {
-  .site-footer {
-    padding-bottom: max(22px, env(safe-area-inset-bottom));
-  }
-
-  .toast-root {
-    bottom: max(12px, env(safe-area-inset-bottom));
-  }
-}
-/* =========================================================
-   MADHURAVANA — ULTRA PREMIUM HONEY MOTION
-   Visual enhancement only — no layout/functionality changes
-   ========================================================= */
-
-:root {
-  --mh-gold: #e8a317;
-  --mh-gold-light: #ffe8a3;
-  --mh-honey-glow: rgba(232, 163, 23, .45);
-}
-
-/* -------------------------------
-   PREMIUM BOTTLE BASE
--------------------------------- */
-
-.premium-honey-bottle {
-  position: relative;
-  z-index: 8;
-  transform-style: preserve-3d;
-  will-change: transform, filter;
-  transition:
-    filter 1s cubic-bezier(.16,1,.3,1),
-    transform 1s cubic-bezier(.16,1,.3,1);
-}
-
-/* Hero bottle cinematic entrance */
-.mh-hero-bottle {
-  animation:
-    mhBottleReveal 1.8s cubic-bezier(.16,1,.3,1) .35s both,
-    mhBottleFloat 6s ease-in-out 2s infinite;
-}
-
-/* Golden section bottle */
-.mh-golden-bottle {
-  animation:
-    mhGoldenBottleReveal 1.5s cubic-bezier(.16,1,.3,1) both,
-    mhBottleFloat 7s ease-in-out 1.5s infinite;
-}
-
-
-/* -------------------------------
-   BOTTLE FLOAT
--------------------------------- */
-
-@keyframes mhBottleFloat {
-
-  0%,
-  100% {
-    transform:
-      translate3d(0, 0, 0)
-      rotateZ(0deg)
-      rotateY(0deg);
-  }
-
-  25% {
-    transform:
-      translate3d(0, -12px, 0)
-      rotateZ(-.7deg)
-      rotateY(-2deg);
-  }
-
-  50% {
-    transform:
-      translate3d(0, -20px, 0)
-      rotateZ(0deg)
-      rotateY(2deg);
-  }
-
-  75% {
-    transform:
-      translate3d(0, -10px, 0)
-      rotateZ(.7deg)
-      rotateY(-1deg);
-  }
-}
-
-
-/* -------------------------------
-   ENTRANCE
--------------------------------- */
-
-@keyframes mhBottleReveal {
-
-  0% {
-    opacity: 0;
-    transform:
-      translate3d(80px, 80px, 0)
-      scale(.72)
-      rotateZ(-8deg);
-    filter:
-      blur(14px)
-      brightness(.65)
-      drop-shadow(0 0 0 transparent);
-  }
-
-  55% {
-    opacity: 1;
-    filter:
-      blur(0)
-      brightness(1.15)
-      drop-shadow(0 30px 55px rgba(0,0,0,.28));
-  }
-
-  100% {
-    opacity: 1;
-    transform:
-      translate3d(0, 0, 0)
-      scale(1)
-      rotateZ(0);
-    filter:
-      blur(0)
-      brightness(1)
-      drop-shadow(0 30px 45px rgba(65,35,5,.32));
-  }
-}
-
-@keyframes mhGoldenBottleReveal {
-
-  0% {
-    opacity: 0;
-    transform:
-      translateY(80px)
-      scale(.82)
-      rotateZ(-5deg);
-    filter: blur(10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1)
-      rotateZ(0);
-    filter: blur(0);
-  }
-}
-
-
-/* -------------------------------
-   CINEMATIC GOLDEN LIGHT
--------------------------------- */
-
-.mh-hero-product::before {
-  content: "";
-  position: absolute;
-  width: 330px;
-  height: 330px;
-  left: 50%;
-  top: 42%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,244,190,.55) 0%,
-      rgba(255,196,65,.25) 30%,
-      rgba(232,163,23,.10) 48%,
-      transparent 72%
-    );
-
-  filter: blur(12px);
-  pointer-events: none;
-  z-index: 1;
-
-  animation:
-    mhAuraPulse 4.5s ease-in-out infinite;
-}
-
-@keyframes mhAuraPulse {
-
-  0%,
-  100% {
-    opacity: .65;
-    transform: translate(-50%, -50%) scale(.92);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.12);
-  }
-}
-
-
-/* -------------------------------
-   MOVING LIGHT AROUND BOTTLE
--------------------------------- */
-
-.mh-hero-product::after {
-  content: "";
-  position: absolute;
-
-  width: 430px;
-  height: 430px;
-
-  left: 50%;
-  top: 48%;
-
-  transform: translate(-50%, -50%);
-
-  border-radius: 50%;
-
-  border: 1px solid rgba(255,222,133,.25);
-
-  box-shadow:
-    0 0 45px rgba(232,163,23,.12),
-    inset 0 0 45px rgba(255,222,133,.08);
-
-  animation: mhOrbitGlow 12s linear infinite;
-
-  pointer-events: none;
-  z-index: 2;
-}
-
-@keyframes mhOrbitGlow {
-
-  0% {
-    transform:
-      translate(-50%, -50%)
-      rotate(0deg)
-      scale(.96);
-  }
-
-  50% {
-    transform:
-      translate(-50%, -50%)
-      rotate(180deg)
-      scale(1.05);
-  }
-
-  100% {
-    transform:
-      translate(-50%, -50%)
-      rotate(360deg)
-      scale(.96);
-  }
-}
-
-
-/* -------------------------------
-   HERO PRODUCT GLOW
--------------------------------- */
-
-.mh-product-glow {
-  animation:
-    mhGlowBreath 5s ease-in-out infinite;
-}
-
-@keyframes mhGlowBreath {
-
-  0%,
-  100% {
-    opacity: .65;
-    transform: scale(.92);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-}
-
-
-/* -------------------------------
-   WOOD PLINTH LIGHT
--------------------------------- */
-
-.mh-wood-plinth {
-  animation:
-    mhPlinthPulse 4s ease-in-out infinite;
-}
-
-@keyframes mhPlinthPulse {
-
-  0%,
-  100% {
-    box-shadow:
-      0 22px 25px rgba(72,40,8,.25),
-      0 0 0 rgba(232,163,23,0);
-  }
-
-  50% {
-    box-shadow:
-      0 30px 35px rgba(72,40,8,.3),
-      0 0 35px rgba(232,163,23,.18);
-  }
-}
-
-
-/* -------------------------------
-   GOLDEN ESSENTIALS BOTTLE
--------------------------------- */
-
-.mh-golden-product {
-  perspective: 1000px;
-}
-
-.mh-golden-product::before {
-  content: "";
-
-  position: absolute;
-
-  width: 80%;
-  height: 80%;
-
-  left: 10%;
-  top: 10%;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,213,104,.38),
-      rgba(232,163,23,.12) 45%,
-      transparent 70%
-    );
-
-  filter: blur(18px);
-
-  animation: mhGoldenAura 5s ease-in-out infinite;
-
-  pointer-events: none;
-}
-
-@keyframes mhGoldenAura {
-
-  0%,
-  100% {
-    transform: scale(.9);
-    opacity: .55;
-  }
-
-  50% {
-    transform: scale(1.12);
-    opacity: .95;
-  }
-}
-
-
-/* -------------------------------
-   BOTTLE HOVER
--------------------------------- */
-
-@media (pointer:fine) {
-
-  .premium-honey-bottle:hover {
-
-    filter:
-      brightness(1.08)
-      saturate(1.08)
-      drop-shadow(0 35px 50px rgba(71,39,4,.35));
-
-  }
-
-}
-
-
-/* -------------------------------
-   GOLDEN SHIMMER OVER BOTTLE
--------------------------------- */
-
-.mh-hero-product .premium-honey-bottle,
-.mh-golden-product .premium-honey-bottle {
-  isolation: isolate;
-}
-
-.mh-hero-product .premium-honey-bottle::after,
-.mh-golden-product .premium-honey-bottle::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      115deg,
-      transparent 25%,
-      rgba(255,255,255,.28) 42%,
-      rgba(255,244,188,.55) 50%,
-      rgba(255,255,255,.18) 58%,
-      transparent 75%
-    );
-
-  transform:
-    translateX(-130%)
-    skewX(-18deg);
-
-  pointer-events: none;
-}
-
-
-/* -------------------------------
-   HERO COPY DEPTH
--------------------------------- */
-
-.mh-hero-copy {
-  will-change: transform;
-}
-
-.mh-eyebrow {
-  transition:
-    letter-spacing .8s cubic-bezier(.16,1,.3,1),
-    opacity .5s ease;
-}
-
-.mh-hero:hover .mh-eyebrow {
-  letter-spacing: .24em;
-}
-
-
-/* -------------------------------
-   PREMIUM BUTTON MAGNET FEEL
--------------------------------- */
-
-.mh-btn {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.mh-btn::before {
-  content: "";
-
-  position: absolute;
-  inset: -100%;
-
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(255,255,255,.3),
-      transparent 35%
-    );
-
-  transform: translate(-100%, -100%);
-  transition: transform .8s cubic-bezier(.16,1,.3,1);
-
-  pointer-events: none;
-}
-
-.mh-btn:hover::before {
-  transform: translate(0,0);
-}
-
-
-/* -------------------------------
-   PRODUCT CARD PREMIUM DEPTH
--------------------------------- */
-
-.product-card {
-  position: relative;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.product-card::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at var(--mx,50%) var(--my,50%),
-      rgba(255,213,110,.25),
-      transparent 38%
-    );
-
-  opacity: 0;
-  transition: opacity .5s ease;
-
-  pointer-events: none;
-  z-index: 3;
-}
-
-.product-card:hover::before {
-  opacity: 1;
-}
-
-
-/* -------------------------------
-   SECTION REVEAL DEPTH
--------------------------------- */
-
-.mh-golden,
-.mh-ritual,
-.mh-shop,
-.mh-how {
-  position: relative;
-}
-
-.mh-golden::after,
-.mh-shop::after,
-.mh-how::after {
-  content: "";
-
-  position: absolute;
-
-  width: 40vw;
-  height: 40vw;
-
-  max-width: 550px;
-  max-height: 550px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(232,163,23,.08),
-      transparent 70%
-    );
-
-  pointer-events: none;
-
-  opacity: .65;
-}
-
-
-/* -------------------------------
-   FLOATING GOLD PARTICLES
--------------------------------- */
-
-.mh-gold-particle {
-  position: absolute;
-
-  width: var(--ps);
-  height: var(--ps);
-
-  border-radius: 50%;
-
-  background: #ffe4a0;
-
-  box-shadow:
-    0 0 8px rgba(255,218,130,.8),
-    0 0 18px rgba(232,163,23,.35);
-
-  pointer-events: none;
-
-  opacity: 0;
-
-  animation:
-    mhParticleRise var(--pd) linear var(--delay) infinite;
-}
-
-@keyframes mhParticleRise {
-
-  0% {
-    opacity: 0;
-    transform:
-      translate3d(0,20px,0)
-      scale(.4);
-  }
-
-  15% {
-    opacity: .8;
-  }
-
-  70% {
-    opacity: .45;
-  }
-
-  100% {
-    opacity: 0;
-    transform:
-      translate3d(var(--drift),-75vh,0)
-      scale(1);
-  }
-}
-
-
-/* -------------------------------
-   REDUCED MOTION
--------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .premium-honey-bottle,
-  .mh-product-glow,
-  .mh-wood-plinth,
-  .mh-hero-product::before,
-  .mh-hero-product::after,
-  .mh-golden-product::before,
-  .mh-gold-particle {
-    animation: none !important;
-    transition: none !important;
   }
 
-}
+})();
