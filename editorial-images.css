@@ -1,0 +1,44 @@
+
+/* MADHURAVANA editorial image placements — additive only */
+.mh-photo-float,.mh-how-photo,.mh-editorial-image{margin:0;position:relative;overflow:hidden;border:1px solid rgba(244,207,132,.35);background:#21160d;box-shadow:0 24px 70px rgba(22,12,5,.28)}
+.mh-photo-float img,.mh-how-photo img,.mh-editorial-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s}
+.mh-photo-float:hover img,.mh-how-photo:hover img,.mh-editorial-image:hover img{transform:scale(1.045);filter:saturate(1.08)}
+.mh-photo-float figcaption,.mh-how-photo figcaption,.mh-editorial-image figcaption{position:absolute;left:0;right:0;bottom:0;padding:25px 16px 13px;color:#fff7e5;font:500 .9rem Fraunces,Georgia,serif;letter-spacing:.04em;background:linear-gradient(transparent,rgba(12,7,3,.78))}
+.mh-photo-float-hero{position:absolute;z-index:5;right:-1%;bottom:14%;width:clamp(125px,15vw,205px);height:clamp(170px,22vw,285px);border-radius:110px 110px 16px 16px;transform:rotate(5deg);border-color:rgba(242,193,87,.55)}
+.mh-photo-float-hero img{object-position:50% 50%}
+.mh-photo-golden{position:absolute;z-index:4;right:-5%;bottom:3%;width:clamp(115px,13vw,175px);height:clamp(155px,19vw,245px);border-radius:100px 100px 12px 12px;transform:rotate(-7deg);box-shadow:0 22px 55px rgba(45,24,8,.3)}
+.mh-photo-golden figcaption{font-size:.78rem;padding-left:10px;padding-right:10px}
+.mh-ritual-photo{background-image:linear-gradient(90deg,rgba(13,35,18,.32),rgba(20,43,22,.06)),url('images/editorial-botanical-honey.jpg')!important;background-position:center 52%;background-size:cover!important}
+.mh-how-photo{grid-column:1/-1;width:min(100%,540px);height:220px;border-radius:18px;margin-top:24px;justify-self:end}
+.mh-how-photo img{object-position:center 55%}
+.mh-editorial-band{padding:clamp(70px,9vw,125px) 0;background:#17160f;color:#fff5df;overflow:hidden;position:relative}
+.mh-editorial-band:before{content:"";position:absolute;width:500px;height:500px;right:-150px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(190,126,26,.2),transparent 70%);pointer-events:none}
+.mh-editorial-inner{position:relative;display:grid;grid-template-columns:.9fr 1fr;align-items:center;gap:clamp(35px,7vw,100px)}
+.mh-editorial-copy h2{font:600 clamp(2.8rem,5.3vw,5.5rem)/.96 Fraunces,Georgia,serif;letter-spacing:-.045em;color:#fff5df;margin:18px 0 24px;max-width:600px}
+.mh-editorial-copy p{max-width:440px;color:rgba(255,245,223,.72);font-size:1.06rem;margin-bottom:28px}
+.mh-editorial-image{height:clamp(330px,42vw,560px);border-radius:180px 180px 18px 18px;transform:rotate(1deg);border-color:rgba(224,176,83,.32)}
+.mh-editorial-image img{object-position:center 55%}
+.mh-editorial-image figcaption{font-size:1rem;padding:35px 25px 20px}
+@media(max-width:760px){.mh-photo-float-hero{right:0;bottom:7%;width:112px;height:155px;border-radius:65px 65px 10px 10px}.mh-photo-golden{right:-1%;bottom:0;width:105px;height:145px}.mh-photo-float figcaption{font-size:.68rem;padding:20px 8px 9px}.mh-how-photo{height:190px;width:100%;margin-top:14px}.mh-editorial-inner{grid-template-columns:1fr;gap:32px}.mh-editorial-copy h2{font-size:clamp(2.65rem,12vw,4rem)}.mh-editorial-image{height:370px;width:min(100%,420px);justify-self:center;border-radius:140px 140px 16px 16px}.mh-editorial-band{padding:72px 0}.mh-ritual-photo{background-position:58% center!important}}
+@media(max-width:400px){.mh-photo-float-hero{width:94px;height:132px;right:-4px}.mh-photo-golden{width:88px;height:122px;right:-6px}.mh-how-photo{height:160px}}
+
+/* Final visibility refinements: keep imagery out of the first two copy sections, spotlight the ritual photo, and make the honey jar unmistakable in the editorial feature. */
+.mh-ritual{position:relative;isolation:isolate;overflow:hidden}
+.mh-ritual-photo{position:absolute;inset:0;z-index:-1;filter:brightness(1.22) saturate(1.13);transform:scale(1.015)}
+.mh-ritual-inner{position:relative;z-index:1}
+.mh-ritual-copy{max-width:620px;padding:clamp(40px,7vw,90px) 0;text-shadow:0 2px 24px rgba(0,0,0,.32)}
+.mh-editorial-image{background:#38200d;box-shadow:0 30px 90px rgba(0,0,0,.45),0 0 0 1px rgba(244,207,132,.22)}
+.mh-editorial-image img{object-fit:cover;object-position:50% 45%;filter:brightness(1.28) contrast(1.08) saturate(1.12)}
+.mh-editorial-image:hover img{filter:brightness(1.34) contrast(1.08) saturate(1.15)}
+@media(max-width:760px){.mh-ritual-photo{background-position:60% center!important}.mh-ritual-copy{padding:54px 0}}
+
+
+/* Image clarity fix (2026-10-15): keep the hero jar visible and brighten the editorial photo. */
+.mh-editorial-image img{
+  object-fit:cover !important;
+  object-position:22% center !important;
+  filter:brightness(1.18) contrast(1.08) saturate(1.12) !important;
+}
+.mh-editorial-image:hover img{
+  filter:brightness(1.22) contrast(1.08) saturate(1.14) !important;
+}
