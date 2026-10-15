@@ -47,8 +47,19 @@
 /* ---------- Section ---------- */
 .tk-section{
   padding:72px 0 104px;
-  background:var(--tk-bg);
+  background:
+    linear-gradient(115deg, rgba(24,16,10,.82), rgba(35,22,11,.68)),
+    url("images/editorial-wooden-dipper.jpg") center 48% / cover no-repeat;
   color:var(--tk-text);
+}
+.tk-intro h1{color:#fff}
+.tk-intro p{color:rgba(255,250,240,.88)}
+.tk-secure{color:rgba(255,250,240,.88)}
+@media(max-width:600px){
+  .tk-section{
+    background-position:center center;
+    background-attachment:scroll;
+  }
 }
 .tk-section .container{position:relative;z-index:1}
 .tk-section .container.narrow{max-width:760px}
@@ -324,6 +335,58 @@
 @media(prefers-reduced-motion:reduce){
   .tk-card,.tk-msg,.tk-skel i,.tk-modal-backdrop,.tk-modal-card{animation:none}
 }
+
+.tk-section {
+  position: relative;
+  isolation: isolate;
+  padding: 72px 0 104px;
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(24, 16, 10, 0.48),
+      rgba(35, 22, 11, 0.35)
+    ),
+    url("images/editorial-wooden-dipper.jpg")
+      center 48% / cover no-repeat;
+
+  color: #ffffff;
+}
+
+.tk-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.tk-intro h1 {
+  color: #ffffff !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+.tk-intro p {
+  color: #ffffff !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+.tk-secure {
+  color: #ffffff !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+.tk-form {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 600px) {
+  .tk-section {
+    background-position: center center;
+    background-attachment: scroll;
+    padding: 48px 0 72px;
+  }
+}
+
 </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
