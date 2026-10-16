@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&amp;display=swap" rel="stylesheet"/>
 <link href="style.css?v=20261016b" rel="stylesheet"/><link href="premium.css" rel="stylesheet"/><link href="magic-upgrade.css" rel="stylesheet"/><link href="wow.css" rel="stylesheet"/><link href="static-premium.css?v=20261016" rel="stylesheet"/><link href="madhuravana-home.css" rel="stylesheet"/><link href="home-premium.css" rel="stylesheet"/><link href="luxe.css" rel="stylesheet"/>
 <link href="nav.css?v=20261012" rel="stylesheet"/>
+<link href="mobile-home-fix.css?v=20261016-2" rel="stylesheet"/>
 <link href="editorial-images.css?v=20261016" rel="stylesheet"/><link href="about-redesign.css?v=20261016" rel="stylesheet"/><link href="faq-redesign.css?v=20261016" rel="stylesheet"/></head>
 <body class="madhuravana-home" data-page="home">
   <div aria-hidden="true" class="lx-ribbon"><div><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i></div></div>
@@ -112,48 +113,4 @@
 </main>
 <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
 <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script><script src="spin.js"></script><script defer="" src="home-premium.js?v=20261016b"></script><script defer="" src="lenis.min.js"></script><script defer="" src="luxe.js"></script><script defer="" src="about-redesign.js"></script><script defer="" src="faq-redesign.js"></script>
-<script>
-(() => {
-  const viewport = document.querySelector('meta[name="viewport"]');
-
-  if (viewport) {
-    viewport.setAttribute(
-      "content",
-      "width=device-width, initial-scale=1.0, viewport-fit=cover"
-    );
-  }
-
-  function fixMobileWidth() {
-    if (window.matchMedia("(max-width: 760px)").matches) {
-      const html = document.documentElement;
-      const body = document.body;
-
-      html.style.setProperty("width", "100%", "important");
-      html.style.setProperty("min-width", "0", "important");
-      html.style.setProperty("max-width", "100%", "important");
-
-      body.style.setProperty("width", "100%", "important");
-      body.style.setProperty("min-width", "0", "important");
-      body.style.setProperty("max-width", "100%", "important");
-      body.style.setProperty("margin", "0", "important");
-      body.style.setProperty("overflow-x", "clip", "important");
-
-      document.querySelectorAll(
-        "#site-header, #top, main, .mh-hero, .mh-hero-inner, " +
-        ".mh-hero-bg, .mh-scene, .mh-ritual, .mh-editorial-band, " +
-        ".mh-shop, .mh-how, .fq, #site-footer"
-      ).forEach(element => {
-        element.style.setProperty("width", "100%", "important");
-        element.style.setProperty("max-width", "100%", "important");
-        element.style.setProperty("min-width", "0", "important");
-        element.style.setProperty("box-sizing", "border-box", "important");
-      });
-    }
-  }
-
-  fixMobileWidth();
-  window.addEventListener("resize", fixMobileWidth);
-  window.addEventListener("orientationchange", fixMobileWidth);
-})();
-</script>
 </body></html>
