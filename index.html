@@ -112,4 +112,30 @@
 </main>
 <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
 <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script><script src="spin.js"></script><script defer="" src="home-premium.js?v=20261016b"></script><script defer="" src="lenis.min.js"></script><script defer="" src="luxe.js"></script><script defer="" src="about-redesign.js"></script><script defer="" src="faq-redesign.js"></script>
+<script>
+(() => {
+  function fixMobileLayout() {
+    if (window.innerWidth <= 760) {
+      document.documentElement.style.setProperty("width", "100%", "important");
+      document.documentElement.style.setProperty("max-width", "100%", "important");
+      document.body.style.setProperty("width", "100%", "important");
+      document.body.style.setProperty("max-width", "100%", "important");
+      document.body.style.setProperty("min-width", "0", "important");
+
+      document.querySelectorAll(
+        ".mh-hero, .mh-hero-inner, .mh-hero-copy, .mh-hero-product, " +
+        ".mh-hero-bg, .mh-scene, main, #top, #site-header"
+      ).forEach(element => {
+        element.style.setProperty("max-width", "100%", "important");
+        element.style.setProperty("min-width", "0", "important");
+        element.style.setProperty("box-sizing", "border-box", "important");
+      });
+    }
+  }
+
+  fixMobileLayout();
+  window.addEventListener("resize", fixMobileLayout);
+  window.addEventListener("orientationchange", fixMobileLayout);
+})();
+</script>
 </body></html>
