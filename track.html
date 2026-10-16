@@ -44,34 +44,61 @@
 .tk-page .tk-section button,
 .tk-page .tk-section input{font-family:var(--tk-sans)}
 
-/* ---------- Section ---------- */
+/* =====================================================================
+   SECTION: bright honey background + photo (full bottle) | form
+===================================================================== */
 .tk-section{
-  padding:72px 0 104px;
+  position:relative !important;
+  isolation:isolate;
+  overflow:hidden;
+  padding:72px 0 104px !important;
+  color:#3b2008 !important;
   background:
-    linear-gradient(115deg, rgba(24,16,10,.82), rgba(35,22,11,.68)),
-    url("images/editorial-wooden-dipper.jpg") center 48% / cover no-repeat;
-  color:var(--tk-text);
+    radial-gradient(ellipse 60% 50% at 20% 10%, rgba(255,255,255,.65), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23c88a10' stroke-opacity='.14' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23c88a10' stroke-opacity='.14' stroke-width='2'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,#fff3c9 0%,#ffdf85 55%,#ffc83d 100%) !important;
+  background-attachment:scroll !important;
 }
-.tk-intro h1{color:#fff}
-.tk-intro p{color:rgba(255,250,240,.88)}
-.tk-secure{color:rgba(255,250,240,.88)}
-@media(max-width:600px){
-  .tk-section{
-    background-position:center center;
-    background-attachment:scroll;
-  }
-}
+.tk-section::before,
+.tk-section::after{content:none !important;display:none !important}
 .tk-section .container{position:relative;z-index:1}
-.tk-section .container.narrow{max-width:760px}
+.tk-section .container.narrow{max-width:1120px !important}
+
+/* ---------- two columns: photo | form ---------- */
+.tk-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:clamp(28px,4.5vw,64px);
+  align-items:center;
+}
+
+/* ---------- the photo: full image, nothing cropped ---------- */
+.tk-photo{
+  margin:0;
+  aspect-ratio:3/2;                 /* same shape as the image = no cropping */
+  border-radius:28px 140px 28px 28px;
+  overflow:hidden;
+  background:#0c0704;
+  border:3px solid #f2c04a;
+  box-shadow:0 28px 70px rgba(110,55,0,.45),0 0 0 9px rgba(255,255,255,.35);
+}
+.tk-photo img{
+  display:block;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  filter:brightness(1.4) contrast(1.06) saturate(1.12);   /* lifts the dark photo */
+}
 
 /* ---------- Intro ---------- */
-.tk-intro{text-align:center;margin-bottom:32px}
+.tk-intro{text-align:left;margin:0 0 22px}
 .tk-intro h1{
   font-family:var(--tk-serif);font-weight:600;
-  font-size:clamp(2rem,5vw,2.9rem);line-height:1.1;letter-spacing:-.015em;
-  color:var(--tk-ink);margin:0 0 12px;
+  font-size:clamp(2rem,4.2vw,2.9rem);line-height:1.1;letter-spacing:-.015em;
+  color:#3b2008 !important;text-shadow:none !important;margin:0 0 10px;
 }
-.tk-intro p{max-width:48ch;margin:0 auto;color:var(--tk-muted);font-size:1rem;line-height:1.6}
+.tk-intro p{
+  max-width:48ch;margin:0;font-size:1rem;line-height:1.6;
+  color:#6a4410 !important;text-shadow:none !important;font-weight:500;
+}
 
 /* ---------- Lookup form ---------- */
 .tk-form{
@@ -81,6 +108,13 @@
   border:1px solid var(--tk-line);
   border-radius:14px;
   box-shadow:0 1px 2px rgba(31,26,20,.05),0 8px 24px -12px rgba(31,26,20,.12);
+}
+.tk-grid .tk-form{
+  grid-template-columns:1fr !important;
+  background:#fffaf0 !important;
+  border:2px solid #f2c04a !important;
+  border-radius:22px !important;
+  box-shadow:0 18px 44px rgba(110,55,0,.28) !important;
 }
 .tk-field{display:block;font-size:.85rem;font-weight:600;color:var(--tk-ink)}
 .tk-field span{display:block;margin:0 0 7px}
@@ -103,14 +137,28 @@
 .tk-go:hover{background:#2a190d}
 .tk-go:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(183,121,31,.45)}
 .tk-go:disabled{opacity:.65;cursor:progress}
+.tk-grid .tk-go{
+  width:100%;
+  background:linear-gradient(180deg,#ffc83d,#f19a00) !important;
+  color:#3b2008 !important;
+  box-shadow:0 8px 18px rgba(228,138,0,.45),inset 0 2px 0 rgba(255,255,255,.5);
+}
+.tk-grid .tk-go:hover{background:linear-gradient(180deg,#ffd460,#f5a512) !important}
+
 .tk-secure{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin:14px 0 0;font-size:.82rem;color:var(--tk-muted);
+  display:flex;align-items:center;justify-content:flex-start;gap:8px;
+  width:max-content;max-width:100%;
+  margin:16px 0 0;padding:9px 16px;border-radius:99px;
+  font-size:.82rem;font-weight:600;
+  background:rgba(255,255,255,.75);
+  color:#6a4410 !important;text-shadow:none !important;
+  box-shadow:0 6px 16px rgba(110,55,0,.15);
 }
 .tk-secure svg{flex:none}
 
 /* ---------- Result card ---------- */
-#tk-result{margin-top:28px}
+#tk-result,#tk-orders{max-width:760px;margin-left:auto;margin-right:auto}
+#tk-result{margin-top:44px}
 .tk-card{
   position:relative;
   background:var(--tk-surface);color:var(--tk-text);
@@ -298,7 +346,13 @@
 .tk-skel i:nth-child(4){width:75%}
 
 /* ---------- My orders ---------- */
-.tk-my-title{margin:48px 0 4px;font-family:var(--tk-serif);font-weight:600;font-size:1.4rem;color:var(--tk-ink);letter-spacing:-.01em}
+#tk-orders:not(:empty){
+  margin-top:28px;padding:20px 22px 12px;border-radius:20px;
+  background:rgba(255,250,240,.92);
+  border:2px solid #f2c04a;
+  box-shadow:0 14px 36px rgba(110,55,0,.2);
+}
+.tk-my-title{margin:0 0 4px;font-family:var(--tk-serif);font-weight:600;font-size:1.4rem;color:var(--tk-ink);letter-spacing:-.01em}
 .tk-my-sub{margin:0 0 16px;color:var(--tk-muted);font-size:.9rem}
 .tk-my{
   width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;text-align:left;
@@ -320,8 +374,16 @@
 @keyframes tkShimmer{to{background-position:-200% 0}}
 
 /* ---------- Responsive ---------- */
+/* tablet & phone: photo on top (whole bottle visible), form below */
+@media(max-width:900px){
+  .tk-grid{grid-template-columns:1fr;gap:28px}
+  .tk-photo{border-radius:22px 90px 22px 22px}
+  .tk-intro{text-align:center}
+  .tk-intro p{margin-left:auto;margin-right:auto}
+  .tk-secure{margin:16px auto 0}
+}
 @media(max-width:720px){
-  .tk-section{padding:48px 0 72px}
+  .tk-section{padding:48px 0 72px !important}
   .tk-form{grid-template-columns:1fr;padding:18px}
   .tk-go{width:100%}
   .tk-steps{grid-template-columns:1fr;margin-top:24px}
@@ -332,61 +394,13 @@
   .tk-steps strong{font-size:.95rem}
   .tk-my{padding:12px 14px}
 }
+@media(max-width:600px){
+  .tk-section{padding:36px 0 64px !important}
+  .tk-secure{width:auto;border-radius:16px;text-align:center;justify-content:center}
+}
 @media(prefers-reduced-motion:reduce){
   .tk-card,.tk-msg,.tk-skel i,.tk-modal-backdrop,.tk-modal-card{animation:none}
 }
-
-.tk-section {
-  position: relative;
-  isolation: isolate;
-  padding: 72px 0 104px;
-
-  background:
-    linear-gradient(
-      115deg,
-      rgba(24, 16, 10, 0.48),
-      rgba(35, 22, 11, 0.35)
-    ),
-    url("images/editorial-wooden-dipper.jpg")
-      center 48% / cover no-repeat;
-
-  color: #ffffff;
-}
-
-.tk-section .container {
-  position: relative;
-  z-index: 1;
-}
-
-.tk-intro h1 {
-  color: #ffffff !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
-}
-
-.tk-intro p {
-  color: #ffffff !important;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
-}
-
-.tk-secure {
-  color: #ffffff !important;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
-}
-
-.tk-form {
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-@media (max-width: 600px) {
-  .tk-section {
-    background-position: center center;
-    background-attachment: scroll;
-    padding: 48px 0 72px;
-  }
-}
-
 </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
@@ -399,25 +413,37 @@
     <section class="section tk-section">
       <div class="container narrow">
 
-        <header class="tk-intro"><br>
-          <h1>Track your order</h1>
-          <p>Enter your order ID and the phone number you used at checkout to see the latest status.</p>
-        </header>
+        <div class="tk-grid">
 
-        <form class="tk-form" id="tk-form" autocomplete="off">
-          <label class="tk-field"><span>Order ID</span>
-            <input id="tk-id" placeholder="e.g. MH20261007ABCD1234" required autocapitalize="characters" spellcheck="false">
-          </label>
-          <label class="tk-field"><span>Phone number</span>
-            <input id="tk-phone" inputmode="numeric" placeholder="10-digit mobile number" maxlength="14" required>
-          </label>
-          <button class="tk-go" type="submit" id="tk-btn">Track order</button>
-        </form>
+          <figure class="tk-photo">
+            <img src="images/editorial-wooden-dipper.jpg" width="1620" height="1080"
+                 alt="MADHURAVANA Pure Honey jar with a wooden honey dipper"
+                 fetchpriority="high" decoding="async">
+          </figure>
 
-        <p class="tk-secure">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-          Your order is shown only when the ID and phone number both match.
-        </p>
+          <div class="tk-panel">
+            <header class="tk-intro">
+              <h1>Track your order</h1>
+              <p>Enter your order ID and the phone number you used at checkout to see the latest status.</p>
+            </header>
+
+            <form class="tk-form" id="tk-form" autocomplete="off">
+              <label class="tk-field"><span>Order ID</span>
+                <input id="tk-id" placeholder="e.g. MH20261007ABCD1234" required autocapitalize="characters" spellcheck="false">
+              </label>
+              <label class="tk-field"><span>Phone number</span>
+                <input id="tk-phone" inputmode="numeric" placeholder="10-digit mobile number" maxlength="14" required>
+              </label>
+              <button class="tk-go" type="submit" id="tk-btn">Track order</button>
+            </form>
+
+            <p class="tk-secure">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              Your order is shown only when the ID and phone number both match.
+            </p>
+          </div>
+
+        </div>
 
         <div id="tk-result" aria-live="polite"></div>
         <div id="tk-orders"></div>
