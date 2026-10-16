@@ -6,15 +6,80 @@
 
   <link rel="stylesheet" href="nav.css?v=20261012">
   <link rel="stylesheet" href="shop-cart-editorial.css?v=20261015b">
+
+  <style>
+    /* ================= CART PAGE: photo banner at the top + clear cart ================= */
+
+    body[data-page="cart"] main .section{padding:26px 0 80px !important}
+
+    /* ---------- photo banner (FULL image visible, not cropped) ---------- */
+    .mh-cart-editorial{
+      width:min(1120px,calc(100% - 40px));
+      grid-template-columns:minmax(0,420px) minmax(0,1fr) !important;
+      align-items:center;
+      gap:clamp(18px,3vw,40px) !important;
+      padding:clamp(14px,2.2vw,26px) !important;
+      margin:clamp(36px,5vw,64px) auto 0 !important;
+      border-radius:24px;
+    }
+    .mh-cart-editorial .mh-extra-editorial-photo{
+      height:auto !important;
+      aspect-ratio:3/2 !important;          /* same shape as the photo = nothing cropped */
+      background:#0c0704;
+      border-radius:16px 80px 16px 16px !important;
+      border:1px solid rgba(237,193,110,.5);
+      box-shadow:0 18px 40px rgba(0,0,0,.45);
+    }
+    .mh-cart-editorial .mh-extra-editorial-photo img{
+      width:100%;height:100%;
+      object-fit:cover !important;
+      object-position:center !important;
+      filter:brightness(1.3) contrast(1.05) saturate(1.1) !important;
+    }
+    .mh-cart-editorial .mh-extra-editorial-photo:hover img{
+      transform:scale(1.02);
+      filter:brightness(1.38) contrast(1.05) saturate(1.12) !important;
+    }
+    .mh-cart-editorial .mh-extra-editorial-photo figcaption{padding:30px 16px 12px;font-size:.9rem}
+    .mh-cart-editorial .mh-extra-editorial-copy h2{font-size:clamp(1.6rem,2.8vw,2.4rem) !important;margin:10px 0 !important}
+    .mh-cart-editorial .mh-extra-editorial-copy p{font-size:.95rem;line-height:1.65}
+    .mh-cart-editorial .mh-extra-link{margin-top:16px;padding-bottom:5px}
+
+    /* ---------- cart title ---------- */
+    .cart-title{
+      margin:0 0 18px;
+      font:600 clamp(1.5rem,3vw,2rem)/1.15 Fraunces,Georgia,serif;
+      color:#3b2008;
+      letter-spacing:-.01em;
+    }
+    .cart-title small{display:block;margin-top:4px;font:500 .9rem Inter,system-ui,sans-serif;color:#8a6a30;letter-spacing:0}
+
+    /* ---------- tablet ---------- */
+    @media(max-width:900px){
+      .mh-cart-editorial{grid-template-columns:minmax(0,300px) minmax(0,1fr) !important}
+      .mh-cart-editorial .mh-extra-editorial-copy p{display:none}
+    }
+
+    /* ---------- phone: photo on top, short text below, cart right after ---------- */
+    @media(max-width:700px){
+      .mh-cart-editorial{
+        width:min(100% - 28px,520px);
+        grid-template-columns:1fr !important;
+        margin:22px auto 0 !important;
+      }
+      .mh-cart-editorial .mh-extra-editorial-photo{border-radius:14px 70px 14px 14px !important}
+      body[data-page="cart"] main .section{padding:22px 0 56px !important}
+    }
+  </style>
 </head>
 <body data-page="cart">
   <div id="site-header"></div>
   <main>
-    <section class="page-hero small"><div class="container center"><span class="eyebrow">Your selection</span><h1>Your honey cart.</h1></div></section>
-    <section class="section"><div class="container cart-layout"><div id="cart-items"></div><aside id="cart-summary" class="summary-card"></aside></div></section>
+
+    <!-- photo + text (replaces the old "Your honey cart." heading) -->
     <section class="mh-extra-editorial mh-cart-editorial" aria-label="The Madhuravana honey ritual">
       <figure class="mh-extra-editorial-photo">
-        <img src="images/editorial-warm-stilllife.jpg" alt="MADHURAVANA Pure Honey styled as a warm natural still life" loading="lazy" decoding="async">
+        <img src="images/editorial-warm-stilllife.jpg" width="1620" height="1080" alt="MADHURAVANA Pure Honey styled as a warm natural still life" decoding="async" fetchpriority="high">
         <figcaption>Slow moments. Pure sweetness.</figcaption>
       </figure>
       <div class="mh-extra-editorial-copy">
@@ -23,6 +88,14 @@
         <p>Thank you for choosing Madhuravana — a taste of nature’s goodness, from our world to your table.</p>
         <a class="mh-extra-link" href="shop.html">Continue exploring the collection <span aria-hidden="true">→</span></a>
       </div>
+    </section>
+
+    <!-- CART ITEMS -->
+    <section class="section">
+      <div class="container">
+        <h1 class="cart-title">Your honey cart<small>Review your items, then proceed to checkout.</small></h1>
+      </div>
+      <div class="container cart-layout"><div id="cart-items"></div><aside id="cart-summary" class="summary-card"></aside></div>
     </section>
   </main>
   <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
