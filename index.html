@@ -114,18 +114,36 @@
 <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script><script src="spin.js"></script><script defer="" src="home-premium.js?v=20261016b"></script><script defer="" src="lenis.min.js"></script><script defer="" src="luxe.js"></script><script defer="" src="about-redesign.js"></script><script defer="" src="faq-redesign.js"></script>
 <script>
 (() => {
-  function fixMobileLayout() {
-    if (window.innerWidth <= 760) {
-      document.documentElement.style.setProperty("width", "100%", "important");
-      document.documentElement.style.setProperty("max-width", "100%", "important");
-      document.body.style.setProperty("width", "100%", "important");
-      document.body.style.setProperty("max-width", "100%", "important");
-      document.body.style.setProperty("min-width", "0", "important");
+  const viewport = document.querySelector('meta[name="viewport"]');
+
+  if (viewport) {
+    viewport.setAttribute(
+      "content",
+      "width=device-width, initial-scale=1.0, viewport-fit=cover"
+    );
+  }
+
+  function fixMobileWidth() {
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      const html = document.documentElement;
+      const body = document.body;
+
+      html.style.setProperty("width", "100%", "important");
+      html.style.setProperty("min-width", "0", "important");
+      html.style.setProperty("max-width", "100%", "important");
+
+      body.style.setProperty("width", "100%", "important");
+      body.style.setProperty("min-width", "0", "important");
+      body.style.setProperty("max-width", "100%", "important");
+      body.style.setProperty("margin", "0", "important");
+      body.style.setProperty("overflow-x", "clip", "important");
 
       document.querySelectorAll(
-        ".mh-hero, .mh-hero-inner, .mh-hero-copy, .mh-hero-product, " +
-        ".mh-hero-bg, .mh-scene, main, #top, #site-header"
+        "#site-header, #top, main, .mh-hero, .mh-hero-inner, " +
+        ".mh-hero-bg, .mh-scene, .mh-ritual, .mh-editorial-band, " +
+        ".mh-shop, .mh-how, .fq, #site-footer"
       ).forEach(element => {
+        element.style.setProperty("width", "100%", "important");
         element.style.setProperty("max-width", "100%", "important");
         element.style.setProperty("min-width", "0", "important");
         element.style.setProperty("box-sizing", "border-box", "important");
@@ -133,9 +151,9 @@
     }
   }
 
-  fixMobileLayout();
-  window.addEventListener("resize", fixMobileLayout);
-  window.addEventListener("orientationchange", fixMobileLayout);
+  fixMobileWidth();
+  window.addEventListener("resize", fixMobileWidth);
+  window.addEventListener("orientationchange", fixMobileWidth);
 })();
 </script>
 </body></html>
