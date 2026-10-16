@@ -3,53 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shop MADHURAVANA Pure Honey in 250g, 500g and 1kg sizes.">
+  <meta name="description" content="Shop MADHURAVANA Pure Honey in 200g, 250g and 500g sizes.">
   <title>Shop | MADHURAVANA Pure Honey</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="magic-upgrade.css"><link rel="stylesheet" href="wow.css"><link rel="stylesheet" href="static-premium.css"><link rel="stylesheet" href="mobile-premium.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="magic-upgrade.css"><link rel="stylesheet" href="wow.css"><link rel="stylesheet" href="static-premium.css?v=20261016"><link rel="stylesheet" href="mobile-premium.css">
 
   <style>
+    html{scroll-behavior:smooth}
     body[data-page="shop"]{
       --honey:#f6a800; --amber:#e48a00; --deep:#8a4a00; --brown:#3b2008;
-      /* change this number to make bottles bigger or smaller */
-      --jar-size:120%;
       background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23c88a10' stroke-opacity='.10' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23c88a10' stroke-opacity='.10' stroke-width='2'/%3E%3C/svg%3E"),
         linear-gradient(180deg,#fff7de,#ffefbd);
     }
 
-    /* ---------- HERO ---------- */
-    body[data-page="shop"] .page-hero{
-      position:relative;overflow:visible;text-align:center;
-      padding:48px 20px 56px !important;min-height:0 !important;height:auto !important;
+    /* =====================================================================
+       HERO: compact, whole photo visible (left) + shopping text (right)
+    ===================================================================== */
+    body[data-page="shop"] .page-hero.shop-hero{
+      position:relative;overflow:visible;isolation:isolate;
+      display:block;
+      min-height:0 !important;height:auto !important;
+      padding:clamp(28px,4vw,48px) 20px clamp(52px,5vw,68px) !important;
+      margin-bottom:56px;
       background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='2'/%3E%3C/svg%3E"),
-        radial-gradient(500px 260px at 50% 0%,rgba(255,236,150,.8),transparent 70%),
-        linear-gradient(180deg,#ffc83d,#f6a800 55%,#e48a00);
-      margin-bottom:70px;
+        radial-gradient(ellipse 55% 95% at 24% 50%, rgba(246,168,0,.30), transparent 72%),
+        #0c0704 !important;
+      text-align:left;
     }
-    .honey-drips{position:absolute;left:0;right:0;top:calc(100% - 1px);width:100%;height:64px;display:block;pointer-events:none}
-    .honey-drips path{fill:#e48a00}
-    body[data-page="shop"] .page-hero .eyebrow{color:#5a2f00 !important;letter-spacing:.3em;font-size:.72rem;font-weight:800}
-    body[data-page="shop"] .page-hero h1{
-      margin:10px 0 8px !important;color:#3b2008 !important;font-weight:600;
-      font-size:clamp(2.2rem,7vw,3.8rem) !important;letter-spacing:-.01em;line-height:1.05;
-      text-shadow:0 2px 0 rgba(255,255,255,.35);
+    body[data-page="shop"] .page-hero.shop-hero:before,
+    body[data-page="shop"] .page-hero.shop-hero:after{content:none !important;display:none !important}
+
+    .shop-hero-inner{
+      position:relative;z-index:2;
+      width:min(1120px,100%);margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,470px) minmax(0,1fr);
+      gap:clamp(24px,5vw,68px);
+      align-items:center;
     }
-    body[data-page="shop"] .page-hero h1 em{font-style:italic;color:#fff;text-shadow:0 2px 6px rgba(120,60,0,.35)}
-    body[data-page="shop"] .page-hero p{margin:0 auto;color:#5a2f00;font-size:1rem;max-width:460px;font-weight:600}
-    .shop-marks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px}
+
+    /* the photo: same 3:2 shape as the image = nothing cropped */
+    .shop-hero-photo{
+      margin:0;
+      aspect-ratio:3/2;
+      border-radius:22px 90px 22px 22px;
+      overflow:hidden;
+      background:#0c0704;
+      border:2px solid rgba(246,213,138,.6);
+      box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 0 8px rgba(246,213,138,.08),0 0 70px rgba(246,168,0,.22);
+    }
+    .shop-hero-photo img{
+      display:block;width:100%;height:100%;
+      object-fit:cover;object-position:center;
+      filter:brightness(1.28) contrast(1.05) saturate(1.1);
+    }
+
+    .shop-hero-copy{width:auto;max-width:520px}
+    body[data-page="shop"] .shop-hero .eyebrow{color:#f6d58a !important;letter-spacing:.3em;font-size:.74rem;font-weight:800}
+    body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy h1{
+      max-width:none;margin-inline:0;padding:0;
+      background:none !important;-webkit-text-fill-color:#fff7e2;
+      margin:10px 0 12px !important;color:#fff7e2 !important;font-weight:600;
+      font-size:clamp(2.1rem,4.4vw,3.6rem) !important;letter-spacing:-.02em;line-height:1.04 !important;
+      text-shadow:0 4px 24px rgba(0,0,0,.45);
+    }
+    body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy h1 em{
+      font-style:italic;font-weight:500;text-shadow:none;
+      background-image:linear-gradient(100deg,#f6d58a,#e6b04a 55%,#c98a1c) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent !important;
+    }
+    body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy p{margin:0;color:rgba(255,247,226,.92);font-size:1.05rem;max-width:440px;font-weight:500;line-height:1.65}
+
+    /* clear "this is a shop" button */
+    .shop-cta{
+      display:inline-flex;align-items:center;gap:10px;
+      margin-top:22px;padding:14px 28px;border-radius:99px;
+      background:linear-gradient(180deg,#ffc83d,#f19a00);color:#3b2008 !important;
+      font-weight:900;letter-spacing:.04em;text-decoration:none;
+      box-shadow:0 12px 26px rgba(228,138,0,.5),inset 0 2px 0 rgba(255,255,255,.5);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .shop-cta:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(228,138,0,.65),inset 0 2px 0 rgba(255,255,255,.5)}
+    .shop-cta span{display:inline-block;animation:ctaBob 1.6s ease-in-out infinite}
+    @keyframes ctaBob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+    .shop-marks{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:10px;margin-top:20px}
     .shop-marks span{
-      padding:8px 16px;border-radius:99px;background:rgba(255,247,222,.92);
-      color:#6b3a00;font-size:.76rem;font-weight:800;letter-spacing:.04em;
-      box-shadow:0 6px 14px rgba(120,60,0,.18);
+      padding:7px 14px;border-radius:99px;background:rgba(255,247,222,.94);
+      color:#6b3a00;font-size:.74rem;font-weight:800;letter-spacing:.04em;
+      box-shadow:0 6px 14px rgba(0,0,0,.3);
     }
-    .bee{position:absolute;font-size:1.6rem;animation:beeFly 6s ease-in-out infinite;pointer-events:none}
-    .bee.b1{top:22px;left:9%}
-    .bee.b2{top:60px;right:10%;animation-delay:-3s;font-size:1.3rem}
+
+    .honey-drips{position:absolute;left:0;right:0;top:calc(100% - 1px);width:100%;height:60px;display:block;pointer-events:none}
+    .honey-drips path{fill:#0c0704}
+    .bee{position:absolute;font-size:1.6rem;animation:beeFly 6s ease-in-out infinite;pointer-events:none;z-index:3}
+    .bee.b1{top:36px;right:6%}
+    .bee.b2{bottom:70px;right:30%;animation-delay:-3s;font-size:1.3rem}
     @keyframes beeFly{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(18px,-12px) rotate(8deg)}}
 
-    /* ---------- TOOLBAR ---------- */
+    /* =====================================================================
+       SHOP TITLE + TOOLBAR
+    ===================================================================== */
     body[data-page="shop"] main .section{padding-top:0 !important}
+    .shop-title{
+      margin:0 0 16px;text-align:center;
+      font:600 clamp(1.7rem,3.4vw,2.4rem)/1.15 Fraunces,Georgia,serif;
+      color:var(--brown);letter-spacing:-.01em;
+      scroll-margin-top:90px;
+    }
+    .shop-title small{display:block;margin-top:6px;font:600 .92rem Inter,system-ui,sans-serif;color:#8a6a30;letter-spacing:0}
     body[data-page="shop"] .shop-toolbar{
       display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
       padding:14px 20px;margin-bottom:28px;
@@ -71,6 +132,7 @@
       justify-content:center !important;
       align-items:flex-start;
       gap:28px !important;
+      scroll-margin-top:90px;
     }
     body[data-page="shop"] #shop-products .product-card{
       flex:0 0 auto !important;
@@ -87,34 +149,34 @@
       box-shadow:0 30px 60px rgba(200,130,0,.34);
     }
 
- /* ---------- BIG BOTTLE (fully visible) ---------- */
-body[data-page="shop"] #shop-products .product-card .product-visual{
-  position:relative !important;display:flex !important;
-  align-items:center;justify-content:center;
-  width:100% !important;height:320px !important;padding:18px 0 14px !important;margin:0 !important;overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 55%,rgba(255,255,255,.75),rgba(255,214,102,.5) 45%,transparent 72%),
-    linear-gradient(180deg,#ffe08a,#ffc83d);
-}
-body[data-page="shop"] #shop-products .product-card .product-visual::before{
-  content:"";position:absolute;left:50%;top:50%;width:200px;height:230px;
-  transform:translate(-50%,-50%);background:rgba(255,255,255,.4);
-  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
-}
-body[data-page="shop"] #shop-products .product-card .product-visual img{
-  position:relative !important;
-  left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;
-  height:100% !important;
-  width:auto !important;max-width:90% !important;max-height:100% !important;
-  object-fit:contain !important;
-  transform:none !important;
-  filter:drop-shadow(0 16px 16px rgba(120,60,0,.4));
-  transition:transform .4s ease;
-  z-index:1;
-}
-body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
-  transform:scale(1.05) !important;
-}
+    /* ---------- BIG BOTTLE (fully visible) ---------- */
+    body[data-page="shop"] #shop-products .product-card .product-visual{
+      position:relative !important;display:flex !important;
+      align-items:center;justify-content:center;
+      width:100% !important;height:320px !important;padding:18px 0 14px !important;margin:0 !important;overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 55%,rgba(255,255,255,.75),rgba(255,214,102,.5) 45%,transparent 72%),
+        linear-gradient(180deg,#ffe08a,#ffc83d);
+    }
+    body[data-page="shop"] #shop-products .product-card .product-visual::before{
+      content:"";position:absolute;left:50%;top:50%;width:200px;height:230px;
+      transform:translate(-50%,-50%);background:rgba(255,255,255,.4);
+      clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    }
+    body[data-page="shop"] #shop-products .product-card .product-visual img{
+      position:relative !important;
+      left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;
+      height:100% !important;
+      width:auto !important;max-width:90% !important;max-height:100% !important;
+      object-fit:contain !important;
+      transform:none !important;
+      filter:drop-shadow(0 16px 16px rgba(120,60,0,.4));
+      transition:transform .4s ease;
+      z-index:1;
+    }
+    body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
+      transform:scale(1.05) !important;
+    }
 
     /* ---------- CARD TEXT ---------- */
     body[data-page="shop"] .p-name{
@@ -159,10 +221,19 @@ body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
     .shop-promise strong{display:block;font-size:1rem;font-weight:800}
     .shop-promise small{display:block;margin-top:4px;color:#5a2f00;font-size:.84rem;font-weight:600}
 
+    /* ---------- tablet & phone: photo on top (whole jar visible), text below ---------- */
+    @media (max-width:820px){
+      body[data-page="shop"] .page-hero.shop-hero{padding:22px 16px 52px !important;margin-bottom:48px;text-align:center}
+      .shop-hero-inner{grid-template-columns:1fr;gap:22px;justify-items:center}
+      .shop-hero-photo{width:min(100%,520px);border-radius:18px 70px 18px 18px}
+      .shop-hero-copy{max-width:460px}
+      body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy p{margin:0 auto;font-size:.98rem}
+      .shop-marks{justify-content:center}
+      .bee{display:none}
+    }
     @media (max-width:600px){
-      body[data-page="shop"] .page-hero{padding:34px 16px 44px !important;margin-bottom:56px}
-      .honey-drips{height:48px}
-      body[data-page="shop"] .page-hero p{font-size:.92rem}
+      .honey-drips{height:44px}
+      .shop-cta{width:100%;justify-content:center}
       .shop-marks{gap:8px;margin-top:16px}
       .shop-marks span{padding:6px 12px;font-size:.7rem}
       body[data-page="shop"] .shop-toolbar{border-radius:22px;padding:12px 14px}
@@ -173,27 +244,125 @@ body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
       .shop-promise{padding:20px}
     }
     @media (prefers-reduced-motion:reduce){
-      .bee{animation:none}
+      html{scroll-behavior:auto}
+      .bee,.shop-cta span{animation:none}
       body[data-page="shop"] #shop-products .product-card,
       body[data-page="shop"] #shop-products .product-card .product-visual img,
-      body[data-page="shop"] .p-buy .add-btn{transition:none}
+      body[data-page="shop"] .p-buy .add-btn,
+      .shop-cta{transition:none}
+    }
+
+    /* =====================================================================
+       EDITORIAL BLOCK ("Golden, Genuine")
+    ===================================================================== */
+    .mh-extra-editorial{
+      width:min(1120px,calc(100% - 40px));
+      margin:clamp(48px,7vw,92px) auto;
+      display:grid;
+      grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+      align-items:center;
+      gap:clamp(26px,5vw,72px);
+      padding:clamp(22px,4vw,48px);
+      border:1px solid rgba(190,133,49,.28);
+      border-radius:28px;
+      background:linear-gradient(135deg,#21170f 0%,#382313 52%,#17120d 100%);
+      color:#fff4df;
+      box-shadow:0 24px 65px rgba(59,32,8,.18);
+      overflow:hidden;
+      position:relative;
+      isolation:isolate;
+    }
+    .mh-extra-editorial:before{
+      content:"";position:absolute;width:360px;height:360px;left:-180px;top:-190px;
+      border-radius:50%;background:radial-gradient(circle,rgba(235,171,58,.22),transparent 70%);
+      pointer-events:none;z-index:-1;
+    }
+    .mh-extra-editorial-copy{position:relative;z-index:1;padding:8px 0}
+    .mh-extra-kicker{display:block;color:#edc16e;font-size:.72rem;font-weight:800;letter-spacing:.19em;line-height:1.6}
+    .mh-extra-editorial-copy h2{font:600 clamp(2rem,4.2vw,3.8rem)/1.02 Fraunces,Georgia,serif;letter-spacing:-.035em;color:#fff4df;margin:18px 0}
+    .mh-extra-editorial-copy h2 em{color:#edc16e;font-weight:500}
+    .mh-extra-editorial-copy p{max-width:430px;color:rgba(255,244,223,.78);font-size:1rem;line-height:1.8;margin:0}
+    .mh-extra-editorial-photo{margin:0;position:relative;min-width:0;height:clamp(280px,35vw,430px);border-radius:190px 190px 18px 18px;overflow:hidden;border:1px solid rgba(237,193,110,.42);background:#21160e;box-shadow:0 22px 50px rgba(0,0,0,.38)}
+    .mh-extra-editorial-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s;filter:brightness(1.06) saturate(1.08)}
+    .mh-extra-editorial-photo:hover img{transform:scale(1.045);filter:brightness(1.12) saturate(1.12)}
+    .mh-extra-editorial-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:42px 22px 18px;color:#fff4df;font:500 1rem Fraunces,Georgia,serif;letter-spacing:.04em;background:linear-gradient(transparent,rgba(12,8,4,.78))}
+    .mh-cart-editorial{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);margin-top:20px;margin-bottom:clamp(50px,7vw,90px)}
+    .mh-cart-editorial .mh-extra-editorial-photo{border-radius:18px 170px 18px 18px}
+    .mh-extra-link{display:inline-flex;align-items:center;gap:12px;margin-top:26px;color:#f4cb78;text-decoration:none;font-weight:800;border-bottom:1px solid rgba(244,203,120,.55);padding-bottom:7px}
+    .mh-extra-link:hover{color:#fff4df}
+    @media(max-width:700px){
+      .mh-extra-editorial,.mh-cart-editorial{width:min(100% - 28px,520px);grid-template-columns:1fr;gap:22px;padding:20px;border-radius:22px;margin:42px auto}
+      .mh-extra-editorial-copy{padding:5px 2px}
+      .mh-extra-editorial-copy h2{font-size:clamp(2rem,9vw,3rem);margin:12px 0}
+      .mh-extra-editorial-photo{height:330px;border-radius:150px 150px 14px 14px}
+      .mh-cart-editorial .mh-extra-editorial-photo{order:0;border-radius:14px 120px 14px 14px}
+      .mh-cart-editorial .mh-extra-editorial-copy{order:1}
+    }
+    @media(prefers-reduced-motion:reduce){.mh-extra-editorial-photo img{transition:none}}
+
+    /* Shop "Golden, Genuine" block: portrait photo, fully visible, nothing cropped. */
+    .mh-shop-editorial{grid-template-columns:minmax(0,1fr) minmax(0,.7fr) !important}
+    .mh-shop-editorial .mh-extra-editorial-photo{
+      width:min(100%,420px) !important;
+      height:auto !important;
+      aspect-ratio:2/3 !important;      /* matches the image exactly */
+      justify-self:center;
+      background:#0c0704;
+      border-radius:24px 120px 24px 24px;
+      border:1px solid rgba(237,193,110,.5);
+      box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 8px rgba(237,193,110,.07);
+    }
+    .mh-shop-editorial .mh-extra-editorial-photo img{
+      width:100%;height:100%;
+      object-fit:cover !important;
+      object-position:center !important;
+      filter:brightness(1.04) contrast(1.03);
+    }
+    .mh-shop-editorial .mh-extra-editorial-photo:hover img{transform:scale(1.025);filter:brightness(1.08) contrast(1.03)}
+    .mh-shop-editorial .mh-extra-editorial-photo figcaption{padding:46px 22px 16px;background:linear-gradient(transparent,rgba(8,4,2,.8))}
+    @media(max-width:700px){
+      .mh-shop-editorial{grid-template-columns:1fr !important}
+      .mh-shop-editorial .mh-extra-editorial-photo{width:min(100%,340px) !important;border-radius:20px 90px 20px 20px}
+    }
+
+    /* ---------- BOTTLE SIZE BY WEIGHT: 200g small, 250g medium, 500g biggest ---------- */
+    body[data-page="shop"] #shop-products .product-card .product-visual{align-items:flex-end !important}
+    body[data-page="shop"] #shop-products .product-card .product-visual img{transform-origin:bottom center}
+
+    body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="200g"]{height:190px !important;max-height:none !important}
+    body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="250g"]{height:230px !important;max-height:none !important}
+    body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="500g"]{height:285px !important;max-height:none !important}
+
+    @media (max-width:600px){
+      body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="200g"]{height:150px !important}
+      body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="250g"]{height:190px !important}
+      body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="500g"]{height:245px !important}
     }
   </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
-  <link rel="stylesheet" href="shop-cart-editorial.css?v=20261015b">
+  <link rel="stylesheet" href="shop-cart-editorial.css?v=20261017">
 </head>
 <body data-page="shop">
   <div id="site-header"></div>
   <main>
-    <section class="page-hero">
+    <section class="page-hero shop-hero">
       <span class="bee b1" aria-hidden="true">🐝</span>
       <span class="bee b2" aria-hidden="true">🐝</span>
-      <div class="container center">
-        <span class="eyebrow">THE COLLECTION</span>
-        <h1>Pure honey, <em>your way.</em></h1>
-        <p>Choose the jar that fits your everyday ritual.</p>
-        <div class="shop-marks"><span>🍯 100% Natural</span><span>🌴 Kerala Heritage</span><span>💵 Cash on Delivery</span></div>
+      <div class="shop-hero-inner">
+
+        <figure class="shop-hero-photo">
+          <img src="images/editorial-dark-detail.jpg" width="1620" height="1080" alt="MADHURAVANA Pure Honey jar with a wooden honey dipper in warm golden light" fetchpriority="high" decoding="async">
+        </figure>
+
+        <div class="shop-hero-copy">
+          <span class="eyebrow">SHOP · THE COLLECTION</span>
+          <h1>Shop pure honey, <em>your way.</em></h1>
+          <p>Pick your jar — 200g, 250g or 500g. Order in a minute and pay when it arrives.</p>
+          <a class="shop-cta" href="#shop-products">Choose your jar <span aria-hidden="true">↓</span></a>
+          <div class="shop-marks"><span>🍯 100% Natural</span><span>🌴 Kerala &amp; Tamil Nadu Heritage</span><span>💵 Cash on Delivery</span></div>
+        </div>
+
       </div>
       <svg class="honey-drips" viewBox="0 0 1200 64" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 0H1200V12C1170 12 1160 12 1150 30C1142 48 1126 48 1118 30C1110 12 1090 12 1060 12C1030 12 1020 12 1012 24C1004 36 992 36 984 24C976 12 940 12 900 12C860 12 850 12 842 40C834 64 814 64 806 40C798 12 760 12 720 12C680 12 668 12 660 26C652 40 640 40 632 26C624 12 590 12 540 12C490 12 478 12 470 34C462 54 446 54 438 34C430 12 400 12 360 12C320 12 308 12 300 24C292 36 280 36 272 24C264 12 230 12 190 12C150 12 138 12 130 44C122 64 104 64 96 44C88 12 60 12 0 12Z"/>
@@ -201,6 +370,10 @@ body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
     </section>
 
     <section class="section">
+      <div class="container">
+        <h2 class="shop-title">Choose your jar<small>200g · 250g · 500g — tap “Add to cart” to order</small></h2>
+      </div>
+
       <div class="container shop-toolbar">
         <div><strong id="shop-count">3 products</strong><span class="muted"> · Natural sweetness, beautifully presented</span></div>
         <select id="shop-sort" aria-label="Sort products"><option value="default">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select>
@@ -212,17 +385,17 @@ body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
         <div class="mh-extra-editorial-copy">
           <span class="mh-extra-kicker">GOLDEN, GENUINE, MADE WITH CARE</span>
           <h2>A little jar of <em>natural goodness.</em></h2>
-          <p>Bring the warmth of Kerala’s natural heritage to your everyday table.</p>
+          <p>Bring the warmth of Kerala &amp; Tamil Nadu’s natural heritage to your everyday table.</p>
         </div>
         <figure class="mh-extra-editorial-photo">
-          <img src="images/editorial-golden-closeup.jpg" alt="MADHURAVANA Pure Honey jar glowing in warm golden light" loading="lazy" decoding="async">
+          <img src="images/editorial-golden-closeup.jpg" width="682" height="1024" alt="MADHURAVANA Pure Honey jar with its Kerala houseboat label, a wooden honey dipper and white flowers" loading="lazy" decoding="async">
           <figcaption>Nature’s golden touch</figcaption>
         </figure>
       </section>
       <div class="container">
         <div class="shop-promise">
           <div><b>🍯</b><strong>Raw &amp; Unprocessed</strong><small>Nothing added, nothing removed</small></div>
-          <div><b>🐝</b><strong>Supports Beekeepers</strong><small>Sourced with care in Kerala</small></div>
+          <div><b>🐝</b><strong>Supports Beekeepers</strong><small>Sourced with care in Kerala &amp; Tamil Nadu</small></div>
           <div><b>💵</b><strong>Pay on Delivery</strong><small>Pay at your door</small></div>
         </div>
       </div>
