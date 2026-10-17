@@ -3,7 +3,7 @@
   var mq=matchMedia('(min-width:1001px)');
   if(!mq.matches)return;
   var dots=[].slice.call(document.querySelectorAll('.mh-dots a'));
-  var targets=['.mh-hero','#about','#collection','#how'].map(function(s){return document.querySelector(s)});
+  var targets=['.mh-hero','#about','#gifts','#how','#faq'].map(function(s){return document.querySelector(s)});
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting){var i=targets.indexOf(e.target);dots.forEach(function(d,k){d.classList.toggle('on',k===i)})}
