@@ -125,7 +125,10 @@
       gl.clear(gl.COLOR_BUFFER_BIT); gl.uniform1f(uPhi, phi); gl.uniform1f(uK, k); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
     draw(0);
-    img.parentNode.insertBefore(canvas, img); img.style.display = "none";
+    canvas.style.margin = cs.margin; canvas.style.maxWidth = "none";
+    img.parentNode.insertBefore(canvas, img);
+    /* !important is required: mobile CSS forces "display:block !important" on this img, which made the real jar stay visible beside the canvas (the "extra bottle") */
+    img.style.setProperty("display", "none", "important");
 
     var start = null;
     function frame(ts) {
@@ -134,7 +137,7 @@
       draw(easeInOut(t) * Math.PI * 2);
       if (t < 1) requestAnimationFrame(frame);
       else {
-        img.style.display = ""; if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+        img.style.removeProperty("display"); if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
         var ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext();
         busy = false;
       }
