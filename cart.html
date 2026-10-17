@@ -1,104 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Cart | MADHURAVANA Pure Honey</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="magic-upgrade.css"><link rel="stylesheet" href="wow.css"><link rel="stylesheet" href="static-premium.css"><link rel="stylesheet" href="mobile-premium.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#143a23">
+  <title>Your Cart | MADHURAVANA Pure Honey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="premium.css">
+  <link rel="stylesheet" href="magic-upgrade.css">
+  <link rel="stylesheet" href="wow.css">
+  <link rel="stylesheet" href="static-premium.css">
+  <link rel="stylesheet" href="mobile-premium.css">
   <link rel="stylesheet" href="nav.css?v=20261012">
-  <link rel="stylesheet" href="shop-cart-editorial.css?v=20261015b">
 
   <style>
-    /* ================= CART PAGE: photo banner at the top + clear cart ================= */
+    /* =========================================================
+       CART PAGE (scoped, all classes start with ct-)
+       ========================================================= */
+    body[data-page="cart"]{
+      --c-green:#143a23; --c-green2:#1d4a2f; --c-gold:#a8710f; --c-honey:#e9a21c;
+      --c-cream:#f7f0df; --c-paper:#fffaf0; --c-ink:#2a1706; --c-mute:#6b5a3c; --c-line:rgba(168,113,15,.28);
+      background:var(--c-cream);
+    }
+    body[data-page="cart"] .ct-page,
+    body[data-page="cart"] .ct-page *{box-sizing:border-box}
+    .ct-page{color:var(--c-ink);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+    .ct-page h1,.ct-page h2,.ct-page h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.02em;margin:0;font-weight:600}
+    .ct-page img{display:block;max-width:100%}
 
-    body[data-page="cart"] main .section{padding:26px 0 80px !important}
+    /* ---------- hero ---------- */
+    .ct-hero{
+      position:relative;overflow:hidden;color:#fbf3df;
+      background:
+        linear-gradient(100deg,rgba(15,45,27,.97) 0%,rgba(20,58,35,.92) 55%,rgba(20,58,35,.7) 100%),
+        url("images/editorial-warm-stilllife.jpg") center/cover no-repeat,
+        #143a23;
+      padding:clamp(34px,6vw,64px) 0 clamp(54px,8vw,86px);
+    }
+    .ct-wrap{width:min(1120px,100% - 32px);margin:0 auto}
+    .ct-kicker{margin:0 0 10px;color:#f1c874;font:italic 400 1rem Fraunces,Georgia,serif}
+    .ct-hero h1{font-size:clamp(2.1rem,6vw,3.6rem);line-height:1.02;color:#fff7e2}
+    .ct-hero p.ct-sub{margin:12px 0 0;color:rgba(251,243,223,.82);max-width:34em;line-height:1.6}
+    .ct-steps{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none;font-size:.82rem;font-weight:600}
+    .ct-steps li{padding:7px 14px;border-radius:99px;border:1px solid rgba(241,200,116,.3);background:rgba(255,247,226,.07);color:rgba(251,243,223,.75)}
+    .ct-steps li.on{background:linear-gradient(180deg,#f2b73a,#e19a12);border-color:transparent;color:#2a1706}
 
-    /* ---------- photo banner (FULL image visible, not cropped) ---------- */
-    .mh-cart-editorial{
-      width:min(1120px,calc(100% - 40px));
-      grid-template-columns:minmax(0,420px) minmax(0,1fr) !important;
-      align-items:center;
-      gap:clamp(18px,3vw,40px) !important;
-      padding:clamp(14px,2.2vw,26px) !important;
-      margin:clamp(36px,5vw,64px) auto 0 !important;
-      border-radius:24px;
-    }
-    .mh-cart-editorial .mh-extra-editorial-photo{
-      height:auto !important;
-      aspect-ratio:3/2 !important;          /* same shape as the photo = nothing cropped */
-      background:#0c0704;
-      border-radius:16px 80px 16px 16px !important;
-      border:1px solid rgba(237,193,110,.5);
-      box-shadow:0 18px 40px rgba(0,0,0,.45);
-    }
-    .mh-cart-editorial .mh-extra-editorial-photo img{
-      width:100%;height:100%;
-      object-fit:cover !important;
-      object-position:center !important;
-      filter:brightness(1.3) contrast(1.05) saturate(1.1) !important;
-    }
-    .mh-cart-editorial .mh-extra-editorial-photo:hover img{
-      transform:scale(1.02);
-      filter:brightness(1.38) contrast(1.05) saturate(1.12) !important;
-    }
-    .mh-cart-editorial .mh-extra-editorial-photo figcaption{padding:30px 16px 12px;font-size:.9rem}
-    .mh-cart-editorial .mh-extra-editorial-copy h2{font-size:clamp(1.6rem,2.8vw,2.4rem) !important;margin:10px 0 !important}
-    .mh-cart-editorial .mh-extra-editorial-copy p{font-size:.95rem;line-height:1.65}
-    .mh-cart-editorial .mh-extra-link{margin-top:16px;padding-bottom:5px}
+    /* ---------- layout ---------- */
+    .ct-main{margin-top:-34px;position:relative;z-index:2;padding-bottom:70px}
+    .ct-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:24px;align-items:start}
+    .ct-list{display:grid;gap:20px;min-width:0}
 
-    /* ---------- cart title ---------- */
-    .cart-title{
-      margin:0 0 18px;
-      font:600 clamp(1.5rem,3vw,2rem)/1.15 Fraunces,Georgia,serif;
-      color:#3b2008;
-      letter-spacing:-.01em;
+    /* ---------- group (regular / gift) ---------- */
+    .ct-group{background:var(--c-paper);border:1px solid var(--c-line);border-radius:22px;box-shadow:0 18px 44px rgba(60,40,10,.12);overflow:hidden}
+    .ct-group-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:linear-gradient(135deg,#1d4a2f,#143a23);color:#fff7e2}
+    .ct-group.is-gift .ct-group-head{background:linear-gradient(135deg,#b87a0c,#e9a21c);color:#2a1706}
+    .ct-group-title{display:flex;align-items:center;gap:12px;min-width:0}
+    .ct-group-ico{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.16);font-size:1.25rem}
+    .ct-group-head h2{font-size:1.2rem;line-height:1.15}
+    .ct-group-head small{display:block;margin-top:2px;font:500 .78rem Inter,sans-serif;opacity:.85}
+    .ct-group-sub{flex:none;text-align:right;font:600 1.15rem Fraunces,Georgia,serif;white-space:nowrap}
+    .ct-group-sub small{font-size:.7rem}
+
+    /* ---------- item row ---------- */
+    .ct-item{
+      display:grid;grid-template-columns:84px minmax(0,1fr) auto auto;
+      grid-template-areas:"thumb info qty price";
+      align-items:center;gap:16px;padding:16px 20px;border-top:1px solid var(--c-line);
     }
-    .cart-title small{display:block;margin-top:4px;font:500 .9rem Inter,system-ui,sans-serif;color:#8a6a30;letter-spacing:0}
+    .ct-item:first-of-type{border-top:0}
+    .ct-thumb{grid-area:thumb;height:84px;display:grid;place-items:center;border-radius:16px;
+      background:radial-gradient(circle,rgba(255,214,102,.6),rgba(255,214,102,.12) 70%)}
+    .ct-thumb img{height:72px;width:auto;object-fit:contain;filter:drop-shadow(0 6px 6px rgba(90,50,0,.3))}
+    .ct-info{grid-area:info;min-width:0}
+    .ct-info h3{font-size:1.08rem;line-height:1.25;color:var(--c-green)}
+    .ct-meta{margin-top:4px;font-size:.88rem;color:var(--c-mute)}
+    .ct-badge{display:inline-block;margin-left:6px;padding:2px 9px;border-radius:99px;background:#fff0c4;border:1px solid #e3b95a;color:#8a5a00;font:700 .68rem Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle}
+    .ct-remove{margin-top:8px;padding:0;border:0;background:none;color:#a33a2a;font:600 .82rem Inter,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .ct-qty{grid-area:qty;display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:99px;background:#efe4c9}
+    .ct-qty button{width:36px;height:36px;border:0;border-radius:50%;background:var(--c-paper);color:var(--c-green);font:600 1.3rem/1 Inter,sans-serif;cursor:pointer;transition:background .15s,color .15s;padding:0}
+    .ct-qty button:hover{background:var(--c-green);color:#fff}
+    .ct-qty strong{min-width:38px;text-align:center;font:700 1rem Inter,sans-serif}
+    .ct-price{grid-area:price;min-width:86px;text-align:right;font:600 1.2rem Fraunces,Georgia,serif;color:var(--c-gold)}
+    .ct-min{grid-column:1/-1;margin:-4px 0 0;font-size:.78rem;color:var(--c-mute)}
+
+    /* ---------- summary ---------- */
+    .ct-summary{position:sticky;top:96px;padding:24px;border-radius:22px;color:#fbf3df;
+      background:radial-gradient(400px 200px at 100% 0,rgba(233,162,28,.22),transparent 70%),linear-gradient(160deg,#1d4a2f,#143a23);
+      border:1px solid rgba(241,200,116,.3);box-shadow:0 22px 50px rgba(20,58,35,.32)}
+    .ct-summary h3{font-size:1.3rem;color:#fff7e2;margin-bottom:14px}
+    .ct-sum-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed rgba(251,243,223,.22);font-size:.95rem}
+    .ct-sum-row span small{display:block;color:rgba(251,243,223,.6);font-size:.78rem;margin-top:2px}
+    .ct-sum-total{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 18px}
+    .ct-sum-total strong{font:600 1.9rem Fraunces,Georgia,serif;color:#f6d58a}
+    .ct-gift-note{margin:0 0 16px;padding:12px 14px;border-radius:14px;background:#fff7de;border:1px dashed #d9a441;color:#2a1706;font-size:.88rem;line-height:1.55}
+    .ct-gift-note a{color:#8a5a00;text-decoration:underline;font-weight:600}
+    .ct-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:0 24px;border:0;border-radius:99px;cursor:pointer;text-decoration:none;
+      background:linear-gradient(180deg,#f2b73a,#e19a12);color:#2a1706;font:700 1rem Inter,sans-serif;
+      box-shadow:0 10px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s,box-shadow .2s}
+    .ct-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.45)}
+    .ct-link-btn{display:block;width:100%;margin-top:10px;padding:12px;border:0;border-radius:99px;background:transparent;color:rgba(251,243,223,.85);font:600 .9rem Inter,sans-serif;cursor:pointer;box-shadow:inset 0 0 0 1.5px rgba(251,243,223,.35);text-align:center;text-decoration:none}
+    .ct-link-btn:hover{background:rgba(251,243,223,.1)}
+    .ct-fine{margin:14px 0 0;font-size:.8rem;line-height:1.55;color:rgba(251,243,223,.7);text-align:center}
+
+    /* ---------- empty ---------- */
+    .ct-empty{padding:56px 24px;text-align:center;background:var(--c-paper);border:1px solid var(--c-line);border-radius:22px;box-shadow:0 18px 44px rgba(60,40,10,.12)}
+    .ct-empty .ct-empty-ico{font-size:3rem;margin-bottom:8px}
+    .ct-empty h2{font-size:1.7rem;color:var(--c-green)}
+    .ct-empty p{margin:10px auto 22px;max-width:28em;color:var(--c-mute);line-height:1.6}
+    .ct-empty .ct-btn{display:inline-flex;width:auto;margin:0 6px 8px}
+    .ct-empty .ct-btn.alt{background:var(--c-green);color:#fff7e2;box-shadow:none}
+
+    /* ---------- mobile sticky bar ---------- */
+    .ct-bar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;align-items:center;justify-content:space-between;gap:14px;
+      padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--c-green);color:#fbf3df;box-shadow:0 -10px 30px rgba(0,0,0,.3)}
+    .ct-bar strong{display:block;font:600 1.35rem Fraunces,Georgia,serif;color:#f6d58a}
+    .ct-bar small{display:block;font-size:.76rem;color:rgba(251,243,223,.75)}
+    .ct-bar .ct-btn{width:auto;min-height:46px;padding:0 24px}
 
     /* ---------- tablet ---------- */
-    @media(max-width:900px){
-      .mh-cart-editorial{grid-template-columns:minmax(0,300px) minmax(0,1fr) !important}
-      .mh-cart-editorial .mh-extra-editorial-copy p{display:none}
+    @media (max-width:900px){
+      .ct-layout{grid-template-columns:1fr}
+      .ct-summary{position:static}
+      .ct-bar:not([hidden]){display:flex}
+      body.ct-has-bar{padding-bottom:84px}
     }
 
-    /* ---------- phone: photo on top, short text below, cart right after ---------- */
-    @media(max-width:700px){
-      .mh-cart-editorial{
-        width:min(100% - 28px,520px);
-        grid-template-columns:1fr !important;
-        margin:22px auto 0 !important;
+    /* ---------- phone ---------- */
+    @media (max-width:640px){
+      .ct-wrap{width:min(100% - 24px,560px)}
+      .ct-hero{padding:28px 0 56px}
+      .ct-steps li{padding:6px 11px;font-size:.76rem}
+      .ct-group-head{padding:14px 14px}
+      .ct-group-ico{width:36px;height:36px}
+      .ct-group-head h2{font-size:1.05rem}
+      .ct-item{
+        grid-template-columns:68px minmax(0,1fr);
+        grid-template-areas:"thumb info" "qty price";
+        gap:12px 14px;padding:14px;
       }
-      .mh-cart-editorial .mh-extra-editorial-photo{border-radius:14px 70px 14px 14px !important}
-      body[data-page="cart"] main .section{padding:22px 0 56px !important}
+      .ct-thumb{height:68px}
+      .ct-thumb img{height:58px}
+      .ct-qty{justify-self:start}
+      .ct-qty button{width:34px;height:34px}
+      .ct-price{align-self:center;min-width:0;font-size:1.1rem}
+      .ct-summary{padding:20px 18px}
+      .ct-empty{padding:40px 18px}
     }
+    @media (prefers-reduced-motion:reduce){.ct-btn{transition:none}}
   </style>
 </head>
 <body data-page="cart">
   <div id="site-header"></div>
-  <main>
 
-    <!-- photo + text (replaces the old "Your honey cart." heading) -->
-    <section class="mh-extra-editorial mh-cart-editorial" aria-label="The Madhuravana honey ritual">
-      <figure class="mh-extra-editorial-photo">
-        <img src="images/editorial-warm-stilllife.jpg" width="1620" height="1080" alt="MADHURAVANA Pure Honey styled as a warm natural still life" decoding="async" fetchpriority="high">
-        <figcaption>Slow moments. Pure sweetness.</figcaption>
-      </figure>
-      <div class="mh-extra-editorial-copy">
-        <span class="mh-extra-kicker">A MOMENT OF NATURAL WARMTH</span>
-        <h2>Good things are worth <em>savouring.</em></h2>
-        <p>Thank you for choosing Madhuravana — a taste of nature’s goodness, from our world to your table.</p>
-        <a class="mh-extra-link" href="shop.html">Continue exploring the collection <span aria-hidden="true">→</span></a>
+  <main class="ct-page">
+    <section class="ct-hero">
+      <div class="ct-wrap">
+        <p class="ct-kicker">Almost yours</p>
+        <h1>Your honey cart</h1>
+        <p class="ct-sub">Review your items, then proceed to checkout. Regular and gift jars are packed separately.</p>
+        <ol class="ct-steps" aria-label="Order steps">
+          <li class="on">1 · Cart</li>
+          <li>2 · Checkout</li>
+          <li>3 · Confirm on WhatsApp</li>
+        </ol>
       </div>
     </section>
 
-    <!-- CART ITEMS -->
-    <section class="section">
-      <div class="container">
-        <h1 class="cart-title">Your honey cart<small>Review your items, then proceed to checkout.</small></h1>
+    <section class="ct-main">
+      <div class="ct-wrap ct-layout">
+        <div id="cart-items" class="ct-list"></div>
+        <aside id="cart-summary" class="ct-summary" aria-label="Order summary"></aside>
       </div>
-      <div class="container cart-layout"><div id="cart-items"></div><aside id="cart-summary" class="summary-card"></aside></div>
     </section>
   </main>
+
+  <div class="ct-bar" id="ct-bar" hidden>
+    <div><strong id="ct-bar-total">₹0</strong><small id="ct-bar-count"></small></div>
+    <a class="ct-btn" href="checkout.html">Checkout →</a>
+  </div>
+
   <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
   <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script>
+
+  <script>
+  /* Cart renderer: regular jars and gift jars are shown (and subtotalled) separately.
+     Overrides renderCart() from script.js. changeCart / removeCart still come from script.js. */
+  renderCart = function () {
+    var box = document.getElementById("cart-items");
+    var summary = document.getElementById("cart-summary");
+    var bar = document.getElementById("ct-bar");
+    if (!box || !summary) return;
+
+    var items = cartDetailed();
+
+    if (!items.length) {
+      box.innerHTML =
+        '<div class="ct-empty"><div class="ct-empty-ico">🍯</div><h2>Your cart is waiting.</h2>' +
+        '<p>Choose a jar of MADHURAVANA Pure Honey and it will appear here.</p>' +
+        '<a class="ct-btn" href="shop.html">Shop Honey</a><a class="ct-btn alt" href="gifts.html">Send a Gift</a></div>';
+      summary.innerHTML = ""; summary.style.display = "none";
+      if (bar) bar.hidden = true;
+      document.body.classList.remove("ct-has-bar");
+      return;
+    }
+    summary.style.display = "";
+
+    var normal = items.filter(function (i) { return !i.gift; });
+    var gifts  = items.filter(function (i) { return i.gift; });
+    function sum(l)   { return l.reduce(function (s, i) { return s + i.price * i.quantity; }, 0); }
+    function count(l) { return l.reduce(function (s, i) { return s + i.quantity; }, 0); }
+    function jars(n)  { return n + (n === 1 ? " jar" : " jars"); }
+
+    function row(i) {
+      var key = lineKey(i);
+      return '<div class="ct-item">' +
+        '<div class="ct-thumb"><img src="images/madhuravana-front-bottle.png" alt="MADHURAVANA Pure Honey ' + esc(i.weight) + '"></div>' +
+        '<div class="ct-info"><h3>' + esc(i.name) + (i.gift ? '<span class="ct-badge">Gift</span>' : '') + '</h3>' +
+          '<div class="ct-meta">' + esc(i.weight) + ' · ' + money(i.price) + ' each</div>' +
+          '<button class="ct-remove" type="button" data-remove="' + esc(key) + '">Remove</button></div>' +
+        '<div class="ct-qty"><button type="button" data-minus="' + esc(key) + '" aria-label="Decrease quantity">−</button>' +
+          '<strong>' + i.quantity + '</strong>' +
+          '<button type="button" data-plus="' + esc(key) + '" aria-label="Increase quantity">+</button></div>' +
+        '<div class="ct-price">' + money(i.price * i.quantity) + '</div>' +
+        (i.gift ? '<p class="ct-min">Gift orders start from 5 jars.</p>' : '') +
+        '</div>';
+    }
+
+    function group(cls, ico, title, note, list) {
+      if (!list.length) return "";
+      return '<section class="ct-group ' + cls + '">' +
+        '<div class="ct-group-head"><div class="ct-group-title"><span class="ct-group-ico">' + ico + '</span>' +
+        '<div><h2>' + title + '</h2><small>' + note + ' · ' + jars(count(list)) + '</small></div></div>' +
+        '<div class="ct-group-sub">' + money(sum(list)) + '</div></div>' +
+        list.map(row).join("") + '</section>';
+    }
+
+    box.innerHTML =
+      group("is-regular", "🍯", "Regular order", "Packed separately", normal) +
+      group("is-gift", "🎁", "Gift pack", "Packed separately with your card", gifts);
+
+    var total = cartTotal();
+    var n = getGiftNote();
+    var noteHtml = n
+      ? '<div class="ct-gift-note"><strong>🎁 Gift card attached</strong><br>' +
+        (n.to ? 'For ' + esc(n.to) : 'Gift') + (n.from ? ' · from ' + esc(n.from) : '') +
+        (n.message ? '<br><em>“' + esc(n.message) + '”</em>' : '') +
+        '<br><a href="gifts.html">Edit gift note</a></div>'
+      : '';
+
+    summary.innerHTML =
+      '<h3>Order summary</h3>' +
+      (normal.length ? '<div class="ct-sum-row"><span>Regular order<small>' + jars(count(normal)) + '</small></span><strong>' + money(sum(normal)) + '</strong></div>' : '') +
+      (gifts.length  ? '<div class="ct-sum-row"><span>🎁 Gift pack<small>' + jars(count(gifts)) + '</small></span><strong>' + money(sum(gifts)) + '</strong></div>' : '') +
+      '<div class="ct-sum-total"><span>Total</span><strong>' + money(total) + '</strong></div>' +
+      noteHtml +
+      '<a class="ct-btn" href="checkout.html">Proceed to Checkout</a>' +
+      '<a class="ct-link-btn" href="shop.html">Continue Shopping</a>' +
+      '<button class="ct-link-btn" id="empty-cart" type="button">Empty Cart</button>' +
+      '<p class="ct-fine">Cash on Delivery · WhatsApp order preparation</p>';
+
+    /* sticky mobile bar */
+    if (bar) {
+      bar.hidden = false;
+      document.getElementById("ct-bar-total").textContent = money(total);
+      document.getElementById("ct-bar-count").textContent = jars(count(items));
+      document.body.classList.add("ct-has-bar");
+    }
+
+    box.querySelectorAll("[data-minus]").forEach(function (b) { b.onclick = function () { changeCart(b.dataset.minus, -1); }; });
+    box.querySelectorAll("[data-plus]").forEach(function (b) { b.onclick = function () { changeCart(b.dataset.plus, 1); }; });
+    box.querySelectorAll("[data-remove]").forEach(function (b) { b.onclick = function () { removeCart(b.dataset.remove); }; });
+    document.getElementById("empty-cart").onclick = function () {
+      if (confirm("Empty your entire cart?")) { saveCart([]); clearGiftNote(); renderCart(); updateCartCount(); }
+    };
+  };
+  </script>
 </body>
 </html>
