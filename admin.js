@@ -212,7 +212,31 @@
 
   function safeProducts(o) { return Array.isArray(o.products) ? o.products : []; }
 
-
+function giftCount(o) { return safeProducts(o).filter(function (p) { return p.gift; }).reduce(function (s, p) { return s + Number(p.quantity || 0); }, 0); }
+function noteOf(o) {
+  if (o.giftNote) return o.giftNote;
+  var p = safeProducts(o).filter(function (x) { return x.giftNote; })[0];
+  return p ? p.giftNote : null;
+}
+function giftNoteBlock(o) {
+  var n = o.giftNote; if (!n || !(n.to || n.from || n.message)) return "";
+  return '<div class="ax-giftnote"><b>🎁 Gift card</b>' +
+    (n.occasion ? '<div><span>Occasion</span> ' + esc(n.occasion) + '</div>' : '') +
+    '<div><span>For</span> ' + esc(n.to || "-") + '</div>' +
+    '<div><span>From</span> ' + esc(n.from || "-") + '</div>' +
+    '<div><span>Message</span> <em>“' + esc(n.message || "-") + '”</em></div></div>';
+}
+function groupedItemsHtml(o) {
+  var list = safeProducts(o);
+  var reg = list.filter(function (p) { return !p.gift; }), gift = list.filter(function (p) { return p.gift; });
+  function grp(cls, title, arr) {
+    if (!arr.length) return "";
+    var n = arr.reduce(function (s, p) { return s + Number(p.quantity || 0); }, 0);
+    return '<div class="ax-grp ' + cls + '"><div class="ax-grp-h">' + title + ' · ' + n + (n === 1 ? ' jar' : ' jars') + '</div>' +
+      arr.map(function (p) { return '<div class="ax-grp-l">' + esc(p.name) + ' ' + esc(p.weight) + ' × ' + Number(p.quantity || 0) + '</div>'; }).join("") + '</div>';
+  }
+  return grp("", "🍯 Regular order", reg) + grp("gift", "🎁 Gift pack (pack separately)", gift) + giftNoteBlock(o);
+}
 
   function addr(o) { var a = o.address || {}; return [a.street, a.city, a.state].filter(Boolean).join(", ") + (a.pincode ? " - " + a.pincode : ""); }
 
@@ -720,7 +744,7 @@
 
     var result=await sb.listDevices();
 
-    var devices=(result&&result.data)||[];
+    var devices=((result&&result.data)||[]).filter(function(d){ return !d.revoked_at && d.is_active!==false; });
 
     var html='\<div class="ax-mhead">\<div>\<span class="ax-eyebrow">Security\</span>\<h2>Authorized devices\</h2>\</div>\<button class="ax-x" data-close>×\</button>\</div>' +
 
@@ -752,8 +776,21 @@
 
     };
 
-    $$("[data-revoke-device]",bd).forEach(function(b){ b.onclick=async function(){ if(!confirm("Revoke this device? It will lose admin access.")) return; var r=await sb.revokeDevice(this.dataset.revokeDevice); if(r&&r.ok){ toast("Device revoked.","ok"); closeModal(); openDeviceSecurity(); } else toast((r&&r.reason)||"Could not revoke device.","warn"); }; });
-
+   $$("[data-revoke-device]",bd).forEach(function(b){
+  b.onclick=async function(){
+    var btn=this;
+    if(!confirm("Revoke this device? It will lose admin access.")) return;
+    btn.disabled=true; btn.textContent="Revoking…";
+    var r=await sb.revokeDevice(btn.dataset.revokeDevice);
+    if(r&&r.ok){
+      toast("Device revoked.","ok");
+      var row=btn.parentNode; if(row&&row.parentNode) row.parentNode.removeChild(row);
+    } else {
+      btn.disabled=false; btn.textContent="Revoke";
+      toast((r&&r.reason)||"Could not revoke device.","warn");
+    }
+  };
+});
   }
 
 
@@ -1036,7 +1073,8 @@
 
         var items = safeProducts(o).reduce(function (s, p) { return s + Number(p.quantity || 0); }, 0);
 
-
+var gq = giftCount(o);
+items = items + (gq ? '<span class="ax-muted">🎁 ' + gq + ' gift</span>' : "");
 
         var isCancelled = String(o.status || "").toLowerCase() === "cancelled";
 
@@ -1760,9 +1798,9 @@
 
 
 
-    var items = safeProducts(o).map(function (p) { return esc(p.name) + " " + esc(p.weight) + " × " + Number(p.quantity || 0); }).join("\<br>");
+   
 
-
+var items = groupedItemsHtml(o);
 
     var bd = openModal('\<div class="ax-mhead">\<div>\<span class="ax-eyebrow">' + esc(o.orderType || "") + ' ORDER\</span>\<h2>' + esc(o.id) + '\</h2>\</div>\<button class="ax-x" aria-label="Close">×\</button>\</div>' +
 
@@ -2055,64 +2093,26 @@ function printOrder(o) {
 
 
 
+var rowNo = 0;
+function invRow(p) {
+  var qty = Number(p.quantity || 0), price = Number(p.price || 0); rowNo++;
+  return '<tr><td class="n">' + rowNo + '</td><td><strong>' + esc(p.name || "MADHURAVANA Pure Honey") + '</strong><span>' + esc(p.weight || "") + '</span></td><td class="c">' + qty + '</td><td class="r">' + money(price) + '</td><td class="r"><strong>' + money(price * qty) + '</strong></td></tr>';
+}
+function invGroup(title, arr) {
+  if (!arr.length) return "";
+  var sub = arr.reduce(function (s, p) { return s + Number(p.price || 0) * Number(p.quantity || 0); }, 0);
+  return '<tr class="grp"><td colspan="4">' + title + '</td><td class="r">' + money(sub) + '</td></tr>' + arr.map(invRow).join("");
+}
+var allP = safeProducts(o);
+var rows = invGroup("Regular order", allP.filter(function (p) { return !p.gift; })) +
+           invGroup("🎁 Gift pack (pack separately)", allP.filter(function (p) { return p.gift; }));
 
-  var rows = safeProducts(o).map(function (p, i) {
-
-
-
-    var qty = Number(p.quantity || 0);
-
-
-
-    var price = Number(p.price || 0);
-
-
-
-
-
-
-
-    return '\<tr>' +
-
-
-
-      '\<td class="n">' + (i + 1) + '\</td>' +
-
-
-
-      '\<td>' +
-
-
-
-        '\<strong>' + esc(p.name || "MADHURAVANA Pure Honey") + '\</strong>' +
-
-
-
-        '\<span>' + esc(p.weight || "") + '\</span>' +
-
-
-
-      '\</td>' +
-
-
-
-      '\<td class="c">' + qty + '\</td>' +
-
-
-
-      '\<td class="r">' + money(price) + '\</td>' +
-
-
-
-      '\<td class="r">\<strong>' + money(price * qty) + '\</strong>\</td>' +
-
-
-
-    '\</tr>';
-
-
-
-  }).join("");
+var gn = o.giftNote, giftBlock = "";
+if (gn && (gn.to || gn.from || gn.message)) {
+  giftBlock = '<div class="giftcard"><b>🎁 Gift card to include</b>' +
+    '<p>Occasion: ' + esc(gn.occasion || "-") + '</p><p>For: <strong>' + esc(gn.to || "-") + '</strong> · From: <strong>' + esc(gn.from || "-") + '</strong></p>' +
+    '<p class="msg">“' + esc(gn.message || "-") + '”</p></div>';
+}
 
 
 
@@ -2410,7 +2410,8 @@ function printOrder(o) {
 
     '.foot b{color:#ffd45c;letter-spacing:.14em}',
 
-
+'tr.grp td{background:#fff1ce;color:#805d15;font:800 11px "Segoe UI",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;border-bottom:1px solid #e6c25f}',
+'.giftcard{margin-top:18px;border:2px dashed #e6a800;border-radius:14px;padding:12px 16px;background:#fffaf0}.giftcard b{font:800 10px "Segoe UI",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a56a00}.giftcard p{margin:5px 0 0}.giftcard .msg{font:italic 15px Georgia,serif;color:#173b25}',
 
     '@media print{html,body{background:#fffdf7}.sheet{margin:0;box-shadow:none}}'
 
@@ -2722,7 +2723,7 @@ function printOrder(o) {
 
 
 
-
+   giftBlock +
 
     '\<div class="sum">' +
 
@@ -3024,15 +3025,13 @@ function printOrder(o) {
 
 
 
-    var rows = [["Order ID", "Type", "Date", "Time", "Customer", "Phone", "Products", "Total", "Payment", "Status", "Address"]].concat(list.map(function (o) {
-
-
-
-      return [o.id, o.orderType, o.orderDate, o.orderTime, o.customerName, o.phone, safeProducts(o).map(function (p) { return p.weight + " x" + p.quantity; }).join("; "), o.total, o.paymentMethod, o.status, addr(o)];
-
-
-
-    }));
+var rows = [["Order ID", "Type", "Date", "Time", "Customer", "Phone", "Products", "Total", "Payment", "Status", "Address", "Gift card"]].concat(list.map(function (o) {
+  var g = o.giftNote;
+  return [o.id, o.orderType, o.orderDate, o.orderTime, o.customerName, o.phone,
+    safeProducts(o).map(function (p) { return p.weight + " x" + p.quantity + (p.gift ? " (GIFT)" : ""); }).join("; "),
+    o.total, o.paymentMethod, o.status, addr(o),
+    g ? ("For " + (g.to || "-") + " / From " + (g.from || "-") + " / " + (g.message || "")) : ""];
+}));
 
 
 
