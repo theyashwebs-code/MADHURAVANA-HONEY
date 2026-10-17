@@ -324,20 +324,18 @@
       .mh-shop-editorial{grid-template-columns:1fr !important}
       .mh-shop-editorial .mh-extra-editorial-photo{width:min(100%,340px) !important;border-radius:20px 90px 20px 20px}
     }
-
-    /* ---------- BOTTLE SIZE BY WEIGHT: 200g small, 250g medium, 500g biggest ---------- */
-    body[data-page="shop"] #shop-products .product-card .product-visual{align-items:flex-end !important}
-    body[data-page="shop"] #shop-products .product-card .product-visual img{transform-origin:bottom center}
-
-    body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="200g"]{height:190px !important;max-height:none !important}
-    body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="250g"]{height:230px !important;max-height:none !important}
-    body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="500g"]{height:285px !important;max-height:none !important}
-
-    @media (max-width:600px){
-      body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="200g"]{height:150px !important}
-      body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="250g"]{height:190px !important}
-      body[data-page="shop"] #shop-products .product-card .product-visual img[alt$="500g"]{height:245px !important}
-    }
+/* ---------- BOTTLE SIZE: automatic from weight (set by JS below) ---------- */
+body[data-page="shop"] #shop-products .product-card{--jar-max:285px}
+body[data-page="shop"] #shop-products .product-card .product-visual{align-items:flex-end !important}
+body[data-page="shop"] #shop-products .product-card .product-visual img{
+  transform-origin:bottom center;
+  height:calc(var(--jar-max) * var(--jar-f,.8)) !important;
+  max-height:none !important;
+  transition:height .3s ease,transform .4s ease;
+}
+@media (max-width:600px){
+  body[data-page="shop"] #shop-products .product-card{--jar-max:245px}
+}
   </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
@@ -402,6 +400,36 @@
     </section>
   </main>
   <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
+  <script>
+(function(){
+  var grid=document.getElementById("shop-products");
+  if(!grid) return;
+
+  function grams(text){
+    var m=String(text||"").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/);
+    if(!m) return 0;
+    return parseFloat(m[1])*(m[2]==="kg"?1000:1);
+  }
+  /* 100g≈45% of max size, 1kg or more = 100%. Smooth curve for any weight. */
+  function factor(g){
+    if(!g) return .8;
+    var f=.45+.55*Math.log(g/100)/Math.log(10);
+    return Math.max(.4,Math.min(1,f));
+  }
+  function sizeAll(){
+    var cards=grid.querySelectorAll(".product-card");
+    for(var i=0;i<cards.length;i++){
+      var c=cards[i], img=c.querySelector(".product-visual img");
+      if(!img) continue;
+      var sm=c.querySelector(".p-name small");
+      var g=grams(sm&&sm.textContent)||grams(img.getAttribute("alt"));
+      c.style.setProperty("--jar-f",factor(g).toFixed(3));
+    }
+  }
+  sizeAll();
+  new MutationObserver(sizeAll).observe(grid,{childList:true,subtree:true});
+})();
+</script>
   <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js?v=2"></script><script src="admin.js"></script><script src="motion.js"></script>
 </body>
 </html>
