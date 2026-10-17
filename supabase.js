@@ -578,7 +578,9 @@
 
       status: r.status || "Order Placed",
 
-      createdAt: r.created_at
+      createdAt: r.created_at,
+
+        giftNote: r.gift_note || undefined
 
     };
 
@@ -626,7 +628,9 @@
 
         o.createdAt ||
 
-        new Date().toISOString()
+        new Date().toISOString(),
+
+        gift_note: o.giftNote || null
 
     };
 
