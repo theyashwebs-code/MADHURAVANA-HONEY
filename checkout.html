@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#120b06">
 <title>Checkout | MADHURAVANA Pure Honey</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,65 +20,92 @@
 <style>
 /* =====================================================================
    MADHURAVANA · CHECKOUT  (Cash on Delivery → WhatsApp)
-   Premium pass: deep espresso stage, antique gold, paper-cream cards,
-   quiet forest-green action. Same IDs, names and behaviour as before.
+   Espresso stage, glowing gold, paper-cream cards, forest-green action.
 ===================================================================== */
 body[data-page="checkout"]{
   --ink:#1a110a;--espresso:#120b06;--cocoa:#3b2818;--muted:#8b7a66;
-  --gold:#c9a24b;--gold-hi:#e8cf94;--gold-lo:#9a7424;
+  --gold:#c9a24b;--gold-hi:#f0d99c;--gold-lo:#9a7424;--honey:#e9a21c;
   --paper:#fffcf5;--cream:#f6efe0;--line:#e9dfc8;--line-soft:#f1e9d6;
   --forest:#1f5a3a;--forest-hi:#2b7a50;--ok:#3f7a3a;--bad:#b4503f;
   --ease:cubic-bezier(.2,.8,.1,1);
 }
 body[data-page="checkout"] main{
+  position:relative;overflow:hidden;
   background:
-    radial-gradient(900px 480px at 50% -80px,rgba(201,162,75,.16),transparent 70%),
+    radial-gradient(900px 520px at 50% -100px,rgba(233,162,28,.22),transparent 70%),
+    radial-gradient(600px 400px at 100% 40%,rgba(201,162,75,.08),transparent 70%),
+    radial-gradient(600px 400px at 0% 70%,rgba(31,90,58,.18),transparent 70%),
     linear-gradient(180deg,#160d07 0,#0e0804 100%);
 }
+body[data-page="checkout"] *{-webkit-tap-highlight-color:transparent}
 
 /* ---------- Hero ---------- */
 .ck-hero{
   position:relative;overflow:hidden;text-align:center;color:var(--cream);
-  padding:68px 20px 96px;font-family:"Manrope",system-ui,sans-serif;
+  padding:72px 20px 104px;font-family:"Manrope",system-ui,sans-serif;
 }
 .ck-hero::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 2l26 15v30L28 62 2 47V17z M28 62v34' fill='none' stroke='%23e8cf94' stroke-opacity='.06'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 2l26 15v30L28 62 2 47V17z M28 62v34' fill='none' stroke='%23f0d99c' stroke-opacity='.09'/%3E%3C/svg%3E");
   -webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 72%);
           mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 72%);
 }
-.ck-hero > *{position:relative}
-.ck-pill{
-  display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;
-  font-size:.78rem;font-weight:600;letter-spacing:.02em;color:var(--gold-hi);
-  background:rgba(232,207,148,.07);border:1px solid rgba(232,207,148,.28);
+.ck-hero > *:not(.ck-sparks){position:relative;z-index:2}
+
+/* floating gold sparks */
+.ck-sparks{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.ck-sparks i{
+  position:absolute;bottom:-20px;width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle,#fff3c8,#e9a21c 60%,transparent 70%);
+  opacity:0;animation:ckFloat var(--d) linear infinite;animation-delay:var(--l);left:var(--x);
+  filter:blur(.3px);
 }
-.ck-pill svg{width:16px;height:16px;flex:none}
-.ck-hero h1{
-  margin:22px 0 12px;font-family:"Fraunces",Georgia,serif;font-weight:400;
-  font-variation-settings:"SOFT" 40,"opsz" 144;font-size:clamp(2.6rem,6.4vw,4.2rem);
-  line-height:1.02;letter-spacing:-.025em;color:#fbf1d9;
-}
-.ck-hero p{margin:0 auto;max-width:42ch;color:#bfae92;line-height:1.7;font-size:1rem}
-.ck-hero p::after{
-  content:"";display:block;width:56px;height:1px;margin:26px auto 0;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+@keyframes ckFloat{
+  0%{transform:translate3d(0,0,0) scale(.6);opacity:0}
+  15%{opacity:.85}
+  100%{transform:translate3d(var(--dx),-440px,0) scale(1);opacity:0}
 }
 
-.ck-steps{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:26px;font-size:.82rem;color:#8f7f68;flex-wrap:wrap}
-.ck-steps span{display:inline-flex;align-items:center;gap:10px;font-weight:600}
+.ck-pill{
+  display:inline-flex;align-items:center;gap:10px;padding:9px 20px;border-radius:99px;
+  font-size:.78rem;font-weight:700;letter-spacing:.03em;color:var(--gold-hi);
+  background:linear-gradient(135deg,rgba(240,217,156,.14),rgba(240,217,156,.04));
+  border:1px solid rgba(240,217,156,.34);
+  box-shadow:0 10px 30px -10px rgba(233,162,28,.35),inset 0 1px 0 rgba(255,255,255,.1);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.ck-pill svg{width:17px;height:17px;flex:none}
+.ck-hero h1{
+  margin:24px 0 14px;font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-variation-settings:"SOFT" 40,"opsz" 144;font-size:clamp(2.7rem,7vw,4.6rem);
+  line-height:1;letter-spacing:-.03em;
+  background:linear-gradient(100deg,#fbf1d9 15%,#f6d58a 50%,#fbf1d9 85%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.ck-hero h1 em{font-style:italic;font-weight:300}
+.ck-hero p{margin:0 auto;max-width:44ch;color:#c4b397;line-height:1.7;font-size:1.02rem}
+.ck-hero p::after{
+  content:"";display:block;width:90px;height:14px;margin:26px auto 0;
+  background:
+    radial-gradient(circle at 50% 50%,#e9a21c 0 3.5px,transparent 4.5px),
+    linear-gradient(90deg,transparent,rgba(240,217,156,.7) 30%,rgba(240,217,156,.7) 70%,transparent);
+  background-size:14px 14px,100% 1px;background-repeat:no-repeat;background-position:center,center;
+}
+
+.ck-steps{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:28px;font-size:.82rem;color:#8f7f68;flex-wrap:wrap}
+.ck-steps span{display:inline-flex;align-items:center;gap:10px;font-weight:700}
 .ck-steps i{
-  width:26px;height:26px;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:.72rem;border-radius:50%;
+  width:28px;height:28px;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:.72rem;border-radius:50%;
   border:1px solid #4a3622;color:#8f7f68;background:transparent;
 }
-.ck-steps .done i{background:rgba(232,207,148,.14);border-color:rgba(232,207,148,.5);color:var(--gold-hi)}
-.ck-steps .now i{background:linear-gradient(145deg,var(--gold-hi),var(--gold));border-color:transparent;color:var(--ink)}
+.ck-steps .done i{background:rgba(240,217,156,.14);border-color:rgba(240,217,156,.5);color:var(--gold-hi)}
+.ck-steps .now i{background:linear-gradient(145deg,var(--gold-hi),var(--honey));border-color:transparent;color:var(--ink);box-shadow:0 0 0 5px rgba(233,162,28,.18)}
 .ck-steps .now{color:var(--gold-hi)}
 .ck-steps .done{color:#c9b895}
-.ck-steps em{width:34px;height:1px;background:linear-gradient(90deg,#4a3622,rgba(232,207,148,.35),#4a3622)}
+.ck-steps em{width:34px;height:1px;background:linear-gradient(90deg,#4a3622,rgba(240,217,156,.4),#4a3622)}
 
 /* ---------- Page ---------- */
-.ck-section{position:relative;padding:0 0 120px;margin-top:-56px;font-family:"Manrope",system-ui,sans-serif}
+.ck-section{position:relative;padding:0 0 130px;margin-top:-62px;font-family:"Manrope",system-ui,sans-serif;z-index:3}
 .checkout-layout.fast-checkout{
   max-width:1120px;margin:0 auto;padding:0 18px;
   display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:28px;align-items:start;
@@ -85,30 +113,33 @@ body[data-page="checkout"] main{
 
 /* ---------- Form card ---------- */
 .ck-card{
-  position:relative;background:var(--paper);border:1px solid rgba(201,162,75,.4);border-radius:26px;
-  padding:clamp(22px,3.4vw,42px);
-  box-shadow:0 1px 0 #fff inset,0 60px 90px -40px rgba(0,0,0,.75),0 0 0 6px rgba(232,207,148,.04);
+  position:relative;background:
+    radial-gradient(500px 260px at 100% 0,rgba(233,162,28,.10),transparent 70%),
+    var(--paper);
+  border:1px solid rgba(201,162,75,.45);border-radius:28px;
+  padding:clamp(22px,3.4vw,44px);
+  box-shadow:0 1px 0 #fff inset,0 60px 90px -40px rgba(0,0,0,.8),0 0 0 7px rgba(240,217,156,.045);
 }
 .ck-card::before{
-  content:"";position:absolute;left:42px;right:42px;top:-1px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,transparent,var(--gold-hi),transparent);opacity:.9;
+  content:"";position:absolute;left:44px;right:44px;top:-1px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-hi),transparent);
 }
-.ck-progress{margin:0 0 30px}
-.ck-progress-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px}
-.ck-progress h2{margin:0;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:clamp(1.45rem,3.4vw,1.9rem);color:var(--ink);letter-spacing:-.015em}
-.ck-progress small{font-size:.78rem;color:var(--muted);white-space:nowrap;font-weight:600}
-.ck-bar{height:3px;border-radius:3px;background:var(--line-soft);overflow:hidden}
-.ck-bar b{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi));transition:width .6s var(--ease)}
+.ck-progress{margin:0 0 32px}
+.ck-progress-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:14px}
+.ck-progress h2{margin:0;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:clamp(1.5rem,3.6vw,2rem);color:var(--ink);letter-spacing:-.02em}
+.ck-progress small{font-size:.78rem;color:var(--gold-lo);white-space:nowrap;font-weight:800;padding:5px 12px;border-radius:99px;background:rgba(240,217,156,.28)}
+.ck-bar{height:5px;border-radius:5px;background:var(--line-soft);overflow:hidden}
+.ck-bar b{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,var(--gold-lo),var(--honey),var(--gold-hi));transition:width .6s var(--ease)}
 
-.ck-group{margin:0 0 30px}
+.ck-group{margin:0 0 32px}
 .ck-group-title{
-  display:flex;align-items:center;gap:12px;margin:0 0 16px;
-  font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.12rem;color:var(--ink);letter-spacing:-.005em;
+  display:flex;align-items:center;gap:12px;margin:0 0 18px;
+  font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.18rem;color:var(--ink);letter-spacing:-.01em;
 }
 .ck-group-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 .ck-group-title i{
-  width:28px;height:28px;display:grid;place-items:center;font-style:normal;font:700 .76rem "Manrope",system-ui,sans-serif;
-  color:var(--gold-lo);border:1px solid rgba(201,162,75,.55);border-radius:50%;background:rgba(232,207,148,.12);
+  width:32px;height:32px;display:grid;place-items:center;font-style:normal;font:800 .8rem "Manrope",system-ui,sans-serif;
+  color:#fff7e2;border-radius:50%;background:linear-gradient(145deg,#2b7a50,#17432b);box-shadow:0 0 0 4px rgba(31,90,58,.12);
 }
 .ck-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .ck-grid .full{grid-column:1/-1}
@@ -116,31 +147,31 @@ body[data-page="checkout"] main{
 .ck-field{position:relative;display:block;font-size:.82rem;font-weight:700;color:var(--cocoa)}
 .ck-field > span.lbl{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 8px 2px;letter-spacing:.005em}
 .ck-field .hint{font-weight:500;font-size:.72rem;color:var(--muted)}
-.ck-input{position:relative}
+.ck-input{position:relative;display:block}
 .ck-input input{
-  display:block;width:100%;box-sizing:border-box;min-height:56px;padding:0 46px 0 18px;
-  border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);
+  display:block;width:100%;box-sizing:border-box;min-height:58px;padding:0 46px 0 18px;
+  border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);
   font:600 1rem/1.2 "Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;outline:none;
   box-shadow:0 1px 2px rgba(58,36,21,.04) inset;
-  transition:border-color .25s,box-shadow .25s,background .25s;
+  transition:border-color .25s,box-shadow .25s,background .25s,transform .25s;
 }
 .ck-input input:hover{border-color:#dccfae}
 .ck-input input::placeholder{color:#b8a98f;font-weight:500}
-.ck-input input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(201,162,75,.18)}
+.ck-input input:focus{border-color:var(--honey);background:#fff;box-shadow:0 0 0 4px rgba(233,162,28,.2);transform:translateY(-1px)}
 .ck-input .tick{
   position:absolute;right:15px;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:50%;display:grid;place-items:center;
   font-size:.7rem;font-weight:800;color:#fff;background:var(--ok);opacity:0;transform:scale(.5);transition:.3s var(--ease);pointer-events:none;
 }
-.ck-field.ok .ck-input input{border-color:#c4d9bf;background:#fcfef9}
+.ck-field.ok .ck-input input{border-color:#bcd7b6;background:#fcfef9}
 .ck-field.ok .tick{opacity:1;transform:none}
 .ck-field.bad .ck-input input{border-color:var(--bad);background:#fff8f5;box-shadow:0 0 0 4px rgba(180,80,63,.1)}
 .ck-field .err{display:none;margin:7px 2px 0;font-size:.76rem;font-weight:600;color:var(--bad)}
 .ck-field.bad .err{display:block}
 .ck-input .prefix{
   position:absolute;left:1px;top:1px;bottom:1px;display:grid;place-items:center;padding:0 13px 0 16px;
-  font-weight:700;color:var(--cocoa);background:var(--cream);border-radius:11px 0 0 11px;border-right:1px solid var(--line);font-size:.9rem;
+  font-weight:800;color:var(--cocoa);background:var(--cream);border-radius:13px 0 0 13px;border-right:1px solid var(--line);font-size:.9rem;z-index:1;
 }
-.ck-input.has-prefix input{padding-left:76px}
+.ck-input.has-prefix input{padding-left:78px}
 .ck-spin{
   position:absolute;right:15px;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;
   border:2px solid #eadcb8;border-top-color:var(--gold-lo);opacity:0;animation:ckSpin .7s linear infinite;pointer-events:none;
@@ -150,78 +181,81 @@ body[data-page="checkout"] main{
 @keyframes ckSpin{to{transform:rotate(360deg)}}
 
 /* pincode result */
-.ck-pin{display:none;margin-top:12px;padding:15px 16px;border-radius:14px;background:linear-gradient(135deg,#f3f8ef,#fcfef9);border:1px solid #d3e3cd;animation:ckIn .45s var(--ease) both}
+.ck-pin{display:none;margin-top:12px;padding:16px;border-radius:16px;background:linear-gradient(135deg,#f1f8ec,#fcfef9);border:1px solid #cfe2c8;animation:ckIn .45s var(--ease) both}
 .ck-pin.show{display:block}
 .ck-pin.warn{background:#fff8ef;border-color:#f0d9bd}
 .ck-pin-main{display:flex;gap:13px;align-items:center}
-.ck-pin-main .hex{flex:none;width:34px;height:34px;display:grid;place-items:center;font-size:.9rem;font-weight:800;border-radius:50%;background:var(--forest);color:#fff}
-.ck-pin.warn .hex{background:linear-gradient(145deg,var(--gold-hi),var(--gold));color:var(--ink)}
-.ck-pin-main strong{display:block;font-size:.95rem;color:var(--ink);font-weight:700}
+.ck-pin-main .hex{flex:none;width:36px;height:36px;display:grid;place-items:center;font-size:.9rem;font-weight:800;border-radius:50%;background:var(--forest);color:#fff;box-shadow:0 0 0 4px rgba(31,90,58,.12)}
+.ck-pin.warn .hex{background:linear-gradient(145deg,var(--gold-hi),var(--honey));color:var(--ink);box-shadow:0 0 0 4px rgba(233,162,28,.15)}
+.ck-pin-main strong{display:block;font-size:.95rem;color:var(--ink);font-weight:800}
 .ck-pin-main span{display:block;margin-top:3px;font-size:.78rem;color:var(--muted);font-weight:500;line-height:1.5}
 .ck-areas{margin-top:14px;padding-top:12px;border-top:1px solid rgba(63,122,58,.15)}
-.ck-areas p{margin:0 0 9px;font-size:.74rem;font-weight:700;color:var(--cocoa)}
+.ck-areas p{margin:0 0 9px;font-size:.74rem;font-weight:800;color:var(--cocoa)}
 .ck-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ck-chip{
-  cursor:pointer;border:1px solid #cfe0c9;background:#fff;color:var(--cocoa);border-radius:99px;padding:8px 15px;
-  font:600 .8rem "Manrope",system-ui,sans-serif;transition:.2s;
+  cursor:pointer;border:1.5px solid #cfe0c9;background:#fff;color:var(--cocoa);border-radius:99px;padding:8px 15px;
+  font:700 .8rem "Manrope",system-ui,sans-serif;transition:.2s;
 }
-.ck-chip:hover{border-color:var(--forest)}
-.ck-chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
-.ck-autobadge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;background:#e6f0e1;color:#3d5f37;font-size:.66rem;font-weight:700}
+.ck-chip:hover{border-color:var(--forest);transform:translateY(-1px)}
+.ck-chip.on{background:linear-gradient(135deg,#2b7a50,#17432b);border-color:transparent;color:#fff;box-shadow:0 8px 16px -8px rgba(23,67,43,.7)}
+.ck-autobadge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;background:#e6f0e1;color:#3d5f37;font-size:.66rem;font-weight:800}
 @keyframes ckIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ---------- Location ---------- */
 .location-box{
-  margin:0 0 28px;padding:22px;border:1px solid rgba(201,162,75,.4);border-radius:18px;
-  background:linear-gradient(145deg,#fffdf7,#fbf4e2);
+  margin:0 0 28px;padding:22px;border:1px dashed rgba(201,162,75,.65);border-radius:20px;
+  background:linear-gradient(145deg,#fffdf7,#fbf2dc);
 }
 .location-head{display:flex;align-items:center;gap:15px;margin-bottom:16px}
 .location-icon{
-  width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:50%;
-  background:var(--espresso);color:var(--gold-hi);box-shadow:0 0 0 4px rgba(201,162,75,.16);
+  width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(145deg,#2a1a0e,#120b06);color:var(--gold-hi);box-shadow:0 0 0 5px rgba(201,162,75,.16);
 }
-.location-icon svg{width:21px;height:21px}
-.location-head strong{display:block;font-size:.95rem;color:var(--ink);font-weight:700;line-height:1.4}
+.location-icon svg{width:22px;height:22px}
+.location-head strong{display:block;font-size:.95rem;color:var(--ink);font-weight:800;line-height:1.4}
 .location-head span{display:block;margin-top:3px;font-size:.8rem;color:var(--muted);font-weight:500}
 .location-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .location-btn{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  min-height:52px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--cocoa);
-  font:700 .86rem "Manrope",system-ui,sans-serif;cursor:pointer;transition:.25s var(--ease);
+  min-height:54px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--cocoa);
+  font:800 .86rem "Manrope",system-ui,sans-serif;cursor:pointer;transition:.25s var(--ease);
 }
 .location-btn svg{width:17px;height:17px;flex:none}
-.location-btn:hover{transform:translateY(-1px);border-color:var(--gold);box-shadow:0 14px 26px -14px rgba(58,36,21,.4)}
-.location-btn.primary-location{background:var(--espresso);color:var(--gold-hi);border-color:var(--espresso)}
-.location-btn.primary-location:hover{border-color:var(--gold)}
-.location-status{display:none;margin-top:12px;padding:12px 15px;border-radius:12px;background:rgba(63,122,58,.09);color:#2d6429;font-size:.82rem;line-height:1.55;font-weight:600}
+.location-btn:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 14px 26px -14px rgba(58,36,21,.45)}
+.location-btn.primary-location{background:linear-gradient(145deg,#2a1a0e,#120b06);color:var(--gold-hi);border-color:transparent}
+.location-btn.primary-location:hover{box-shadow:0 14px 26px -12px rgba(0,0,0,.6)}
+.location-btn:disabled{opacity:.7;cursor:wait}
+.location-status{display:none;margin-top:12px;padding:12px 15px;border-radius:12px;background:rgba(63,122,58,.09);color:#2d6429;font-size:.82rem;line-height:1.55;font-weight:700}
 .location-status.show{display:block}
 .location-status.error{background:rgba(180,80,63,.09);color:#8d2923}
 .maps-link-input{display:none;margin-top:10px}
 .maps-link-input.show{display:block}
 .maps-link-input input{
-  width:100%;box-sizing:border-box;min-height:52px;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none;font:600 .95rem "Manrope",system-ui,sans-serif;
+  width:100%;box-sizing:border-box;min-height:54px;padding:0 16px;border:1.5px solid var(--line);border-radius:14px;background:#fff;outline:none;font:600 .95rem "Manrope",system-ui,sans-serif;
 }
-.maps-link-input input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,162,75,.18)}
+.maps-link-input input:focus{border-color:var(--honey);box-shadow:0 0 0 4px rgba(233,162,28,.2)}
 
 /* ---------- Payment ---------- */
-.payment-box{display:flex;gap:15px;align-items:flex-start;margin:0 0 22px;padding:19px 20px;border-radius:16px;background:#f4f8f1;border:1px solid #d3e3cd}
-.payment-check{flex:none;width:34px;height:34px;display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff;border-radius:50%;background:var(--forest)}
-.payment-box strong{display:block;color:var(--ink);font-size:.97rem;font-weight:700}
+.payment-box{display:flex;gap:15px;align-items:center;margin:0 0 22px;padding:18px 20px;border-radius:18px;background:linear-gradient(135deg,#f1f8ec,#f8fbf4);border:1px solid #cfe2c8}
+.payment-check{flex:none;width:38px;height:38px;display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#fff;border-radius:50%;background:linear-gradient(145deg,#2b7a50,#17432b);box-shadow:0 0 0 5px rgba(31,90,58,.12)}
+.payment-box strong{display:block;color:var(--ink);font-size:.98rem;font-weight:800}
 .payment-box p{margin:4px 0 0;font-size:.83rem;line-height:1.6;color:#5d6c57}
 
 /* ---------- Submit ---------- */
-.ck-submit{position:sticky;bottom:0;z-index:5;padding:16px 0 2px;background:linear-gradient(180deg,rgba(255,252,245,0),var(--paper) 38%)}
+.ck-submit{position:sticky;bottom:0;z-index:5;padding:18px 0 2px;background:linear-gradient(180deg,rgba(255,252,245,0),var(--paper) 36%)}
+.ck-paynow{display:flex;justify-content:space-between;align-items:baseline;margin:0 4px 10px;font-size:.82rem;font-weight:700;color:var(--cocoa)}
+.ck-paynow strong{font:600 1.35rem "Fraunces",Georgia,serif;color:var(--gold-lo)}
 .whatsapp-order-btn{
-  position:relative;overflow:hidden;width:100%;min-height:64px;display:flex;align-items:center;justify-content:center;gap:12px;
-  border:1px solid rgba(232,207,148,.35);border-radius:14px;cursor:pointer;
-  font:700 1rem "Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.015em;color:#fbf1d9;
-  background:linear-gradient(135deg,#246a45,#17432b);
-  box-shadow:0 22px 38px -16px rgba(23,67,43,.85),0 1px 0 rgba(255,255,255,.18) inset;
+  position:relative;overflow:hidden;width:100%;min-height:66px;display:flex;align-items:center;justify-content:center;gap:12px;
+  border:1px solid rgba(240,217,156,.4);border-radius:16px;cursor:pointer;
+  font:800 1.02rem "Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.015em;color:#fbf1d9;
+  background:linear-gradient(135deg,#2b7a50,#17432b);
+  box-shadow:0 22px 38px -16px rgba(23,67,43,.9),0 1px 0 rgba(255,255,255,.2) inset;
   transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s;
 }
-.whatsapp-order-btn svg{width:21px;height:21px;flex:none}
-.whatsapp-order-btn::after{content:"";position:absolute;inset:0;transform:translateX(-120%) skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:transform .9s}
-.whatsapp-order-btn:hover{transform:translateY(-2px);border-color:var(--gold-hi);box-shadow:0 30px 44px -16px rgba(23,67,43,.95),0 1px 0 rgba(255,255,255,.18) inset}
+.whatsapp-order-btn svg{width:22px;height:22px;flex:none}
+.whatsapp-order-btn::after{content:"";position:absolute;inset:0;transform:translateX(-120%) skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.26),transparent);transition:transform .9s}
+.whatsapp-order-btn:hover{transform:translateY(-2px);border-color:var(--gold-hi);box-shadow:0 30px 44px -16px rgba(23,67,43,1),0 1px 0 rgba(255,255,255,.2) inset}
 .whatsapp-order-btn:hover::after{transform:translateX(120%) skewX(-20deg)}
 .whatsapp-order-btn:active{transform:translateY(0)}
 .whatsapp-order-btn.loading{pointer-events:none;opacity:.85}
@@ -232,23 +266,49 @@ body[data-page="checkout"] main{
 
 .ck-trust{display:grid;grid-template-columns:repeat(3,1fr);margin-top:26px;border-top:1px solid var(--line)}
 .ck-trust div{
-  padding:18px 10px 0;text-align:center;font-size:.74rem;line-height:1.4;color:var(--cocoa);font-weight:700;
+  padding:18px 10px 0;text-align:center;font-size:.74rem;line-height:1.4;color:var(--cocoa);font-weight:800;
 }
 .ck-trust div + div{border-left:1px solid var(--line-soft)}
-.ck-trust b{display:grid;place-items:center;width:38px;height:38px;margin:0 auto 9px;border-radius:50%;color:var(--gold-lo);background:rgba(232,207,148,.2);border:1px solid rgba(201,162,75,.35)}
-.ck-trust svg{width:18px;height:18px}
+.ck-trust b{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 9px;border-radius:50%;color:var(--gold-lo);background:rgba(240,217,156,.28);border:1px solid rgba(201,162,75,.4)}
+.ck-trust svg{width:19px;height:19px}
 
 /* ---------- Summary ---------- */
 .summary-card{
-  position:sticky;top:100px;border-radius:26px;padding:clamp(20px,2.8vw,32px);
-  background:linear-gradient(180deg,#fffdf8,#fbf4e3);
-  border:1px solid rgba(201,162,75,.4);
-  box-shadow:0 1px 0 #fff inset,0 60px 90px -40px rgba(0,0,0,.75),0 0 0 6px rgba(232,207,148,.04);
+  position:sticky;top:100px;border-radius:28px;padding:clamp(20px,2.8vw,30px);
+  background:
+    radial-gradient(420px 220px at 100% 0,rgba(233,162,28,.14),transparent 70%),
+    linear-gradient(180deg,#fffdf8,#fbf3df);
+  border:1px solid rgba(201,162,75,.45);
+  box-shadow:0 1px 0 #fff inset,0 60px 90px -40px rgba(0,0,0,.8),0 0 0 7px rgba(240,217,156,.045);
 }
 .summary-card:empty{min-height:260px;background:linear-gradient(90deg,#fbf4e3 25%,#f6e9c8 50%,#fbf4e3 75%);background-size:200% 100%;animation:ckShim 1.4s linear infinite}
 .summary-card h2,.summary-card h3{font-family:"Fraunces",Georgia,serif;font-weight:500;color:var(--ink);letter-spacing:-.01em}
-.summary-card img{border-radius:12px}
 @keyframes ckShim{to{background-position:-200% 0}}
+
+.ck-sum-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
+.ck-sum-head h3{margin:0;font-size:1.45rem}
+.ck-sum-head span{padding:5px 12px;border-radius:99px;background:rgba(240,217,156,.4);color:var(--gold-lo);font:800 .74rem "Manrope",sans-serif}
+.ck-sum-group{margin:0 0 14px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+.ck-sum-group-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;font:800 .8rem "Manrope",sans-serif;letter-spacing:.02em;color:#fff7e2;background:linear-gradient(135deg,#1d4a2f,#143a23)}
+.ck-sum-group.is-gift .ck-sum-group-head{background:linear-gradient(135deg,#b87a0c,#e9a21c);color:#2a1706}
+.ck-sum-group-head em{font-style:normal;font-weight:800}
+.ck-sum-item{display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line-soft)}
+.ck-sum-group-head + .ck-sum-item{border-top:0}
+.ck-sum-thumb{height:48px;display:grid;place-items:center;border-radius:12px;background:radial-gradient(circle,rgba(255,214,102,.6),rgba(255,214,102,.1) 72%)}
+.ck-sum-thumb img{height:40px;width:auto;object-fit:contain;filter:drop-shadow(0 4px 4px rgba(90,50,0,.3))}
+.ck-sum-item b{display:block;font:700 .9rem "Manrope",sans-serif;color:var(--ink);line-height:1.3}
+.ck-sum-item small{display:block;margin-top:2px;font:600 .76rem "Manrope",sans-serif;color:var(--muted)}
+.ck-sum-item strong{font:600 1.02rem "Fraunces",Georgia,serif;color:var(--gold-lo);white-space:nowrap}
+.ck-sum-total{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 6px;padding-top:16px;border-top:2px dotted rgba(201,162,75,.55)}
+.ck-sum-total span{font:800 .9rem "Manrope",sans-serif;color:var(--cocoa)}
+.ck-sum-total strong{font:600 2rem "Fraunces",Georgia,serif;color:var(--gold-lo);letter-spacing:-.02em}
+.ck-sum-cod{margin:0 0 4px;font:600 .78rem "Manrope",sans-serif;color:var(--muted)}
+.ck-sum-gift{margin:16px 0 0;padding:14px 16px;border-radius:16px;background:#fff7de;border:1px dashed #d9a441;font:500 .86rem/1.55 "Manrope",sans-serif;color:#2a1706}
+.ck-sum-gift strong{font-weight:800}
+.ck-sum-gift em{font-family:"Fraunces",Georgia,serif}
+.ck-sum-gift a{color:#8a5a00;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.ck-sum-eta{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:12px 14px;border-radius:14px;background:#f1f8ec;border:1px solid #cfe2c8;font:600 .8rem/1.5 "Manrope",sans-serif;color:#476140}
+.ck-sum-edit{display:block;margin-top:14px;text-align:center;font:800 .84rem "Manrope",sans-serif;color:var(--gold-lo);text-decoration:underline;text-underline-offset:4px}
 
 /* ---------- Centered toasts ---------- */
 #toast-root{
@@ -261,28 +321,29 @@ body[data-page="checkout"] main{
 .ck-shake{animation:ckShake .4s}
 @keyframes ckShake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 
-/* ---------- One orchestrated entrance ---------- */
+/* ---------- Entrance ---------- */
 @keyframes ckRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-.ck-hero > *{animation:ckRise .9s var(--ease) both}
-.ck-hero > :nth-child(2){animation-delay:.08s}
-.ck-hero > :nth-child(3){animation-delay:.16s}
-.ck-hero > :nth-child(4){animation-delay:.24s}
+.ck-hero > *:not(.ck-sparks){animation:ckRise .9s var(--ease) both}
+.ck-hero > :nth-child(3){animation-delay:.08s}
+.ck-hero > :nth-child(4){animation-delay:.16s}
+.ck-hero > :nth-child(5){animation-delay:.24s}
+.ck-hero > :nth-child(6){animation-delay:.32s}
 .ck-card{animation:ckRise 1s .3s var(--ease) both}
 .summary-card{animation:ckRise 1s .42s var(--ease) both}
 .summary-card:empty{animation:ckShim 1.4s linear infinite}
 
-/* ---------- Order placed card (shows ~2s, then WhatsApp opens) ---------- */
+/* ---------- Order placed card ---------- */
 .ck-placed{
   position:fixed;inset:0;z-index:999998;display:grid;place-items:center;padding:20px;
-  background:rgba(14,8,4,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  background:rgba(14,8,4,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   opacity:0;transition:opacity .35s ease;font-family:"Manrope",system-ui,sans-serif;
 }
 .ck-placed[hidden]{display:none}
 .ck-placed.on{opacity:1}
 .ck-placed-card{
   position:relative;width:min(92vw,400px);padding:38px 28px 30px;text-align:center;
-  background:linear-gradient(180deg,#fffdf8,#fbf4e3);border:1px solid rgba(201,162,75,.5);border-radius:26px;
-  box-shadow:0 1px 0 #fff inset,0 60px 100px -30px rgba(0,0,0,.85),0 0 0 6px rgba(232,207,148,.06);
+  background:linear-gradient(180deg,#fffdf8,#fbf4e3);border:1px solid rgba(201,162,75,.5);border-radius:28px;
+  box-shadow:0 1px 0 #fff inset,0 60px 100px -30px rgba(0,0,0,.85),0 0 0 7px rgba(240,217,156,.07);
   transform:translateY(18px) scale(.97);transition:transform .5s var(--ease);
 }
 .ck-placed.on .ck-placed-card{transform:none}
@@ -291,46 +352,51 @@ body[data-page="checkout"] main{
   background:linear-gradient(90deg,transparent,var(--gold-hi),transparent);
 }
 .ck-placed-ring{
-  width:76px;height:76px;margin:0 auto 20px;display:grid;place-items:center;border-radius:50%;
-  background:var(--forest);color:#fbf1d9;box-shadow:0 0 0 8px rgba(31,90,58,.12),0 18px 30px -12px rgba(23,67,43,.7);
+  width:78px;height:78px;margin:0 auto 20px;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(145deg,#2b7a50,#17432b);color:#fbf1d9;box-shadow:0 0 0 9px rgba(31,90,58,.12),0 18px 30px -12px rgba(23,67,43,.7);
 }
 .ck-placed-ring svg{width:38px;height:38px}
 .ck-placed-ring path{stroke-dasharray:30;stroke-dashoffset:30}
 .ck-placed.on .ck-placed-ring path{animation:ckDraw .6s .25s var(--ease) forwards}
 @keyframes ckDraw{to{stroke-dashoffset:0}}
-.ck-placed-card h3{margin:0 0 10px;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.65rem;letter-spacing:-.015em;color:var(--ink)}
+.ck-placed-card h3{margin:0 0 10px;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.7rem;letter-spacing:-.015em;color:var(--ink)}
 .ck-placed-card p{margin:0 auto;max-width:30ch;font-size:.92rem;line-height:1.65;color:var(--cocoa)}
 .ck-placed-card p b{color:var(--gold-lo);font-weight:800}
-.ck-placed-go{margin-top:20px !important;font-size:.78rem !important;color:var(--muted) !important;font-weight:600}
-.ck-placed-bar{height:3px;margin:12px auto 0;width:70%;border-radius:3px;background:var(--line-soft);overflow:hidden}
-.ck-placed-bar b{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi))}
+.ck-placed-go{margin-top:20px !important;font-size:.78rem !important;color:var(--muted) !important;font-weight:700}
+.ck-placed-bar{height:4px;margin:12px auto 0;width:70%;border-radius:4px;background:var(--line-soft);overflow:hidden}
+.ck-placed-bar b{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--gold-lo),var(--honey),var(--gold-hi))}
 .ck-placed.on .ck-placed-bar b{animation:ckFill 2s linear forwards}
 @keyframes ckFill{to{width:100%}}
 
 /* ---------- Keyboard focus ---------- */
-.ck-chip:focus-visible,.location-btn:focus-visible,.whatsapp-order-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.ck-chip:focus-visible,.location-btn:focus-visible,.whatsapp-order-btn:focus-visible{outline:2px solid var(--honey);outline-offset:3px}
 
-/* ---------- Mobile ---------- */
+/* ---------- Tablet / mobile ---------- */
 @media(max-width:860px){
   .checkout-layout.fast-checkout{grid-template-columns:minmax(0,1fr);gap:20px;padding:0 14px}
   .summary-card{position:static;order:-1}
   .ck-card{order:1}
 }
 @media(max-width:560px){
-  .ck-hero{padding:48px 16px 80px}
+  .ck-hero{padding:50px 16px 88px}
   .ck-steps em{width:18px}
   .ck-grid{grid-template-columns:1fr}
-  .ck-card{border-radius:22px;padding:22px 16px}
+  .ck-card{border-radius:24px;padding:22px 16px}
   .ck-card::before{left:24px;right:24px}
   .location-box{padding:18px 16px}
   .location-actions{grid-template-columns:1fr}
-  .location-btn{min-height:54px}
+  .location-btn{min-height:56px}
   .ck-trust div{padding:16px 4px 0;font-size:.7rem}
-  .ck-submit{padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
-  .whatsapp-order-btn{min-height:58px;font-size:.93rem;gap:9px;white-space:nowrap}
+  .ck-submit{padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+  .whatsapp-order-btn{min-height:60px;font-size:.94rem;gap:9px;white-space:nowrap}
+  .summary-card{border-radius:24px;padding:18px 14px}
+  .ck-sum-item{grid-template-columns:44px minmax(0,1fr) auto;gap:10px;padding:11px 12px}
+  .ck-sum-thumb{height:44px}
+  .ck-sum-thumb img{height:36px}
 }
 @media(prefers-reduced-motion:reduce){
   .ck-hero > *,.ck-card,.summary-card,.ck-pin,.summary-card:empty,.ck-spin,.whatsapp-order-btn.loading span{animation:none}
+  .ck-sparks{display:none}
   .whatsapp-order-btn::after{display:none}
   .ck-bar b{transition:none}
   .ck-placed,.ck-placed-card{transition:none}
@@ -348,13 +414,24 @@ body[data-page="checkout"] main{
 
 <main>
 
-  <!-- HERO --><br>
+  <!-- HERO -->
   <section class="ck-hero">
+    <div class="ck-sparks" aria-hidden="true">
+      <i style="--x:8%;--s:6px;--d:9s;--l:-1s;--dx:30px"></i>
+      <i style="--x:18%;--s:4px;--d:11s;--l:-6s;--dx:-24px"></i>
+      <i style="--x:29%;--s:7px;--d:10s;--l:-3s;--dx:40px"></i>
+      <i style="--x:41%;--s:4px;--d:12s;--l:-8s;--dx:-30px"></i>
+      <i style="--x:52%;--s:6px;--d:9s;--l:-5s;--dx:22px"></i>
+      <i style="--x:63%;--s:5px;--d:13s;--l:-2s;--dx:-36px"></i>
+      <i style="--x:74%;--s:7px;--d:10s;--l:-7s;--dx:34px"></i>
+      <i style="--x:85%;--s:4px;--d:11s;--l:-4s;--dx:-20px"></i>
+      <i style="--x:93%;--s:6px;--d:12s;--l:-9s;--dx:26px"></i>
+    </div>
     <span class="ck-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
       Cash on Delivery
     </span>
-    <h1>Almost yours.</h1>
+    <h1>Almost <em>yours.</em></h1>
     <p>Tell us where to send your honey. We confirm everything with you on WhatsApp.</p>
     <div class="ck-steps" aria-label="Order steps">
       <span class="done"><i>✓</i>Cart</span><em></em>
@@ -492,6 +569,7 @@ body[data-page="checkout"] main{
 
         <!-- SUBMIT -->
         <div class="ck-submit">
+          <div class="ck-paynow" id="ck-paynow" hidden><span>Pay on delivery</span><strong id="ck-paynow-total">₹0</strong></div>
           <button class="whatsapp-order-btn" id="whatsapp-order-btn" type="submit">
             <span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8L4 20z"/><path d="M9.2 9.2c.2 2.6 2.4 4.9 5.6 5.6l1-1.3-1.9-.9-.8.6c-.9-.4-1.7-1.2-2.1-2.1l.6-.8-.9-1.9z"/></svg>
@@ -558,9 +636,64 @@ body[data-page="checkout"] main{
 
 <script>
 /* =====================================================================
+   Order summary: regular jars and gift jars shown (and subtotalled) separately.
+   Runs after script.js has done its own renderCheckout().
+===================================================================== */
+document.addEventListener("DOMContentLoaded", function () {
+  var box = document.getElementById("checkout-summary");
+  if (!box) return;
+  var items = cartDetailed();
+  if (!items.length) return;                       /* script.js already shows the empty state */
+
+  var normal = items.filter(function (i) { return !i.gift; });
+  var gifts  = items.filter(function (i) { return i.gift; });
+  function sum(l)   { return l.reduce(function (s, i) { return s + i.price * i.quantity; }, 0); }
+  function count(l) { return l.reduce(function (s, i) { return s + i.quantity; }, 0); }
+  function jars(n)  { return n + (n === 1 ? " jar" : " jars"); }
+
+  function row(i) {
+    return '<div class="ck-sum-item">' +
+      '<div class="ck-sum-thumb"><img src="images/madhuravana-front-bottle.png" alt=""></div>' +
+      '<div><b>' + esc(i.name) + '</b><small>' + esc(i.weight) + ' × ' + i.quantity + '</small></div>' +
+      '<strong>' + money(i.price * i.quantity) + '</strong></div>';
+  }
+  function group(cls, ico, title, list) {
+    if (!list.length) return "";
+    return '<div class="ck-sum-group ' + cls + '"><div class="ck-sum-group-head"><span>' + ico + ' ' + title +
+      ' · ' + jars(count(list)) + '</span><em>' + money(sum(list)) + '</em></div>' + list.map(row).join("") + '</div>';
+  }
+
+  var total = cartTotal();
+  var n = getGiftNote();
+  var noteHtml = n
+    ? '<div class="ck-sum-gift"><strong>🎁 Gift card attached</strong><br>' +
+      (n.to ? 'For ' + esc(n.to) : 'Gift') + (n.from ? ' · from ' + esc(n.from) : '') +
+      (n.message ? '<br><em>“' + esc(n.message) + '”</em>' : '') +
+      '<br><a href="gifts.html">Edit gift note</a></div>'
+    : '';
+
+  box.innerHTML =
+    '<div class="ck-sum-head"><h3>Your order</h3><span>' + jars(count(items)) + '</span></div>' +
+    group("is-regular", "🍯", "Regular order", normal) +
+    group("is-gift", "🎁", "Gift pack", gifts) +
+    '<div class="ck-sum-total"><span>Total</span><strong>' + money(total) + '</strong></div>' +
+    '<p class="ck-sum-cod">Cash on Delivery · pay when it arrives</p>' +
+    noteHtml +
+    '<div class="ck-sum-eta"><span>🚚</span><span>Regular and gift jars are packed separately. We confirm delivery time with you on WhatsApp.</span></div>' +
+    '<a class="ck-sum-edit" href="cart.html">← Edit cart</a>';
+
+  /* total above the confirm button */
+  var pay = document.getElementById("ck-paynow");
+  var payTotal = document.getElementById("ck-paynow-total");
+  if (pay && payTotal) { payTotal.textContent = money(total); pay.hidden = false; }
+});
+</script>
+
+<script>
+/* =====================================================================
    Checkout helpers: pincode lookup, friendly validation, progress.
    This script only fills / checks the form fields. Your existing
-   script.js still builds the summary and sends the WhatsApp order.
+   script.js still builds the order and sends it to WhatsApp.
 ===================================================================== */
 (function () {
   "use strict";
@@ -768,15 +901,6 @@ body[data-page="checkout"] main{
   }
 
   /* ---------- friendly validation on submit ---------- */
-  var messages = {
-    name: "Please enter your name.",
-    phone: "Enter a 10-digit mobile number.",
-    pincode: "Enter a valid 6-digit pincode.",
-    address: "Please add your house number and street.",
-    city: "Please enter your city.",
-    state: "Please enter your state."
-  };
-
   form.addEventListener("submit", function (e) {
     var firstBad = null;
 
