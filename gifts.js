@@ -2,17 +2,18 @@
    Uses the live product list (getProducts) so sizes and prices always match the shop/admin. */
 (function () {
   if (document.body.dataset.page !== "gifts") return;
+  document.documentElement.classList.add("gf-js");
 
   var MAX_QTY = 100;
   var MIN_QTY = 5;
   var OCCASIONS = [
-    { id: "Birthday", msg: "Happy birthday! Here’s a little golden sweetness for the year ahead." },
-    { id: "Wedding", msg: "Wishing you both a lifetime as sweet as this. Congratulations!" },
-    { id: "Housewarming", msg: "Wishing your new home warmth, health and plenty of good mornings." },
-    { id: "Festival", msg: "Wishing you and your family a bright, healthy and joyful festival." },
-    { id: "Thank you", msg: "Thank you for everything. This one is pure, just like your kindness." },
-    { id: "Get well soon", msg: "Get well soon. A spoonful of raw honey, with all my love." },
-    { id: "Just because", msg: "No reason at all, except that you matter to me." }
+    { id: "Birthday", icon: "🎂", msg: "Happy birthday! Here’s a little golden sweetness for the year ahead." },
+    { id: "Wedding", icon: "💍", msg: "Wishing you both a lifetime as sweet as this. Congratulations!" },
+    { id: "Housewarming", icon: "🏡", msg: "Wishing your new home warmth, health and plenty of good mornings." },
+    { id: "Festival", icon: "🪔", msg: "Wishing you and your family a bright, healthy and joyful festival." },
+    { id: "Thank you", icon: "🙏", msg: "Thank you for everything. This one is pure, just like your kindness." },
+    { id: "Get well soon", icon: "💛", msg: "Get well soon. A spoonful of raw honey, with all my love." },
+    { id: "Just because", icon: "✨", msg: "No reason at all, except that you matter to me." }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
@@ -34,20 +35,21 @@
     t.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   }
 
-  /* ---------- gift sets (marketing cards) ---------- */
-function makeSets() {
-  var n = products.length, sets = [];
-  if (!n) return sets;
-  sets.push({ id: "small", name: "A small gesture", desc: "One jar and a thoughtful note. Perfect for a thank-you.", art: [150], items: [[products[0].id, MIN_QTY]] });
-  if (n > 1) sets.push({ id: "big", name: "Something generous", desc: "Our largest jar, for someone you really want to look after.", art: [215], items: [[products[n - 1].id, MIN_QTY]] });
-  if (n > 2) sets.push({ id: "all", name: "The full hamper", desc: "One of every size we offer, for a family or a big occasion.", art: [120, 165, 210], items: products.map(function (p) { return [p.id, MIN_QTY]; }) });
-  sets.forEach(function (s) { s.total = s.items.reduce(function (t, it) { return t + priceOf(it[0]) * it[1]; }, 0); });
-  return sets;
-}
+  /* ---------- gift sets ---------- */
+  function makeSets() {
+    var n = products.length, sets = [];
+    if (!n) return sets;
+    sets.push({ id: "small", name: "A small gesture", desc: "A thoughtful jar and a note. Perfect for a thank-you.", art: [150], items: [[products[0].id, MIN_QTY]] });
+    if (n > 1) sets.push({ id: "big", name: "Something generous", desc: "Our largest jar, for someone you really want to look after.", art: [215], items: [[products[n - 1].id, MIN_QTY]], ribbon: "Most loved" });
+    if (n > 2) sets.push({ id: "all", name: "The full hamper", desc: "One of every size we offer, for a family or a big occasion.", art: [105, 140, 175], items: products.map(function (p) { return [p.id, MIN_QTY]; }) });
+    sets.forEach(function (s) { s.total = s.items.reduce(function (t, it) { return t + priceOf(it[0]) * it[1]; }, 0); });
+    return sets;
+  }
   function renderSets() {
     var box = $("gf-showcase"); box.innerHTML = "";
     makeSets().forEach(function (s) {
       var card = el("article", "gf-set" + (state.set === s.id ? " is-on" : ""));
+      if (s.ribbon) card.appendChild(el("span", "gf-ribbon", s.ribbon));
       var art = el("div", "gf-set-art"); s.art.forEach(function (h) { art.appendChild(jarImg(h)); });
       var body = el("div", "gf-set-body");
       body.appendChild(el("h3", "", s.name)); body.appendChild(el("p", "", s.desc));
@@ -64,21 +66,24 @@ function makeSets() {
       foot.appendChild(b); body.appendChild(foot);
       card.appendChild(art); card.appendChild(body); box.appendChild(card);
     });
-    if (!box.children.length) box.appendChild(el("p", "", "Our jars are restocking. Please check back soon, or message us on WhatsApp."));
+    if (!box.children.length) box.appendChild(el("p", "gf-hint", "Our jars are restocking. Please check back soon, or message us on WhatsApp."));
   }
 
-  /* ---------- jar rows ---------- */
+  /* ---------- jar cards ---------- */
+  function hOf(w) {
+    var m = String(w || "").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/); if (!m) return 60;
+    var g = parseFloat(m[1]) * (m[2] === "kg" ? 1000 : 1);
+    return Math.round(84 * Math.max(.45, Math.min(1, .45 + .55 * Math.log(g / 100) / Math.LN10)));
+  }
   function renderJars() {
     var box = $("gf-jars"); box.innerHTML = "";
     if (!products.length) { box.appendChild(el("p", "gf-hint", "Our jars are restocking. Please check back soon, or message us on WhatsApp.")); return; }
-    function hOf(w){ var m=String(w||"").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/); if(!m) return 60;
-  var g=parseFloat(m[1])*(m[2]==="kg"?1000:1); return Math.round(80*Math.max(.4,Math.min(1,.45+.55*Math.log(g/100)/Math.LN10))); }
-    products.forEach(function (p, i) {
+    products.forEach(function (p) {
       var q = state.qty[p.id] || 0;
-      var row = el("div", "gf-jar");
+      var row = el("div", "gf-jar" + (q > 0 ? " has-qty" : ""));
       var imgBox = el("div", "gf-jar-img"); var img = jarImg(hOf(p.weight));
       img.alt = "MADHURAVANA Pure Honey " + p.weight; imgBox.appendChild(img);
-      var info = el("div"); info.appendChild(el("b", "", p.weight)); info.appendChild(el("span", "", money(p.price)));
+      var info = el("div", "gf-jar-info"); info.appendChild(el("b", "", p.weight)); info.appendChild(el("span", "", money(p.price) + " per jar"));
       var qty = el("div", "gf-qty");
       var minus = el("button", "", "−"); minus.type = "button"; minus.setAttribute("aria-label", "Fewer " + p.weight + " jars"); minus.disabled = q <= 0;
       var out = el("input", "gf-qty-in"); out.type = "text"; out.inputMode = "numeric"; out.maxLength = 3; out.value = String(q);
@@ -86,20 +91,32 @@ function makeSets() {
       out.addEventListener("change", function () { var n = parseInt(out.value.replace(/\D/g, ""), 10); setQty(p.id, isNaN(n) ? 0 : n); });
       out.addEventListener("keydown", function (e) { if (e.key === "Enter") out.blur(); });
       var plus = el("button", "", "+"); plus.type = "button"; plus.setAttribute("aria-label", "More " + p.weight + " jars"); plus.disabled = q >= MAX_QTY;
-     minus.addEventListener("click", function () { setQty(p.id, q <= MIN_QTY ? 0 : q - 1); });
-plus.addEventListener("click", function () { setQty(p.id, q < MIN_QTY ? MIN_QTY : q + 1); });
+      minus.addEventListener("click", function () { setQty(p.id, q <= MIN_QTY ? 0 : q - 1); });
+      plus.addEventListener("click", function () { setQty(p.id, q < MIN_QTY ? MIN_QTY : q + 1); });
       qty.appendChild(minus); qty.appendChild(out); qty.appendChild(plus);
       row.appendChild(imgBox); row.appendChild(info); row.appendChild(qty); box.appendChild(row);
     });
   }
-function setQty(id, n) { n = n <= 0 ? 0 : Math.max(MIN_QTY, Math.min(MAX_QTY, n)); state.qty[id] = n; state.set = ""; renderAll(); }
+  function setQty(id, n) {
+    n = n <= 0 ? 0 : Math.max(MIN_QTY, Math.min(MAX_QTY, n));
+    state.qty[id] = n; state.set = ""; renderAll();
+  }
 
-  /* ---------- occasion chips + photo tiles ---------- */
+  /* ---------- occasions ---------- */
   function pickOccasion(o) {
     var pristine = !state.msg || state.msg === state.autoMsg;
     state.occasion = o.id; state.autoMsg = o.msg;
     if (pristine) { state.msg = o.msg; $("gf-msg").value = o.msg; }
-    renderChips(); renderCard();
+    renderChips(); renderOcc(); renderCard();
+  }
+  function renderOcc() {
+    var box = $("gf-occ"); if (!box) return; box.innerHTML = "";
+    OCCASIONS.forEach(function (o) {
+      var b = el("button", "gf-occ-card"); b.type = "button"; b.setAttribute("aria-pressed", String(state.occasion === o.id));
+      b.appendChild(el("span", "", o.icon)); b.appendChild(document.createTextNode(o.id));
+      b.addEventListener("click", function () { pickOccasion(o); goTo("card-step"); });
+      box.appendChild(b);
+    });
   }
   function renderChips() {
     var box = $("gf-chips"); box.innerHTML = "";
@@ -107,15 +124,6 @@ function setQty(id, n) { n = n <= 0 ? 0 : Math.max(MIN_QTY, Math.min(MAX_QTY, n)
       var b = el("button", "gf-chip", o.id); b.type = "button"; b.setAttribute("aria-pressed", String(state.occasion === o.id));
       b.addEventListener("click", function () { pickOccasion(o); });
       box.appendChild(b);
-    });
-  }
-  function wireTiles() {
-    document.querySelectorAll("[data-occasion]").forEach(function (t) {
-      t.addEventListener("click", function () {
-        var o = OCCASIONS.filter(function (x) { return x.id === t.dataset.occasion; })[0];
-        if (o) pickOccasion(o);
-        goTo(chosen().length ? "card-step" : "sets");
-      });
     });
   }
 
@@ -146,21 +154,27 @@ function setQty(id, n) { n = n <= 0 ? 0 : Math.max(MIN_QTY, Math.min(MAX_QTY, n)
     $("gf-bar-total").textContent = money(total);
     $("gf-bar-count").textContent = count + (count === 1 ? " jar" : " jars");
   }
-  function renderAll() { renderSets(); renderJars(); renderSummary(); renderCard(); }
+  function renderAll() {
+    var setsBox = $("gf-showcase"), jarsBox = $("gf-jars");
+    var setsX = setsBox.scrollLeft, jarsX = jarsBox.scrollLeft;
+    renderSets(); renderJars(); renderSummary(); renderCard();
+    setsBox.scrollLeft = setsX; jarsBox.scrollLeft = jarsX;
+  }
 
+  /* ---------- add to cart ---------- */
   function addToCartAndGo() {
     var list = chosen(); if (!list.length) return;
     var cart = getCart();
-list.forEach(function (c) {
-  var it = cart.filter(function (x) { return x.id === c.p.id && x.gift; })[0];
-  if (it) it.quantity += c.q; else cart.push({ id: c.p.id, quantity: c.q, gift: true });
-});
+    list.forEach(function (c) {
+      var it = cart.filter(function (x) { return x.id === c.p.id && x.gift; })[0];
+      if (it) it.quantity += c.q; else cart.push({ id: c.p.id, quantity: c.q, gift: true });
+    });
     saveCart(cart);
-var note = { fromGift: true, occasion: state.occasion, to: state.to.trim(), from: state.from.trim(), message: state.msg.trim(), savedAt: Date.now() };
-try {
-  if (note.to || note.from || note.message) localStorage.setItem(GIFT_NOTE_KEY, JSON.stringify(note));
-  else localStorage.removeItem(GIFT_NOTE_KEY);
-} catch (e) {}
+    var note = { fromGift: true, occasion: state.occasion, to: state.to.trim(), from: state.from.trim(), message: state.msg.trim(), savedAt: Date.now() };
+    try {
+      if (note.to || note.from || note.message) localStorage.setItem(GIFT_NOTE_KEY, JSON.stringify(note));
+      else localStorage.removeItem(GIFT_NOTE_KEY);
+    } catch (e) {}
     updateCartCount();
     location.href = "cart.html";
   }
@@ -170,10 +184,22 @@ try {
     $("gf-to").value = state.to; $("gf-from").value = state.from; $("gf-msg").value = state.msg;
   }
 
+  /* ---------- scroll reveal ---------- */
+  function setupReveal() {
+    if (!("IntersectionObserver" in window)) return;
+    var targets = document.querySelectorAll(".gf-head,.gf-occ-card,.gf-set,.gf-why-photo,.gf-why-copy,.gf-steps-list li,.gf-step,.gf-side>*,.gf-bulk-copy,.gf-faq details");
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } });
+    }, { threshold: .1 });
+    targets.forEach(function (t) { t.classList.add("gf-rv"); io.observe(t); });
+    /* safety: never leave anything hidden */
+    setTimeout(function () { document.querySelectorAll(".gf-rv").forEach(function (t) { t.classList.add("in"); }); }, 4500);
+  }
+
   function init() {
     products = loadProducts();
     restoreNote();
-    if (products.length && !Object.keys(state.qty).length) state.qty[products[0].id] = 5;
+    if (products.length && !Object.keys(state.qty).length) state.qty[products[0].id] = MIN_QTY;
     $("gf-to").addEventListener("input", function (e) { state.to = e.target.value; renderCard(); });
     $("gf-from").addEventListener("input", function (e) { state.from = e.target.value; renderCard(); });
     $("gf-msg").addEventListener("input", function (e) { state.msg = e.target.value; renderCard(); });
@@ -182,28 +208,20 @@ try {
       /* on phones, make sure they have seen the card step before checking out */
       if (!state.to && !state.msg) { goTo("card-step"); } else addToCartAndGo();
     });
-    wireTiles(); renderChips(); renderAll();
+    renderOcc(); renderChips(); renderAll(); setupReveal();
 
     /* product list can be refreshed from the cloud a moment after load: re-draw if it changed */
     var last = sig(products), tries = 0;
     var t = setInterval(function () {
       var next = loadProducts();
-      if (sig(next) !== last) { last = sig(next); products = next;
+      if (sig(next) !== last) {
+        last = sig(next); products = next;
         Object.keys(state.qty).forEach(function (id) { if (!products.some(function (p) { return p.id === id; })) delete state.qty[id]; });
-        renderAll(); }
+        renderAll();
+      }
       if (++tries > 8) clearInterval(t);
     }, 1500);
   }
-
-    /* gentle reveal on scroll */
-  (function () {
-    if (!("IntersectionObserver" in window)) return;
-    var targets = document.querySelectorAll(".gf-facts,.gf-why-photo,.gf-why-copy,.gf-head,.gf-set,.gf-how-photo,.gf-steps-list li,.gf-build-grid>*,.gf-bulk-copy,.gf-faq details");
-    var io = new IntersectionObserver(function (en) {
-      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } });
-    }, { threshold: .12 });
-    targets.forEach(function (t) { t.classList.add("gf-rv"); io.observe(t); });
-  })();
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
