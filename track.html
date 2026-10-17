@@ -401,6 +401,15 @@
 @media(prefers-reduced-motion:reduce){
   .tk-card,.tk-msg,.tk-skel i,.tk-modal-backdrop,.tk-modal-card{animation:none}
 }
+/* ---------- Regular vs gift groups ---------- */
+.tk-grp{margin:14px 0 0;border:1px solid var(--tk-line);border-radius:12px;overflow:hidden;background:#fff}
+.tk-grp-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 16px;
+  background:linear-gradient(135deg,#1d4a2f,#143a23);color:#fff7e2;font:600 .88rem var(--tk-sans)}
+.tk-grp-head b{font-weight:700}
+.tk-grp.is-gift .tk-grp-head{background:linear-gradient(135deg,#b87a0c,#e9a21c);color:#2a1706}
+.tk-grp .tk-line{padding:12px 16px}
+.tk-grp .tk-line:last-child{border-bottom:0}
+.tk-grp-note{margin:0;padding:0 16px 12px;font-size:.78rem;color:var(--tk-muted)}
 </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
@@ -636,7 +645,7 @@
       progress = now + '<ol class="tk-steps">' + steps + '</ol>';
     }
 
-    var items = (o.products || []).map(function (p) {
+    function lineHtml(p) {
       return (
         '<div class="tk-line">' +
           '<span>' +
@@ -646,8 +655,25 @@
           '<span>' + M(Number(p.price || 0) * Number(p.quantity || 0)) + '</span>' +
         '</div>'
       );
-    }).join("");
-
+    }
+    function groupHtml(cls, ico, title, list, note) {
+      if (!list.length) return "";
+      var n = list.reduce(function (s, p) { return s + Number(p.quantity || 0); }, 0);
+      var sub = list.reduce(function (s, p) { return s + Number(p.price || 0) * Number(p.quantity || 0); }, 0);
+      return (
+        '<div class="tk-grp ' + cls + '">' +
+          '<div class="tk-grp-head"><span>' + ico + ' ' + title + ' · ' + n + (n === 1 ? ' jar' : ' jars') + '</span><b>' + M(sub) + '</b></div>' +
+          list.map(lineHtml).join("") +
+          (note ? '<p class="tk-grp-note">' + note + '</p>' : '') +
+        '</div>'
+      );
+    }
+    var allItems = o.products || [];
+    var regularItems = allItems.filter(function (p) { return !p.gift; });
+    var giftItems = allItems.filter(function (p) { return p.gift; });
+    var items =
+      groupHtml("is-regular", "🍯", "Regular order", regularItems, "") +
+      groupHtml("is-gift", "🎁", "Gift pack", giftItems, "Packed separately with your gift card.");
     var meta = [];
     if (o.date || o.time) meta.push(E((o.date || "") + " " + (o.time || "")).trim());
     if (o.city) meta.push(E(o.city));
