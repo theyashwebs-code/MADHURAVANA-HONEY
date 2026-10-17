@@ -48,6 +48,19 @@ function saveProducts(v){
   }
   return ok;
 }
+/* Gift note: saved by gifts.html, valid for 24h, added to the WhatsApp order message, cleared once the order is sent. */
+const GIFT_NOTE_KEY="madhuravana_gift_note";
+function lineKey(i){return i.id+(i.gift?"|g":"")}
+function findLine(cart,key){return cart.find(x=>lineKey(x)===key)}
+function getGiftNote(){
+  try{
+    if(!getCart().some(x=>x.gift)){localStorage.removeItem(GIFT_NOTE_KEY);return null}  /* no gift jars in cart = no card */
+    var n=JSON.parse(localStorage.getItem(GIFT_NOTE_KEY)||"null");
+    if(!n||!n.fromGift||!(n.to||n.from||n.message))return null;
+    return n;
+  }catch(e){return null}
+}
+function clearGiftNote(){try{localStorage.removeItem(GIFT_NOTE_KEY)}catch(e){}}
 function getCart(){return safeParse(KEYS.cart,[])}
 function saveCart(v){return safeSave(KEYS.cart,v)}
 function getOnlineOrders(){return safeParse(KEYS.online,[])}
@@ -71,7 +84,7 @@ function renderHeader(){
     <a class="brand" href="index.html" aria-label="MADHURAVANA Pure Honey">MADHURAVANA<small>Pure Honey</small></a>
     <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
     <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
-      <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="track.html">Track Order</a><a href="index.html#about">About</a>
+      <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="gifts.html">Gifts</a><a href="track.html">Track Order</a><a href="index.html#about">About</a>
       <a class="cart-link" href="cart.html">Cart <span class="cart-count" id="cart-count">0</span></a>
     </nav>
   </div></header>`;
@@ -104,6 +117,7 @@ function renderFooter() {
           <h4>Explore</h4>
           <a href="index.html">Home</a>
           <a href="shop.html">Shop</a>
+          <a href="gifts.html">Gifts</a>
           <a href="index.html#about">About</a>
           <a href="index.html#contact">Contact</a>
         </div>
@@ -191,7 +205,7 @@ function addToCart(id, quantity = 1) {
   }
 
   const cart = getCart();
-  const item = cart.find(x => x.id === id);
+ const item = cart.find(x => x.id === id && !x.gift);
 
   if (item) {
     item.quantity += quantity;
@@ -309,19 +323,26 @@ function showAddedToCartModal(product, quantity = 1) {
     }
   });
 }
-function changeCart(id,delta){const cart=getCart();const item=cart.find(x=>x.id===id);if(!item)return;item.quantity+=delta;if(item.quantity<=0){saveCart(cart.filter(x=>x.id!==id));showToast("✓ Product removed")}else saveCart(cart);renderCart();updateCartCount()}
-function removeCart(id){saveCart(getCart().filter(x=>x.id!==id));renderCart();updateCartCount();showToast("✓ Product removed")}
-function cartDetailed(){const products=getProducts();return getCart().map(i=>{const p=products.find(x=>x.id===i.id);return p?{...p,quantity:i.quantity}:null}).filter(Boolean)}
+function changeCart(key,delta){const cart=getCart();const item=findLine(cart,key);if(!item)return;
+  if(item.gift&&item.quantity+delta<5){showToast("Gift orders start from 5 jars. Use Remove to delete them.","warn");return}
+  item.quantity+=delta;
+  if(item.quantity<=0){saveCart(cart.filter(x=>lineKey(x)!==key));showToast("✓ Product removed")}else saveCart(cart);
+  if(!getCart().some(x=>x.gift))clearGiftNote();
+  renderCart();updateCartCount()}
+function removeCart(key){saveCart(getCart().filter(x=>lineKey(x)!==key));
+  if(!getCart().some(x=>x.gift))clearGiftNote();
+  renderCart();updateCartCount();showToast("✓ Product removed")}
+function cartDetailed(){const products=getProducts();return getCart().map(i=>{const p=products.find(x=>x.id===i.id);return p?{...p,quantity:i.quantity,gift:!!i.gift}:null}).filter(Boolean)}
 function cartTotal(){return cartDetailed().reduce((s,i)=>s+i.price*i.quantity,0)}
 
 function renderCart(){
   const box=document.getElementById("cart-items"),summary=document.getElementById("cart-summary");if(!box||!summary)return;
   const items=cartDetailed();
   if(!items.length){box.innerHTML=`<div class="empty-state"><h2>Your cart is waiting.</h2><p>Choose a jar of MADHURAVANA Pure Honey and it will appear here.</p><a class="btn btn-primary" href="shop.html">Shop Honey</a></div>`;summary.innerHTML="";return}
-  box.innerHTML=items.map(i=>`<div class="cart-item"><div class="cart-thumb">${miniJar()}</div><div><h3>${esc(i.name)}</h3><div class="muted">${esc(i.weight)} · ${money(i.price)}</div><div class="cart-controls"><button class="circle-btn" data-minus="${i.id}" aria-label="Decrease quantity">−</button><strong>${i.quantity}</strong><button class="circle-btn" data-plus="${i.id}" aria-label="Increase quantity">+</button><button class="remove-btn" data-remove="${i.id}">Remove</button></div></div><div class="price">${money(i.price*i.quantity)}</div></div>`).join("");
+  box.innerHTML=items.map(i=>`<div class="cart-item"><div class="cart-thumb">${miniJar()}</div><div><h3>${esc(i.name)}${i.gift?' <small style="color:#a8710f">🎁 Gift</small>':''}</h3><div class="muted">${esc(i.weight)} · ${money(i.price)}</div><div class="cart-controls"><button class="circle-btn" data-minus="${lineKey(i)}" aria-label="Decrease quantity">−</button><strong>${i.quantity}</strong><button class="circle-btn" data-plus="${lineKey(i)}" aria-label="Increase quantity">+</button><button class="remove-btn" data-remove="${lineKey(i)}">Remove</button></div></div><div class="price">${money(i.price*i.quantity)}</div></div>`).join("");
   const total=cartTotal();
-  summary.innerHTML=`<h3>Order summary</h3>${items.map(i=>`<div class="summary-row"><span>${esc(i.weight)} × ${i.quantity}</span><strong>${money(i.price*i.quantity)}</strong></div>`).join("")}<div class="summary-total"><span>Total</span><span>${money(total)}</span></div><p class="form-note" style="margin-top:18px">Cash on Delivery · WhatsApp order preparation</p><a class="btn btn-primary btn-block" href="checkout.html">Proceed to Checkout</a><button class="btn btn-ghost btn-block" id="empty-cart" style="margin-top:8px">Empty Cart</button>`;
-  box.querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>changeCart(b.dataset.minus,-1));box.querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>changeCart(b.dataset.plus,1));box.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>removeCart(b.dataset.remove));document.getElementById("empty-cart").onclick=()=>{if(confirm("Empty your entire cart?")){saveCart([]);renderCart();updateCartCount();}};
+  summary.innerHTML=`<h3>Order summary</h3>${items.map(i=>`<div class="summary-row"><span>${esc(i.weight)} × ${i.quantity}${i.gift?" 🎁":""}</span><strong>${money(i.price*i.quantity)}</strong></div>`).join("")}<div class="summary-total"><span>Total</span><span>${money(total)}</span></div>${(()=>{const n=getGiftNote();return n?`<div class="summary-row" style="display:block;margin-top:14px;padding:12px 14px;border-radius:14px;background:#fff7de;border:1px dashed #d9a441;font-size:.88rem;line-height:1.5"><strong>🎁 Gift card attached</strong><br>${n.to?`For ${esc(n.to)}`:"Gift"}${n.from?` · from ${esc(n.from)}`:""}${n.message?`<br><em>“${esc(n.message)}”</em>`:""}<br><a href="gifts.html" style="text-decoration:underline">Edit gift note</a></div>`:""})()}<p class="form-note" style="margin-top:18px">Cash on Delivery · WhatsApp order preparation</p><a class="btn btn-primary btn-block" href="checkout.html">Proceed to Checkout</a><button class="btn btn-ghost btn-block" id="empty-cart" style="margin-top:8px">Empty Cart</button>`;
+  box.querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>changeCart(b.dataset.minus,-1));box.querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>changeCart(b.dataset.plus,1));box.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>removeCart(b.dataset.remove));document.getElementById("empty-cart").onclick=()=>{if(confirm("Empty your entire cart?")){saveCart([]);clearGiftNote();renderCart();updateCartCount();}};
 }
 
 
@@ -444,7 +465,7 @@ async function submitCheckout(e){
     id:generateOnlineId(),
     customerName:data.name.trim(),
     phone,
-    products:items.map(i=>({id:i.id,name:i.name,weight:i.weight,quantity:i.quantity,price:i.price})),
+products:items.map(i=>({id:i.id,name:i.name,weight:i.weight,quantity:i.quantity,price:i.price,gift:i.gift||undefined,giftNote:i.gift?(getGiftNote()||undefined):undefined})),
     total:cartTotal(),
     paymentMethod:"Cash on Delivery",
     address:{street:data.address.trim(),city:data.city.trim(),state:data.state.trim(),pincode:data.pincode},
@@ -453,7 +474,8 @@ async function submitCheckout(e){
     orderDate:now.toLocaleDateString("en-IN"),
     orderTime:now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}),
     status:"Order Placed",
-    createdAt:now.toISOString()
+    createdAt:now.toISOString(),
+    giftNote:getGiftNote()||undefined
   };
 
   const url=whatsappUrl(buildWhatsAppMessage(order));
@@ -482,14 +504,14 @@ async function submitCheckout(e){
   }catch(err){console.warn("Supabase save skipped",err)}
 
   /* 3. clear cart and go straight to WhatsApp (no success page) */
-  saveCart([]);updateCartCount();
+  saveCart([]);clearGiftNote();updateCartCount();
   window.location.href=url;
 
   setTimeout(()=>{if(btn){btn.disabled=false;btn.classList.remove("loading");btn.innerHTML=label}},4000);
 }
 
 function buildWhatsAppMessage(o){
-  return `NEW MADHURAVANA HONEY ORDER\n\nOrder ID: ${o.id}\n\nCUSTOMER DETAILS\n\nName: ${o.customerName}\nPhone: ${o.phone}\n\nORDER DETAILS\n\n${o.products.map(p=>`${p.name} - ${p.weight}\nQuantity: ${p.quantity}\nPrice: ${money(p.price*p.quantity)}`).join("\n\n")}\n\nTOTAL: ${money(o.total)}\n\nPAYMENT METHOD:\nCash on Delivery\n\nDELIVERY ADDRESS:\n${o.address.street}\n${o.address.city}\n${o.address.state}\n${o.address.pincode}${o.location?`\n\nDELIVERY LOCATION:\n${o.location}`:""}`;
+  return `NEW MADHURAVANA HONEY ORDER\n\nOrder ID: ${o.id}\n\nCUSTOMER DETAILS\n\nName: ${o.customerName}\nPhone: ${o.phone}\n\nORDER DETAILS\n\n${o.products.map(p=>`${p.name} - ${p.weight}${p.gift?" (GIFT 🎁)":""}\nQuantity: ${p.quantity}\nPrice: ${money(p.price*p.quantity)}`).join("\n\n")}\n\nTOTAL: ${money(o.total)}\n\nPAYMENT METHOD:\nCash on Delivery\n\nDELIVERY ADDRESS:\n${o.address.street}\n${o.address.city}\n${o.address.state}\n${o.address.pincode}${o.location?`\n\nDELIVERY LOCATION:\n${o.location}`:""}${o.giftNote?`\n\nGIFT ORDER 🎁\nOccasion: ${o.giftNote.occasion||"-"}\nFor: ${o.giftNote.to||"-"}\nFrom: ${o.giftNote.from||"-"}\nGift card message: ${o.giftNote.message||"-"}`:""}`;
 }
 
 function renderPublicProductViews(){
@@ -960,4 +982,3 @@ window.MADHURAVANA={BUSINESS_CONFIG,DEFAULT_PRODUCTS,KEYS,getProducts,saveProduc
   }
 
 })();
-
