@@ -88,3 +88,7 @@ html{scroll-behavior:smooth}
 @keyframes hpScroll{0%{transform:translateY(0);opacity:1}100%{transform:translateY(14px);opacity:0}}
 @media(prefers-reduced-motion:reduce){.mh-scene *,.mh-hero-product img,.mh-product-glow,.mh-orbit,.mh-scroll i,.mh-golden-aura,.mh-ritual-product img,.mh-sun{animation:none!important}.mh-spark{display:none}}
 }
+
+/* side-dot hover labels */
+.mh-dots a:before{content:attr(data-label);position:absolute;right:calc(100% + 16px);top:50%;transform:translateY(-60%) translateX(6px);padding:7px 12px;border-radius:99px;background:rgba(10,28,14,.9);color:#fff0cd;font:600 .72rem/1.2 Inter,system-ui,sans-serif;letter-spacing:.04em;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.mh-dots a:hover:before,.mh-dots a:focus-visible:before{opacity:1;transform:translateY(-60%) translateX(0)}
