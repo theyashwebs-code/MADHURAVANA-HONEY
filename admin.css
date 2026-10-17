@@ -151,4 +151,9 @@ body[data-page="admin"] #toast-root .toast {
   box-shadow: 0 18px 55px rgba(33, 21, 15, .28);
   pointer-events: none;
 }
-
+.ax-grp{margin:0 0 8px;border:1px solid #e8e2d9;border-radius:12px;overflow:hidden;text-align:left}
+.ax-grp-h{padding:8px 12px;background:#2b1b12;color:#fff;font-size:.74rem;font-weight:800;letter-spacing:.04em}
+.ax-grp.gift .ax-grp-h{background:linear-gradient(135deg,#b87a0c,#e9a21c);color:#2a1706}
+.ax-grp-l{padding:8px 12px;border-top:1px solid #f0ebe3;font-size:.84rem}
+.ax-giftnote{margin-top:8px;padding:12px 14px;border-radius:12px;background:#fff7de;border:1px dashed #d9a441;font-size:.84rem;line-height:1.6;text-align:left}
+.ax-giftnote span{display:inline-block;min-width:68px;color:#8a5a00;font-weight:700}
