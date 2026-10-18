@@ -363,3 +363,127 @@
   .gf-qty button:disabled{background:#cdbf9c;color:#fff;box-shadow:none;opacity:1}
   .gf-qty .gf-qty-in{font-size:1.35rem}
 }
+/* ===== SMOOTH SCROLL SUPPORT ===== */
+html:not(.lenis){scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+html.lenis{scroll-behavior:auto!important}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-scrolling iframe{pointer-events:none}
+
+/* overflow-x:hidden on html/body can break smooth scrolling and sticky headers; clip is safer */
+html,body{overflow-x:clip}
+
+/* remove permanent GPU layers that cause scroll stutter */
+.product-card,.mh-hero-copy{will-change:auto!important}
+.product-card{transform-style:flat!important}
+.premium-honey-bottle{transform-style:flat!important}
+
+/* skip rendering work for sections that are far off-screen */
+.ab,.gf-teaser,.mh-shop,.mh-how,.fq,.site-footer{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 800px;
+}
+
+/* hero animations pause when you scroll past the hero */
+.mh-hero.is-off *,
+.mh-hero.is-off *::before,
+.mh-hero.is-off *::after{animation-play-state:paused!important}
+
+/* lighter header blur = smoother scroll */
+.site-header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+
+@media (max-width:800px){
+  /* phones use native momentum scroll, so keep effects light */
+  .gf-tag{animation:none}
+  .mh-spark,.mh-gold-particle{display:none}
+}
+
+/* ===== PREMIUM CORPORATE GIFTING ===== */
+
+.gf-corporate {
+  min-height: 560px;
+  align-items: center;
+}
+
+.gf-corporate > img {
+  object-position: center;
+}
+
+.gf-corporate:before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10, 25, 14, .45),
+      rgba(10, 25, 14, .94) 55%,
+      rgba(10, 25, 14, .96)
+    );
+}
+
+.gf-corporate .gf-bulk-copy {
+  width: min(590px, calc(100% - 32px));
+  margin: 32px 5vw 32px auto;
+  padding: clamp(26px, 4vw, 44px);
+  background: rgba(15, 45, 27, .76);
+  border: 1px solid rgba(246, 196, 83, .42);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
+}
+
+.gf-corporate .gf-eyebrow {
+  color: #f6c453;
+  font-size: .72rem;
+  letter-spacing: .2em;
+  line-height: 1.7;
+}
+
+.gf-corporate h2 em {
+  color: #f6c453;
+  font-weight: 500;
+}
+
+.gf-corporate-points {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0 26px;
+}
+
+.gf-corporate-points span {
+  color: #fff4d7;
+  font-size: .93rem;
+  line-height: 1.5;
+}
+
+.gf-corporate .gf-bulk-copy > small {
+  display: block;
+  margin-top: 16px;
+  color: rgba(255, 247, 226, .76);
+  font-size: .82rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 699px) {
+  .gf-corporate {
+    min-height: 590px;
+  }
+
+  .gf-corporate:before {
+    background: linear-gradient(
+      0deg,
+      rgba(10, 25, 14, .97) 0%,
+      rgba(10, 25, 14, .86) 65%,
+      rgba(10, 25, 14, .3) 100%
+    );
+  }
+
+  .gf-corporate .gf-bulk-copy {
+    margin: 180px 16px 20px;
+    padding: 25px 20px;
+  }
+
+  .gf-corporate .gf-btn {
+    width: 100%;
+    padding-inline: 16px;
+    text-align: center;
+  }
+}
