@@ -2325,3 +2325,101 @@ section.gf-teaser .gf-copy .gf-kicker{
 @media(prefers-reduced-motion:reduce){
   .mhf-cta,.mhf-cta span,.mhf-col a{transition:none}
 }
+/* ===== STICKY NAV FIX ===== */
+
+/* 1. overflow:hidden on html/body breaks sticky; clip doesn't */
+html, body{
+  overflow-x:clip !important;
+  overflow-y:visible !important;
+}
+body.no-scroll{overflow:hidden !important}   /* keep the cart modal scroll-lock working */
+
+/* 2. make the wrapper div the sticky element, so it can travel the whole page */
+#site-header{
+  position:sticky !important;
+  top:0 !important;
+  z-index:1000 !important;
+  width:100%;
+}
+
+/* 3. the header inside just fills its wrapper */
+#site-header .site-header{
+  position:relative !important;
+  top:auto !important;
+  background:rgba(255,253,248,.92) !important;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  box-shadow:0 6px 24px rgba(48,31,19,.08);
+}
+
+/* the mobile dropdown should sit above page content */
+#site-header .nav-links.open{z-index:1001}
+/* ===== HAMBURGER CIRCLE: lock in place ===== */
+#site-header .menu-btn,
+#site-header .menu-btn::before,
+#site-header .menu-btn::after,
+#site-header .menu-btn span{
+  transition:none !important;
+  animation:none !important;
+}
+
+#site-header .menu-btn{
+  position:relative !important;
+  top:auto !important; left:auto !important; right:auto !important; bottom:auto !important;
+  margin:0 !important;
+  transform:none !important;
+  translate:none !important;
+  flex:0 0 44px !important;
+  width:44px !important;
+  height:44px !important;
+  will-change:auto !important;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* tap/hover/focus must not move or scale it */
+#site-header .menu-btn:hover,
+#site-header .menu-btn:active,
+#site-header .menu-btn:focus,
+#site-header .menu-btn:focus-visible{
+  transform:none !important;
+  translate:none !important;
+  top:auto !important;
+}
+/* ===== HAMBURGER: static 3 lines (nothing inside can move) ===== */
+
+/* hide the old icon: glyph, spans, svg, pseudo-elements */
+#site-header .menu-btn{
+  font-size:0 !important;
+  line-height:0 !important;
+  color:transparent !important;
+  -webkit-text-fill-color:transparent !important;
+  text-indent:-9999px !important;
+  overflow:hidden !important;
+}
+#site-header .menu-btn > *,
+#site-header .menu-btn::before,
+#site-header .menu-btn::after{
+  display:none !important;
+  content:none !important;
+  animation:none !important;
+  transition:none !important;
+  transform:none !important;
+}
+
+/* draw 3 fixed lines in the centre of the circle */
+#site-header .menu-btn{
+  background-image:
+    linear-gradient(#2b1b12,#2b1b12),
+    linear-gradient(#2b1b12,#2b1b12),
+    linear-gradient(#2b1b12,#2b1b12) !important;
+  background-repeat:no-repeat !important;
+  background-size:18px 2px !important;
+  background-position:
+    center calc(50% - 6px),
+    center 50%,
+    center calc(50% + 6px) !important;
+  transition:none !important;
+  animation:none !important;
+  transform:none !important;
+}
