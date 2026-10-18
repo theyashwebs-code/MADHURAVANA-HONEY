@@ -13,7 +13,8 @@
     { id: "Festival", icon: "🪔", msg: "Wishing you and your family a bright, healthy and joyful festival." },
     { id: "Thank you", icon: "🙏", msg: "Thank you for everything. This one is pure, just like your kindness." },
     { id: "Get well soon", icon: "💛", msg: "Get well soon. A spoonful of raw honey, with all my love." },
-    { id: "Just because", icon: "✨", msg: "No reason at all, except that you matter to me." }
+    { id: "Just because", icon: "✨", msg: "No reason at all, except that you matter to me." },
+    { id: "Corporate Gifting", icon: "💼", msg: "Thank you for being a valued part of our journey. Wishing you continued success and a future filled with golden opportunities." }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
