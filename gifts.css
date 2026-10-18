@@ -487,3 +487,11 @@ html,body{overflow-x:clip}
     text-align: center;
   }
 }
+/* Golden selected occasion */
+.gf-occ-card[aria-pressed="true"],
+.gf-chip[aria-pressed="true"] {
+  background: linear-gradient(135deg, #f6c453, #e9a21c);
+  border-color: #a8710f;
+  color: #2a1706;
+  box-shadow: 0 8px 20px rgba(168, 113, 15, 0.25);
+}
