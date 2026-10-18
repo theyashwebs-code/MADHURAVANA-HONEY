@@ -713,6 +713,35 @@ document.addEventListener("DOMContentLoaded", function () {
   var placed = document.getElementById("ck-placed");
   var busy = false, bypass = false;
 
+    /* ---------- empty the page once the order is sent ---------- */
+  function showEmpty() {
+    var main = document.querySelector("main");
+    if (!main) return;
+    placed.classList.remove("on");
+    placed.hidden = true;
+    document.body.style.overflow = "";
+    main.innerHTML =
+      '<section style="min-height:70vh;display:grid;place-items:center;padding:90px 20px;text-align:center;font-family:Manrope,system-ui,sans-serif">' +
+        '<div style="max-width:420px;padding:40px 28px;border-radius:28px;background:linear-gradient(180deg,#fffdf8,#fbf4e3);border:1px solid rgba(201,162,75,.5);box-shadow:0 60px 100px -30px rgba(0,0,0,.6)">' +
+          '<div style="width:70px;height:70px;margin:0 auto 18px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(145deg,#2b7a50,#17432b);color:#fbf1d9;font-size:1.8rem;font-weight:800">✓</div>' +
+          '<h2 style="margin:0 0 10px;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:1.7rem;color:#1a110a">Your order is placed</h2>' +
+          '<p style="margin:0 0 22px;color:#3b2818;line-height:1.6">Your checkout is now empty. You can follow your honey on the Track Order page.</p>' +
+          '<a href="track.html" style="display:inline-block;margin:4px;padding:14px 24px;border-radius:99px;background:linear-gradient(180deg,#f6c243,#e19a12);color:#2a1706;font-weight:800;text-decoration:none">Track Order</a>' +
+          '<a href="shop.html" style="display:inline-block;margin:4px;padding:14px 24px;border-radius:99px;border:1.5px solid #e9dfc8;color:#3b2818;font-weight:800;text-decoration:none">Shop more</a>' +
+        '</div>' +
+      '</section>';
+    window.scrollTo(0, 0);
+  }
+
+  /* cart empty on arrival (reload, or Back button after ordering) = show the empty page */
+  function cartIsEmpty() {
+    try { return getCart().length === 0; } catch (e) { return false; }
+  }
+  if (cartIsEmpty()) { showEmpty(); return; }
+  window.addEventListener("pageshow", function (ev) {
+    if (ev.persisted && cartIsEmpty()) showEmpty();
+  });
+
   /* The WhatsApp link now opens ~2s after the tap, which some phones treat as a blocked popup.
      If that happens, open WhatsApp in this tab instead so it never fails. */
   var realOpen = window.open;
@@ -944,12 +973,22 @@ document.addEventListener("DOMContentLoaded", function () {
         if (form.requestSubmit) form.requestSubmit();
         else form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
         bypass = false;
-        setTimeout(function () {
-          placed.classList.remove("on");
-          placed.hidden = true;
-          document.body.style.overflow = "";
-          busy = false;
-        }, 2500);
+
+        /* script.js clears the cart once the order is saved: empty the page the moment that happens */
+        var tries = 0;
+        var watch = setInterval(function () {
+          tries++;
+          if (cartIsEmpty()) {
+            clearInterval(watch);
+            showEmpty();
+          } else if (tries > 40) {                /* ~12s: something failed, give the form back */
+            clearInterval(watch);
+            placed.classList.remove("on");
+            placed.hidden = true;
+            document.body.style.overflow = "";
+            busy = false;
+          }
+        }, 300);
       }, 2000);
     }
   }, true);
