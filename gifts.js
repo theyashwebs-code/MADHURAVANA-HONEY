@@ -1,5 +1,5 @@
 /* MADHURAVANA gifts page: browse sets/occasions, pick jars, write a card, add everything to the normal cart.
-   Uses the live product list (getProducts) so sizes and prices always match the shop/admin. */
+   Uses the live product list (getProducts) so sizes always match the shop/admin. No prices are shown on this page. */
 (function () {
   if (document.body.dataset.page !== "gifts") return;
   document.documentElement.classList.add("gf-js");
@@ -26,7 +26,6 @@
       .sort(function (a, b) { return a.price - b.price; });
   }
   function sig(list) { return list.map(function (p) { return p.id + ":" + p.price + ":" + p.weight; }).join("|"); }
-  function priceOf(id) { var p = products.filter(function (x) { return x.id === id; })[0]; return p ? p.price : 0; }
   function weightOf(id) { var p = products.filter(function (x) { return x.id === id; })[0]; return p ? p.weight : ""; }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function jarImg(h) { var i = new Image(); i.src = "images/madhuravana-front-bottle.png"; i.alt = ""; i.loading = "lazy"; i.style.height = h + "px"; return i; }
@@ -43,7 +42,6 @@
     sets.push({ id: "small", name: "A small gesture", desc: "A thoughtful jar and a note. Perfect for a thank-you.", art: [150], items: [[products[0].id, MIN_QTY]] });
     if (n > 1) sets.push({ id: "big", name: "Something generous", desc: "Our largest jar, for someone you really want to look after.", art: [215], items: [[products[n - 1].id, MIN_QTY]], ribbon: "Most loved" });
     if (n > 2) sets.push({ id: "all", name: "The full hamper", desc: "One of every size we offer, for a family or a big occasion.", art: [105, 140, 175], items: products.map(function (p) { return [p.id, MIN_QTY]; }) });
-    sets.forEach(function (s) { s.total = s.items.reduce(function (t, it) { return t + priceOf(it[0]) * it[1]; }, 0); });
     return sets;
   }
   function renderSets() {
@@ -58,7 +56,7 @@
       s.items.forEach(function (it) { inc.appendChild(el("li", "", it[1] + " × " + weightOf(it[0]) + " jar")); });
       inc.appendChild(el("li", "", "Your personal card message"));
       body.appendChild(inc);
-      var foot = el("div", "gf-set-foot"); foot.appendChild(el("strong", "", money(s.total)));
+      var foot = el("div", "gf-set-foot");
       var b = el("button", "gf-btn", state.set === s.id ? "Selected" : "Choose this set"); b.type = "button";
       b.addEventListener("click", function () {
         state.qty = {}; s.items.forEach(function (it) { state.qty[it[0]] = it[1]; });
@@ -84,7 +82,7 @@
       var row = el("div", "gf-jar" + (q > 0 ? " has-qty" : ""));
       var imgBox = el("div", "gf-jar-img"); var img = jarImg(hOf(p.weight));
       img.alt = "MADHURAVANA Pure Honey " + p.weight; imgBox.appendChild(img);
-      var info = el("div", "gf-jar-info"); info.appendChild(el("b", "", p.weight)); info.appendChild(el("span", "", money(p.price) + " per jar"));
+      var info = el("div", "gf-jar-info"); info.appendChild(el("b", "", p.weight));
       var qty = el("div", "gf-qty");
       var minus = el("button", "", "−"); minus.type = "button"; minus.setAttribute("aria-label", "Fewer " + p.weight + " jars"); minus.disabled = q <= 0;
       var out = el("input", "gf-qty-in"); out.type = "text"; out.inputMode = "numeric"; out.maxLength = 3; out.value = String(q);
@@ -142,17 +140,15 @@
   }
   function renderSummary() {
     var lines = $("gf-lines"); lines.innerHTML = "";
-    var list = chosen(), total = 0, count = 0;
+    var list = chosen(), count = 0;
     if (!list.length) lines.appendChild(el("p", "gf-empty", "No jars chosen yet."));
     list.forEach(function (c) {
       var l = el("div", "gf-line"); l.appendChild(el("span", "", c.p.weight + " × " + c.q));
-      l.appendChild(el("span", "", money(c.p.price * c.q))); lines.appendChild(l); total += c.p.price * c.q; count += c.q;
+      lines.appendChild(l); count += c.q;
     });
-    $("gf-total").textContent = money(total);
     $("gf-add").disabled = !list.length;
     var bar = $("gf-bar");
     bar.hidden = !list.length; document.body.classList.toggle("has-bar", !!list.length);
-    $("gf-bar-total").textContent = money(total);
     $("gf-bar-count").textContent = count + (count === 1 ? " jar" : " jars");
   }
   function renderAll() {
