@@ -2219,3 +2219,109 @@ section.gf-teaser .gf-copy .gf-kicker{
   text-indent:0 !important;
   font-size:.72rem !important;
 }
+/* =========================================================
+   MADHURAVANA — NEW FOOTER
+   ========================================================= */
+.mhf{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:90px 0 28px;color:#e9ded4;
+  background:
+    radial-gradient(circle at 85% 0%,rgba(239,181,47,.16),transparent 38%),
+    radial-gradient(circle at 5% 100%,rgba(104,123,67,.14),transparent 34%),
+    linear-gradient(180deg,#2a1a10,#1b110a);
+}
+.mhf::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,transparent,#e9a21c 25%,#ffe29a 50%,#e9a21c 75%,transparent);
+}
+.mhf-comb{
+  position:absolute;z-index:-1;right:-110px;top:-120px;width:420px;height:420px;
+  background:rgba(255,226,154,.05);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  transform:rotate(12deg);
+}
+.mhf-wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+
+.mhf-top{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px;
+  padding-bottom:44px;
+}
+.mhf-logo{
+  display:inline-block;font:600 1.9rem/1 Fraunces,Georgia,serif;letter-spacing:.02em;color:#fff;
+}
+.mhf-logo small{
+  display:block;margin-top:8px;font:800 .6rem/1 Inter,system-ui,sans-serif;
+  letter-spacing:.34em;color:#e0ad55;
+}
+.mhf-brand p{
+  max-width:400px;margin:22px 0 26px;color:#bbaea5;font-size:.92rem;line-height:1.8;
+}
+.mhf-cta{
+  display:inline-flex;align-items:center;gap:14px;padding:14px 24px;border-radius:99px;
+  background:linear-gradient(180deg,#f6c243,#e19a12);color:#2a1706;
+  font:850 .78rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:0 12px 26px rgba(225,154,18,.3),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.mhf-cta span{transition:transform .3s ease}
+.mhf-cta:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(225,154,18,.45)}
+.mhf-cta:hover span{transform:translateX(5px)}
+
+.mhf-col h4{
+  margin:0 0 20px;color:#fff;font:800 .74rem/1 Inter,system-ui,sans-serif;
+  letter-spacing:.2em;text-transform:uppercase;
+}
+.mhf-col h4::after{
+  content:"";display:block;width:28px;height:2px;margin-top:12px;background:#e0ad55;border-radius:2px;
+}
+.mhf-col a{
+  display:block;width:fit-content;margin:0 0 12px;color:#bbaea5;font-size:.9rem;
+  position:relative;transition:color .25s ease,transform .25s ease;
+}
+.mhf-col a:hover{color:#ffe29a;transform:translateX(5px)}
+
+.mhf-badges{
+  list-style:none;margin:0;padding:22px 0;display:flex;flex-wrap:wrap;gap:10px 12px;
+  border-top:1px solid rgba(255,255,255,.09);
+}
+.mhf-badges li{
+  padding:9px 16px;border-radius:99px;border:1px solid rgba(224,173,85,.28);
+  background:rgba(255,255,255,.04);color:#e8cf95;
+  font:700 .7rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;
+}
+
+/* bottom bar: copyright left, credit in the RIGHT corner */
+.mhf-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  padding-top:22px;border-top:1px solid rgba(255,255,255,.09);
+}
+.mhf-copy{color:#8e8076;font-size:.78rem;line-height:1.7}
+.mhf-credit{
+  margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px;
+  text-align:right;color:#8e8076;font-size:.8rem;line-height:1.5;
+}
+.mhf-credit a{color:#e0ad55;font-weight:700;transition:color .25s ease}
+.mhf-credit a:hover{color:#ffe29a;text-decoration:underline;text-underline-offset:4px}
+
+/* tablet */
+@media(max-width:900px){
+  .mhf{padding-top:70px}
+  .mhf-top{grid-template-columns:1fr 1fr;gap:40px}
+  .mhf-brand{grid-column:1/-1}
+}
+/* mobile */
+@media(max-width:560px){
+  .mhf{padding:56px 0 max(22px,env(safe-area-inset-bottom))}
+  .mhf-wrap{width:calc(100% - 28px)}
+  .mhf-top{grid-template-columns:1fr 1fr;gap:32px 20px}
+  .mhf-col a{overflow-wrap:anywhere}
+  .mhf-logo{font-size:1.6rem}
+  .mhf-cta{width:100%;justify-content:space-between}
+  .mhf-badges li{font-size:.64rem;padding:8px 12px}
+  .mhf-bottom{flex-direction:column;align-items:stretch;gap:16px}
+  .mhf-copy{order:2}
+  .mhf-credit{order:1;margin-left:auto}   /* credit stays on the right on phones */
+}
+@media(prefers-reduced-motion:reduce){
+  .mhf-cta,.mhf-cta span,.mhf-col a{transition:none}
+}
