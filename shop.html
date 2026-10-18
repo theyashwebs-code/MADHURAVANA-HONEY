@@ -417,7 +417,7 @@ body[data-page="shop"] #shop-products .product-card .product-visual img{
     return Math.max(.4,Math.min(1,f));
   }
   function sizeAll(){
-    var cards=grid.querySelectorAll(".product-card");
+    var cards=grid.querySelectorAll(".product-card"); 
     for(var i=0;i<cards.length;i++){
       var c=cards[i], img=c.querySelector(".product-visual img");
       if(!img) continue;
@@ -431,5 +431,7 @@ body[data-page="shop"] #shop-products .product-card .product-visual img{
 })();
 </script>
   <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js?v=2"></script><script src="admin.js"></script><script src="motion.js"></script>
+  <script defer src="lenis.min.js"></script>
+<script defer src="smooth-scroll.js?v=20261018"></script>
 </body>
 </html>
