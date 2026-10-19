@@ -138,10 +138,7 @@ function renderFooter() {
         <div class="mhf-bottom">
           <span class="mhf-copy">© ${new Date().getFullYear()} MADHURAVANA Pure Honey<br>Made with natural warmth.</span>
 
-          <div class="mhf-credit">
-            <span>Website by <a href="https://yashwebs.in" target="_blank" rel="noopener noreferrer">YashWebs ↗</a></span>
-            <span>Founder: <a href="https://yashwant-chatti-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer">Yaswanth Chatti ↗</a></span>
-          </div>
+
         </div>
       </div>
     </footer>
