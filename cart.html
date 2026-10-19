@@ -81,7 +81,7 @@
     .ct-remove{margin-top:8px;padding:0;border:0;background:none;color:#a33a2a;font:600 .82rem Inter,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
     .ct-qty{grid-area:qty;display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:99px;background:#efe4c9}
     .ct-qty button{width:36px;height:36px;border:0;border-radius:50%;background:var(--c-paper);color:var(--c-green);font:600 1.3rem/1 Inter,sans-serif;cursor:pointer;transition:background .15s,color .15s;padding:0}
-    .ct-qty button:hover{background:var(--c-green);color:#fff}
+   
     .ct-qty strong{min-width:38px;text-align:center;font:700 1rem Inter,sans-serif}
     .ct-price{grid-area:price;min-width:86px;text-align:right;font:600 1.2rem Fraunces,Georgia,serif;color:var(--c-gold)}
     .ct-min{grid-column:1/-1;margin:-4px 0 0;font-size:.78rem;color:var(--c-mute)}
@@ -100,9 +100,9 @@
     .ct-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:0 24px;border:0;border-radius:99px;cursor:pointer;text-decoration:none;
       background:linear-gradient(180deg,#f2b73a,#e19a12);color:#2a1706;font:700 1rem Inter,sans-serif;
       box-shadow:0 10px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s,box-shadow .2s}
-    .ct-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.45)}
+
     .ct-link-btn{display:block;width:100%;margin-top:10px;padding:12px;border:0;border-radius:99px;background:transparent;color:rgba(251,243,223,.85);font:600 .9rem Inter,sans-serif;cursor:pointer;box-shadow:inset 0 0 0 1.5px rgba(251,243,223,.35);text-align:center;text-decoration:none}
-    .ct-link-btn:hover{background:rgba(251,243,223,.1)}
+  
     .ct-fine{margin:14px 0 0;font-size:.8rem;line-height:1.55;color:rgba(251,243,223,.7);text-align:center}
 
     /* ---------- empty ---------- */
@@ -150,6 +150,20 @@
       .ct-empty{padding:40px 18px}
     }
     @media (prefers-reduced-motion:reduce){.ct-btn{transition:none}}
+
+    @media (hover:hover) and (pointer:fine){
+  .ct-qty button:hover{background:var(--c-green);color:#fff}
+  .ct-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.45)}
+  .ct-link-btn:hover{background:rgba(251,243,223,.1)}
+}
+.ct-qty button:active{background:var(--c-green);color:#fff}
+
+.ct-qty button,.ct-remove,.ct-btn,.ct-link-btn{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  position:relative;z-index:1;
+}
+.ct-qty button{transition:none}
   </style>
 </head>
 <body data-page="cart">
