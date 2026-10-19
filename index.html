@@ -1,298 +1,285 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#143a23">
-  <title>Your Cart | MADHURAVANA Pure Honey</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="premium.css">
-  <link rel="stylesheet" href="magic-upgrade.css">
-  <link rel="stylesheet" href="wow.css">
-  <link rel="stylesheet" href="static-premium.css">
-  <link rel="stylesheet" href="mobile-premium.css">
-  <link rel="stylesheet" href="nav.css?v=20261012">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#f7f0df" name="theme-color"/>
+<meta content="MADHURAVANA Pure Honey — pure, natural and unprocessed honey inspired by Kerala &amp; Tamil Nadu’s natural heritage." name="description"/>
+<title>MADHURAVANA Pure Honey | Pure. Natural. Unprocessed.</title>
+<!-- Paste inside <head> of index.html, gifts.html, shop.html (replace YOURDOMAIN.com with your real site link) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MADHURAVANA Pure Honey">
+<meta property="og:title" content="MADHURAVANA Pure Honey | Pure. Natural. Unprocessed.">
+<meta property="og:description" content="Raw, unprocessed honey from the forests of Kerala &amp; Tamil Nadu. Cash on delivery.">
+<meta property="og:url" content="https://www.madhuravana.in/">
+<meta property="og:image" content="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MADHURAVANA Pure Honey jar on a wooden board">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://madhuravana.com/images/og-image.jpg">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&amp;display=swap" rel="stylesheet"/>
+<link href="style.css?v=20261016b" rel="stylesheet"/><link href="premium.css" rel="stylesheet"/><link href="magic-upgrade.css" rel="stylesheet"/><link href="wow.css" rel="stylesheet"/><link href="static-premium.css?v=20261016" rel="stylesheet"/><link href="madhuravana-home.css" rel="stylesheet"/><link href="home-premium.css?v=20261017" rel="stylesheet"/><link href="luxe.css" rel="stylesheet"/>
+<link href="nav.css?v=20261012" rel="stylesheet"/>
+<link href="mobile-home-fix.css?v=20261016-2" rel="stylesheet"/>
+<link href="editorial-images.css?v=20261016" rel="stylesheet"/><link href="about-redesign.css?v=20261016" rel="stylesheet"/><link href="faq-redesign.css?v=20261016" rel="stylesheet"/><link href="gifts.css?v=20261017" rel="stylesheet"/></head>
+<style>
+.mj-wrap{display:flex;gap:24px;overflow-x:auto;padding:18px 8px 34px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.mj-wrap::-webkit-scrollbar{display:none}
+.mj-card{flex:0 0 300px;scroll-snap-align:center;position:relative;display:flex;flex-direction:column;border-radius:30px;overflow:hidden;
+  background:#fffaf0;border:1.5px solid rgba(201,138,28,.45);box-shadow:0 22px 50px rgba(120,70,0,.16);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.mj-card:first-child{margin-left:auto}.mj-card:last-child{margin-right:auto}
+.mj-card:hover{transform:translateY(-8px);box-shadow:0 34px 70px rgba(120,70,0,.28)}
 
-  <style>
-    /* =========================================================
-       CART PAGE (scoped, all classes start with ct-)
-       ========================================================= */
-    body[data-page="cart"]{
-      --c-green:#143a23; --c-green2:#1d4a2f; --c-gold:#a8710f; --c-honey:#e9a21c;
-      --c-cream:#f7f0df; --c-paper:#fffaf0; --c-ink:#2a1706; --c-mute:#6b5a3c; --c-line:rgba(168,113,15,.28);
-      background:var(--c-cream);
-    }
-    body[data-page="cart"] .ct-page,
-    body[data-page="cart"] .ct-page *{box-sizing:border-box}
-    .ct-page{color:var(--c-ink);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
-    .ct-page h1,.ct-page h2,.ct-page h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.02em;margin:0;font-weight:600}
-    .ct-page img{display:block;max-width:100%}
+.mj-art{position:relative;height:290px;display:flex;align-items:flex-end;justify-content:center;padding:0 0 18px;text-decoration:none;
+  background:radial-gradient(circle at 50% 62%,rgba(255,255,255,.85),rgba(255,214,102,.55) 46%,transparent 74%),linear-gradient(180deg,#ffe596,#f6bd3a)}
+.mj-art:before{content:"";position:absolute;left:50%;top:52%;width:200px;height:230px;transform:translate(-50%,-50%);background:rgba(255,255,255,.4);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.mj-art img{position:relative;z-index:1;width:auto;max-width:80%;object-fit:contain;filter:drop-shadow(0 16px 14px rgba(110,55,0,.42));transform-origin:bottom center;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.mj-card:hover .mj-art img{transform:scale(1.07) translateY(-4px)}
+.mj-w{position:absolute;z-index:2;top:16px;left:16px;padding:7px 15px;border-radius:99px;background:#143a23;color:#f6e7bd;font:800 .8rem/1 Inter,system-ui,sans-serif;letter-spacing:.06em}
+.mj-stock{position:absolute;z-index:2;top:16px;right:16px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.88);color:#2f7a38;font:800 .66rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.mj-stock.out{color:#a33a2d}
 
-    /* ---------- hero ---------- */
-    .ct-hero{
-      position:relative;overflow:hidden;color:#fbf3df;
-      background:
-        linear-gradient(100deg,rgba(15,45,27,.97) 0%,rgba(20,58,35,.92) 55%,rgba(20,58,35,.7) 100%),
-        url("images/editorial-warm-stilllife.jpg") center/cover no-repeat,
-        #143a23;
-      padding:clamp(34px,6vw,64px) 0 clamp(54px,8vw,86px);
-    }
-    .ct-wrap{width:min(1120px,100% - 32px);margin:0 auto}
-    .ct-kicker{margin:0 0 10px;color:#f1c874;font:italic 400 1rem Fraunces,Georgia,serif}
-    .ct-hero h1{font-size:clamp(2.1rem,6vw,3.6rem);line-height:1.02;color:#fff7e2}
-    .ct-hero p.ct-sub{margin:12px 0 0;color:rgba(251,243,223,.82);max-width:34em;line-height:1.6}
-    .ct-steps{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none;font-size:.82rem;font-weight:600}
-    .ct-steps li{padding:7px 14px;border-radius:99px;border:1px solid rgba(241,200,116,.3);background:rgba(255,247,226,.07);color:rgba(251,243,223,.75)}
-    .ct-steps li.on{background:linear-gradient(180deg,#f2b73a,#e19a12);border-color:transparent;color:#2a1706}
+.mj-body{display:flex;flex-direction:column;flex:1;padding:22px 24px 24px}
+.mj-body h3{margin:0;font:600 1.45rem/1.15 Fraunces,Georgia,serif;letter-spacing:-.01em;color:#2a1706}
+.mj-body p{margin:8px 0 0;color:#7a6440;font:400 .9rem/1.55 Inter,system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mj-foot{margin-top:auto;padding-top:18px}
+.mj-price{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-top:16px;border-top:2px dotted rgba(233,162,28,.6)}
+.mj-price strong{font:600 1.9rem/1 Fraunces,Georgia,serif;color:#8a4a00;letter-spacing:-.02em}
+.mj-price a{color:#8a4a00;font:800 .8rem Inter,system-ui,sans-serif;text-decoration:underline;text-underline-offset:4px}
+.mj-add{position:relative;overflow:hidden;width:100%;min-height:50px;margin-top:14px;border:0;border-radius:99px;cursor:pointer;
+  background:linear-gradient(180deg,#f2b73a,#e19a12);color:#2a1706;font:800 .92rem Inter,system-ui,sans-serif;letter-spacing:.05em;
+  box-shadow:0 12px 24px rgba(228,138,0,.4),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .2s,box-shadow .2s}
+.mj-add:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 32px rgba(228,138,0,.55),inset 0 1px 0 rgba(255,255,255,.5)}
+.mj-add:disabled{opacity:.5;cursor:not-allowed}
+.mj-add.ok{background:linear-gradient(180deg,#a9d18f,#62794f);color:#fff}
 
-    /* ---------- layout ---------- */
-    .ct-main{margin-top:-34px;position:relative;z-index:2;padding-bottom:70px}
-    .ct-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:24px;align-items:start}
-    .ct-list{display:grid;gap:20px;min-width:0}
+/* the old, broken grid is hidden; our row replaces it */
+#featured-products{display:none!important}
 
-    /* ---------- group (regular / gift) ---------- */
-    .ct-group{background:var(--c-paper);border:1px solid var(--c-line);border-radius:22px;box-shadow:0 18px 44px rgba(60,40,10,.12);overflow:hidden}
-    .ct-group-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:linear-gradient(135deg,#1d4a2f,#143a23);color:#fff7e2}
-    .ct-group.is-gift .ct-group-head{background:linear-gradient(135deg,#b87a0c,#e9a21c);color:#2a1706}
-    .ct-group-title{display:flex;align-items:center;gap:12px;min-width:0}
-    .ct-group-ico{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.16);font-size:1.25rem}
-    .ct-group-head h2{font-size:1.2rem;line-height:1.15}
-    .ct-group-head small{display:block;margin-top:2px;font:500 .78rem Inter,sans-serif;opacity:.85}
-    .ct-group-sub{flex:none;text-align:right;font:600 1.15rem Fraunces,Georgia,serif;white-space:nowrap}
-    .ct-group-sub small{font-size:.7rem}
-
-    /* ---------- item row ---------- */
-    .ct-item{
-      display:grid;grid-template-columns:84px minmax(0,1fr) auto auto;
-      grid-template-areas:"thumb info qty price";
-      align-items:center;gap:16px;padding:16px 20px;border-top:1px solid var(--c-line);
-    }
-    .ct-item:first-of-type{border-top:0}
-    .ct-thumb{grid-area:thumb;height:84px;display:grid;place-items:center;border-radius:16px;
-      background:radial-gradient(circle,rgba(255,214,102,.6),rgba(255,214,102,.12) 70%)}
-    .ct-thumb img{height:72px;width:auto;object-fit:contain;filter:drop-shadow(0 6px 6px rgba(90,50,0,.3))}
-    .ct-info{grid-area:info;min-width:0}
-    .ct-info h3{font-size:1.08rem;line-height:1.25;color:var(--c-green)}
-    .ct-meta{margin-top:4px;font-size:.88rem;color:var(--c-mute)}
-    .ct-badge{display:inline-block;margin-left:6px;padding:2px 9px;border-radius:99px;background:#fff0c4;border:1px solid #e3b95a;color:#8a5a00;font:700 .68rem Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle}
-    .ct-remove{margin-top:8px;padding:0;border:0;background:none;color:#a33a2a;font:600 .82rem Inter,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-    .ct-qty{grid-area:qty;display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:99px;background:#efe4c9}
-    .ct-qty button{width:36px;height:36px;border:0;border-radius:50%;background:var(--c-paper);color:var(--c-green);font:600 1.3rem/1 Inter,sans-serif;cursor:pointer;transition:background .15s,color .15s;padding:0}
-   
-    .ct-qty strong{min-width:38px;text-align:center;font:700 1rem Inter,sans-serif}
-    .ct-price{grid-area:price;min-width:86px;text-align:right;font:600 1.2rem Fraunces,Georgia,serif;color:var(--c-gold)}
-    .ct-min{grid-column:1/-1;margin:-4px 0 0;font-size:.78rem;color:var(--c-mute)}
-
-    /* ---------- summary ---------- */
-    .ct-summary{position:sticky;top:96px;padding:24px;border-radius:22px;color:#fbf3df;
-      background:radial-gradient(400px 200px at 100% 0,rgba(233,162,28,.22),transparent 70%),linear-gradient(160deg,#1d4a2f,#143a23);
-      border:1px solid rgba(241,200,116,.3);box-shadow:0 22px 50px rgba(20,58,35,.32)}
-    .ct-summary h3{font-size:1.3rem;color:#fff7e2;margin-bottom:14px}
-    .ct-sum-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed rgba(251,243,223,.22);font-size:.95rem}
-    .ct-sum-row span small{display:block;color:rgba(251,243,223,.6);font-size:.78rem;margin-top:2px}
-    .ct-sum-total{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 18px}
-    .ct-sum-total strong{font:600 1.9rem Fraunces,Georgia,serif;color:#f6d58a}
-    .ct-gift-note{margin:0 0 16px;padding:12px 14px;border-radius:14px;background:#fff7de;border:1px dashed #d9a441;color:#2a1706;font-size:.88rem;line-height:1.55}
-    .ct-gift-note a{color:#8a5a00;text-decoration:underline;font-weight:600}
-    .ct-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:0 24px;border:0;border-radius:99px;cursor:pointer;text-decoration:none;
-      background:linear-gradient(180deg,#f2b73a,#e19a12);color:#2a1706;font:700 1rem Inter,sans-serif;
-      box-shadow:0 10px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s,box-shadow .2s}
-
-    .ct-link-btn{display:block;width:100%;margin-top:10px;padding:12px;border:0;border-radius:99px;background:transparent;color:rgba(251,243,223,.85);font:600 .9rem Inter,sans-serif;cursor:pointer;box-shadow:inset 0 0 0 1.5px rgba(251,243,223,.35);text-align:center;text-decoration:none}
-  
-    .ct-fine{margin:14px 0 0;font-size:.8rem;line-height:1.55;color:rgba(251,243,223,.7);text-align:center}
-
-    /* ---------- empty ---------- */
-    .ct-empty{padding:56px 24px;text-align:center;background:var(--c-paper);border:1px solid var(--c-line);border-radius:22px;box-shadow:0 18px 44px rgba(60,40,10,.12)}
-    .ct-empty .ct-empty-ico{font-size:3rem;margin-bottom:8px}
-    .ct-empty h2{font-size:1.7rem;color:var(--c-green)}
-    .ct-empty p{margin:10px auto 22px;max-width:28em;color:var(--c-mute);line-height:1.6}
-    .ct-empty .ct-btn{display:inline-flex;width:auto;margin:0 6px 8px}
-    .ct-empty .ct-btn.alt{background:var(--c-green);color:#fff7e2;box-shadow:none}
-
-    /* ---------- mobile sticky bar ---------- */
-    .ct-bar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;align-items:center;justify-content:space-between;gap:14px;
-      padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--c-green);color:#fbf3df;box-shadow:0 -10px 30px rgba(0,0,0,.3)}
-    .ct-bar strong{display:block;font:600 1.35rem Fraunces,Georgia,serif;color:#f6d58a}
-    .ct-bar small{display:block;font-size:.76rem;color:rgba(251,243,223,.75)}
-    .ct-bar .ct-btn{width:auto;min-height:46px;padding:0 24px}
-
-    /* ---------- tablet ---------- */
-    @media (max-width:900px){
-      .ct-layout{grid-template-columns:1fr}
-      .ct-summary{position:static}
-      .ct-bar:not([hidden]){display:flex}
-      body.ct-has-bar{padding-bottom:84px}
-    }
-
-    /* ---------- phone ---------- */
-    @media (max-width:640px){
-      .ct-wrap{width:min(100% - 24px,560px)}
-      .ct-hero{padding:28px 0 56px}
-      .ct-steps li{padding:6px 11px;font-size:.76rem}
-      .ct-group-head{padding:14px 14px}
-      .ct-group-ico{width:36px;height:36px}
-      .ct-group-head h2{font-size:1.05rem}
-      .ct-item{
-        grid-template-columns:68px minmax(0,1fr);
-        grid-template-areas:"thumb info" "qty price";
-        gap:12px 14px;padding:14px;
-      }
-      .ct-thumb{height:68px}
-      .ct-thumb img{height:58px}
-      .ct-qty{justify-self:start}
-      .ct-qty button{width:34px;height:34px}
-      .ct-price{align-self:center;min-width:0;font-size:1.1rem}
-      .ct-summary{padding:20px 18px}
-      .ct-empty{padding:40px 18px}
-    }
-    @media (prefers-reduced-motion:reduce){.ct-btn{transition:none}}
-
-    @media (hover:hover) and (pointer:fine){
-  .ct-qty button:hover{background:var(--c-green);color:#fff}
-  .ct-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.45)}
-  .ct-link-btn:hover{background:rgba(251,243,223,.1)}
+@media(max-width:620px){
+  .mj-wrap{gap:14px;padding:14px 12px 28px;scroll-padding:0 12px}
+  .mj-card{flex-basis:78vw;max-width:320px}
+  .mj-card:first-child{margin-left:0}.mj-card:last-child{margin-right:0}
+  .mj-art{height:260px}
 }
-.ct-qty button:active{background:var(--c-green);color:#fff}
+@media(prefers-reduced-motion:reduce){.mj-card,.mj-art img,.mj-add{transition:none}}
+.cart-modal-jar{align-items:flex-end}
+.mj-pop-img{height:86px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 8px rgba(110,55,0,.35))}
+</style>
+<body class="madhuravana-home" data-page="home">
+  <div aria-hidden="true" class="lx-ribbon"><div><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i><span>Raw</span><i>✦</i><span>Natural</span><i>✦</i><span>Unprocessed</span><i>✦</i><span>Kerala &amp; Tamil Nadu’s Natural Heritage</span><i>✦</i><span>Supports Local Beekeepers</span><i>✦</i><span>100% Pure Honey</span><i>✦</i><span>Never Heated</span><i>✦</i><span>No Added Sugar</span><i>✦</i><span>Rich in Natural Enzymes</span><i>✦</i><span>Straight from the Forest</span><i>✦</i><span>Traditional Bee-Keepers</span><i>✦</i><span>Pure &amp; Unfiltered</span><i>✦</i></div></div>
 
-.ct-qty button,.ct-remove,.ct-btn,.ct-link-btn{
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  position:relative;z-index:1;
-}
-.ct-qty button{transition:none}
-  </style>
-</head>
-<body data-page="cart">
   <div id="site-header"></div>
+<nav aria-label="Sections" class="mh-dots"><a class="on" href="#top" data-label="A Taste of Kerala &amp; Tamil Nadu’s Natural Heritage" aria-label="A Taste of Kerala &amp; Tamil Nadu’s Natural Heritage">01</a><a href="#about" data-label="Our Story" aria-label="Our Story">02</a><a href="#gifts" data-label="Healthy &amp; Meaningful Gifts" aria-label="Healthy &amp; Meaningful Gifts">03</a><a href="#how" data-label="Simple Ordering" aria-label="Simple Ordering">04</a><a href="#faq" data-label="Questions" aria-label="Questions">05</a></nav>
+<main id="top">
+<section class="mh-hero">
+<div class="mh-hero-bg"></div><div aria-hidden="true" class="mh-scene"><div class="mh-sun"></div><svg class="mh-palms" preserveaspectratio="xMidYMax slice" viewbox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg"><g><path d="M114.0,900 Q127.2,614.0 177.6,380 L182.4,380 Q138.0,614.0 126.0,900Z" fill="#0a1a0c" opacity="0.95"></path><path d="M180,380 Q117.21698717949542,342.1604434415801 65.8490675990826,408.18082361576813 Q117.21698717949542,358.9604434415801 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q128.4694144971553,318.31067847399413 86.30802635846419,382.44914935401516 Q128.4694144971553,335.1106784739941 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q137.8961317799783,294.2670477238741 103.44751232723326,365.4435817297761 Q137.8961317799783,311.06704772387405 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q152.37227715505313,280.42584277286676 129.76777664555112,355.0043003694128 Q152.37227715505313,297.2258427728667 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q178.08353986954864,277.5909803149253 176.515527035543,350.3984767228225 Q178.08353986954864,294.39098031492523 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q200.97107528052882,293.2486710671745 218.12922778277965,357.82578338742724 Q200.97107528052882,310.04867106717444 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q237.53188888596844,287.6730353769148 284.60343433812443,369.91748636904373 Q237.53188888596844,304.47303537691477 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q237.90848276590447,320.0674971131402 285.28815048346263,387.8252322637085 Q237.90848276590447,336.86749711314013 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M180,380 Q264.41666610935613,343.2781245641774 333.4848474715566,428.4231391831455 Q264.41666610935613,360.07812456417736 180,380Z" fill="#0b2210" opacity="0.95"></path><path d="M295.5,900 Q290.4,691.0 268.2,520 L271.8,520 Q298.5,691.0 304.5,900Z" fill="#0a1a0c" opacity="0.8"></path><path d="M270,520 Q218.54553665074286,486.6174376378389 176.4464302740779,540.557686181553 Q218.54553665074286,499.21743763783894 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q233.54853247027387,471.6331492120556 203.72460449140706,519.2716374631752 Q233.54853247027387,484.23314921205565 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q242.1012403505697,455.40834164998756 219.27498245558124,507.4213088039578 Q242.1012403505697,468.0083416499876 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q252.99363386854807,454.66766555444866 239.07933430645105,503.5879258398593 Q252.99363386854807,467.2676655544487 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q271.8029041860414,433.1489759078953 273.27800761098445,494.63925037205587 Q271.8029041860414,445.7489759078953 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q290.2461854589129,443.0687978324543 306.8112462889326,500.3376007783787 Q290.2461854589129,455.66879783245435 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q308.3840572199941,461.73957881336736 339.78919494544374,515.2427345824306 Q308.3840572199941,474.3395788133674 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q312.3296932164276,481.24268880205756 346.9630785753228,529.1728903515774 Q312.3296932164276,493.8426888020576 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M270,520 Q318.2354646228996,491.61929996633035 357.7008447689084,542.1265567970783 Q318.2354646228996,504.21929996633037 270,520Z" fill="#0b2210" opacity="0.8"></path><path d="M1473.75,900 Q1461.0,592.0 1407.5,340 L1412.5,340 Q1472.25,592.0 1486.25,900Z" fill="#0a1a0c" opacity="0.95"></path><path d="M1410,340 Q1338.0196185768787,291.6352429468884 1279.1265792306885,367.32505058862347 Q1338.0196185768787,309.1352429468884 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1341.6475869496483,268.1998418324929 1285.722885362997,347.8388884201839 Q1341.6475869496483,285.6998418324929 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1366.2909979751528,253.47381833850625 1330.5290872275505,325.9679932600983 Q1366.2909979751528,270.97381833850625 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1391.1130074068026,225.84168555650487 1375.6600134669138,308.31654639974414 Q1391.1130074068026,243.34168555650487 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1411.2595357676814,228.16874766241648 1412.2900650321483,307.52934041888324 Q1411.2595357676814,245.66874766241648 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1446.7308799617754,225.42726159416034 1476.783418112319,312.3056989834961 Q1446.7308799617754,242.92726159416034 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1462.4760578834168,262.39370954061997 1505.4110143334851,334.59215366287464 Q1462.4760578834168,279.89370954061997 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1472.1967025760619,290.6392168023575 1523.0849137746577,358.5908612587316 Q1472.1967025760619,308.1392168023575 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1410,340 Q1492.5843591499033,299.88292382227877 1560.1533802725514,383.81144706141 Q1492.5843591499033,317.38292382227877 1410,340Z" fill="#0b2210" opacity="0.95"></path><path d="M1325.5,900 Q1334.4,680.0 1368.2,500 L1371.8,500 Q1342.5,680.0 1334.5,900Z" fill="#0a1a0c" opacity="0.8"></path><path d="M1370,500 Q1316.0484398397657,470.4486627222465 1271.9062542541194,526.0499985308111 Q1316.0484398397657,483.04866272224655 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1317.8352077181758,449.94160658794124 1275.1549231239558,508.7694920055604 Q1317.8352077181758,462.54160658794126 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1338.0792997804897,429.52191360673567 1311.9623632372538,486.6363805317286 Q1338.0792997804897,442.1219136067357 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1359.0180084162057,427.52688296216803 1350.0327425749194,479.9743381934338 Q1359.0180084162057,440.12688296216805 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1376.222615802627,419.29478268171135 1381.313846913867,476.7934404696017 Q1376.222615802627,431.8947826817114 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1393.454497109427,427.98692729984623 1412.644540198958,482.99862326327167 Q1393.454497109427,440.58692729984625 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1418.512350433845,432.4065077402178 1458.2042735160821,496.21076745216067 Q1418.512350433845,445.00650774021784 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1422.990241508866,451.98322641105136 1466.3458936524833,510.7379661095955 Q1422.990241508866,464.5832264110514 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M1370,500 Q1427.9694831460795,467.17709603601287 1475.3990602655988,526.6039524194925 Q1427.9694831460795,479.7770960360129 1370,500Z" fill="#0b2210" opacity="0.8"></path><path d="M56.5,900 Q61.2,735.0 78.6,600 L81.4,600 Q67.5,735.0 63.5,900Z" fill="#0a1a0c" opacity="0.7"></path><path d="M80,600 Q31.105630123423275,568.5709114805276 -8.898854321048589,618.8742546330604 Q31.105630123423275,578.3709114805275 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q47.97282244491654,560.01382270335 21.768768081666437,600.398160152668 Q47.97282244491654,569.81382270335 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q51.488492599063534,545.6430567449103 28.160895634660974,591.4041947672889 Q51.488492599063534,555.4430567449102 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q63.86486027706993,542.9159967190839 50.663382321945335,585.7797307272805 Q63.86486027706993,552.7159967190838 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q80.01054903582097,546.7165634871606 80.01918006512905,584.7559046099047 Q80.01054903582097,556.5165634871605 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q95.67414545414923,536.1298514370801 108.49844628027131,583.2851132756954 Q95.67414545414923,545.9298514370801 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q105.51270847865112,553.7279158136673 126.38674268845656,593.5945234854241 Q105.51270847865112,563.5279158136673 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q123.80809202401994,559.5800013737903 159.651076407309,608.1799090115584 Q123.80809202401994,569.3800013737903 80,600Z" fill="#0b2210" opacity="0.7"></path><path d="M80,600 Q121.25472153571542,576.4065138601429 155.00858461039167,619.0951374734336 Q121.25472153571542,586.2065138601429 80,600Z" fill="#0b2210" opacity="0.7"></path></g><g opacity=".55"><path d="M697.25,720 Q701.8,593.5 718.9,490 L721.1,490 Q706.75,593.5 702.75,720Z" fill="#0a1a0c" opacity="0.55"></path><path d="M720,490 Q682.7322260544738,466.7718504402796 652.2404110081342,505.08907253113625 Q682.7322260544738,474.47185044027964 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q689.0715186177792,452.29765352427665 663.7663974868714,490.40148269096034 Q689.0715186177792,459.9976535242767 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q698.9872930821614,451.1304648302826 681.7950783312026,484.2987265196113 Q698.9872930821614,458.83046483028266 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q707.8444525327839,437.8157317316784 697.8990046050616,476.1418528308588 Q707.8444525327839,445.51573173167844 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q724.7912081690961,447.98902475777334 728.7112875801746,478.2491547214756 Q724.7912081690961,455.6890247577734 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q730.818453667098,448.30604881018724 739.6699157583598,479.45757434520215 Q730.818453667098,456.0060488101873 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q742.4847983866003,451.0382021537942 760.8814516120005,484.97279218754915 Q742.4847983866003,458.73820215379425 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q748.2041063213832,464.8440913207115 771.2801933116057,496.3343041329955 Q748.2041063213832,472.5440913207116 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M720,490 Q751.9838088697547,471.11390063554984 778.1523797631904,504.32231214792847 Q751.9838088697547,478.8139006355499 720,490Z" fill="#0b2210" opacity="0.55"></path><path d="M897.0,720 Q893.6,577.0 878.8,460 L881.2,460 Q899.0,577.0 903.0,720Z" fill="#0a1a0c" opacity="0.5"></path><path d="M880,460 Q843.226052197499,438.18274152429666 813.1382767227255,476.17883620877336 Q843.226052197499,446.58274152429664 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q848.7733878071741,420.04353481810415 823.2243414675893,459.5294587037359 Q848.7733878071741,428.4435348181041 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q856.7927435953163,413.50858590477833 837.8049883551206,452.11969889768784 Q856.7927435953163,421.9085859047783 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q872.1872832050179,416.4546743180987 865.79506037276,448.3025890367841 Q872.1872832050179,424.85467431809866 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q886.1148941011099,403.1851491745282 891.1179892747452,443.744783063001 Q886.1148941011099,411.58514917452817 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q899.8075775470277,407.6150831277203 916.0137773582322,448.38956058207907 Q899.8075775470277,416.0150831277203 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q904.5989726122932,419.5058961910723 924.725404749624,455.49364217891554 Q904.5989726122932,427.90589619107226 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q913.6914622803395,425.60826069735583 941.2572041460719,464.41973548558434 Q913.6914622803395,434.0082606973558 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M880,460 Q910.3442240982747,441.92715681080836 935.1713165423175,473.9353282009247 Q910.3442240982747,450.32715681080833 880,460Z" fill="#0b2210" opacity="0.5"></path><path d="M1097.5,730 Q1101.0,614.5 1114.0,520 L1116.0,520 Q1105.5,614.5 1102.5,730Z" fill="#0a1a0c" opacity="0.5"></path><path d="M1115,520 Q1088.6355084386469,504.809449761151 1067.0645607975398,532.4324816388719 Q1088.6355084386469,511.809449761151 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1092.8646472190753,495.9001412814262 1074.7539040346826,522.4258973203289 Q1092.8646472190753,502.9001412814262 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1096.6522817268515,488.8539699736839 1081.6405122306392,516.3666192964781 Q1096.6522817268515,495.8539699736839 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1104.3314701092654,480.39403355847617 1095.6026729259372,510.0301327788219 Q1104.3314701092654,487.39403355847617 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1113.9840444974416,470.8997670981124 1113.1528081771664,505.64309087185063 Q1113.9840444974416,477.8997670981124 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1126.7184200154238,484.2263306213123 1136.3062182098618,511.7118354746212 Q1126.7184200154238,491.2263306213123 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1134.4954481599596,486.26289893360666 1150.4462693817445,515.7367943941437 Q1134.4954481599596,493.26289893360666 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1138.726512465953,497.0798721844229 1158.1391135744598,524.3082944920449 Q1138.726512465953,504.0798721844229 1115,520Z" fill="#0b2210" opacity="0.5"></path><path d="M1115,520 Q1150.6481391472898,506.186344881334 1179.814798449618,542.1173720983811 Q1150.6481391472898,513.186344881334 1115,520Z" fill="#0b2210" opacity="0.5"></path></g></svg><div class="mh-mist m1"></div><div class="mh-mist m2"></div><i class="mh-leaf l1"></i><i class="mh-leaf l2"></i><i class="mh-leaf l3"></i><i class="mh-leaf l4"></i><b class="mh-spark" style="--x:8%;--d:11s;--s:4px;--dl:0s"></b><b class="mh-spark" style="--x:17%;--d:14s;--s:3px;--dl:2s"></b><b class="mh-spark" style="--x:26%;--d:12s;--s:5px;--dl:5s"></b><b class="mh-spark" style="--x:34%;--d:16s;--s:3px;--dl:1s"></b><b class="mh-spark" style="--x:44%;--d:13s;--s:4px;--dl:7s"></b><b class="mh-spark" style="--x:53%;--d:15s;--s:6px;--dl:3s"></b><b class="mh-spark" style="--x:61%;--d:12s;--s:3px;--dl:9s"></b><b class="mh-spark" style="--x:69%;--d:17s;--s:5px;--dl:4s"></b><b class="mh-spark" style="--x:77%;--d:13s;--s:4px;--dl:6s"></b><b class="mh-spark" style="--x:85%;--d:15s;--s:3px;--dl:8s"></b><b class="mh-spark" style="--x:92%;--d:12s;--s:5px;--dl:2s"></b><b class="mh-spark" style="--x:48%;--d:18s;--s:3px;--dl:10s"></b><span class="mh-bee-a b1"><svg viewbox="0 0 40 30" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="9" fill="#fff" opacity=".7" rx="8" ry="5" transform="rotate(-25 14 9)"></ellipse><ellipse cx="24" cy="8" fill="#fff" opacity=".6" rx="8" ry="5" transform="rotate(20 24 8)"></ellipse><ellipse cx="20" cy="18" fill="#e9a21c" rx="11" ry="7.5"></ellipse><path d="M14 11.5v13M20 10.5v15M26 11.5v13" stroke="#2a1706" stroke-width="3.2"></path><circle cx="31" cy="17" fill="#2a1706" r="4.6"></circle></svg></span><span class="mh-bee-a b2"><svg viewbox="0 0 40 30" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="9" fill="#fff" opacity=".7" rx="8" ry="5" transform="rotate(-25 14 9)"></ellipse><ellipse cx="24" cy="8" fill="#fff" opacity=".6" rx="8" ry="5" transform="rotate(20 24 8)"></ellipse><ellipse cx="20" cy="18" fill="#e9a21c" rx="11" ry="7.5"></ellipse><path d="M14 11.5v13M20 10.5v15M26 11.5v13" stroke="#2a1706" stroke-width="3.2"></path><circle cx="31" cy="17" fill="#2a1706" r="4.6"></circle></svg></span><span class="mh-bee-a b3"><svg viewbox="0 0 40 30" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="9" fill="#fff" opacity=".7" rx="8" ry="5" transform="rotate(-25 14 9)"></ellipse><ellipse cx="24" cy="8" fill="#fff" opacity=".6" rx="8" ry="5" transform="rotate(20 24 8)"></ellipse><ellipse cx="20" cy="18" fill="#e9a21c" rx="11" ry="7.5"></ellipse><path d="M14 11.5v13M20 10.5v15M26 11.5v13" stroke="#2a1706" stroke-width="3.2"></path><circle cx="31" cy="17" fill="#2a1706" r="4.6"></circle></svg></span></div>
+<div class="mh-hero-inner container">
+<div class="mh-hero-copy">
+<span class="mh-eyebrow">A TASTE OF KERALA &amp; TAMIL NADU’S NATURAL HERITAGE</span>
+<h1>MADHURAVANA<br/><em>PURE HONEY</em></h1>
+<p>Pure. Natural. Unprocessed. Straight from the heart of Kerala &amp; Tamil Nadu’s nature.</p>
+<div class="mh-benefits-mini">
+<span><b>◯</b> 100% Natural</span><i></i><span><b>◉</b> Pure &amp; Authentic</span><i></i><span><b>●</b> Rich in Natural Goodness</span>
+</div>
+<div class="mh-hero-cta"><a class="mh-btn" href="shop.html">Shop Now <span>→</span></a><a class="mh-btn mh-btn-ghost" href="#about"><i>▶</i> Explore Our Honey</a></div><br>
+</div>
+<div class="mh-hero-product">
+<div class="mh-product-glow"></div>
+<img alt="MADHURAVANA Pure Honey front bottle" class="mh-hero-bottle premium-honey-bottle" data-honey-bottle="" decoding="async" src="images/madhuravana-front-bottle.png"/>
+<div class="mh-wood-plinth"></div><svg aria-hidden="true" class="mh-orbit" viewbox="0 0 600 700"><defs><lineargradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#ffd46b" stop-opacity="0"></stop><stop offset=".5" stop-color="#ffe9a8"></stop><stop offset="1" stop-color="#ffb43a" stop-opacity="0"></stop></lineargradient></defs><ellipse cx="300" cy="350" fill="none" rx="270" ry="120" stroke="url(#og)" stroke-width="3" transform="rotate(-28 300 350)"></ellipse><ellipse cx="300" cy="350" fill="none" rx="250" ry="95" stroke="url(#og)" stroke-width="1.5" transform="rotate(22 300 350)"></ellipse></svg><div class="mh-stone"><i></i></div><span class="mh-flower f1">✿</span><span class="mh-flower f2">✿</span><div class="mh-drop"></div>
+</div>
+</div>
+<a aria-label="Scroll down" class="mh-scroll" href="#about"><i></i></a></section>
+<section class="ab" id="about" aria-label="Our story">
+<div class="container">
+<header class="ab-head" data-ab>
+<span class="ab-eyebrow">OUR STORY</span>
+<h2 class="ab-title">Born in the forests of <em>Kerala &amp; Tamil Nadu.</em></h2>
+<p class="ab-sub">Crafted by nature, guarded by traditional bee-keepers, and brought to your table exactly as it was found.</p>
+</header>
+<div class="ab-stage">
+<article class="ab-card" data-ab style="--d:.05s"><span class="ab-num">01</span><h3>Our Story</h3><p>Every drop of Madhurava honey begins in the quiet, pristine forests of Kerala and Tamil Nadu. It is crafted by nature, guarded by traditional bee-keepers, and brought to your table exactly as it was found—100% pure, raw, and unadulterated.</p></article>
+<div class="ab-hero" data-ab style="--d:.15s">
+<div class="ab-glow"></div><div class="ab-ring"><i></i></div><div class="ab-ring two"><i></i></div>
+<img alt="MADHURAVANA Pure Honey bottle" class="ab-bottle" decoding="async" loading="lazy" src="images/madhuravana-front-bottle.png"/>
 
-  <main class="ct-page">
-    <section class="ct-hero">
-      <div class="ct-wrap">
-        <p class="ct-kicker">Almost yours</p>
-        <h1>Your honey cart</h1>
-        <p class="ct-sub">Review your items, then proceed to checkout. Regular and gift jars are packed separately.</p>
-        <ol class="ct-steps" aria-label="Order steps">
-          <li class="on">1 · Cart</li>
-          <li>2 · Checkout</li>
-          <li>3 · Confirm on WhatsApp</li>
-        </ol>
+</div>
+<article class="ab-card r" data-ab style="--d:.25s"><span class="ab-num">02</span><h3>Because We Care About Your Health</h3><p>In a world full of artificial choices, we choose your wellness. Madhurava was born from a simple belief: your family deserves real nourishment. We do not alter what nature perfected. We do not add sugars, chemicals, or preservatives. We simply bottle raw health, rich enzymes, and natural immunity.</p></article>
+</div>
+<div class="ab-stats" data-ab>
+<div class="ab-stat"><strong>100%</strong><span>PURE &amp; RAW</span></div>
+<div class="ab-stat"><strong>0</strong><span>ADDED SUGARS</span></div>
+<div class="ab-stat"><strong>2</strong><span>STATES · KERALA &amp; TAMIL NADU</span></div>
+<div class="ab-stat"><strong>♥</strong><span>TRADITIONAL BEE-KEEPERS</span></div>
+</div>
+<div class="ab-promise-head" data-ab><span class="ab-eyebrow">WHAT WE STAND FOR</span><h2>The Madhurava Promise</h2></div>
+<div class="ab-promise">
+<article class="ab-pill" data-ab style="--d:.05s"><span class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 4.2 6 7.1 6 10.5A6 6 0 0 1 6 13.5C6 10.1 8.5 7.2 12 3z"/><path d="M9.5 14a2.7 2.7 0 0 0 2.5 2.5"/></svg></span><h3>Pure &amp; Unfiltered</h3><p>Sourced directly from local South Indian apiaries to preserve its deep, therapeutic benefits.</p></article>
+<article class="ab-pill" data-ab style="--d:.15s"><span class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c3-5 6-8 10-10"/></svg></span><h3>Honest Living</h3><p>Gently handled so that every spoonful retains the authentic taste of the wild forests.</p></article>
+<article class="ab-pill" data-ab style="--d:.25s"><span class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 4.6v9.8l-8 4.6-8-4.6V7.1z"/><path d="M8.5 12.2l2.4 2.4 4.6-4.9"/></svg></span><h3>Nothing Added</h3><p>No sugars, no chemicals, no preservatives — only raw honey, rich in natural enzymes.</p></article>
+</div>
+<div class="ab-close" data-ab><p>Madhurava is more than just honey. It is a daily promise of good health, shared from our family to yours.</p><a href="shop.html">Taste the promise <span>→</span></a></div>
+</div>
+</section>
+
+<section class="gf-teaser" id="gifts" aria-label="Healthy and meaningful gifts">
+  <div class="gf-teaser-in">
+    <figure class="gf-teaser-photo">
+      <img src="images/editorial-golden-closeup.jpg" width="682" height="1024" alt="A Madhuravana honey jar with a wooden dipper and white flowers" loading="lazy" decoding="async"/>
+    </figure>
+    <div class="gf-copy">
+      <span class="gf-kicker">✦ Sweetness, wrapped with love</span>
+      <h2>Give the gift of <em>something real.</em></h2>
+      <p>Send someone you care about a jar of pure, raw honey. Choose the jars, write a card in your own words, and we’ll take care of the rest.</p>
+      <ul class="gf-points">
+        <li><b>1</b>Choose jars</li>
+        <li><b>2</b>Write a card</li>
+        <li><b>3</b>We deliver</li>
+      </ul>
+      <div class="gf-cta-row">
+        <a class="gf-btn" href="gifts.html">Send a gift</a>
+        <a class="gf-link" href="shop.html">Browse jars →</a>
       </div>
-    </section>
-
-    <section class="ct-main">
-      <div class="ct-wrap ct-layout">
-        <div id="cart-items" class="ct-list"></div>
-        <aside id="cart-summary" class="ct-summary" aria-label="Order summary"></aside>
-      </div>
-    </section>
-  </main>
-
-  <div class="ct-bar" id="ct-bar" hidden>
-    <div><strong id="ct-bar-total">₹0</strong><small id="ct-bar-count"></small></div>
-    <a class="ct-btn" href="checkout.html">Checkout →</a>
+      <small class="gf-note">PURE HONEY · NATURALLY THOUGHTFUL</small>
+    </div>
   </div>
+</section>
+<section class="mh-shop band" id="collection">
+<div class="container">
+<div class="mh-section-head"><div><span class="mh-eyebrow">THE COLLECTION</span><h2>Choose your jar.</h2></div><a class="reserve-link" href="shop.html">View all products →</a></div>
+<div class="product-grid" id="featured-products"></div>
+</div>
+</section>
+<section class="mh-how" id="how">
+<div class="container mh-how-grid">
+<div><span class="mh-eyebrow">SIMPLE ORDERING</span><h2>Pure honey.<br/>Simply yours.</h2><p>Choose your jar, add it to cart and send the prepared Cash-on-Delivery order through WhatsApp.</p><a class="mh-btn" href="shop.html">Start Shopping <span>→</span></a></div>
+<ol><li><b>01</b><span>Choose your jar</span><small>200 g · 250 g · 500 g</small></li><li><b>02</b><span>Add to cart</span><small>Check live availability</small></li><li><b>03</b><span>Cash on Delivery</span><small>Pay at your door</small></li><li><b>04</b><span>Send on WhatsApp</span><small>Confirm your order</small></li></ol>
+</div>
+</section>
+<section class="fq" id="faq" aria-label="Frequently asked questions">
+<div class="container fq-head"><div><span class="fq-eyebrow">QUESTIONS</span><h2 class="fq-title">Asked, <em>and answered.</em></h2></div><div class="fq-ctrl"><button class="fq-btn" id="fq-prev" aria-label="Previous questions">←</button><button class="fq-btn" id="fq-next" aria-label="Next questions">→</button></div></div>
+<div class="fq-track" id="fq-track" tabindex="0" role="region" aria-label="FAQ cards, scroll sideways"><article class="fq-card"><span class="fq-num">01</span><span class="fq-ico">🍯</span><span class="fq-tag">PURITY</span><h3>Is Madhurava honey 100% pure?</h3><p>Absolutely. Madhurava honey is 100% pure, natural, and raw. We source it directly from trusted apiaries in the forests of Kerala and Tamil Nadu. It contains zero added sugar, corn syrup, artificial flavors, or preservatives.</p></article><article class="fq-card"><span class="fq-num">02</span><span class="fq-ico">🧊</span><span class="fq-tag">CRYSTALLISATION</span><h3>Why does my honey look cloudy or turn solid (crystallise)?</h3><p>Crystallisation is the ultimate proof of 100% raw and pure honey. Real honey contains natural sugars and pollen that naturally solidify over time, especially in cooler weather. If your honey crystallises, simply place the jar in warm water for a few minutes to return it to its liquid state.</p></article><article class="fq-card"><span class="fq-num">03</span><span class="fq-ico">🌿</span><span class="fq-tag">PROCESS</span><h3>Is your honey pasteurised or heated?</h3><p>No. We do not micro-filter or high-heat our honey. We handle it gently to ensure that all the natural enzymes, vitamins, and immunity-boosting benefits remain fully intact for your health.</p></article><article class="fq-card"><span class="fq-num">04</span><span class="fq-ico">🌴</span><span class="fq-tag">ORIGIN</span><h3>Where exactly does Madhurava honey come from?</h3><p>We source our honey from the rich, bio-diverse forest regions and pristine landscapes of Kerala and Tamil Nadu. By partnering directly with traditional local bee-keepers, we ensure authentic taste while supporting ethical bee-keeping communities.</p></article><article class="fq-card"><span class="fq-num">05</span><span class="fq-ico">💚</span><span class="fq-tag">HEALTH</span><h3>What are the health benefits of Madhurava honey?</h3><p>Because our honey is raw and unaltered, it is rich in natural antioxidants, active enzymes, and antibacterial properties. It serves as a natural energy booster, aids digestion, soothes sore throats, and acts as a wholesome replacement for refined sugar.</p></article><article class="fq-card"><span class="fq-num">06</span><span class="fq-ico">📦</span><span class="fq-tag">SHIPPING</span><h3>Why is there a shipping charge on single jars?</h3><p>To support our local retail shop partners who stock Madhurava on their shelves, we maintain fair pricing across all channels. We charge a small shipping fee on individual website orders to offset delivery costs, but we love offering free shipping on our special multi-pack bundles!</p></article><article class="fq-card"><span class="fq-num">07</span><span class="fq-ico">🥄</span><span class="fq-tag">STORAGE</span><h3>How should I store Madhurava honey?</h3><p>Store your jar at room temperature in a dry place, away from direct sunlight. Make sure the cap is tightly closed after every use. Do not refrigerate your honey, as cold temperatures speed up the natural crystallisation process.</p></article><article class="fq-card"><span class="fq-num">08</span><span class="fq-ico">👶</span><span class="fq-tag">SAFETY</span><h3>Can I give Madhurava honey to my infant or baby?</h3><p>No. Pediatricians advise that infants under 12 months should never consume raw honey. This is a standard safety rule for all honey brands worldwide, as infant digestive systems are not yet mature enough to process the natural spores found in raw honey. For anyone over the age of one, it is completely safe, healthy, and highly beneficial.</p></article><article class="fq-card"><span class="fq-num">09</span><span class="fq-ico">🚚</span><span class="fq-tag">DELIVERY</span><h3>How long will it take for my order to arrive?</h3><p>We ship directly from our hubs in South India. Orders within Kerala and Tamil Nadu typically reach your doorstep within 2 to 3 business days. For the rest of India, delivery generally takes 4 to 7 business days, depending on your location. We will email you a tracking link as soon as your jar of health is dispatched.</p></article><article class="fq-card"><span class="fq-num">10</span><span class="fq-ico">↩️</span><span class="fq-tag">RETURNS</span><h3>What is your return policy?</h3><p>Because honey is a consumable food product, we cannot accept returns once the bottle has been shipped. However, your satisfaction and health are our priorities. If your order arrives damaged, leaking, or broken, please reach out to us within 48 hours of delivery, and we will immediately send you a replacement or issue a refund.</p></article><article class="fq-card"><span class="fq-num">11</span><span class="fq-ico">✋</span><span class="fq-tag">ORDERS</span><h3>Can I cancel my order?</h3><p>You can cancel your order as long as it has not been dispatched from our warehouse yet. Once the package is handed over to our courier partner and a tracking number is generated, the order cannot be cancelled.</p></article></div>
+<div class="fq-prog"><i></i></div>
+<p class="fq-hint">DRAG OR SWIPE →</p>
+<div class="container"><div class="fq-contact">
+<div><span class="fq-eyebrow">CONTACT US</span><h2>We’d love to <em>hear from you!</em></h2><p>At Madhurava, your health and satisfaction are at the heart of everything we do. Whether you have a question about our pure honey, need help tracking an order, or just want to share your feedback, our team is here for you.</p><a class="fq-wa" href="https://wa.me/919121303509" target="_blank" rel="noopener">Chat on WhatsApp <span>→</span></a></div>
+<div class="fq-ways"><div class="fq-way"><b>📧</b><div><small>EMAIL US</small><strong>support@madhuravahoney@gmail.com</strong><em>We respond within 24 hours</em></div></div>
+<a class="fq-way" href="tel:+919121303509"><b>📞</b><div><small>CALL / WHATSAPP</small><strong>+91 9121303509</strong><em>Mon–Sat, 9:00 AM to 6:00 PM</em></div></a>
+<a class="fq-way" href="tel:+919000092057"><b>☎️</b><div><small>CALL / WHATSAPP</small><strong>+91 9000092057</strong><em>Mon–Sat, 9:00 AM to 6:00 PM</em></div></a></div>
+</div></div>
+</section>
+</main>
+<div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
+<script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script><script src="spin.js?v=20261017"></script><script defer="" src="home-premium.js?v=20261017"></script><script defer="" src="lenis.min.js"></script><script defer="" src="luxe.js"></script><script defer="" src="about-redesign.js"></script><script defer="" src="faq-redesign.js"></script>
+<script>
+(function(){
+  var old=document.getElementById("featured-products");
+  if(!old) return;
+  var wrap=document.createElement("div");
+  wrap.className="mj-wrap"; wrap.id="mj-jars";
+  old.parentNode.insertBefore(wrap,old.nextSibling);
 
-  <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
-  <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js"></script><script src="admin.js"></script><script src="motion.js"></script>
+  function grams(t){var m=String(t||"").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/);return m?parseFloat(m[1])*(m[2]==="kg"?1000:1):0}
+  function factor(g){if(!g)return .8;return Math.max(.4,Math.min(1,.45+.55*Math.log(g/100)/Math.LN10))}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function list(){try{return getProducts().slice().sort(function(a,b){return a.price-b.price})}catch(e){return[]}}
+  function sig(l){return l.map(function(p){return p.id+":"+p.price+":"+p.weight+":"+p.inStock}).join("|")}
 
-  <script>
-  /* Cart renderer: regular jars and gift jars are shown (and subtotalled) separately.
-     Overrides renderCart() from script.js. changeCart / removeCart still come from script.js. */
-  renderCart = function () {
-    var box = document.getElementById("cart-items");
-    var summary = document.getElementById("cart-summary");
-    var bar = document.getElementById("ct-bar");
-    if (!box || !summary) return;
+function addToCart(p,btn){
+  var cart=getCart(), it=cart.filter(function(x){return x.id===p.id})[0];
+  if(it) it.quantity+=1; else cart.push({id:p.id,quantity:1});
+  saveCart(cart);
+  if(typeof updateCartCount==="function") updateCartCount();
+  var qty=cart.filter(function(x){return x.id===p.id})[0].quantity;
+  showAdded(p,qty);
+}
 
-    var items = cartDetailed();
+function showAdded(p,qty){
+  var old=document.querySelector(".cart-modal-overlay"); if(old) old.remove();
+  var o=document.createElement("div");
+  o.className="cart-modal-overlay";
+  o.innerHTML=
+    '<div class="cart-added-modal" role="dialog" aria-modal="true" aria-label="Added to cart">'+
+      '<button class="cart-modal-close" type="button" aria-label="Close">×</button>'+
+      '<div class="cart-modal-content">'+
+        '<div class="cart-success-icon">✓</div>'+
+        '<span class="eyebrow">ADDED TO CART</span>'+
+        '<h2>Your honey is in the cart</h2>'+
+        '<div class="cart-modal-product">'+
+          '<div class="cart-modal-jar"><img class="mj-pop-img" src="images/madhuravana-front-bottle.png" alt=""></div>'+
+          '<div class="cart-modal-product-info">'+
+            '<h3></h3><p></p>'+
+            '<span class="cart-modal-price"></span><br>'+
+            '<span class="cart-modal-quantity"></span>'+
+          '</div>'+
+        '</div>'+
+        '<div class="cart-modal-actions">'+
+          '<a class="btn btn-primary cart-view-btn" href="cart.html">View cart</a>'+
+          '<button class="btn btn-ghost cart-continue-btn" type="button">Continue shopping</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  /* fill text safely */
+  o.querySelector("h3").textContent=p.name||"MADHURAVANA Pure Honey";
+  o.querySelector(".cart-modal-product-info p").textContent=p.weight||"";
+  o.querySelector(".cart-modal-price").textContent=money(p.price);
+  o.querySelector(".cart-modal-quantity").textContent="Quantity in cart: "+qty;
+  document.body.appendChild(o);
+  document.body.classList.add("no-scroll");
 
-    if (!items.length) {
-      box.innerHTML =
-        '<div class="ct-empty"><div class="ct-empty-ico">🍯</div><h2>Your cart is waiting.</h2>' +
-        '<p>Choose a jar of MADHURAVANA Pure Honey and it will appear here.</p>' +
-        '<a class="ct-btn" href="shop.html">Shop Honey</a><a class="ct-btn alt" href="gifts.html">Send a Gift</a></div>';
-      summary.innerHTML = ""; summary.style.display = "none";
-      if (bar) bar.hidden = true;
-      document.body.classList.remove("ct-has-bar");
-      return;
-    }
-    summary.style.display = "";
+  function close(){
+    document.removeEventListener("keydown",onKey);
+    o.classList.add("closing");
+    setTimeout(function(){o.remove();document.body.classList.remove("no-scroll")},220);
+  }
+  function onKey(e){if(e.key==="Escape")close()}
+  document.addEventListener("keydown",onKey);
+  o.addEventListener("mousedown",function(e){if(e.target===o)close()});
+  o.querySelector(".cart-modal-close").addEventListener("click",close);
+  o.querySelector(".cart-continue-btn").addEventListener("click",close);
+}
 
-    var normal = items.filter(function (i) { return !i.gift; });
-    var gifts  = items.filter(function (i) { return i.gift; });
-    function sum(l)   { return l.reduce(function (s, i) { return s + i.price * i.quantity; }, 0); }
-    function count(l) { return l.reduce(function (s, i) { return s + i.quantity; }, 0); }
-    function jars(n)  { return n + (n === 1 ? " jar" : " jars"); }
+  function draw(){
+    var ps=list(); wrap.innerHTML="";
+    ps.forEach(function(p){
+      var card=el("article","mj-card");
+      var href="product.html?id="+encodeURIComponent(p.id);
+      var art=el("a","mj-art"); art.href=href; art.setAttribute("aria-label",p.name+" "+p.weight);
+      art.appendChild(el("span","mj-w",p.weight));
+      art.appendChild(el("span","mj-stock"+(p.inStock?"":" out"),p.inStock?"In stock":"Sold out"));
+      var img=new Image(); img.src="images/madhuravana-front-bottle.png"; img.alt=p.name+" "+p.weight; img.loading="lazy";
+      img.style.height=Math.round(250*factor(grams(p.weight)))+"px";
+      art.appendChild(img);
+      var body=el("div","mj-body");
+      body.appendChild(el("h3","",p.name||"MADHURAVANA Pure Honey"));
+      body.appendChild(el("p","",p.description||"Pure, raw honey from the forests of Kerala & Tamil Nadu."));
+      var foot=el("div","mj-foot"), price=el("div","mj-price");
+      price.appendChild(el("strong","",money(p.price)));
+      var more=el("a","","Details"); more.href=href; price.appendChild(more);
+      var btn=el("button","mj-add","Add to cart"); btn.type="button"; btn.disabled=!p.inStock;
+      if(!p.inStock) btn.textContent="Out of stock";
+      btn.addEventListener("click",function(){addToCart(p,btn)});
+      foot.appendChild(price); foot.appendChild(btn); body.appendChild(foot);
+      card.appendChild(art); card.appendChild(body); wrap.appendChild(card);
+    });
+  }
 
-    function row(i) {
-      var key = lineKey(i);
-      return '<div class="ct-item">' +
-        '<div class="ct-thumb"><img src="images/madhuravana-front-bottle.png" alt="MADHURAVANA Pure Honey ' + esc(i.weight) + '"></div>' +
-        '<div class="ct-info"><h3>' + esc(i.name) + (i.gift ? '<span class="ct-badge">Gift</span>' : '') + '</h3>' +
-          '<div class="ct-meta">' + esc(i.weight) + ' · ' + money(i.price) + ' each</div>' +
-          '<button class="ct-remove" type="button" data-remove="' + esc(key) + '">Remove</button></div>' +
-        '<div class="ct-qty"><button type="button" data-minus="' + esc(key) + '" aria-label="Decrease quantity">−</button>' +
-          '<strong>' + i.quantity + '</strong>' +
-          '<button type="button" data-plus="' + esc(key) + '" aria-label="Increase quantity">+</button></div>' +
-        '<div class="ct-price">' + money(i.price * i.quantity) + '</div>' +
-        (i.gift ? '<p class="ct-min">Gift orders start from 5 jars.</p>' : '') +
-        '</div>';
-    }
-
-    function group(cls, ico, title, note, list) {
-      if (!list.length) return "";
-      return '<section class="ct-group ' + cls + '">' +
-        '<div class="ct-group-head"><div class="ct-group-title"><span class="ct-group-ico">' + ico + '</span>' +
-        '<div><h2>' + title + '</h2><small>' + note + ' · ' + jars(count(list)) + '</small></div></div>' +
-        '<div class="ct-group-sub">' + money(sum(list)) + '</div></div>' +
-        list.map(row).join("") + '</section>';
-    }
-
-    box.innerHTML =
-      group("is-regular", "🍯", "Regular order", "Packed separately", normal) +
-      group("is-gift", "🎁", "Gift pack", "Packed separately with your card", gifts);
-
-    var total = cartTotal();
-    var n = getGiftNote();
-    var noteHtml = n
-      ? '<div class="ct-gift-note"><strong>🎁 Gift card attached</strong><br>' +
-        (n.to ? 'For ' + esc(n.to) : 'Gift') + (n.from ? ' · from ' + esc(n.from) : '') +
-        (n.message ? '<br><em>“' + esc(n.message) + '”</em>' : '') +
-        '<br><a href="gifts.html">Edit gift note</a></div>'
-      : '';
-
-    summary.innerHTML =
-      '<h3>Order summary</h3>' +
-      (normal.length ? '<div class="ct-sum-row"><span>Regular order<small>' + jars(count(normal)) + '</small></span><strong>' + money(sum(normal)) + '</strong></div>' : '') +
-      (gifts.length  ? '<div class="ct-sum-row"><span>🎁 Gift pack<small>' + jars(count(gifts)) + '</small></span><strong>' + money(sum(gifts)) + '</strong></div>' : '') +
-      '<div class="ct-sum-total"><span>Total</span><strong>' + money(total) + '</strong></div>' +
-      noteHtml +
-      '<a class="ct-btn" href="checkout.html">Proceed to Checkout</a>' +
-      '<a class="ct-link-btn" href="shop.html">Continue Shopping</a>' +
-      '<button class="ct-link-btn" id="empty-cart" type="button">Empty Cart</button>' +
-      '<p class="ct-fine">Cash on Delivery · WhatsApp order preparation</p>';
-
-    /* sticky mobile bar */
-    if (bar) {
-      bar.hidden = false;
-      document.getElementById("ct-bar-total").textContent = money(total);
-      document.getElementById("ct-bar-count").textContent = jars(count(items));
-      document.body.classList.add("ct-has-bar");
-    }
-
-    box.querySelectorAll("[data-minus]").forEach(function (b) { b.onclick = function () { changeCart(b.dataset.minus, -1); }; });
-    box.querySelectorAll("[data-plus]").forEach(function (b) { b.onclick = function () { changeCart(b.dataset.plus, 1); }; });
-    box.querySelectorAll("[data-remove]").forEach(function (b) { b.onclick = function () { removeCart(b.dataset.remove); }; });
-    document.getElementById("empty-cart").onclick = function () {
-      if (confirm("Empty your entire cart?")) { saveCart([]); clearGiftNote(); renderCart(); updateCartCount(); }
-    };
-  };
-  </script>
-  <script defer src="lenis.min.js"></script>
+  draw();
+  /* products can arrive from Supabase a moment later; redraw if they change */
+  var last=sig(list()), n=0;
+  var t=setInterval(function(){var s=sig(list());if(s!==last){last=s;draw()}if(++n>12)clearInterval(t)},1000);
+  window.addEventListener("storage",function(){var s=sig(list());if(s!==last){last=s;draw()}});
+})();
+</script>
+<script defer src="lenis.min.js"></script>
 <script defer src="smooth-scroll.js?v=20261018"></script>
-</body>
-</html>
+</body></html>
