@@ -2,7 +2,7 @@
 
 ### A Premium Honey E-Commerce Experience
 
-**Madhuravana** is a premium honey e-commerce website designed to combine the natural richness of honey with an elegant digital shopping experience. Featuring cinematic visuals, smooth animations, responsive layouts, and convenient Cash on Delivery (COD) ordering, Madhuravana brings the brand's identity to life through modern web development.
+**Madhuravana** is a premium honey e-commerce website that pairs the natural richness of honey with an elegant digital shopping experience. It features cinematic visuals, smooth scrolling and animations, responsive layouts, WhatsApp-assisted Cash on Delivery (COD) ordering, and customer order tracking.
 
 🌐 **Live Website:** [https://madhuravana.in](https://madhuravana.in)
 
@@ -10,87 +10,97 @@
 
 ## ✨ Features
 
-- 🎨 **Premium UI/UX** — Elegant layouts, refined typography, and a honey-inspired visual identity.
-- 🎬 **Cinematic Homepage** — Immersive visuals and interactive animations for an engaging first impression.
-- 📱 **Responsive Design** — Optimized shopping experience across desktop, tablet, and mobile devices.
-- 🛍️ **Product Catalogue** — Browse available honey products and explore product details.
-- 🛒 **Shopping Cart** — Add products and manage items before placing an order.
-- 📦 **Cash on Delivery** — Place orders without requiring an online payment gateway.
-- 📊 **Inventory Management** — Track product availability and reflect stock status on the storefront.
-- 🔐 **Admin Dashboard** — Manage products and customer orders through an administrative interface.
-- ⚡ **Supabase Integration** — Backend services for database operations and inventory/order management.
-- 💬 **WhatsApp Integration** — Convenient communication for customer orders and enquiries.
-- 🚀 **Performance-Focused Development** — Smooth interactions and responsive components designed for a modern shopping experience.
+- 🎨 **Premium UI/UX:** honey-inspired visual identity, refined typography, amber and cream theme.
+- 🎬 **Cinematic Homepage:** immersive hero, pinned-scroll sections and smooth scrolling.
+- 📱 **Responsive Design:** optimized for desktop, tablet and mobile.
+- 🛍️ **Product Catalogue:** browse honey products and view product details.
+- 🎁 **Gift Sets:** curated gift options.
+- 🛒 **Shopping Cart:** add products and review items before ordering.
+- 📦 **Cash on Delivery:** no online payment gateway required.
+- 💬 **WhatsApp Integration:** order details are prepared as a ready-to-send WhatsApp message.
+- 🔎 **Order Tracking:** customers look up an order with Order ID and phone number and see a status timeline.
+- 📊 **Inventory Management:** stock toggles reflected on the storefront.
+- 🔐 **Admin Dashboard:** manage products and orders (online and offline orders kept separate).
+- ⚡ **Supabase Integration:** backend services for order tracking and order management.
+
+---
 
 ## 🛠️ Tech Stack
 
-| Technology         | Purpose                                          |
-| ------------------ | ------------------------------------------------ |
-| HTML5              | Website structure                                |
-| CSS3               | Styling, responsive layouts, and animations      |
-| Vanilla JavaScript | Interactive functionality and cart logic         |
-| Supabase           | Database and backend services                    |
-| Git & GitHub       | Version control and source code management       |
-| Vercel             | Deployment and hosting, if used for this project |
+| Technology | Purpose |
+|---|---|
+| HTML5 | Website structure |
+| CSS3 | Styling, responsive layouts and animations |
+| Vanilla JavaScript | Interactivity, cart and order logic |
+| Supabase | Database and backend functions |
+| Git & GitHub | Version control |
+
+---
 
 ## 🛍️ Shopping Experience
 
 1. Explore the Madhuravana product catalogue.
-2. Select products and add them to the shopping cart.
-3. Review the selected items.
-4. Provide customer and delivery details.
-5. Choose Cash on Delivery.
-6. Submit the order and allow the system to process it.
+2. Add products to the cart.
+3. Enter customer and delivery details.
+4. Choose Cash on Delivery.
+5. Submit the order via WhatsApp.
+6. Track the order status on the Track Order page.
+
+---
 
 ## 🧑‍💻 Admin Features
 
-The administrative interface supports essential store management workflows, including:
+- Product creation and updates
+- Stock and availability management
+- Order viewing, status updates and deletion
+- Online and offline order separation
+- Data export and import (JSON)
 
-- Product creation and updates.
-- Product availability and stock management.
-- Customer order viewing and management.
-- Order status tracking.
-- Inventory updates reflected on the storefront.
+> Admin access is restricted to authorized users.
 
-*Access to administrative functions should be restricted to authorized users.*
+---
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
+npx serve .
+```
+
+Then open `http://localhost:3000`.
+
+---
 
 ## 🎯 Project Goals
 
-Madhuravana was developed to demonstrate how thoughtful design and modern web technologies can transform a traditional product into a premium online shopping experience.
+- Create a distinctive brand identity.
+- Deliver a seamless shopping journey.
+- Simplify Cash on Delivery orders.
+- Support product, order and inventory management.
+- Provide a responsive, visually engaging interface.
 
-The project focuses on:
-
-- Creating a distinctive brand identity.
-- Delivering a seamless shopping journey.
-- Simplifying Cash on Delivery orders.
-- Supporting product and inventory management.
-- Providing a responsive and visually engaging interface.
-
-## 🌍 Live Demo
-
-Explore the website:
-
-**🔗 [https://madhuravana.in](https://madhuravana.in)**
+---
 
 ## 👨‍💻 Developer
 
 **Yaswanth Chatti**
 Founder & Web Developer at **YashWebs**
 
-Madhuravana showcases my work in front-end development, interactive web design, e-commerce functionality, and backend integration.
-
-🌐 **Website:** [https://madhuravana.in](https://madhuravana.in)
-💼 **GitHub:** Add your project repository URL here
-🚀 **Business:** YashWebs
-
-## 📄 License
-
-This project was developed for the Madhuravana brand. Unless otherwise specified, the source code and design assets should not be redistributed or reused commercially without the appropriate permission.
+🌐 Portfolio: [yashwant-chatti-portfolio.vercel.app](https://yashwant-chatti-portfolio.vercel.app/)
+🚀 Business: [yashwebs.in](https://yashwebs.in)
+🍯 Project: [madhuravana.in](https://madhuravana.in)
 
 ---
 
-\<p align="center">
-&#x20; 🍯 \<strong>Madhuravana </strong>
-&#x20; \<br />
-&#x20; Crafted with creativity, technology, and a passion for great web experiences.
-\</p>
+## 📄 License
+
+This project was developed for the Madhuravana brand. Unless otherwise specified, the source code and design assets must not be redistributed or reused commercially without permission.
+
+---
+
+<p align="center">
+  🍯 <strong>Madhuravana</strong>
+  <br />
+  Crafted with creativity, technology, and a passion for great web experiences.
+</p>
