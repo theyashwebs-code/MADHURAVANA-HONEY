@@ -1,61 +1,96 @@
-# MADHURAVANA Pure Honey — Frontend E-commerce MVP
+# 🍯 Madhuravana
 
-## Stack
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Browser `localStorage`
+### A Premium Honey E-Commerce Experience
 
-No backend, database, payment gateway, framework, or external e-commerce platform is used.
+**Madhuravana** is a premium honey e-commerce website designed to combine the natural richness of honey with an elegant digital shopping experience. Featuring cinematic visuals, smooth animations, responsive layouts, and convenient Cash on Delivery (COD) ordering, Madhuravana brings the brand's identity to life through modern web development.
 
-## Files
-- `index.html` — public home page
-- `shop.html` — catalogue
-- `product.html` — product details
-- `cart.html` — persistent browser cart
-- `checkout.html` — COD checkout + WhatsApp message generation
-- `order-success.html` — honest WhatsApp handoff confirmation
-- `style.css` — customer + admin styling
-- `script.js` — products, cart, checkout, WhatsApp, storage helpers
-- `admin.js` — hidden admin dashboard, orders, stock, customers, settings, backup
-- `images/` — reserved for client product images
+🌐 **Live Website:** [https://madhuravana.in](https://madhuravana.in)
 
-## Important configuration
-Edit `BUSINESS_CONFIG` in `script.js`:
-- `whatsappNumber`
-- `instagramUrl`
-- `phone`
-- `email`
-- `address`
+---
 
-Edit `ADMIN_CONFIG` in `admin.js` before delivery:
-- username
-- password
+## ✨ Features
 
-The supplied credentials are intentionally placeholders.
+- 🎨 **Premium UI/UX** — Elegant layouts, refined typography, and a honey-inspired visual identity.
+- 🎬 **Cinematic Homepage** — Immersive visuals and interactive animations for an engaging first impression.
+- 📱 **Responsive Design** — Optimized shopping experience across desktop, tablet, and mobile devices.
+- 🛍️ **Product Catalogue** — Browse available honey products and explore product details.
+- 🛒 **Shopping Cart** — Add products and manage items before placing an order.
+- 📦 **Cash on Delivery** — Place orders without requiring an online payment gateway.
+- 📊 **Inventory Management** — Track product availability and reflect stock status on the storefront.
+- 🔐 **Admin Dashboard** — Manage products and customer orders through an administrative interface.
+- ⚡ **Supabase Integration** — Backend services for database operations and inventory/order management.
+- 💬 **WhatsApp Integration** — Convenient communication for customer orders and enquiries.
+- 🚀 **Performance-Focused Development** — Smooth interactions and responsive components designed for a modern shopping experience.
 
-## Admin access
-Press **Ctrl + Shift + A**. A login modal appears first. After successful login, the dashboard opens at `#admin`.
+## 🛠️ Tech Stack
 
-This is **not secure authentication** because the project has no backend.
+| Technology         | Purpose                                          |
+| ------------------ | ------------------------------------------------ |
+| HTML5              | Website structure                                |
+| CSS3               | Styling, responsive layouts, and animations      |
+| Vanilla JavaScript | Interactive functionality and cart logic         |
+| Supabase           | Database and backend services                    |
+| Git & GitHub       | Version control and source code management       |
+| Vercel             | Deployment and hosting, if used for this project |
 
-## WhatsApp behavior
-The website creates and stores an online order locally, generates a unique order ID, prepares a complete WhatsApp message, and opens WhatsApp. The customer must press **Send**. The website cannot automatically receive WhatsApp messages.
+## 🛍️ Shopping Experience
 
-## Data limitation
-`localStorage` is browser-specific:
-- clearing browser storage can remove data
-- different devices do not share orders
-- there is no cloud database
-- order status changes are local to that browser
+1. Explore the Madhuravana product catalogue.
+2. Select products and add them to the shopping cart.
+3. Review the selected items.
+4. Provide customer and delivery details.
+5. Choose Cash on Delivery.
+6. Submit the order and allow the system to process it.
 
-Use the Admin → Settings → Export Data function regularly.
+## 🧑‍💻 Admin Features
 
-## Future production upgrade
-The UI/data helpers are intentionally modular so the local storage layer can later be replaced with:
-Frontend → Spring Boot API → MySQL → Cloud Server
-without redesigning the customer experience.
+The administrative interface supports essential store management workflows, including:
 
+- Product creation and updates.
+- Product availability and stock management.
+- Customer order viewing and management.
+- Order status tracking.
+- Inventory updates reflected on the storefront.
 
-## Supabase production mode
-See `SUPABASE-SETUP.md` and `supabase-setup.sql`. Copy `supabase-config.example.js` to `supabase-config.js` and add the Supabase project URL + publishable/anon key. In Supabase mode, Auth protects the admin, products sync through Postgres + Realtime, and online COD orders are stored centrally so an order from another phone appears in the admin without a refresh. Never expose a service-role key in the browser.
+*Access to administrative functions should be restricted to authorized users.*
+
+## 🎯 Project Goals
+
+Madhuravana was developed to demonstrate how thoughtful design and modern web technologies can transform a traditional product into a premium online shopping experience.
+
+The project focuses on:
+
+- Creating a distinctive brand identity.
+- Delivering a seamless shopping journey.
+- Simplifying Cash on Delivery orders.
+- Supporting product and inventory management.
+- Providing a responsive and visually engaging interface.
+
+## 🌍 Live Demo
+
+Explore the website:
+
+**🔗 [https://madhuravana.in](https://madhuravana.in)**
+
+## 👨‍💻 Developer
+
+**Yaswanth Chatti**
+Founder & Web Developer at **YashWebs**
+
+Madhuravana showcases my work in front-end development, interactive web design, e-commerce functionality, and backend integration.
+
+🌐 **Website:** [https://madhuravana.in](https://madhuravana.in)
+💼 **GitHub:** Add your project repository URL here
+🚀 **Business:** YashWebs
+
+## 📄 License
+
+This project was developed for the Madhuravana brand. Unless otherwise specified, the source code and design assets should not be redistributed or reused commercially without the appropriate permission.
+
+---
+
+\<p align="center">
+&#x20; 🍯 \<strong>Madhuravana </strong>
+&#x20; \<br />
+&#x20; Crafted with creativity, technology, and a passion for great web experiences.
+\</p>
