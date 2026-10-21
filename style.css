@@ -2423,3 +2423,7 @@ body.no-scroll{overflow:hidden !important}   /* keep the cart modal scroll-lock 
   animation:none !important;
   transform:none !important;
 }
+html, body { scroll-behavior: auto !important; overscroll-behavior-y: none; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.mj-wrap, .fq-track { overscroll-behavior-x: contain; }
