@@ -2420,6 +2420,312 @@ body.madhuravana-home .gf-copy .gf-kicker {
   }
 }
 
+
+/* =============================================
+   MADHURAVANA — GOLDEN COLLECTION HEADING
+   ============================================= */
+
+body.madhuravana-home
+.mh-shop .honey-collection-head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+  margin: 0 auto 42px;
+  padding: 45px 24px 35px;
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      #fff0c6 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      #fffdf7 0%,
+      #ffffff 100%
+    );
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Soft golden glow */
+
+body.madhuravana-home
+.honey-collection-head::before {
+  content: "";
+  position: absolute;
+  top: -130px;
+  left: 50%;
+  width: 380px;
+  height: 380px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #f5c96723,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Main content */
+
+body.madhuravana-home
+.honey-heading-content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: auto;
+}
+
+/* Golden eyebrow */
+
+body.madhuravana-home
+.honey-heading-kicker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 23px;
+  color: #bc862c;
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.1px;
+  line-height: 1.8;
+}
+
+body.madhuravana-home
+.honey-heading-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d4a64a
+  );
+}
+
+body.madhuravana-home
+.honey-heading-line:last-child {
+  transform: rotate(180deg);
+}
+
+/* Beautiful editorial title */
+
+body.madhuravana-home
+.mh-shop .honey-collection-title {
+  max-width: 780px;
+  margin: 0 auto 20px;
+  color: #173d2b;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(43px,5.5vw,76px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -2.5px;
+  text-align: center;
+}
+
+/* Golden italic highlight */
+
+body.madhuravana-home
+.mh-shop .honey-collection-title em {
+  display: block;
+  margin-top: 5px;
+  color: #bd8530;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -2.8px;
+  background: linear-gradient(
+    110deg,
+    #a96e1d,
+    #e5b75d 50%,
+    #af7728
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Description */
+
+body.madhuravana-home
+.honey-collection-subtitle {
+  max-width: 530px;
+  margin: 0 auto;
+  color: #7b786d;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.95;
+}
+
+/* Decorative separator */
+
+body.madhuravana-home
+.honey-heading-decoration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  margin-top: 25px;
+  color: #c99a47;
+  font-size: 14px;
+}
+
+body.madhuravana-home
+.honey-heading-decoration span {
+  display: block;
+  width: 42px;
+  height: 1px;
+  background: #e3ca92;
+}
+
+/* Explore all products */
+
+body.madhuravana-home
+.mh-shop .honey-shop-all {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 54px;
+  padding: 15px 24px;
+  border: 1px solid #173d2b;
+  border-radius: 50px;
+  background: #173d2b;
+  color: #fffaf0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  box-shadow: 0 10px 25px #173d2b24;
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    box-shadow .3s ease;
+}
+
+body.madhuravana-home
+.mh-shop .honey-shop-all span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e8be6d;
+  color: #173d2b;
+  font-size: 16px;
+  transition: transform .3s ease;
+}
+
+body.madhuravana-home
+.mh-shop .honey-shop-all:hover {
+  transform: translateY(-4px);
+  background: #27583d;
+  box-shadow: 0 15px 30px #173d2b32;
+}
+
+body.madhuravana-home
+.mh-shop .honey-shop-all:hover span {
+  transform: rotate(45deg);
+}
+
+/* TABLET */
+
+@media (max-width: 768px) {
+  body.madhuravana-home
+  .mh-shop .honey-collection-head {
+    padding: 42px 20px 30px;
+    margin-bottom: 30px;
+  }
+
+  body.madhuravana-home
+  .mh-shop .honey-collection-title {
+    font-size: clamp(39px,7vw,60px);
+    letter-spacing: -1.7px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 560px) {
+  body.madhuravana-home
+  .mh-shop .honey-collection-head {
+    padding: 38px 13px 26px;
+    gap: 23px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+  }
+
+  body.madhuravana-home
+  .honey-heading-kicker {
+    gap: 8px;
+    margin-bottom: 19px;
+    font-size: 9px;
+    letter-spacing: 1.1px;
+  }
+
+  body.madhuravana-home
+  .honey-heading-line {
+    width: 19px;
+  }
+
+  body.madhuravana-home
+  .mh-shop .honey-collection-title {
+    max-width: 360px;
+    margin-bottom: 18px;
+    font-size: clamp(35px,9vw,49px);
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+  }
+
+  body.madhuravana-home
+  .mh-shop .honey-collection-title em {
+    margin-top: 4px;
+    letter-spacing: -1.6px;
+  }
+
+  body.madhuravana-home
+  .honey-collection-subtitle {
+    max-width: 325px;
+    font-size: 12px;
+    line-height: 1.85;
+  }
+
+  body.madhuravana-home
+  .honey-heading-decoration {
+    margin-top: 18px;
+  }
+
+  body.madhuravana-home
+  .mh-shop .honey-shop-all {
+    min-height: 51px;
+    padding: 11px 16px 11px 21px;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: .65px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.madhuravana-home
+  .mh-shop .honey-shop-all,
+  body.madhuravana-home
+  .mh-shop .honey-shop-all span {
+    transition: none;
+  }
+}
+
 </style>
 </head>
 
@@ -3170,17 +3476,41 @@ aria-label="Healthy and meaningful gifts">
 <section class="mh-shop band" id="collection">
   <div class="container">
 
-    <div class="mh-section-head">
-      <div>
-        <span class="mh-eyebrow">THE COLLECTION</span>
-        <h2>Choose your jar.</h2>
-      </div>
+<div class="mh-section-head honey-collection-head">
 
-      <a class="reserve-link" href="shop.html">
-        View all products →
-      </a>
+  <div class="honey-heading-content">
+
+    <div class="honey-heading-kicker">
+      <span class="honey-heading-line"></span>
+      <span>🍯 THE GOLDEN COLLECTION</span>
+      <span class="honey-heading-line"></span>
     </div>
 
+    <h2 class="honey-collection-title">
+      A jar full of
+      <em>golden goodness.</em>
+    </h2>
+
+    <p class="honey-collection-subtitle">
+      Discover nature's sweetest treasure.
+      Beautifully golden, naturally delicious,
+      and made for every sweet little moment.
+    </p>
+
+    <div class="honey-heading-decoration">
+      <span></span>
+      ✦
+      <span></span>
+    </div>
+
+  </div>
+
+  <a class="reserve-link honey-shop-all" href="shop.html">
+    EXPLORE ALL HONEY
+    <span aria-hidden="true">↗</span>
+  </a>
+
+</div>
     <div class="mv-delivery-banner">
       <span>✦</span>
       <span>
