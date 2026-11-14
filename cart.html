@@ -171,6 +171,124 @@
   position:relative;z-index:1;
 }
 .ct-qty button{transition:none}
+
+/* DELIVERY REWARD CARD */
+
+.ct-free-delivery {
+  margin: 15px 0 20px;
+  padding: 17px;
+  border-radius: 16px;
+  background: rgba(255, 250, 232, 0.09);
+  border: 1px solid rgba(241, 200, 116, 0.35);
+}
+
+.ct-free-delivery-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ct-free-delivery-icon {
+  font-size: 26px;
+}
+
+.ct-free-delivery-title {
+  color: #fff4d7;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.ct-free-delivery-description {
+  color: #e3d9c2;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+
+.ct-free-delivery-track {
+  height: 9px;
+  width: 100%;
+  background: rgba(255,255,255,0.18);
+  border-radius: 30px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.ct-free-delivery-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    #a3ce85,
+    #f2c75c
+  );
+  border-radius: 30px;
+  transition: width 0.35s ease;
+}
+
+.ct-free-delivery-unlocked {
+  background: rgba(101, 165, 89, 0.18);
+  border-color: #a3ce85;
+}
+
+.ct-free-delivery-unlocked
+.ct-free-delivery-title {
+  color: #c6f5b0;
+}
+
+/* DELIVERY PRICE LINE */
+
+.ct-delivery-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px dashed rgba(251,243,223,.22);
+  font-size: 14px;
+  color: #fff3d7;
+}
+
+.ct-delivery-price-row strong {
+  color: #c4f5a9;
+  font-weight: 800;
+}
+
+.ct-delivery-price-row small {
+  display: block;
+  margin-top: 5px;
+  color: rgba(251,243,223,.65);
+  font-size: 11px;
+}
+
+.ct-delivery-pending strong {
+  color: #f2cc84;
+  font-size: 12px;
+  text-align: right;
+}
+
+.ct-free-delivery-celebrate {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  background: #e6f5de;
+  color: #276338;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .ct-free-delivery {
+    padding: 14px;
+  }
+
+  .ct-free-delivery-title {
+    font-size: 12px;
+  }
+}
+
   </style>
 </head>
 <body data-page="cart">
@@ -299,6 +417,285 @@
     };
   };
   </script>
+
+  <script>
+(function () {
+  "use strict";
+
+  /*
+    Above ₹999 means subtotal >= ₹1000.
+    Read the real total from the website's
+    existing cartTotal() function.
+  */
+
+  const FREE_DELIVERY_MINIMUM = 1000;
+
+  function rupees(amount) {
+    return "₹" + Number(amount || 0)
+      .toLocaleString("en-IN");
+  }
+
+  function updateCartFreeDelivery() {
+    const summary = document.getElementById(
+      "cart-summary"
+    );
+
+    if (!summary) return;
+
+    /*
+      If cart is empty, the existing page
+      hides the summary. No delivery card needed.
+    */
+
+    if (
+      summary.style.display === "none" ||
+      !summary.querySelector(".ct-sum-total")
+    ) {
+      return;
+    }
+
+    if (typeof window.cartTotal !== "function") {
+      console.warn(
+        "cartTotal() not available on cart page."
+      );
+      return;
+    }
+
+    const subtotal = Number(
+      window.cartTotal()
+    ) || 0;
+
+    const freeDelivery =
+      subtotal >= FREE_DELIVERY_MINIMUM;
+
+    const remaining = Math.max(
+      0,
+      FREE_DELIVERY_MINIMUM - subtotal
+    );
+
+    const progress = Math.min(
+      100,
+      subtotal / FREE_DELIVERY_MINIMUM * 100
+    );
+
+    /*
+      Insert reward card above order summary
+      total without removing existing gift
+      or regular order information.
+    */
+
+    const totalRow = summary.querySelector(
+      ".ct-sum-total"
+    );
+
+    let deliveryCard = summary.querySelector(
+      "#ct-free-delivery"
+    );
+
+    if (!deliveryCard) {
+      deliveryCard = document.createElement("div");
+      deliveryCard.id = "ct-free-delivery";
+      deliveryCard.className = "ct-free-delivery";
+
+      totalRow.before(deliveryCard);
+    }
+
+    deliveryCard.classList.toggle(
+      "ct-free-delivery-unlocked",
+      freeDelivery
+    );
+
+    deliveryCard.innerHTML = `
+      <div class="ct-free-delivery-top">
+
+        <span class="ct-free-delivery-icon">
+          ${freeDelivery ? "🎉" : "🚚"}
+        </span>
+
+        <div>
+          <div class="ct-free-delivery-title">
+            ${
+              freeDelivery
+                ? "FREE DELIVERY UNLOCKED!"
+                : "YOUR FREE DELIVERY REWARD"
+            }
+          </div>
+
+          <div class="ct-free-delivery-description">
+            ${
+              freeDelivery
+                ? "Your order qualifies for free delivery."
+                : "Add " + rupees(remaining) +
+                  " more to enjoy FREE delivery."
+            }
+          </div>
+        </div>
+
+      </div>
+
+      <div
+        class="ct-free-delivery-track"
+        role="progressbar"
+        aria-label="Free delivery progress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="${Math.round(progress)}"
+      >
+        <div
+          class="ct-free-delivery-fill"
+          style="width:${progress}%"
+        ></div>
+      </div>
+    `;
+
+    /*
+      Show the delivery amount separately.
+      Do NOT invent a delivery fee for
+      orders below the threshold.
+    */
+
+    let deliveryRow = summary.querySelector(
+      "#ct-delivery-price-row"
+    );
+
+    if (!deliveryRow) {
+      deliveryRow = document.createElement("div");
+      deliveryRow.id = "ct-delivery-price-row";
+
+      totalRow.before(deliveryRow);
+    }
+
+    deliveryRow.className =
+      "ct-delivery-price-row" +
+      (freeDelivery ? "" : " ct-delivery-pending");
+
+    deliveryRow.innerHTML = `
+      <span>
+        🚚 Delivery
+        <small>
+          ${
+            freeDelivery
+              ? "Free delivery applied"
+              : "Free for orders above ₹999"
+          }
+        </small>
+      </span>
+
+      <strong>
+        ${
+          freeDelivery
+            ? "FREE ₹0"
+            : "Calculated at checkout"
+        }
+      </strong>
+    `;
+
+    /*
+      Keep existing total untouched.
+
+      When eligible, delivery is ₹0, so
+      the displayed total is the subtotal.
+      Below threshold, the final shipping
+      amount remains undetermined.
+    */
+
+    const totalValue = totalRow.querySelector(
+      "strong"
+    );
+
+    if (totalValue) {
+      totalValue.textContent = rupees(subtotal);
+    }
+
+    let celebration = summary.querySelector(
+      "#ct-free-delivery-celebrate"
+    );
+
+    if (freeDelivery) {
+      if (!celebration) {
+        celebration = document.createElement("div");
+        celebration.id =
+          "ct-free-delivery-celebrate";
+
+        celebration.className =
+          "ct-free-delivery-celebrate";
+
+        totalRow.after(celebration);
+      }
+
+      celebration.textContent =
+        "✓ You saved on delivery! 🍯";
+
+    } else if (celebration) {
+      celebration.remove();
+    }
+  }
+
+  /*
+    Hook into the existing cart renderer.
+
+    Every time quantity changes, the cart
+    rerenders and delivery updates too.
+  */
+
+  function installFreeDelivery() {
+    if (typeof window.renderCart !== "function") {
+      console.warn(
+        "Cart renderer not found. Check script.js."
+      );
+      return;
+    }
+
+    const originalRenderCart = window.renderCart;
+
+    if (originalRenderCart._freeDeliveryInstalled) {
+      return;
+    }
+
+    function newRenderCart(...args) {
+      const result = originalRenderCart.apply(
+        this,
+        args
+      );
+
+      updateCartFreeDelivery();
+
+      return result;
+    }
+
+    newRenderCart._freeDeliveryInstalled = true;
+
+    window.renderCart = newRenderCart;
+
+    // Update already rendered cart immediately.
+    window.renderCart();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      installFreeDelivery
+    );
+  } else {
+    installFreeDelivery();
+  }
+
+  window.addEventListener("pageshow", () => {
+    updateCartFreeDelivery();
+  });
+
+  window.addEventListener("storage", event => {
+    if (
+      event.key === "madhuravana_cart" &&
+      typeof window.renderCart === "function"
+    ) {
+      window.renderCart();
+    }
+  });
+
+})();
+</script>
+
   <script defer src="lenis.min.js"></script>
 <script defer src="smooth-scroll.js?v=20261018"></script>
 </body>
