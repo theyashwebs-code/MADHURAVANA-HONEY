@@ -409,6 +409,57 @@ body[data-page="checkout"] *{-webkit-tap-highlight-color:transparent}
   .ck-placed.on .ck-placed-ring path{animation:none;stroke-dashoffset:0}
   .ck-placed.on .ck-placed-bar b{animation:none;width:100%}
 }
+
+
+/* Madhuravana shipping breakdown */
+.ck-shipping-breakdown {
+  margin-top: 18px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e9dfc8;
+  border-radius: 16px;
+}
+
+.ck-shipping-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: #5c4936;
+  font: 700 .85rem "Manrope", sans-serif;
+}
+
+.ck-shipping-row:last-child {
+  margin-bottom: 0;
+}
+
+.ck-shipping-free {
+  color: #1f7a46;
+  font-weight: 800;
+}
+
+.ck-shipping-progress {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #f1e9d6;
+  margin-top: 12px;
+}
+
+.ck-shipping-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #c9a24b, #e9a21c);
+  transition: width .4s ease;
+}
+
+.ck-shipping-message {
+  margin: 12px 0 0;
+  font: 700 .78rem/1.5 "Manrope", sans-serif;
+  color: #806329;
+}
+
 </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
@@ -1012,6 +1063,198 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 400);
   refresh();
 })();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const box = document.getElementById("checkout-summary");
+  if (!box || typeof cartDetailed !== "function") return;
+
+  const items = cartDetailed();
+  if (!items.length) return;
+
+  const SHIPPING_FEE = 50;
+  const FREE_SHIPPING_MIN = 999;
+
+  const normal = items.filter(i => !i.gift);
+  const gifts = items.filter(i => i.gift);
+
+  const sum = list =>
+    list.reduce((s, i) =>
+      s + Number(i.price) * Number(i.quantity), 0);
+
+  const count = list =>
+    list.reduce((s, i) => s + Number(i.quantity), 0);
+
+  const jars = n => n + (n === 1 ? " jar" : " jars");
+
+  const escapeHTML = value =>
+    String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[c]);
+
+  const formatMoney = amount =>
+    "₹" + Number(amount).toLocaleString("en-IN");
+
+  // Product subtotal, before shipping
+  const subtotal = sum(items);
+
+  // Shipping calculation
+  const shipping = subtotal >= FREE_SHIPPING_MIN
+    ? 0
+    : SHIPPING_FEE;
+
+  const grandTotal = subtotal + shipping;
+
+  // Display cart items
+  function row(i) {
+    return `
+      <div class="ck-sum-item">
+        <div class="ck-sum-thumb">
+          <img
+            src="images/madhuravana-front-bottle.png"
+            alt=""
+          >
+        </div>
+        <div>
+          <b>${escapeHTML(i.name)}</b>
+          <small>
+            ${escapeHTML(i.weight)}
+            × ${Number(i.quantity)}
+          </small>
+        </div>
+        <strong>
+          ${formatMoney(i.price * i.quantity)}
+        </strong>
+      </div>
+    `;
+  }
+
+  function group(cls, icon, title, list) {
+    if (!list.length) return "";
+
+    return `
+      <div class="ck-sum-group ${cls}">
+        <div class="ck-sum-group-head">
+          <span>
+            ${icon} ${title} · ${jars(count(list))}
+          </span>
+          <em>${formatMoney(sum(list))}</em>
+        </div>
+        ${list.map(row).join("")}
+      </div>
+    `;
+  }
+
+  const giftNote =
+    typeof getGiftNote === "function"
+      ? getGiftNote()
+      : null;
+
+  const noteHtml = giftNote ? `
+    <div class="ck-sum-gift">
+      <strong>🎁 Gift card attached</strong><br>
+      ${giftNote.to
+        ? "For " + escapeHTML(giftNote.to)
+        : "Gift"}
+      ${giftNote.from
+        ? " · from " + escapeHTML(giftNote.from)
+        : ""}
+      ${giftNote.message
+        ? `<br><em>“${escapeHTML(giftNote.message)}”</em>`
+        : ""}
+      <br>
+      <a href="gifts.html">Edit gift note</a>
+    </div>
+  ` : "";
+
+  // Free shipping progress
+  const remaining = Math.max(
+    0,
+    FREE_SHIPPING_MIN - subtotal
+  );
+
+  const progress = Math.min(
+    100,
+    subtotal / FREE_SHIPPING_MIN * 100
+  );
+
+  const shippingMessage = shipping === 0
+    ? "🎉 Congratulations! You've unlocked FREE delivery."
+    : `🍯 Add ${formatMoney(remaining)} more for FREE delivery!`;
+
+  box.innerHTML = `
+    <div class="ck-sum-head">
+      <h3>Your order</h3>
+      <span>${jars(count(items))}</span>
+    </div>
+
+    ${group("is-regular", "🍯", "Regular order", normal)}
+    ${group("is-gift", "🎁", "Gift pack", gifts)}
+
+    <div class="ck-shipping-breakdown">
+      <div class="ck-shipping-row">
+        <span>Subtotal</span>
+        <strong>${formatMoney(subtotal)}</strong>
+      </div>
+
+      <div class="ck-shipping-row">
+        <span>🚚 Delivery charges</span>
+        <strong class="${shipping === 0 ? "ck-shipping-free" : ""}">
+          ${shipping === 0 ? "FREE" : formatMoney(shipping)}
+        </strong>
+      </div>
+
+      <div class="ck-shipping-progress">
+        <span style="width:${progress}%"></span>
+      </div>
+
+      <p class="ck-shipping-message">
+        ${shippingMessage}
+      </p>
+    </div>
+
+    <div class="ck-sum-total">
+      <span>Total payable</span>
+      <strong>${formatMoney(grandTotal)}</strong>
+    </div>
+
+    <p class="ck-sum-cod">
+      Cash on Delivery · pay when it arrives
+    </p>
+
+    ${noteHtml}
+
+    <div class="ck-sum-eta">
+      <span>🚚</span>
+      <span>
+        Regular and gift jars are packed separately.
+        Track your order anytime on the
+        <a href="track.html"
+           style="text-decoration:underline;font-weight:700">
+          Track Order
+        </a> page.
+      </span>
+    </div>
+
+    <a class="ck-sum-edit" href="cart.html">
+      ← Edit cart
+    </a>
+  `;
+
+  // Update total displayed above WhatsApp button
+  const pay = document.getElementById("ck-paynow");
+  const payTotal = document.getElementById("ck-paynow-total");
+
+  if (pay && payTotal) {
+    payTotal.textContent = formatMoney(grandTotal);
+    pay.hidden = false;
+  }
+});
+
 </script>
 <script defer src="lenis.min.js"></script>
 <script defer src="smooth-scroll.js?v=20261018"></script>
