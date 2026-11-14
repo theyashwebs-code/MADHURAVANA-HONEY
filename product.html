@@ -270,20 +270,21 @@
      If a product or the cart doesn't work, edit ONLY these functions.
   ===================================================================== */
 
-  /* Return all products from your site's data. */
+  /* Shop stores each size as a separate product. Read the SAME catalogue as shop.html. */
   function allProducts() {
-    var tries = [
+    var sources = [
+      function () { return window.MADHURAVANA && window.MADHURAVANA.getProducts && window.MADHURAVANA.getProducts(); },
       function () { return typeof getProducts === "function" && getProducts(); },
       function () { return typeof getAllProducts === "function" && getAllProducts(); },
       function () { return window.PRODUCTS; },
       function () { return window.products; },
       function () { return typeof PRODUCTS !== "undefined" && PRODUCTS; }
     ];
-    for (var i = 0; i < tries.length; i++) {
+    for (var i = 0; i < sources.length; i++) {
       try {
-        var v = tries[i]();
-        if (v && v.length) return v;
-      } catch (e) {}
+        var list = sources[i]();
+        if (Array.isArray(list)) return list;
+      } catch (err) { console.warn("Catalogue source:", err); }
     }
     return [];
   }
@@ -295,18 +296,33 @@
      false = show each product's own image(s) and use the jar only when there is none. */
   var FORCE_JAR = true;
 
-  /* Add to cart. Adjust the call to match your cart function. */
+  /* Use the exact selected size's product ID, matching shop.html's cart. */
   function addToCart(p, v, qty) {
+    if (v.inStock === false) return false;
+    var sizeId = v.id != null ? v.id : p.id;
     try {
+      var shop = window.MADHURAVANA;
+      if (shop && typeof shop.getCart === "function" && typeof shop.saveCart === "function") {
+        var items = shop.getCart();
+        items = Array.isArray(items) ? items.map(function (item) { return Object.assign({}, item); }) : [];
+        var found = items.find(function (item) {
+          return String(item.id) === String(sizeId) && !item.gift;
+        });
+        if (found) found.quantity = Number(found.quantity || 0) + qty;
+        else items.push({ id: sizeId, quantity: qty });
+        if (shop.saveCart(items) === false) return false;
+        if (typeof shop.updateCartCount === "function") shop.updateCartCount();
+        return true;
+      }
       if (typeof window.addToCart === "function") {
-        window.addToCart(p.id, qty, v.weight);   // (productId, qty, weight)
+        window.addToCart(sizeId, qty, v.weight);
         return true;
       }
       if (typeof window.addToCartItem === "function") {
-        window.addToCartItem({ id: p.id, name: p.name, weight: v.weight, price: v.price, quantity: qty });
+        window.addToCartItem({ id: sizeId, name: p.name, weight: v.weight, price: v.price, quantity: qty });
         return true;
       }
-    } catch (e) { console.warn("addToCart:", e); }
+    } catch (err) { console.warn("addToCart:", err); }
     return false;
   }
 
@@ -324,19 +340,59 @@
     return "₹" + Number(n || 0).toLocaleString("en-IN");
   }
 
-  /* Normalise whatever shape the product has into one shape. */
+  /* Combine catalogue rows with the same honey name into one size selector. */
   function normalise(p) {
-    var variants = p.variants || p.weights || p.sizes || p.options || [];
-    variants = variants.map(function (v) {
-      if (typeof v !== "object") return { weight: String(v), price: Number(p.price || 0) };
-      return {
-        weight: v.weight || v.size || v.label || v.name || "",
-        price: Number(v.price != null ? v.price : p.price || 0),
-        mrp: Number(v.mrp || v.oldPrice || v.compareAt || 0)
-      };
+    var list = allProducts();
+    var wantedName = String(p.name || p.title || "Pure Honey").trim().toLowerCase();
+    var siblings = list.filter(function (item) {
+      return String(item.name || item.title || "Pure Honey").trim().toLowerCase() === wantedName;
     });
-    if (!variants.length) variants = [{ weight: p.weight || "", price: Number(p.price || 0), mrp: Number(p.mrp || p.oldPrice || 0) }];
-    var imgs = FORCE_JAR ? [JAR] : (p.images || (p.image ? [p.image] : (p.img ? [p.img] : [])));
+    if (!siblings.length) siblings = [p];
+
+    var variants = [];
+    siblings.forEach(function (item) {
+      var options = item.variants || item.weights || item.sizes || item.options || [];
+      if (!Array.isArray(options) || !options.length) options = [item];
+      options.forEach(function (value) {
+        var option = value && typeof value === "object" ? value : { weight: value };
+        variants.push({
+          id: option.id != null ? option.id : item.id,
+          weight: String(option.weight || option.size || option.label || option.name || item.weight || item.size || "Jar"),
+          price: Number(option.price != null ? option.price : item.price || 0),
+          mrp: Number(option.mrp || option.oldPrice || option.compareAt || item.mrp || item.oldPrice || 0),
+          inStock: option.inStock !== false && item.inStock !== false,
+          image: option.image || option.imageUrl || item.image || item.imageUrl ||
+            (Array.isArray(item.images) ? item.images[0] : item.images) || item.img || ""
+        });
+      });
+    });
+
+    function toGrams(weight) {
+      var match = String(weight || "").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g|gm|grams?)\b/);
+      return match ? Number(match[1]) * (match[2] === "kg" ? 1000 : 1) : 0;
+    }
+    /* Every weight gets one button, even when the catalogue repeats its records. */
+    var seen = {};
+    variants = variants.filter(function (v) {
+      var key = toGrams(v.weight) ? String(toGrams(v.weight)) : v.weight.toLowerCase().replace(/\s+/g, "");
+      if (seen[key]) return false;
+      seen[key] = true;
+      return true;
+    }).sort(function (a, b) { return toGrams(a.weight) - toGrams(b.weight); });
+
+    var requested = (qs.get("weight") || qs.get("size") || "").toLowerCase().replace(/\s+/g, "");
+    var initial = requested ? variants.findIndex(function (v) {
+      return v.weight.toLowerCase().replace(/\s+/g, "") === requested;
+    }) : -1;
+    if (initial < 0) initial = variants.findIndex(function (v) {
+      return String(v.id) === String(p.id) &&
+        (!p.weight || v.weight.toLowerCase().replace(/\s+/g, "") === String(p.weight).toLowerCase().replace(/\s+/g, ""));
+    });
+    if (initial < 0) initial = variants.findIndex(function (v) { return String(v.id) === String(p.id); });
+    if (initial < 0) initial = 0;
+
+    var imgs = FORCE_JAR ? [JAR] : (p.images || (p.image ? [p.image] : (p.imageUrl ? [p.imageUrl] : (p.img ? [p.img] : []))));
+    if (!Array.isArray(imgs)) imgs = [imgs];
     if (!imgs.length) imgs = [JAR];
     return {
       id: p.id != null ? p.id : p.slug,
@@ -346,6 +402,7 @@
       category: p.category || p.type || "",
       imgs: imgs,
       variants: variants,
+      initialIndex: initial,
       raw: p
     };
   }
@@ -384,7 +441,7 @@
   var m = String(w || "").toLowerCase().match(/([\d.]+)\s*(kg|g)?/);
   if (!m) return "SMALL BATCH";
   var g = parseFloat(m[1]) * (m[2] === "kg" ? 1000 : 1);
-  if (g < 250) return "SMALL BATCH";    // 200g
+  if (g < 250) return "SMALL BATCH";    // 100g / 200g
   if (g < 500) return "MEDIUM BATCH";   // 250g
   return "LARGE BATCH";                 // 500g, 1kg
 }
@@ -393,13 +450,14 @@ function jarScale(w) {
   var m = String(w || "").toLowerCase().match(/([\d.]+)\s*(kg|g)?/);
   if (!m) return 1;
   var g = parseFloat(m[1]) * (m[2] === "kg" ? 1000 : 1);
-  if (g < 250) return 0.68;   // 200g small
-  if (g < 500) return 0.84;   // 250g medium
-  return 1;                   // 500g+ large
+  if (g <= 100) return 0.62; // 100g is the smallest jar
+  if (g < 250) return 0.72;
+  if (g < 500) return 0.84;  // 250g medium jar
+  return 1;                  // 500g and larger
 }
 
   function render(p) {
-    var cur = 0, qty = 1, img = 0;
+    var cur = p.initialIndex || 0, qty = 1, img = 0;
 
     document.title = p.name + " | MADHURAVANA Pure Honey";
 
@@ -453,8 +511,10 @@ function jarScale(w) {
     /* ---- gallery ---- */
     function drawView() {
       var v = $("#pp-view");
-      v.innerHTML = p.imgs.length
-        ? '<img src="' + E(p.imgs[img]) + '" alt="' + E(p.name) + '" width="536" height="720" decoding="async">'
+      var variantPhoto = !FORCE_JAR && p.variants[cur] && p.variants[cur].image;
+      var photo = variantPhoto || p.imgs[img];
+      v.innerHTML = photo
+        ? '<img src="' + E(photo) + '" alt="' + E(p.name + " " + p.variants[cur].weight) + '" width="536" height="720" decoding="async">'
         : jarSvg();
     }
     drawView();
@@ -490,7 +550,7 @@ function jarScale(w) {
     /* ---- sizes / price ---- */
     var wBox = $("#pp-weights");
     wBox.innerHTML = p.variants.map(function (v, i) {
-      return '<button type="button" class="pp-w' + (i === 0 ? " on" : "") + '" data-i="' + i + '"><b>' + E(v.weight || "Standard") + '</b><span>' + M(v.price) + '</span></button>';
+      return '<button type="button" class="pp-w' + (i === cur ? " on" : "") + '" data-i="' + i + '"><b>' + E(v.weight || "Standard") + '</b><span>' + M(v.price) + '</span></button>';
     }).join("");
 
     function paint() {
@@ -512,6 +572,9 @@ $("#pp-badge").textContent = "⬡ " + batchLabel(v.weight);
 $("#pp-stage").style.setProperty("--jar-scale", jarScale(v.weight));
       document.getElementById("pp-bar-name").textContent = p.name + " · " + (v.weight || "");
       document.getElementById("pp-bar-price").textContent = M(v.price * qty);
+      $("#pp-add").disabled = v.inStock === false;
+      document.getElementById("pp-bar-add").disabled = v.inStock === false;
+      $("#pp-add").textContent = v.inStock === false ? "Out of stock" : "Add to cart";
     }
     paint();
 
@@ -519,7 +582,11 @@ $("#pp-stage").style.setProperty("--jar-scale", jarScale(v.weight));
       var b = e.target.closest(".pp-w");
       if (!b) return;
       cur = +b.dataset.i;
-      [].forEach.call(wBox.children, function (c) { c.classList.toggle("on", c === b); });
+      [].forEach.call(wBox.children, function (c) {
+        c.classList.toggle("on", c === b);
+        c.setAttribute("aria-pressed", String(c === b));
+      });
+      drawView();
       paint();
     });
     $("#pp-minus").addEventListener("click", function () { qty = Math.max(1, qty - 1); paint(); });
@@ -534,6 +601,7 @@ $("#pp-stage").style.setProperty("--jar-scale", jarScale(v.weight));
       toastT = setTimeout(function () { t.classList.remove("show"); }, 2400);
     }
     function add() {
+      if (p.variants[cur].inStock === false) return toast("This jar size is out of stock.");
       var ok = addToCart(p, p.variants[cur], qty);
       var btn = $("#pp-add");
       if (ok) {
