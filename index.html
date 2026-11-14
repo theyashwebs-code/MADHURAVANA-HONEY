@@ -3263,6 +3263,233 @@ body.madhuravana-home .ab-stage .ab-bottle {
 }
 
       
+/* ==========================================
+   MADHURAVANA HOMEPAGE
+   GROUPED HONEY JAR COLLECTION
+   ========================================== */
+
+body.madhuravana-home .mj-wrap {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 24px;
+  overflow: visible;
+  padding: 20px 0 35px;
+  scroll-snap-type: none;
+}
+
+body.madhuravana-home .mj-card {
+  flex: initial;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #e8ddc8;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fffefa;
+  box-shadow: 0 12px 35px #243e250b;
+  transition: transform .3s,box-shadow .3s;
+}
+
+body.madhuravana-home .mj-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 50px #243e251b;
+}
+
+/* Honey bottle display */
+
+body.madhuravana-home .mj-art {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 320px;
+  padding: 27px;
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    #fff3cf,
+    #ecd9ab 65%,
+    #d7d7ba
+  );
+  overflow: hidden;
+}
+
+body.madhuravana-home .mj-art::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 70%;
+  aspect-ratio: 1;
+  top: 13%;
+  border-radius: 50%;
+  border: 1px solid #ffffffb8;
+  box-shadow: 0 0 0 20px #ffffff18;
+}
+
+body.madhuravana-home .mj-art img {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: 90%;
+  max-height: 275px;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 14px 12px #5439193e);
+  transition: height .25s,transform .3s;
+}
+
+body.madhuravana-home .mj-card:hover .mj-art img {
+  transform: translateY(-5px) scale(1.03);
+}
+
+/* Product name and description */
+
+body.madhuravana-home .mj-body {
+  padding: 25px;
+}
+
+body.madhuravana-home .mj-body h3 {
+  font-family: "Fraunces",Georgia,serif;
+  font-size: 25px;
+  font-weight: 500;
+  color: #173d2b;
+}
+
+body.madhuravana-home .mj-body > p {
+  margin: 12px 0 22px;
+  min-height: 43px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #778074;
+}
+
+/* Jar selector */
+
+body.madhuravana-home .mj-size-heading {
+  display: block;
+  margin-bottom: 12px;
+  color: #31513d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+body.madhuravana-home .mj-size-options {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+body.madhuravana-home .mj-size-option {
+  flex: 1;
+  min-width: 60px;
+  min-height: 44px;
+  padding: 11px 7px;
+  border: 1px solid #d9d6c8;
+  border-radius: 10px;
+  background: #fffefa;
+  color: #58674f;
+  font: 800 12px "DM Sans",sans-serif;
+  cursor: pointer;
+  transition: .2s;
+}
+
+body.madhuravana-home .mj-size-option:hover {
+  border-color: #b88b38;
+  background: #fff5dd;
+}
+
+body.madhuravana-home .mj-size-option.active,
+body.madhuravana-home .mj-size-option[aria-pressed="true"] {
+  border-color: #173d2b;
+  background: #173d2b;
+  color: #fff;
+  box-shadow: 0 6px 17px #173d2b25;
+}
+
+/* Price and actions */
+
+body.madhuravana-home .mj-foot {
+  margin-top: auto;
+  padding-top: 23px;
+}
+
+body.madhuravana-home .mj-price {
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #eee7d8;
+}
+
+body.madhuravana-home .mj-price strong {
+  font-family: "DM Sans",sans-serif;
+  font-size: 29px;
+  font-weight: 800;
+  color: #173d2b;
+}
+
+body.madhuravana-home .mj-price a {
+  color: #58725b;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+body.madhuravana-home .mj-add {
+  min-height: 50px;
+  margin-top: 18px;
+  border-radius: 11px;
+  background: #173d2b;
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body.madhuravana-home .mj-add:hover:not(:disabled) {
+  background: #286446;
+}
+
+body.madhuravana-home .mj-view-product {
+  display: grid;
+  place-items: center;
+  min-height: 45px;
+  margin-top: 10px;
+  border: 1px solid #173d2b;
+  border-radius: 11px;
+  color: #173d2b;
+  background: #f5f9f2;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+body.madhuravana-home .mj-view-product:hover {
+  background: #e9f1e7;
+}
+
+/* Responsive */
+
+@media(max-width:1000px) {
+  body.madhuravana-home .mj-wrap {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:600px) {
+  body.madhuravana-home .mj-wrap {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  body.madhuravana-home .mj-art {
+    height: 320px;
+  }
+
+  body.madhuravana-home .mj-body {
+    padding: 23px 20px;
+  }
+
+  body.madhuravana-home .mj-size-option {
+    min-width: 0;
+  }
+      }
+      
 
 </style>
 </head>
@@ -4426,6 +4653,7 @@ aria-label="Frequently asked questions">
      Supabase products + existing cart functions
 ====================================================== -->
 
+
 <script>
 (function () {
   "use strict";
@@ -4434,125 +4662,236 @@ aria-label="Frequently asked questions">
     const wrap = document.getElementById("mj-jars");
     if (!wrap) return;
 
-    const imagePath =
+    const fallbackImage =
       "images/madhuravana-front-bottle.png";
 
-    function create(tag, className, text) {
-      const element = document.createElement(tag);
+    const selected = new Map();
 
-      if (className) element.className = className;
+    const api = () => window.MADHURAVANA;
+
+    const same = (a, b) => String(a) === String(b);
+
+    function money(value) {
+      return "₹" +
+        Number(value || 0).toLocaleString("en-IN");
+    }
+
+    function create(tag, className, text) {
+      const el = document.createElement(tag);
+
+      if (className) el.className = className;
 
       if (text !== undefined && text !== null) {
-        element.textContent = String(text);
+        el.textContent = String(text);
       }
 
-      return element;
+      return el;
     }
 
-    function formatPrice(price) {
-      if (typeof money === "function") {
-        return money(price);
+    function getCatalog() {
+      try {
+        const result = api()?.getProducts?.();
+
+        if (Array.isArray(result)) {
+          return result;
+        }
+
+        if (typeof window.getProducts === "function") {
+          const fallback = window.getProducts();
+          return Array.isArray(fallback) ? fallback : [];
+        }
+
+        return [];
+      } catch (error) {
+        console.error("Product loading failed:", error);
+        return [];
       }
-
-      return "₹" + Number(price).toLocaleString("en-IN");
     }
 
-    function grams(value) {
-      const match = String(value || "")
+    function getCurrentCart() {
+      const result =
+        api()?.getCart?.() ??
+        (
+          typeof window.getCart === "function"
+            ? window.getCart()
+            : []
+        );
+
+      return Array.isArray(result) ? result : [];
+    }
+
+    function grams(weight) {
+      const match = String(weight || "")
         .toLowerCase()
         .match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/);
 
-      if (!match) return 0;
+      if (!match) return 250;
 
       return Number(match[1]) *
         (match[2] === "kg" ? 1000 : 1);
     }
 
     function bottleHeight(weight) {
-      const weightInGrams = grams(weight);
+      const sizes = {
+        100: 155,
+        200: 190,
+        250: 215,
+        500: 270,
+        1000: 300
+      };
 
-      if (!weightInGrams) return 190;
+      const g = grams(weight);
 
-      const factor = Math.max(
-        .55,
-        Math.min(
-          1,
-          .45 + .55 *
-          Math.log(weightInGrams / 100) / Math.LN10
-        )
-      );
-
-      return Math.round(225 * factor);
+      return sizes[g] ||
+        Math.max(
+          130,
+          Math.min(
+            290,
+            Math.round(215 * Math.cbrt(g / 250))
+          )
+        );
     }
 
-    function products() {
-      try {
-        if (typeof getProducts !== "function") return [];
+    function imageOf(product) {
+      const src =
+        product?.image ||
+        product?.imageUrl ||
+        "";
 
-        return getProducts()
-          .slice()
-          .sort((a, b) =>
-            Number(a.price) - Number(b.price)
-          );
-
-      } catch (error) {
-        return [];
-      }
-    }
-
-    function signature(list) {
-      return list.map(p => [
-        p.id,
-        p.name,
-        p.weight,
-        p.price,
-        p.inStock,
-        p.description
-      ].join(":")).join("|");
-    }
-
-    function addProduct(p) {
       if (
-        typeof getCart !== "function" ||
-        typeof saveCart !== "function"
+        typeof src === "string" &&
+        (
+          /^images\/[\w./-]+$/i.test(src) ||
+          /^https?:\/\/\S+$/i.test(src)
+        )
       ) {
+        return src;
+      }
+
+      return fallbackImage;
+    }
+
+    /* GROUP PRODUCTS BY HONEY NAME */
+
+    function getGroups() {
+      const map = new Map();
+
+      getCatalog().forEach(product => {
+        const name = String(
+          product.name || "MADHURAVANA Pure Honey"
+        ).trim();
+
+        const key = name.toLowerCase();
+
+        if (!map.has(key)) {
+          map.set(key, {
+            key,
+            name,
+            products: []
+          });
+        }
+
+        map.get(key).products.push(product);
+      });
+
+      return [...map.values()].map(group => {
+        group.products.sort(
+          (a, b) =>
+            grams(a.weight) - grams(b.weight)
+        );
+
+        const current = selected.get(group.key);
+
+        if (
+          !current ||
+          !group.products.some(
+            p => same(p.id, current)
+          )
+        ) {
+          selected.set(
+            group.key,
+            group.products[0].id
+          );
+        }
+
+        return group;
+      });
+    }
+
+    function picked(group) {
+      const id = selected.get(group.key);
+
+      return group.products.find(
+        p => same(p.id, id)
+      ) || group.products[0];
+    }
+
+    /* SAVE SELECTED JAR TO CART */
+
+    function addToCart(product) {
+      const save =
+        api()?.saveCart ||
+        (
+          typeof window.saveCart === "function"
+            ? window.saveCart
+            : null
+        );
+
+      if (typeof save !== "function") {
         alert("Cart is currently unavailable.");
         return;
       }
 
-      const cart = getCart();
-      const existing = cart.find(item =>
-        String(item.id) === String(p.id)
-      );
+      try {
+        const next = getCurrentCart();
 
-      if (existing) {
-        existing.quantity =
-          Number(existing.quantity || 0) + 1;
-      } else {
-        cart.push({
-          id: p.id,
-          quantity: 1
-        });
+        const existing = next.find(
+          item =>
+            same(item.id, product.id) &&
+            !item.gift
+        );
+
+        if (existing) {
+          existing.quantity =
+            Number(existing.quantity || 0) + 1;
+        } else {
+          next.push({
+            id: product.id,
+            quantity: 1
+          });
+        }
+
+        const result = save(next);
+
+        if (result === false) {
+          alert("Could not save your cart.");
+          return;
+        }
+
+        if (typeof api()?.updateCartCount === "function") {
+          api().updateCartCount();
+        } else if (
+          typeof window.updateCartCount === "function"
+        ) {
+          window.updateCartCount();
+        }
+
+        showAdded(product);
+
+      } catch (error) {
+        console.error(error);
+        alert("Unable to add this jar to cart.");
       }
-
-      saveCart(cart);
-
-      if (typeof updateCartCount === "function") {
-        updateCartCount();
-      }
-
-      const item = cart.find(x =>
-        String(x.id) === String(p.id)
-      );
-
-      showAdded(p, item ? item.quantity : 1);
     }
 
-    function showAdded(p, quantity) {
-      const previous =
-        document.querySelector(".cart-modal-overlay");
+    /* ADDED TO CART POPUP */
 
-      if (previous) previous.remove();
+    function showAdded(product) {
+      const old = document.querySelector(
+        ".cart-modal-overlay"
+      );
+
+      if (old) old.remove();
 
       const overlay = create(
         "div",
@@ -4567,34 +4906,24 @@ aria-label="Frequently asked questions">
 
           <button type="button"
                   class="cart-modal-close"
-                  aria-label="Close">
-            ×
-          </button>
+                  aria-label="Close">×</button>
 
           <div class="cart-modal-content">
-
             <div class="cart-success-icon">✓</div>
 
             <span class="eyebrow">ADDED TO CART</span>
-
             <h2>Your honey is in the cart</h2>
 
             <div class="cart-modal-product">
-
               <div class="cart-modal-jar">
-                <img class="mj-pop-img"
-                     src="${imagePath}"
-                     alt="">
+                <img class="mj-pop-img" alt="">
               </div>
 
               <div class="cart-modal-product-info">
                 <h3></h3>
                 <p></p>
                 <span class="cart-modal-price"></span>
-                <br>
-                <span class="cart-modal-quantity"></span>
               </div>
-
             </div>
 
             <div class="cart-modal-actions">
@@ -4608,33 +4937,43 @@ aria-label="Frequently asked questions">
                 Continue shopping
               </button>
             </div>
-
           </div>
-
         </div>
       `;
 
-      overlay.querySelector("h3").textContent =
-        p.name || "MADHURAVANA Pure Honey";
+      overlay.querySelector(
+        ".mj-pop-img"
+      ).src = imageOf(product);
+
+      overlay.querySelector(
+        ".mj-pop-img"
+      ).alt = product.name || "Honey jar";
+
+      overlay.querySelector(
+        ".cart-modal-product-info h3"
+      ).textContent = product.name || "Pure Honey";
 
       overlay.querySelector(
         ".cart-modal-product-info p"
-      ).textContent = p.weight || "";
+      ).textContent = product.weight || "";
 
       overlay.querySelector(
         ".cart-modal-price"
-      ).textContent = formatPrice(p.price);
-
-      overlay.querySelector(
-        ".cart-modal-quantity"
-      ).textContent =
-        "Quantity in cart: " + quantity;
+      ).textContent = money(product.price);
 
       document.body.appendChild(overlay);
       document.body.classList.add("no-scroll");
 
+      let closed = false;
+
       function close() {
-        document.removeEventListener("keydown", onKey);
+        if (closed) return;
+        closed = true;
+
+        document.removeEventListener(
+          "keydown",
+          onKey
+        );
 
         overlay.classList.add("closing");
 
@@ -4648,11 +4987,17 @@ aria-label="Frequently asked questions">
         if (event.key === "Escape") close();
       }
 
-      document.addEventListener("keydown", onKey);
+      document.addEventListener(
+        "keydown",
+        onKey
+      );
 
-      overlay.addEventListener("mousedown", event => {
-        if (event.target === overlay) close();
-      });
+      overlay.addEventListener(
+        "mousedown",
+        event => {
+          if (event.target === overlay) close();
+        }
+      );
 
       overlay.querySelector(
         ".cart-modal-close"
@@ -4663,11 +5008,14 @@ aria-label="Frequently asked questions">
       ).addEventListener("click", close);
     }
 
+    /* RENDER GROUPED HONEY CARDS */
+
     function render() {
-      const list = products();
+      const groups = getGroups();
+
       wrap.replaceChildren();
 
-      if (!list.length) {
+      if (!groups.length) {
         wrap.appendChild(
           create(
             "div",
@@ -4678,43 +5026,26 @@ aria-label="Frequently asked questions">
         return;
       }
 
-      list.forEach(p => {
+      groups.forEach(group => {
+        const product = picked(group);
+
         const card = create("article", "mj-card");
-        const url = "product.html?id=" +
-          encodeURIComponent(p.id);
 
         const art = create("a", "mj-art");
-        art.href = url;
-
-        art.setAttribute(
-          "aria-label",
-          (p.name || "MADHURAVANA Pure Honey") +
-          " " + (p.weight || "")
-        );
 
         const weight = create(
           "span",
-          "mj-w",
-          p.weight || ""
+          "mj-w"
         );
 
         const stock = create(
           "span",
-          "mj-stock" + (p.inStock ? "" : " out"),
-          p.inStock ? "In stock" : "Sold out"
+          "mj-stock"
         );
 
         const img = new Image();
-
-        img.src = imagePath;
-        img.alt =
-          (p.name || "MADHURAVANA Pure Honey") +
-          " " + (p.weight || "");
-
         img.loading = "lazy";
         img.decoding = "async";
-        img.style.height =
-          bottleHeight(p.weight) + "px";
 
         art.append(weight, stock, img);
 
@@ -4723,64 +5054,210 @@ aria-label="Frequently asked questions">
         const heading = create(
           "h3",
           "",
-          p.name || "MADHURAVANA Pure Honey"
+          group.name
         );
 
         const description = create(
           "p",
           "",
-          p.description ||
+          product.description ||
           "Pure, raw honey from the forests of Kerala & Tamil Nadu."
         );
+
+        /* SIZE SELECTOR */
+
+        const sizeLabel = create(
+          "span",
+          "mj-size-heading",
+          "CHOOSE YOUR JAR"
+        );
+
+        const sizeOptions = create(
+          "div",
+          "mj-size-options"
+        );
+
+        sizeOptions.setAttribute(
+          "role",
+          "group"
+        );
+
+        sizeOptions.setAttribute(
+          "aria-label",
+          "Select honey jar size"
+        );
+
+        /* PRICE */
 
         const foot = create("div", "mj-foot");
         const price = create("div", "mj-price");
 
-        const amount = create(
-          "strong",
-          "",
-          formatPrice(p.price)
-        );
+        const amount = create("strong");
 
         const details = create(
           "a",
           "",
-          "Details"
+          "Details ↗"
         );
 
-        details.href = url;
-
         price.append(amount, details);
+
+        /* ADD BUTTON */
 
         const add = create(
           "button",
           "mj-add",
-          p.inStock ? "Add to cart" : "Out of stock"
+          "ADD TO CART ↗"
         );
 
         add.type = "button";
-        add.disabled = !p.inStock;
 
         add.addEventListener("click", () => {
-          addProduct(p);
+          const current = picked(group);
+
+          if (current.inStock === false) return;
+
+          addToCart(current);
         });
 
-        foot.append(price, add);
-        body.append(heading, description, foot);
+        /* VIEW BUTTON */
+
+        const view = create(
+          "a",
+          "mj-view-product",
+          "VIEW PRODUCT ↗"
+        );
+
+        foot.append(price, add, view);
+
+        body.append(
+          heading,
+          description,
+          sizeLabel,
+          sizeOptions,
+          foot
+        );
+
         card.append(art, body);
         wrap.appendChild(card);
+
+        /* CHANGE PRODUCT VARIANT */
+
+        function updateCard() {
+          const current = picked(group);
+
+          const url =
+            "product.html?id=" +
+            encodeURIComponent(current.id);
+
+          art.href = url;
+          details.href = url;
+          view.href = url;
+
+          art.setAttribute(
+            "aria-label",
+            group.name + " " + (current.weight || "")
+          );
+
+          weight.textContent =
+            current.weight || "Jar";
+
+          stock.textContent =
+            current.inStock === false
+              ? "Sold out"
+              : "In stock";
+
+          stock.classList.toggle(
+            "out",
+            current.inStock === false
+          );
+
+          img.src = imageOf(current);
+
+          img.alt =
+            group.name + " " + (current.weight || "");
+
+          img.style.height =
+            bottleHeight(current.weight) + "px";
+
+          description.textContent =
+            current.description ||
+            "Pure, raw honey from the forests of Kerala & Tamil Nadu.";
+
+          amount.textContent =
+            money(current.price);
+
+          add.disabled =
+            current.inStock === false;
+
+          add.textContent =
+            current.inStock === false
+              ? "OUT OF STOCK"
+              : "ADD TO CART ↗";
+
+          sizeOptions.replaceChildren();
+
+          group.products.forEach(variant => {
+            const active =
+              same(variant.id, current.id);
+
+            const button = create(
+              "button",
+              "mj-size-option" +
+                (active ? " active" : ""),
+              variant.weight || "Jar"
+            );
+
+            button.type = "button";
+
+            button.setAttribute(
+              "aria-pressed",
+              String(active)
+            );
+
+            button.addEventListener(
+              "click",
+              () => {
+                selected.set(
+                  group.key,
+                  variant.id
+                );
+
+                updateCard();
+              }
+            );
+
+            sizeOptions.appendChild(button);
+          });
+        }
+
+        updateCard();
       });
     }
 
-    let lastSignature = signature(products());
+    /* REFRESH WHEN CATALOG CHANGES */
+
+    function signature(list) {
+      return list.map(p => [
+        p.id,
+        p.name,
+        p.weight,
+        p.price,
+        p.inStock,
+        p.description,
+        p.image,
+        p.imageUrl
+      ].join(":")).join("|");
+    }
+
+    let lastSignature = signature(getCatalog());
 
     render();
 
-    // Check for asynchronously loaded product data.
     let attempts = 0;
 
     const interval = setInterval(() => {
-      const current = signature(products());
+      const current = signature(getCatalog());
 
       if (current !== lastSignature) {
         lastSignature = current;
@@ -4793,7 +5270,7 @@ aria-label="Frequently asked questions">
     }, 1000);
 
     window.addEventListener("storage", () => {
-      const current = signature(products());
+      const current = signature(getCatalog());
 
       if (current !== lastSignature) {
         lastSignature = current;
@@ -4811,7 +5288,9 @@ aria-label="Frequently asked questions">
     initProducts();
   }
 })();
-</script>
+      </script>
+      
+
 
 </body>
 </html>
