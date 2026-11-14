@@ -2726,6 +2726,225 @@ body.madhuravana-home
   }
 }
 
+/* ================================================
+   MADHURAVANA — OUR STORY RESPONSIVE FIX
+   Normal mobile + Mobile browser Desktop Site
+   ================================================ */
+
+/* Main section */
+body.madhuravana-home .ab {
+  width: 100%;
+  overflow: hidden;
+}
+
+body.madhuravana-home .ab .container {
+  width: min(1180px, calc(100% - 40px));
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+/* Heading alignment */
+body.madhuravana-home .ab-head {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+body.madhuravana-home .ab-title {
+  max-width: 760px;
+  margin: 15px auto;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+body.madhuravana-home .ab-sub {
+  max-width: 620px;
+  margin-inline: auto;
+}
+
+/* Desktop cards */
+body.madhuravana-home .ab-stage {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, .85fr)
+    minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto 55px;
+}
+
+/* Fix cards overflowing */
+body.madhuravana-home .ab-stage .ab-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: 350px;
+
+  margin: 0;
+  padding: 30px 25px;
+
+  border: 1px solid #e8e5dc;
+  border-radius: 18px;
+  background: #faf9f5;
+
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  transform: none !important;
+}
+
+/* Number */
+body.madhuravana-home .ab-card .ab-num {
+  display: block;
+  margin-bottom: 22px;
+  color: #b88b38;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+/* Card heading */
+body.madhuravana-home .ab-card h3 {
+  margin: 0 0 15px;
+  color: #102c20;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(20px, 2vw, 25px);
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+/* Card paragraph */
+body.madhuravana-home .ab-card p {
+  margin: 0;
+  color: #6e756b;
+  font-size: 13px;
+  line-height: 1.9;
+  overflow-wrap: break-word;
+}
+
+/* Center bottle */
+body.madhuravana-home .ab-stage .ab-hero {
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+  width: 100%;
+  min-height: 350px;
+  margin: 0;
+}
+
+body.madhuravana-home .ab-stage .ab-bottle {
+  display: block;
+  max-width: 80%;
+  max-height: 330px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  body.madhuravana-home .ab-stage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  body.madhuravana-home .ab-stage .ab-hero {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    min-height: 300px;
+  }
+
+  body.madhuravana-home .ab-stage .ab-card {
+    min-height: 300px;
+    height: 100%;
+    padding: 25px 22px;
+  }
+}
+
+/* Normal mobile */
+@media (max-width: 600px) {
+  body.madhuravana-home .ab .container {
+    width: calc(100% - 32px);
+  }
+
+  body.madhuravana-home .ab-stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+    margin-bottom: 38px;
+  }
+
+  body.madhuravana-home .ab-stage .ab-hero {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 285px;
+  }
+
+  body.madhuravana-home .ab-stage .ab-card {
+    min-height: 0;
+    height: auto;
+    padding: 27px 23px;
+  }
+
+  body.madhuravana-home .ab-card h3 {
+    font-size: 23px;
+  }
+
+  body.madhuravana-home .ab-card p {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+}
+
+/* ================================================
+   IMPORTANT:
+   Mobile browsers with "Desktop site" enabled
+   may report a wide CSS viewport.
+
+   Pointer + physical viewport targeting helps
+   prevent cards from becoming too narrow.
+   ================================================ */
+
+@media (hover: none) and (pointer: coarse)
+       and (max-device-width: 600px) {
+
+  body.madhuravana-home .ab-stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  body.madhuravana-home .ab-stage .ab-hero {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 270px;
+  }
+
+  body.madhuravana-home .ab-stage .ab-card {
+    grid-column: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+    padding: 25px 22px;
+  }
+
+  body.madhuravana-home .ab-card h3 {
+    font-size: 23px;
+  }
+
+  body.madhuravana-home .ab-card p {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+}
+
 </style>
 </head>
 
