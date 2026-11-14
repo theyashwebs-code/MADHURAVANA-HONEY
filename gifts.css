@@ -1,500 +1,447 @@
-/* MADHURAVANA gifts page, full redesign. Mobile first. Scoped under .gf-body */
-.gf-body{
-  --g-green:#0f2d1b; --g-green2:#143a23; --g-green3:#1d4a2f;
-  --g-gold:#a8710f; --g-honey:#e9a21c; --g-honey2:#f6c453;
-  --g-cream:#f9f1de; --g-paper:#fffaf0; --g-ink:#2a1706; --g-mute:#6b5a3c;
-  --g-line:rgba(168,113,15,.26);
-  --g-serif:Fraunces,Georgia,serif; --g-sans:Inter,system-ui,sans-serif;
-  background:var(--g-cream); color:var(--g-ink); font-family:var(--g-sans);
-  scroll-behavior:smooth; overflow-x:hidden;
-}
-.gf-body *{box-sizing:border-box}
-.gf-body img{display:block;max-width:100%}
-.gf-body h1,.gf-body h2,.gf-body h3{font-family:var(--g-serif);letter-spacing:-.02em;margin:0;font-weight:600}
-.gf-body :focus-visible{outline:3px solid var(--g-honey);outline-offset:3px}
-.gf-body section[id]{scroll-margin-top:calc(var(--nv-h,72px) + 8px)}
-.gf-wrap{width:min(1180px,100% - 32px);margin-inline:auto}
-.gf-sec{padding:clamp(52px,8vw,110px) 0}
-.gf-center{text-align:center;margin-top:28px}
+/* MADHURAVANA gifts page: browse sets/occasions, pick jars, write a card, add everything to the normal cart.
 
-/* ---------- buttons ---------- */
-.gf-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;border:0;border-radius:99px;cursor:pointer;
-  background:linear-gradient(180deg,#f6c453,#e19a12);color:#2a1706;font:800 1rem var(--g-sans);letter-spacing:.01em;text-decoration:none;
-  box-shadow:0 12px 26px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .2s,box-shadow .2s}
-.gf-btn:before{content:"";position:absolute;inset:0;transform:translateX(-130%) skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transition:transform .8s}
-.gf-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.5)}
-.gf-btn:hover:not(:disabled):before{transform:translateX(130%) skewX(-20deg)}
-.gf-btn:active:not(:disabled){transform:scale(.98)}
-.gf-btn:disabled{opacity:.45;cursor:not-allowed}
-.gf-btn-line{background:transparent;color:#fff7e2;box-shadow:inset 0 0 0 1.5px rgba(255,247,226,.55)}
-.gf-btn-line:hover:not(:disabled){background:rgba(255,247,226,.12);box-shadow:inset 0 0 0 1.5px #fff7e2}
+   Uses the live product list (getProducts) so sizes always match the shop/admin. No prices are shown on this page. */
 
-/* ---------- section headings ---------- */
-.gf-head{width:min(760px,100% - 32px);margin:0 auto clamp(26px,4vw,48px);text-align:center}
-.gf-eyebrow{margin:0 0 10px;color:var(--g-gold);font:700 .74rem var(--g-sans);letter-spacing:.22em;text-transform:uppercase}
-.gf-head h2{font-size:clamp(1.9rem,5.4vw,3.2rem);line-height:1.08;color:var(--g-green2)}
-.gf-head h2:after{content:"";display:block;width:70px;height:14px;margin:16px auto 0;
-  background:radial-gradient(circle at 50% 50%,var(--g-honey) 0 4px,transparent 5px),linear-gradient(90deg,transparent,rgba(168,113,15,.55) 30%,rgba(168,113,15,.55) 70%,transparent);
-  background-size:14px 14px,100% 1px;background-repeat:no-repeat;background-position:center,center}
-.gf-head p:not(.gf-eyebrow){margin:14px auto 0;max-width:34em;color:var(--g-mute);line-height:1.65}
+(function () {
 
-/* ---------- hero ---------- */
-.gf-hero{position:relative;overflow:hidden;color:#fbf3df;padding:26px 0 64px;
-  background:radial-gradient(520px 380px at 85% 10%,rgba(233,162,28,.28),transparent 70%),
-             radial-gradient(500px 400px at 0 90%,rgba(246,196,83,.12),transparent 70%),
-             linear-gradient(150deg,#0a2012,#0f2d1b 50%,#1d4a2f)}
-.gf-hero:before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23f1c874' stroke-opacity='.14' stroke-width='1.5'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23f1c874' stroke-opacity='.14' stroke-width='1.5'/%3E%3C/svg%3E")}
-.gf-hero-in{position:relative;z-index:1;display:grid;gap:30px;align-items:center}
-.gf-hero-media{order:-1;position:relative;width:min(70%,300px);margin:0 auto}
-.gf-arch{aspect-ratio:4/5;border-radius:999px 999px 26px 26px;overflow:hidden;border:2px solid rgba(246,196,83,.6);
-  box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 10px rgba(246,196,83,.08),0 0 90px rgba(233,162,28,.28)}
-.gf-arch img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
-.gf-tag{position:absolute;right:-10px;top:14%;z-index:3;padding:9px 18px 9px 30px;background:var(--g-paper);color:var(--g-ink);border-radius:4px 16px 16px 4px;
-  font:italic 500 1rem var(--g-serif);transform:rotate(6deg);box-shadow:0 10px 22px rgba(0,0,0,.35);animation:gfSway 5s ease-in-out infinite;transform-origin:top center}
-.gf-tag i{position:absolute;left:11px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--g-green2)}
-@keyframes gfSway{0%,100%{transform:rotate(6deg)}50%{transform:rotate(1deg)}}
-.gf-badge{position:absolute;left:-12px;bottom:12%;z-index:3;width:84px;height:84px;display:grid;place-content:center;text-align:center;border-radius:50%;
-  background:linear-gradient(145deg,#f6c453,#e19a12);color:#2a1706;box-shadow:0 14px 30px rgba(0,0,0,.4),0 0 0 5px rgba(255,247,226,.25);animation:gfFloat 4s ease-in-out infinite}
-.gf-badge b{font:700 1.3rem var(--g-serif);line-height:1}
-.gf-badge small{font:700 .62rem var(--g-sans);letter-spacing:.06em;text-transform:uppercase}
-@keyframes gfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.gf-kicker{margin:0 0 14px;color:#f6d58a;font:italic 400 1.05rem var(--g-serif);display:inline-flex;align-items:center;gap:12px}
-.gf-kicker:before{content:"";width:30px;height:1px;background:linear-gradient(90deg,transparent,#f1c874)}
-.gf-hero h1{font-size:clamp(2.3rem,9vw,4.8rem);line-height:1;color:#fff7e2}
-.gf-hero h1 em{font-style:italic;font-weight:500;background:linear-gradient(100deg,#f6d58a,#e9a21c,#f6d58a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.gf-lede{margin:20px 0 26px;font-size:1.04rem;line-height:1.75;color:rgba(251,243,223,.88);max-width:30em}
-.gf-lede em{color:#f6d58a;font-family:var(--g-serif)}
-.gf-cta-row{display:flex;flex-wrap:wrap;gap:12px}
-.gf-cta-row .gf-btn{flex:1 1 100%}
-.gf-marks{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.gf-marks li{padding:7px 14px;border-radius:99px;background:rgba(255,247,226,.07);border:1px solid rgba(241,200,116,.28);font-size:.84rem;color:rgba(251,243,223,.9)}
+  if (document.body.dataset.page !== "gifts") return;
 
-/* ---------- marquee ---------- */
-.gf-marq{overflow:hidden;background:var(--g-honey);color:#2a1706;border-block:1px solid rgba(0,0,0,.08)}
-.gf-marq-track{display:flex;width:max-content;animation:gfMarq 28s linear infinite}
-.gf-marq span{padding:13px 26px;font:700 .8rem var(--g-sans);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
-.gf-marq span:after{content:"✦";margin-left:52px;opacity:.6}
-@keyframes gfMarq{to{transform:translateX(-50%)}}
+  document.documentElement.classList.add("gf-js");
 
-/* ---------- occasions ---------- */
-.gf-occ{background:var(--g-paper)}
-.gf-occ-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.gf-occ-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:116px;padding:16px 10px;border:1.5px solid var(--g-line);border-radius:22px;
-  background:linear-gradient(160deg,#fffdf6,#f7ecd0);cursor:pointer;font:700 .95rem var(--g-sans);color:var(--g-ink);
-  box-shadow:0 8px 20px rgba(60,40,10,.07);transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
-.gf-occ-card span{font-size:2rem;line-height:1;transition:transform .3s}
-.gf-occ-card:hover{transform:translateY(-5px);border-color:var(--g-honey);box-shadow:0 18px 34px rgba(168,113,15,.2)}
-.gf-occ-card:hover span{transform:scale(1.18) rotate(-6deg)}
-.gf-occ-card[aria-pressed="true"]{background:linear-gradient(150deg,#1d4a2f,#0f2d1b);border-color:var(--g-green);color:#fff7e2;box-shadow:0 14px 30px rgba(15,45,27,.4)}
 
-/* ---------- gift sets ---------- */
-.gf-sets-sec{color:#fbf3df;background:radial-gradient(640px 380px at 85% 0,rgba(233,162,28,.2),transparent 70%),linear-gradient(160deg,#0a2012,#0f2d1b 55%,#1a452c)}
-.gf-sets-sec .gf-head h2{color:#fff7e2}
-.gf-sets-sec .gf-eyebrow{color:#f6d58a}
-.gf-sets-sec .gf-head p:not(.gf-eyebrow){color:rgba(251,243,223,.8)}
-.gf-wrap-bleed{width:100%}
-.gf-showcase{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;
-  padding:10px 16px 20px;scroll-padding-inline:16px}
-.gf-showcase::-webkit-scrollbar{display:none}
-.gf-set{position:relative;flex:0 0 84%;max-width:340px;scroll-snap-align:start;display:flex;flex-direction:column;border-radius:28px;overflow:hidden;background:var(--g-paper);color:var(--g-ink);
-  border:1px solid rgba(241,200,116,.4);box-shadow:0 26px 60px rgba(0,0,0,.35);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
-.gf-set.is-on{box-shadow:0 0 0 4px var(--g-honey),0 26px 60px rgba(0,0,0,.35)}
-.gf-ribbon{position:absolute;z-index:3;top:14px;left:14px;padding:6px 14px;border-radius:99px;background:linear-gradient(180deg,#f6c453,#e19a12);color:#2a1706;
-  font:800 .66rem var(--g-sans);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 6px 14px rgba(0,0,0,.3)}
-.gf-set-art{position:relative;height:240px;display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:26px 20px 0;
-  background:radial-gradient(circle at 50% 62%,rgba(255,255,255,.9),rgba(255,214,102,.55) 48%,transparent 74%),linear-gradient(180deg,#ffe08a,#f6bd3a)}
-.gf-set-art:before{content:"";position:absolute;left:50%;top:50%;width:200px;height:226px;transform:translate(-50%,-50%);background:rgba(255,255,255,.36);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
-.gf-set-art img{position:relative;z-index:1;width:auto;object-fit:contain;filter:drop-shadow(0 14px 12px rgba(110,55,0,.4));transform-origin:bottom center;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.gf-set-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
-.gf-set-body h3{font-size:1.45rem;color:var(--g-green2)}
-.gf-set-body p{margin:8px 0 12px;color:var(--g-mute);line-height:1.6;font-size:.95rem}
-.gf-set-inc{margin:0 0 18px;padding:0;list-style:none;font-size:.9rem;display:grid;gap:5px}
-.gf-set-inc li:before{content:"✓ ";color:var(--g-gold);font-weight:800}
-.gf-set-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;border-top:2px dotted rgba(233,162,28,.6)}
-.gf-set-foot strong{font:600 1.65rem var(--g-serif);color:var(--g-gold)}
-.gf-set-foot .gf-btn{min-height:46px;padding:0 20px;background:var(--g-green2);color:#fff7e2;box-shadow:none}
-.gf-set-foot .gf-btn:hover:not(:disabled){background:var(--g-green3);box-shadow:0 8px 18px rgba(20,58,35,.35)}
-.gf-swipe{margin:0;text-align:center;font-size:.8rem;color:rgba(251,243,223,.7);letter-spacing:.04em}
 
-/* ---------- why honey ---------- */
-.gf-why-in{display:grid;gap:30px;align-items:center}
-.gf-why-photo{margin:0;border-radius:28px 100px 28px 28px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 30px 70px rgba(60,40,10,.28),0 0 0 10px rgba(168,113,15,.07)}
-.gf-why-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
-.gf-why-photo:hover img{transform:scale(1.05)}
-.gf-why-copy h2{font-size:clamp(1.9rem,5vw,3rem);line-height:1.08;color:var(--g-green2)}
-.gf-why-copy h2 em{color:var(--g-gold);font-weight:500}
-.gf-why-copy>p:not(.gf-eyebrow){margin:16px 0 22px;line-height:1.8;color:var(--g-mute);font-size:1.02rem}
-.gf-why-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.gf-why-list li{padding:14px 18px;border-radius:16px;line-height:1.6;color:var(--g-mute);background:linear-gradient(135deg,#fffaf0,#f7efdb);
-  box-shadow:inset 4px 0 0 var(--g-honey),0 8px 22px rgba(60,40,10,.07);transition:transform .25s}
-.gf-why-list li:hover{transform:translateX(6px)}
-.gf-why-list b{color:var(--g-ink)}
+  var MAX_QTY = 100;
 
-/* ---------- how it works ---------- */
-.gf-how{background:var(--g-paper)}
-.gf-steps-list{list-style:none;margin:0;padding:10px 16px 20px;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-padding-inline:16px;-webkit-overflow-scrolling:touch}
-.gf-steps-list::-webkit-scrollbar{display:none}
-.gf-steps-list li{flex:0 0 78%;max-width:320px;scroll-snap-align:start;position:relative;padding:24px 22px;border-radius:24px;background:linear-gradient(160deg,#fffdf6,#f7ecd0);
-  border:1px solid var(--g-line);box-shadow:0 12px 28px rgba(60,40,10,.09);display:flex;flex-direction:column;gap:8px;transition:transform .25s,box-shadow .25s}
-.gf-steps-list li i{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;margin-bottom:6px;font:600 1.2rem var(--g-serif);font-style:normal;
-  background:linear-gradient(145deg,#1d4a2f,#0f2d1b);color:#f6e7bd;box-shadow:0 0 0 5px rgba(233,162,28,.25)}
-.gf-steps-list b{font:600 1.2rem var(--g-serif);color:var(--g-ink)}
-.gf-steps-list span{color:var(--g-mute);line-height:1.65;font-size:.95rem}
+  var MIN_QTY = 5;
 
-/* ---------- builder ---------- */
-.gf-build{background:radial-gradient(600px 300px at 0 0,rgba(233,162,28,.14),transparent 70%),linear-gradient(180deg,#fff7e4,#f9f1de)}
-.gf-build-grid{display:grid;gap:26px;align-items:start}
-.gf-steps{min-width:0}
-.gf-step{padding:22px 18px;margin-bottom:20px;border-radius:26px;background:var(--g-paper);border:1px solid var(--g-line);box-shadow:0 14px 34px rgba(60,40,10,.08);scroll-margin-top:calc(var(--nv-h,72px) + 12px)}
-.gf-step h3{display:flex;align-items:center;gap:12px;font-size:clamp(1.3rem,4.4vw,1.8rem);color:var(--g-green2)}
-.gf-step h3 span{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--g-green2);color:#f6e7bd;font:600 1rem var(--g-serif)}
-.gf-hint{margin:10px 0 18px;color:var(--g-mute);line-height:1.6;font-size:.94rem}
+  var OCCASIONS = [
 
-.gf-jars{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
-  margin-inline:-18px;padding:6px 18px 14px;scroll-padding-inline:18px}
-.gf-jars::-webkit-scrollbar{display:none}
-.gf-jar{flex:0 0 calc(100% - 52px);min-width:0;scroll-snap-align:start;display:grid;grid-template-columns:70px minmax(0,1fr);grid-template-areas:"img name" "qty qty";align-items:center;gap:12px 14px;
-  padding:14px;border-radius:20px;background:#fffdf6;border:1.5px solid var(--g-line);box-shadow:0 8px 20px rgba(60,40,10,.06);transition:border-color .25s,box-shadow .25s}
-.gf-jar.has-qty{border-color:var(--g-honey);box-shadow:0 12px 28px rgba(168,113,15,.2)}
-.gf-jar-img{grid-area:img;height:88px;display:flex;align-items:flex-end;justify-content:center;border-radius:14px;background:radial-gradient(circle,rgba(255,214,102,.6),transparent 70%)}
-.gf-jar-img img{width:auto;object-fit:contain;filter:drop-shadow(0 6px 6px rgba(90,50,0,.3))}
-.gf-jar-info{grid-area:name;min-width:0}
-.gf-jar-info b{display:block;font:600 1.25rem var(--g-serif)}
-.gf-jar-info span{color:var(--g-gold);font-weight:800}
-.gf-qty{grid-area:qty;display:flex;align-items:center;justify-content:space-between;gap:4px;padding:4px;border-radius:99px;background:#efe4c9}
-.gf-qty button{flex:0 0 46px;width:46px;height:46px;border:0;border-radius:50%;background:var(--g-paper);color:var(--g-green2);font:600 1.5rem/1 var(--g-sans);cursor:pointer;transition:background .15s,color .15s,transform .15s}
-.gf-qty button:hover:not(:disabled){background:var(--g-green2);color:#fff}
-.gf-qty button:active:not(:disabled){transform:scale(.92)}
-.gf-qty button:disabled{opacity:.35;cursor:not-allowed}
-.gf-qty .gf-qty-in{flex:1 1 auto;min-width:0;width:auto;margin:0;padding:8px 0;border:0;border-radius:8px;background:transparent;text-align:center;font:800 1.1rem var(--g-sans);color:var(--g-ink);box-shadow:none}
-.gf-swipe-jars{margin-top:2px;color:var(--g-mute)}
+    { id: "Birthday", icon: "🎂", msg: "Happy birthday! Here’s a little golden sweetness for the year ahead." },
 
-.gf-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.gf-chip{padding:10px 16px;border-radius:99px;border:1.5px solid var(--g-line);background:transparent;font:700 .88rem var(--g-sans);color:var(--g-ink);cursor:pointer;transition:all .18s}
-.gf-chip:hover{border-color:var(--g-gold);background:rgba(233,162,28,.12)}
-.gf-chip[aria-pressed="true"]{background:linear-gradient(135deg,#1d4a2f,#0f2d1b);border-color:var(--g-green2);color:#fbf3df;box-shadow:0 8px 18px rgba(20,58,35,.3)}
-.gf-fields{display:grid;gap:14px;margin-bottom:14px}
-.gf-body label{display:block;font-weight:700;font-size:.88rem;color:var(--g-green2)}
-.gf-body input,.gf-body textarea{display:block;width:100%;margin-top:7px;padding:14px 15px;border:1.5px solid var(--g-line);border-radius:14px;background:#fffdf6;font:400 1rem var(--g-sans);color:var(--g-ink);resize:vertical;transition:border-color .2s,box-shadow .2s}
-.gf-body input:focus,.gf-body textarea:focus{border-color:var(--g-green2);outline:0;box-shadow:0 0 0 3px rgba(20,58,35,.14)}
-.gf-msg small{display:block;text-align:right;margin-top:6px;color:var(--g-mute);font-weight:500}
+    { id: "Wedding", icon: "💍", msg: "Wishing you both a lifetime as sweet as this. Congratulations!" },
 
-.gf-side{display:grid;gap:20px;min-width:0}
-.gf-card{position:relative;padding:36px 26px 26px;border-radius:8px 8px 16px 16px;min-height:220px;transform:rotate(-1.2deg);
-  background:radial-gradient(circle at 100% 0,rgba(233,162,28,.2),transparent 55%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='1' cy='1' r='.5' fill='%23a8710f' fill-opacity='.12'/%3E%3C/svg%3E"),#fbf3df;
-  border:1px solid rgba(168,113,15,.45);box-shadow:0 22px 50px rgba(60,40,10,.2),inset 0 0 0 6px #fffaf0,inset 0 0 0 7px rgba(168,113,15,.35);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
-.gf-card:hover{transform:rotate(0) scale(1.02)}
-.gf-card:before{content:"";position:absolute;left:50%;top:-12px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6c453,#b87a0c);box-shadow:0 4px 10px rgba(0,0,0,.3)}
-.gf-card-brand{display:block;font:600 .72rem var(--g-serif);letter-spacing:.32em;color:var(--g-gold)}
-.gf-card-to{margin:16px 0 8px;font:600 1.3rem var(--g-serif);color:var(--g-green2)}
-.gf-card-msg{margin:0;font:italic 400 1.08rem/1.65 var(--g-serif);white-space:pre-wrap;overflow-wrap:anywhere;color:#3a2410}
-.gf-card-msg.ph{color:#a8987a}
-.gf-card-from{margin:16px 0 0;text-align:right;font:500 1rem var(--g-serif);color:var(--g-gold)}
-.gf-sum{padding:24px;border-radius:24px;color:#fbf3df;border:1px solid rgba(241,200,116,.3);box-shadow:0 18px 40px rgba(20,58,35,.3);
-  background:radial-gradient(400px 200px at 100% 0,rgba(233,162,28,.24),transparent 70%),linear-gradient(160deg,#1d4a2f,#0f2d1b)}
-.gf-sum h3{font-size:1.25rem;margin-bottom:14px;color:#fff7e2}
-.gf-lines{display:grid;gap:9px;font-size:.95rem}
-.gf-line{display:flex;justify-content:space-between;gap:12px;padding-bottom:9px;border-bottom:1px dashed rgba(251,243,223,.2)}
-.gf-empty{margin:0;color:rgba(251,243,223,.6)}
-.gf-add{width:100%}
-.gf-fine{margin:14px 0 0;font-size:.8rem;line-height:1.55;color:rgba(251,243,223,.7)}
+    { id: "Housewarming", icon: "🏡", msg: "Wishing your new home warmth, health and plenty of good mornings." },
 
-/* ---------- bulk band ---------- */
-.gf-bulk{position:relative;min-height:440px;display:flex;align-items:flex-end;overflow:hidden;background:#0c0704;color:#fff7e2}
-.gf-bulk>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center}
-.gf-bulk:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(12,7,4,.95) 35%,rgba(12,7,4,.45))}
-.gf-bulk-copy{position:relative;z-index:2;width:min(560px,100% - 32px);margin:0 16px 22px;padding:26px 22px;border-radius:26px;background:rgba(12,7,4,.5);backdrop-filter:blur(10px);border:1px solid rgba(241,200,116,.28)}
-.gf-bulk h2{font-size:clamp(1.6rem,5vw,2.7rem);line-height:1.12;color:#fff7e2}
-.gf-bulk p{margin:14px 0 22px;line-height:1.7;color:rgba(255,247,226,.88)}
+    { id: "Festival", icon: "🪔", msg: "Wishing you and your family a bright, healthy and joyful festival." },
 
-/* ---------- faq ---------- */
-.gf-faq-list{width:min(820px,100% - 32px);margin:0 auto;display:grid;gap:10px}
-.gf-faq details{border:1px solid var(--g-line);border-radius:16px;background:var(--g-paper);padding:0 18px;transition:box-shadow .25s,border-color .25s}
-.gf-faq details[open]{background:linear-gradient(135deg,#fffaf0,#f7efdb);box-shadow:0 14px 30px rgba(60,40,10,.1);border-color:var(--g-honey)}
-.gf-faq summary{cursor:pointer;list-style:none;padding:18px 30px 18px 0;font:600 1.04rem var(--g-serif);color:var(--g-green2);position:relative}
-.gf-faq summary::-webkit-details-marker{display:none}
-.gf-faq summary:after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font:400 1.6rem var(--g-sans);color:var(--g-gold)}
-.gf-faq details[open] summary:after{content:"–"}
-.gf-faq details p{margin:0;padding:0 0 18px;line-height:1.7;color:var(--g-mute)}
+    { id: "Thank you", icon: "🙏", msg: "Thank you for everything. This one is pure, just like your kindness." },
 
-/* ---------- mobile sticky bar ---------- */
-.gf-bar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));
-  background:rgba(15,45,27,.96);backdrop-filter:blur(10px);color:#fbf3df;box-shadow:0 -10px 30px rgba(0,0,0,.3);border-top:1px solid rgba(241,200,116,.3)}
-.gf-bar:not([hidden]){display:flex}
-.gf-bar strong{display:block;font:600 1.35rem var(--g-serif);color:#f6d58a}
-.gf-bar small{display:block;font-size:.78rem;color:rgba(251,243,223,.75)}
-.gf-bar .gf-btn{min-height:46px;padding:0 24px}
-.gf-body.has-bar{padding-bottom:84px}
+    { id: "Get well soon", icon: "💛", msg: "Get well soon. A spoonful of raw honey, with all my love." },
 
-/* ---------- scroll reveal ---------- */
-.gf-js .gf-rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-.gf-js .gf-rv.in{opacity:1;transform:none}
+    { id: "Just because", icon: "✨", msg: "No reason at all, except that you matter to me." },
 
-/* ---------- tablet and up ---------- */
-@media (min-width:700px){
-  .gf-occ-row{grid-template-columns:repeat(4,1fr);gap:16px}
-  .gf-cta-row .gf-btn{flex:0 0 auto}
-  .gf-fields{grid-template-columns:1fr 1fr}
-  .gf-set{flex:0 0 46%}
-  .gf-steps-list li{flex:0 0 44%}
-  .gf-bulk{align-items:center;justify-content:flex-end}
-  .gf-bulk:before{background:linear-gradient(270deg,rgba(12,7,4,.94) 0,rgba(12,7,4,.8) 40%,transparent 75%)}
-  .gf-bulk-copy{margin:0 clamp(20px,7vw,110px) 0 0;padding:36px 38px}
-}
-@media (min-width:980px){
-  .gf-hero{padding:80px 0 100px}
-  .gf-hero-in{grid-template-columns:1.05fr .95fr;gap:60px}
-  .gf-hero-media{order:0;width:min(100%,460px);margin:0 0 0 auto}
-  .gf-tag{right:-26px;font-size:1.15rem}
-  .gf-badge{left:-34px;width:104px;height:104px}
-  .gf-badge b{font-size:1.6rem}
-  .gf-occ-row{grid-template-columns:repeat(7,1fr);gap:14px}
-  .gf-occ-card{min-height:150px;font-size:.92rem}
-  .gf-occ-card span{font-size:2.4rem}
-  .gf-wrap-bleed{width:min(1180px,100% - 32px)}
-  .gf-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;overflow:visible;padding:14px 0 0}
-  .gf-set{flex:none;max-width:none}
-  .gf-set:hover{transform:translateY(-10px);box-shadow:0 40px 80px rgba(0,0,0,.45)}
-  .gf-set:hover .gf-set-art img{transform:scale(1.07) translateY(-4px)}
-  .gf-swipe{display:none}
-  .gf-why-in{grid-template-columns:1.1fr 1fr;gap:80px}
-  .gf-steps-list{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;overflow:visible;padding:10px 0}
-  .gf-steps-list li{flex:none;max-width:none;padding:30px 26px}
-  .gf-steps-list li:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(60,40,10,.15)}
-  .gf-build-grid{grid-template-columns:minmax(0,1fr) 390px;gap:48px}
-  .gf-step{padding:34px 32px}
-  .gf-side{position:sticky;top:calc(var(--nv-h,72px) + 18px)}
-  .gf-jars{display:grid;gap:14px;overflow:visible;margin:0;padding:0}
-  .gf-jar{grid-template-columns:76px minmax(0,1fr) auto;grid-template-areas:"img name qty";padding:14px 20px}
-  .gf-jar:hover{transform:translateY(-3px);border-color:var(--g-honey);box-shadow:0 16px 32px rgba(168,113,15,.18)}
-  .gf-qty{justify-content:center}
-  .gf-qty .gf-qty-in{flex:0 0 56px;width:56px}
-  .gf-swipe-jars{display:none}
-  .gf-bar,.gf-bar:not([hidden]){display:none}
-  .gf-body.has-bar{padding-bottom:0}
-  .gf-faq details:hover{border-color:var(--g-honey)}
-}
-@media (prefers-reduced-motion:reduce){
-  .gf-body{scroll-behavior:auto}
-  .gf-body *{transition:none!important;animation:none!important}
-  .gf-js .gf-rv{opacity:1;transform:none}
-}
+    { id: "Corporate Gifting", icon: "💼", msg: "Thank you for being a valued part of our journey. Wishing you continued success and a future filled with golden opportunities." }
 
-.gf-set-art{gap:6px;padding-inline:12px;overflow:hidden}
-.gf-set-art img{flex:0 0 auto;max-width:none}
-/* =========================================================
-   MOBILE: "Choose the jars" stacked vertically
-   ========================================================= */
-@media (max-width:979px){
+  ];
 
-  /* vertical list, no sideways scrolling */
-  .gf-jars{
-    display:grid;
-    gap:16px;
-    overflow:visible;
-    margin:0;
-    padding:4px 0 0;
-    scroll-snap-type:none;
-  }
-  .gf-swipe-jars{display:none}
 
-  .gf-jar{
-    flex:none;
-    max-width:none;
-    width:100%;
-    grid-template-columns:118px minmax(0,1fr);
-    grid-template-areas:"img name" "qty qty";
-    align-items:center;
-    justify-items:stretch;
-    text-align:left;
-    gap:14px 16px;
-    padding:18px;
-    border-radius:26px;
-    background:linear-gradient(170deg,#fffdf6,#f8edd0);
-    border:2px solid var(--g-line);
-    box-shadow:0 14px 32px rgba(60,40,10,.1);
-  }
-  .gf-jar.has-qty{
-    border-color:var(--g-honey);
-    box-shadow:0 0 0 3px rgba(233,162,28,.22),0 16px 36px rgba(168,113,15,.2);
-  }
 
-  /* big jar on a golden glow */
-  .gf-jar-img{
-    width:118px;
-    height:132px;
-    padding-bottom:10px;
-    border-radius:20px;
-    background:
-      radial-gradient(circle at 50% 70%,rgba(255,255,255,.9),rgba(255,214,102,.6) 50%,transparent 75%),
-      linear-gradient(180deg,#ffe9a8,#f8c654);
-    overflow:visible;
-  }
-  .gf-jar-img img{
-    transform:scale(1.35);
-    transform-origin:bottom center;
-    filter:drop-shadow(0 10px 8px rgba(110,55,0,.4));
-  }
+  var $ = function (id) { return document.getElementById(id); };
 
-  .gf-jar-info b{font-size:1.6rem;line-height:1.1}
-  .gf-jar-info span{display:block;margin-top:5px;font-size:1.05rem}
+  var state = { qty: {}, occasion: "", to: "", from: "", msg: "", autoMsg: "", set: "" };
 
-  /* quantity bar: full width, big tap targets */
-  .gf-qty{
-    width:100%;
-    padding:5px;
-    border-radius:99px;
-    background:#efe4c9;
-  }
-  .gf-qty button{
-    flex:0 0 54px;
-    width:54px;
-    height:54px;
-    font-size:1.7rem;
-    background:var(--g-green2);
-    color:#fff7e2;
-    box-shadow:0 6px 14px rgba(15,45,27,.3);
-  }
-  .gf-qty button:hover:not(:disabled){background:var(--g-green3)}
-  .gf-qty button:disabled{background:#cdbf9c;color:#fff;box-shadow:none;opacity:1}
-  .gf-qty .gf-qty-in{font-size:1.35rem}
-}
-/* ===== SMOOTH SCROLL SUPPORT ===== */
-html:not(.lenis){scroll-behavior:smooth}
-html.lenis,html.lenis body{height:auto}
-html.lenis{scroll-behavior:auto!important}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
-.lenis.lenis-stopped{overflow:hidden}
-.lenis.lenis-scrolling iframe{pointer-events:none}
+  var products = [];
 
-/* overflow-x:hidden on html/body can break smooth scrolling and sticky headers; clip is safer */
-html,body{overflow-x:clip}
 
-/* remove permanent GPU layers that cause scroll stutter */
-.product-card,.mh-hero-copy{will-change:auto!important}
-.product-card{transform-style:flat!important}
-.premium-honey-bottle{transform-style:flat!important}
 
-/* skip rendering work for sections that are far off-screen */
-.ab,.gf-teaser,.mh-shop,.mh-how,.fq,.site-footer{
-  content-visibility:auto;
-  contain-intrinsic-size:auto 800px;
-}
+  function loadProducts() {
 
-/* hero animations pause when you scroll past the hero */
-.mh-hero.is-off *,
-.mh-hero.is-off *::before,
-.mh-hero.is-off *::after{animation-play-state:paused!important}
+    return getProducts().filter(function (p) { return p.inStock; })
 
-/* lighter header blur = smoother scroll */
-.site-header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+      .sort(function (a, b) { return a.price - b.price; });
 
-@media (max-width:800px){
-  /* phones use native momentum scroll, so keep effects light */
-  .gf-tag{animation:none}
-  .mh-spark,.mh-gold-particle{display:none}
-}
+  }
 
-/* ===== PREMIUM CORPORATE GIFTING ===== */
+  function sig(list) { return list.map(function (p) { return p.id + ":" + p.price + ":" + p.weight; }).join("|"); }
 
-.gf-corporate {
-  min-height: 560px;
-  align-items: center;
-}
+  function weightOf(id) { var p = products.filter(function (x) { return x.id === id; })[0]; return p ? p.weight : ""; }
 
-.gf-corporate > img {
-  object-position: center;
-}
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
-.gf-corporate:before {
-  background:
-    linear-gradient(
-      90deg,
-      rgba(10, 25, 14, .45),
-      rgba(10, 25, 14, .94) 55%,
-      rgba(10, 25, 14, .96)
-    );
-}
+  function jarImg(h) { var i = new Image(); i.src = "images/madhuravana-front-bottle.png"; i.alt = ""; i.loading = "lazy"; i.style.height = h + "px"; return i; }
 
-.gf-corporate .gf-bulk-copy {
-  width: min(590px, calc(100% - 32px));
-  margin: 32px 5vw 32px auto;
-  padding: clamp(26px, 4vw, 44px);
-  background: rgba(15, 45, 27, .76);
-  border: 1px solid rgba(246, 196, 83, .42);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
-}
+  function goTo(id) {
 
-.gf-corporate .gf-eyebrow {
-  color: #f6c453;
-  font-size: .72rem;
-  letter-spacing: .2em;
-  line-height: 1.7;
-}
+    var t = $(id); if (!t) return;
 
-.gf-corporate h2 em {
-  color: #f6c453;
-  font-weight: 500;
-}
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-.gf-corporate-points {
-  display: grid;
-  gap: 12px;
-  margin: 22px 0 26px;
-}
+    t.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 
-.gf-corporate-points span {
-  color: #fff4d7;
-  font-size: .93rem;
-  line-height: 1.5;
-}
+  }
 
-.gf-corporate .gf-bulk-copy > small {
-  display: block;
-  margin-top: 16px;
-  color: rgba(255, 247, 226, .76);
-  font-size: .82rem;
-  line-height: 1.7;
-}
 
-@media (max-width: 699px) {
-  .gf-corporate {
-    min-height: 590px;
-  }
 
-  .gf-corporate:before {
-    background: linear-gradient(
-      0deg,
-      rgba(10, 25, 14, .97) 0%,
-      rgba(10, 25, 14, .86) 65%,
-      rgba(10, 25, 14, .3) 100%
-    );
-  }
+  /* ---------- gift sets ---------- */
 
-  .gf-corporate .gf-bulk-copy {
-    margin: 180px 16px 20px;
-    padding: 25px 20px;
-  }
+  function makeSets() {
 
-  .gf-corporate .gf-btn {
-    width: 100%;
-    padding-inline: 16px;
-    text-align: center;
-  }
-}
-/* Golden selected occasion */
-.gf-occ-card[aria-pressed="true"],
-.gf-chip[aria-pressed="true"] {
-  background: linear-gradient(135deg, #f6c453, #e9a21c);
-  border-color: #a8710f;
-  color: #2a1706;
-  box-shadow: 0 8px 20px rgba(168, 113, 15, 0.25);
-}
+    var n = products.length, sets = [];
 
-/* ===== NO PRICES: layout adjustments ===== */
-.gf-set-foot .gf-btn{width:100%}
-.gf-sum .gf-add{margin-top:18px}
-.gf-bar strong{font-size:1.2rem}
+    if (!n) return sets;
+
+    sets.push({ id: "small", name: "The Sweet Gesture", desc: "A thoughtful little thank-you that says so much.", art: [150], items: [[products[0].id, MIN_QTY]] });
+
+    if (n > 1) sets.push({ id: "big", name: "The Golden Moment", desc: "A generous golden gift for life’s special moments.", art: [215], items: [[products[n - 1].id, MIN_QTY]], ribbon: "Most loved" });
+
+    if (n > 2) sets.push({ id: "all", name: "The Grand Gesture", desc: "A beautiful gathering of every honey size, made for celebration.", art: [105, 140, 175], items: products.map(function (p) { return [p.id, MIN_QTY]; }) });
+
+    return sets;
+
+  }
+
+  function renderSets() {
+
+    var box = $("gf-showcase"); box.innerHTML = "";
+
+    makeSets().forEach(function (s) {
+
+      var card = el("article", "gf-set" + (state.set === s.id ? " is-on" : ""));
+
+      if (s.ribbon) card.appendChild(el("span", "gf-ribbon", s.ribbon));
+
+      var art = el("div", "gf-set-art"); s.art.forEach(function (h) { art.appendChild(jarImg(h)); });
+
+      var body = el("div", "gf-set-body");
+
+      body.appendChild(el("h3", "", s.name)); body.appendChild(el("p", "", s.desc));
+
+      var inc = el("ul", "gf-set-inc");
+
+      s.items.forEach(function (it) { inc.appendChild(el("li", "", it[1] + " × " + weightOf(it[0]) + " jar")); });
+
+      inc.appendChild(el("li", "", "Your personal card message"));
+
+      body.appendChild(inc);
+
+      var foot = el("div", "gf-set-foot");
+
+      var b = el("button", "gf-btn", state.set === s.id ? "Selected" : "Choose this set"); b.type = "button";
+
+      b.addEventListener("click", function () {
+
+        state.qty = {}; s.items.forEach(function (it) { state.qty[it[0]] = it[1]; });
+
+        state.set = s.id; renderAll(); goTo("build");
+
+      });
+
+      foot.appendChild(b); body.appendChild(foot);
+
+      card.appendChild(art); card.appendChild(body); box.appendChild(card);
+
+    });
+
+    if (!box.children.length) box.appendChild(el("p", "gf-hint", "Our jars are restocking. Please check back soon, or message us on WhatsApp."));
+
+  }
+
+
+
+  /* ---------- jar cards ---------- */
+
+  function hOf(w) {
+
+    var m = String(w || "").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/); if (!m) return 60;
+
+    var g = parseFloat(m[1]) * (m[2] === "kg" ? 1000 : 1);
+
+    return Math.round(84 * Math.max(.45, Math.min(1, .45 + .55 * Math.log(g / 100) / Math.LN10)));
+
+  }
+
+  function renderJars() {
+
+    var box = $("gf-jars"); box.innerHTML = "";
+
+    if (!products.length) { box.appendChild(el("p", "gf-hint", "Our jars are restocking. Please check back soon, or message us on WhatsApp.")); return; }
+
+    products.forEach(function (p) {
+
+      var q = state.qty[p.id] || 0;
+
+      var row = el("div", "gf-jar" + (q > 0 ? " has-qty" : ""));
+
+      var imgBox = el("div", "gf-jar-img"); var img = jarImg(hOf(p.weight));
+
+      img.alt = "MADHURAVANA Pure Honey " + p.weight; imgBox.appendChild(img);
+
+      var info = el("div", "gf-jar-info"); info.appendChild(el("b", "", p.weight));
+
+      var qty = el("div", "gf-qty");
+
+      var minus = el("button", "", "−"); minus.type = "button"; minus.setAttribute("aria-label", "Fewer " + p.weight + " jars"); minus.disabled = q <= 0;
+
+      var out = el("input", "gf-qty-in"); out.type = "text"; out.inputMode = "numeric"; out.maxLength = 3; out.value = String(q);
+
+      out.setAttribute("aria-label", p.weight + " quantity");
+
+      out.addEventListener("change", function () { var n = parseInt(out.value.replace(/\D/g, ""), 10); setQty(p.id, isNaN(n) ? 0 : n); });
+
+      out.addEventListener("keydown", function (e) { if (e.key === "Enter") out.blur(); });
+
+      var plus = el("button", "", "+"); plus.type = "button"; plus.setAttribute("aria-label", "More " + p.weight + " jars"); plus.disabled = q >= MAX_QTY;
+
+      minus.addEventListener("click", function () { setQty(p.id, q <= MIN_QTY ? 0 : q - 1); });
+
+      plus.addEventListener("click", function () { setQty(p.id, q < MIN_QTY ? MIN_QTY : q + 1); });
+
+      qty.appendChild(minus); qty.appendChild(out); qty.appendChild(plus);
+
+      row.appendChild(imgBox); row.appendChild(info); row.appendChild(qty); box.appendChild(row);
+
+    });
+
+  }
+
+  function setQty(id, n) {
+
+    n = n <= 0 ? 0 : Math.max(MIN_QTY, Math.min(MAX_QTY, n));
+
+    state.qty[id] = n; state.set = ""; renderAll();
+
+  }
+
+
+
+  /* ---------- occasions ---------- */
+
+  function pickOccasion(o) {
+
+    var pristine = !state.msg || state.msg === state.autoMsg;
+
+    state.occasion = o.id; state.autoMsg = o.msg;
+
+    if (pristine) { state.msg = o.msg; $("gf-msg").value = o.msg; }
+
+    renderChips(); renderOcc(); renderCard();
+
+  }
+
+  function renderOcc() {
+
+    var box = $("gf-occ"); if (!box) return; box.innerHTML = "";
+
+    OCCASIONS.forEach(function (o) {
+
+      var b = el("button", "gf-occ-card"); b.type = "button"; b.setAttribute("aria-pressed", String(state.occasion === o.id));
+
+      b.appendChild(el("span", "", o.icon)); b.appendChild(document.createTextNode(o.id));
+
+      b.addEventListener("click", function () { pickOccasion(o); goTo("card-step"); });
+
+      box.appendChild(b);
+
+    });
+
+  }
+
+  function renderChips() {
+
+    var box = $("gf-chips"); box.innerHTML = "";
+
+    OCCASIONS.forEach(function (o) {
+
+      var b = el("button", "gf-chip", o.id); b.type = "button"; b.setAttribute("aria-pressed", String(state.occasion === o.id));
+
+      b.addEventListener("click", function () { pickOccasion(o); });
+
+      box.appendChild(b);
+
+    });
+
+  }
+
+
+
+  /* ---------- card + summary + mobile bar ---------- */
+
+  function renderCard() {
+
+    $("gf-card-to").textContent = state.to ? "For " + state.to : "For someone special";
+
+    var m = $("gf-card-msg");
+
+    m.textContent = state.msg || "Your message will appear here."; m.classList.toggle("ph", !state.msg);
+
+    $("gf-card-from").textContent = state.from ? "— " + state.from : "";
+
+    $("gf-count").textContent = String(state.msg.length);
+
+  }
+
+  function chosen() {
+
+    return products.filter(function (p) { return (state.qty[p.id] || 0) > 0; })
+
+      .map(function (p) { return { p: p, q: state.qty[p.id] }; });
+
+  }
+
+  function renderSummary() {
+
+    var lines = $("gf-lines"); lines.innerHTML = "";
+
+    var list = chosen(), count = 0;
+
+    if (!list.length) lines.appendChild(el("p", "gf-empty", "No jars chosen yet."));
+
+    list.forEach(function (c) {
+
+      var l = el("div", "gf-line"); l.appendChild(el("span", "", c.p.weight + " × " + c.q));
+
+      lines.appendChild(l); count += c.q;
+
+    });
+
+    $("gf-add").disabled = !list.length;
+
+    var bar = $("gf-bar");
+
+    bar.hidden = !list.length; document.body.classList.toggle("has-bar", !!list.length);
+
+    $("gf-bar-count").textContent = count + (count === 1 ? " jar" : " jars");
+
+  }
+
+  function renderAll() {
+
+    var setsBox = $("gf-showcase"), jarsBox = $("gf-jars");
+
+    var setsX = setsBox.scrollLeft, jarsX = jarsBox.scrollLeft;
+
+    renderSets(); renderJars(); renderSummary(); renderCard();
+
+    setsBox.scrollLeft = setsX; jarsBox.scrollLeft = jarsX;
+
+  }
+
+
+
+  /* ---------- add to cart ---------- */
+
+  function addToCartAndGo() {
+
+    var list = chosen(); if (!list.length) return;
+
+    var cart = getCart();
+
+    list.forEach(function (c) {
+
+      var it = cart.filter(function (x) { return x.id === c.p.id && x.gift; })[0];
+
+      if (it) it.quantity += c.q; else cart.push({ id: c.p.id, quantity: c.q, gift: true });
+
+    });
+
+    saveCart(cart);
+
+    var note = { fromGift: true, occasion: state.occasion, to: state.to.trim(), from: state.from.trim(), message: state.msg.trim(), savedAt: Date.now() };
+
+    try {
+
+      if (note.to || note.from || note.message) localStorage.setItem(GIFT_NOTE_KEY, JSON.stringify(note));
+
+      else localStorage.removeItem(GIFT_NOTE_KEY);
+
+    } catch (e) {}
+
+    updateCartCount();
+
+    location.href = "cart.html";
+
+  }
+
+  function restoreNote() {
+
+    var n = getGiftNote(); if (!n) return;
+
+    state.occasion = n.occasion || ""; state.to = n.to || ""; state.from = n.from || ""; state.msg = n.message || "";
+
+    $("gf-to").value = state.to; $("gf-from").value = state.from; $("gf-msg").value = state.msg;
+
+  }
+
+
+
+  /* ---------- scroll reveal ---------- */
+
+  function setupReveal() {
+
+    if (!("IntersectionObserver" in window)) return;
+
+    var targets = document.querySelectorAll(".gf-head,.gf-occ-card,.gf-set,.gf-why-photo,.gf-why-copy,.gf-steps-list li,.gf-step,.gf-side>*,.gf-bulk-copy,.gf-faq details");
+
+    var io = new IntersectionObserver(function (en) {
+
+      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } });
+
+    }, { threshold: .1 });
+
+    targets.forEach(function (t) { t.classList.add("gf-rv"); io.observe(t); });
+
+    /* safety: never leave anything hidden */
+
+    setTimeout(function () { document.querySelectorAll(".gf-rv").forEach(function (t) { t.classList.add("in"); }); }, 4500);
+
+  }
+
+
+
+  function init() {
+
+    products = loadProducts();
+
+    restoreNote();
+
+    if (products.length && !Object.keys(state.qty).length) state.qty[products[0].id] = MIN_QTY;
+
+    $("gf-to").addEventListener("input", function (e) { state.to = e.target.value; renderCard(); });
+
+    $("gf-from").addEventListener("input", function (e) { state.from = e.target.value; renderCard(); });
+
+    $("gf-msg").addEventListener("input", function (e) { state.msg = e.target.value; renderCard(); });
+
+    $("gf-add").addEventListener("click", addToCartAndGo);
+
+    $("gf-bar-add").addEventListener("click", function () {
+
+      /* on phones, make sure they have seen the card step before checking out */
+
+      if (!state.to && !state.msg) { goTo("card-step"); } else addToCartAndGo();
+
+    });
+
+    renderOcc(); renderChips(); renderAll(); setupReveal();
+
+
+
+    /* product list can be refreshed from the cloud a moment after load: re-draw if it changed */
+
+    var last = sig(products), tries = 0;
+
+    var t = setInterval(function () {
+
+      var next = loadProducts();
+
+      if (sig(next) !== last) {
+
+        last = sig(next); products = next;
+
+        Object.keys(state.qty).forEach(function (id) { if (!products.some(function (p) { return p.id === id; })) delete state.qty[id]; });
+
+        renderAll();
+
+      }
+
+      if (++tries > 8) clearInterval(t);
+
+    }, 1500);
+
+  }
+
+
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+
+})();
