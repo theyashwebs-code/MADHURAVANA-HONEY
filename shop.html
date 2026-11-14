@@ -1,443 +1,1614 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shop MADHURAVANA Pure Honey in 200g, 250g and 500g sizes.">
-  <title>Shop | MADHURAVANA Pure Honey</title>
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/favicon-16x16.png">
-<link rel="apple-touch-icon" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/apple-touch-icon.png">
-<link rel="manifest" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/site.webmanifest">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b20">
+<title>Shop the Golden Collection | MADHURAVANA</title>
+<link rel="icon" href="images/madhuravana-favicon.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Caveat+Brush&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="magic-upgrade.css"><link rel="stylesheet" href="wow.css"><link rel="stylesheet" href="static-premium.css?v=20261016"><link rel="stylesheet" href="mobile-premium.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
-  <style>
-    html{scroll-behavior:smooth}
-    body[data-page="shop"]{
-      --honey:#f6a800; --amber:#e48a00; --deep:#8a4a00; --brown:#3b2008;
-      background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23c88a10' stroke-opacity='.10' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23c88a10' stroke-opacity='.10' stroke-width='2'/%3E%3C/svg%3E"),
-        linear-gradient(180deg,#fff7de,#ffefbd);
-    }
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="premium.css">
+<link rel="stylesheet" href="nav.css">
+<link rel="stylesheet" href="mobile-premium.css">
 
-    /* =====================================================================
-       HERO: compact, whole photo visible (left) + shopping text (right)
-    ===================================================================== */
-    body[data-page="shop"] .page-hero.shop-hero{
-      position:relative;overflow:visible;isolation:isolate;
-      display:block;
-      min-height:0 !important;height:auto !important;
-      padding:clamp(28px,4vw,48px) 20px clamp(52px,5vw,68px) !important;
-      margin-bottom:56px;
-      background:
-        radial-gradient(ellipse 55% 95% at 24% 50%, rgba(246,168,0,.30), transparent 72%),
-        #0c0704 !important;
-      text-align:left;
-    }
-    body[data-page="shop"] .page-hero.shop-hero:before,
-    body[data-page="shop"] .page-hero.shop-hero:after{content:none !important;display:none !important}
-
-    .shop-hero-inner{
-      position:relative;z-index:2;
-      width:min(1120px,100%);margin:0 auto;
-      display:grid;
-      grid-template-columns:minmax(0,470px) minmax(0,1fr);
-      gap:clamp(24px,5vw,68px);
-      align-items:center;
-    }
-
-    /* the photo: same 3:2 shape as the image = nothing cropped */
-    .shop-hero-photo{
-      margin:0;
-      aspect-ratio:3/2;
-      border-radius:22px 90px 22px 22px;
-      overflow:hidden;
-      background:#0c0704;
-      border:2px solid rgba(246,213,138,.6);
-      box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 0 8px rgba(246,213,138,.08),0 0 70px rgba(246,168,0,.22);
-    }
-    .shop-hero-photo img{
-      display:block;width:100%;height:100%;
-      object-fit:cover;object-position:center;
-      filter:brightness(1.28) contrast(1.05) saturate(1.1);
-    }
-
-    .shop-hero-copy{width:auto;max-width:520px}
-    body[data-page="shop"] .shop-hero .eyebrow{color:#f6d58a !important;letter-spacing:.3em;font-size:.74rem;font-weight:800}
-    body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy h1{
-      max-width:none;margin-inline:0;padding:0;
-      background:none !important;-webkit-text-fill-color:#fff7e2;
-      margin:10px 0 12px !important;color:#fff7e2 !important;font-weight:600;
-      font-size:clamp(2.1rem,4.4vw,3.6rem) !important;letter-spacing:-.02em;line-height:1.04 !important;
-      text-shadow:0 4px 24px rgba(0,0,0,.45);
-    }
-    body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy h1 em{
-      font-style:italic;font-weight:500;text-shadow:none;
-      background-image:linear-gradient(100deg,#f6d58a,#e6b04a 55%,#c98a1c) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent !important;
-    }
-    body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy p{margin:0;color:rgba(255,247,226,.92);font-size:1.05rem;max-width:440px;font-weight:500;line-height:1.65}
-
-    /* clear "this is a shop" button */
-    .shop-cta{
-      display:inline-flex;align-items:center;gap:10px;
-      margin-top:22px;padding:14px 28px;border-radius:99px;
-      background:linear-gradient(180deg,#ffc83d,#f19a00);color:#3b2008 !important;
-      font-weight:900;letter-spacing:.04em;text-decoration:none;
-      box-shadow:0 12px 26px rgba(228,138,0,.5),inset 0 2px 0 rgba(255,255,255,.5);
-      transition:transform .25s ease,box-shadow .25s ease;
-    }
-    .shop-cta:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(228,138,0,.65),inset 0 2px 0 rgba(255,255,255,.5)}
-    .shop-cta span{display:inline-block;animation:ctaBob 1.6s ease-in-out infinite}
-    @keyframes ctaBob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-
-    .shop-marks{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:10px;margin-top:20px}
-    .shop-marks span{
-      padding:7px 14px;border-radius:99px;background:rgba(255,247,222,.94);
-      color:#6b3a00;font-size:.74rem;font-weight:800;letter-spacing:.04em;
-      box-shadow:0 6px 14px rgba(0,0,0,.3);
-    }
-
-    .honey-drips{position:absolute;left:0;right:0;top:calc(100% - 1px);width:100%;height:60px;display:block;pointer-events:none}
-    .honey-drips path{fill:#0c0704}
-    .bee{position:absolute;font-size:1.6rem;animation:beeFly 6s ease-in-out infinite;pointer-events:none;z-index:3}
-    .bee.b1{top:36px;right:6%}
-    .bee.b2{bottom:70px;right:30%;animation-delay:-3s;font-size:1.3rem}
-    @keyframes beeFly{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(18px,-12px) rotate(8deg)}}
-
-    /* =====================================================================
-       SHOP TITLE + TOOLBAR
-    ===================================================================== */
-    body[data-page="shop"] main .section{padding-top:0 !important}
-    .shop-title{
-      margin:0 0 16px;text-align:center;
-      font:600 clamp(1.7rem,3.4vw,2.4rem)/1.15 Fraunces,Georgia,serif;
-      color:var(--brown);letter-spacing:-.01em;
-      scroll-margin-top:90px;
-    }
-    .shop-title small{display:block;margin-top:6px;font:600 .92rem Inter,system-ui,sans-serif;color:#8a6a30;letter-spacing:0}
-    body[data-page="shop"] .shop-toolbar{
-      display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
-      padding:14px 20px;margin-bottom:28px;
-      background:#fff9e6;border:2px solid #f2c04a;border-radius:99px;
-      box-shadow:0 10px 24px rgba(200,130,0,.15);
-    }
-    body[data-page="shop"] .shop-toolbar strong{color:var(--brown)}
-    body[data-page="shop"] .shop-toolbar .muted{color:#8a6a30;font-size:.86rem}
-    body[data-page="shop"] .shop-toolbar select{
-      min-height:42px;padding:0 36px 0 18px;border-radius:99px;
-      border:2px solid var(--honey);background:#fff;
-      font:inherit;font-weight:700;color:var(--brown);cursor:pointer;outline:none;
-    }
-
-    /* ---------- PRODUCT GRID: centered, fixed-size cards ---------- */
-    body[data-page="shop"] #shop-products{
-      display:flex !important;
-      flex-wrap:wrap !important;
-      justify-content:center !important;
-      align-items:flex-start;
-      gap:28px !important;
-      scroll-margin-top:90px;
-    }
-    body[data-page="shop"] #shop-products .product-card{
-      flex:0 0 auto !important;
-      width:300px !important;
-      max-width:100% !important;
-      opacity:1 !important;visibility:visible !important;
-      position:relative;display:flex !important;flex-direction:column;padding:0 !important;overflow:hidden;
-      background:#fffaf0;border:2px solid #f2c04a;border-radius:30px;
-      box-shadow:0 18px 40px rgba(200,130,0,.20);
-      transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
-    }
-    body[data-page="shop"] #shop-products .product-card:hover{
-      transform:translateY(-8px);border-color:var(--amber);
-      box-shadow:0 30px 60px rgba(200,130,0,.34);
-    }
-
-    /* ---------- BIG BOTTLE (fully visible) ---------- */
-    body[data-page="shop"] #shop-products .product-card .product-visual{
-      position:relative !important;display:flex !important;
-      align-items:center;justify-content:center;
-      width:100% !important;height:320px !important;padding:18px 0 14px !important;margin:0 !important;overflow:hidden;
-      background:
-        radial-gradient(circle at 50% 55%,rgba(255,255,255,.75),rgba(255,214,102,.5) 45%,transparent 72%),
-        linear-gradient(180deg,#ffe08a,#ffc83d);
-    }
-    body[data-page="shop"] #shop-products .product-card .product-visual::before{
-      content:"";position:absolute;left:50%;top:50%;width:200px;height:230px;
-      transform:translate(-50%,-50%);background:rgba(255,255,255,.4);
-      clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
-    }
-    body[data-page="shop"] #shop-products .product-card .product-visual img{
-      position:relative !important;
-      left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;
-      height:100% !important;
-      width:auto !important;max-width:90% !important;max-height:100% !important;
-      object-fit:contain !important;
-      transform:none !important;
-      filter:drop-shadow(0 16px 16px rgba(120,60,0,.4));
-      transition:transform .4s ease;
-      z-index:1;
-    }
-    body[data-page="shop"] #shop-products .product-card:hover .product-visual img{
-      transform:scale(1.05) !important;
-    }
-
-    /* ---------- CARD TEXT ---------- */
-    body[data-page="shop"] .p-name{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      margin:18px 20px 0;font-weight:700;font-size:1.1rem;color:var(--brown);line-height:1.2;
-    }
-    body[data-page="shop"] .p-name small{
-      flex:none;margin:0;padding:5px 13px;border-radius:99px;
-      background:var(--honey);color:#3b2008;
-      font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:none;
-    }
-    body[data-page="shop"] .p-desc{margin:10px 20px 0;font-size:.86rem;line-height:1.5;color:#6e5430;flex:1}
-    body[data-page="shop"] .stock-badge{margin-top:10px !important;color:#2f7a38;font-weight:800;font-size:.76rem}
-    body[data-page="shop"] .stock-badge.out{color:#a33a2d}
-    body[data-page="shop"] .p-buy{
-      display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;
-      margin:16px 20px 20px;padding-top:14px;border-top:2px dotted #f2c04a;
-    }
-    body[data-page="shop"] .p-fig{font-size:1.6rem;font-weight:700;color:var(--deep);letter-spacing:-.02em}
-    body[data-page="shop"] .p-buy .reserve-link{color:var(--deep);font-weight:800;font-size:.84rem;text-decoration:underline;text-underline-offset:4px}
-    body[data-page="shop"] .p-buy .add-btn{
-      grid-column:1/-1;min-height:48px;border-radius:99px;border:0;cursor:pointer;
-      background:linear-gradient(180deg,#ffc83d,#f19a00);color:#3b2008;
-      font:inherit;font-weight:900;letter-spacing:.05em;
-      box-shadow:0 10px 22px rgba(228,138,0,.45),inset 0 2px 0 rgba(255,255,255,.5);
-      transition:transform .25s ease,box-shadow .25s ease;
-    }
-    body[data-page="shop"] .p-buy .add-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 16px 30px rgba(228,138,0,.6),inset 0 2px 0 rgba(255,255,255,.5)}
-    body[data-page="shop"] .p-buy .add-btn:disabled{opacity:.5;cursor:not-allowed}
-
-    /* ---------- PROMISE STRIP ---------- */
-    .shop-promise{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;
-      margin-top:56px;padding:28px;border-radius:32px;
-      background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-opacity='.2' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-opacity='.2' stroke-width='2'/%3E%3C/svg%3E"),
-        linear-gradient(180deg,#f6a800,#e48a00);
-      color:#3b2008;
-    }
-    .shop-promise div{text-align:center;padding:6px 10px}
-    .shop-promise b{display:block;font-size:1.8rem;margin-bottom:6px}
-    .shop-promise strong{display:block;font-size:1rem;font-weight:800}
-    .shop-promise small{display:block;margin-top:4px;color:#5a2f00;font-size:.84rem;font-weight:600}
-
-    /* ---------- tablet & phone: photo on top (whole jar visible), text below ---------- */
-    @media (max-width:820px){
-      body[data-page="shop"] .page-hero.shop-hero{padding:22px 16px 52px !important;margin-bottom:48px;text-align:center}
-      .shop-hero-inner{grid-template-columns:1fr;gap:22px;justify-items:center}
-      .shop-hero-photo{width:min(100%,520px);border-radius:18px 70px 18px 18px}
-      .shop-hero-copy{max-width:460px}
-      body[data-page="shop"] .page-hero.shop-hero .shop-hero-copy p{margin:0 auto;font-size:.98rem}
-      .shop-marks{justify-content:center}
-      .bee{display:none}
-    }
-    @media (max-width:600px){
-      .honey-drips{height:44px}
-      .shop-cta{width:100%;justify-content:center}
-      .shop-marks{gap:8px;margin-top:16px}
-      .shop-marks span{padding:6px 12px;font-size:.7rem}
-      body[data-page="shop"] .shop-toolbar{border-radius:22px;padding:12px 14px}
-      body[data-page="shop"] .shop-toolbar .muted{display:none}
-      body[data-page="shop"] #shop-products{gap:22px !important}
-      body[data-page="shop"] #shop-products .product-card{width:100% !important;max-width:340px !important}
-      body[data-page="shop"] #shop-products .product-card .product-visual{height:280px !important}
-      .shop-promise{padding:20px}
-    }
-    @media (prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      .bee,.shop-cta span{animation:none}
-      body[data-page="shop"] #shop-products .product-card,
-      body[data-page="shop"] #shop-products .product-card .product-visual img,
-      body[data-page="shop"] .p-buy .add-btn,
-      .shop-cta{transition:none}
-    }
-
-    /* =====================================================================
-       EDITORIAL BLOCK ("Golden, Genuine")
-    ===================================================================== */
-    .mh-extra-editorial{
-      width:min(1120px,calc(100% - 40px));
-      margin:clamp(48px,7vw,92px) auto;
-      display:grid;
-      grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
-      align-items:center;
-      gap:clamp(26px,5vw,72px);
-      padding:clamp(22px,4vw,48px);
-      border:1px solid rgba(190,133,49,.28);
-      border-radius:28px;
-      background:linear-gradient(135deg,#21170f 0%,#382313 52%,#17120d 100%);
-      color:#fff4df;
-      box-shadow:0 24px 65px rgba(59,32,8,.18);
-      overflow:hidden;
-      position:relative;
-      isolation:isolate;
-    }
-    .mh-extra-editorial:before{
-      content:"";position:absolute;width:360px;height:360px;left:-180px;top:-190px;
-      border-radius:50%;background:radial-gradient(circle,rgba(235,171,58,.22),transparent 70%);
-      pointer-events:none;z-index:-1;
-    }
-    .mh-extra-editorial-copy{position:relative;z-index:1;padding:8px 0}
-    .mh-extra-kicker{display:block;color:#edc16e;font-size:.72rem;font-weight:800;letter-spacing:.19em;line-height:1.6}
-    .mh-extra-editorial-copy h2{font:600 clamp(2rem,4.2vw,3.8rem)/1.02 Fraunces,Georgia,serif;letter-spacing:-.035em;color:#fff4df;margin:18px 0}
-    .mh-extra-editorial-copy h2 em{color:#edc16e;font-weight:500}
-    .mh-extra-editorial-copy p{max-width:430px;color:rgba(255,244,223,.78);font-size:1rem;line-height:1.8;margin:0}
-    .mh-extra-editorial-photo{margin:0;position:relative;min-width:0;height:clamp(280px,35vw,430px);border-radius:190px 190px 18px 18px;overflow:hidden;border:1px solid rgba(237,193,110,.42);background:#21160e;box-shadow:0 22px 50px rgba(0,0,0,.38)}
-    .mh-extra-editorial-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s;filter:brightness(1.06) saturate(1.08)}
-    .mh-extra-editorial-photo:hover img{transform:scale(1.045);filter:brightness(1.12) saturate(1.12)}
-    .mh-extra-editorial-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:42px 22px 18px;color:#fff4df;font:500 1rem Fraunces,Georgia,serif;letter-spacing:.04em;background:linear-gradient(transparent,rgba(12,8,4,.78))}
-    .mh-cart-editorial{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);margin-top:20px;margin-bottom:clamp(50px,7vw,90px)}
-    .mh-cart-editorial .mh-extra-editorial-photo{border-radius:18px 170px 18px 18px}
-    .mh-extra-link{display:inline-flex;align-items:center;gap:12px;margin-top:26px;color:#f4cb78;text-decoration:none;font-weight:800;border-bottom:1px solid rgba(244,203,120,.55);padding-bottom:7px}
-    .mh-extra-link:hover{color:#fff4df}
-    @media(max-width:700px){
-      .mh-extra-editorial,.mh-cart-editorial{width:min(100% - 28px,520px);grid-template-columns:1fr;gap:22px;padding:20px;border-radius:22px;margin:42px auto}
-      .mh-extra-editorial-copy{padding:5px 2px}
-      .mh-extra-editorial-copy h2{font-size:clamp(2rem,9vw,3rem);margin:12px 0}
-      .mh-extra-editorial-photo{height:330px;border-radius:150px 150px 14px 14px}
-      .mh-cart-editorial .mh-extra-editorial-photo{order:0;border-radius:14px 120px 14px 14px}
-      .mh-cart-editorial .mh-extra-editorial-copy{order:1}
-    }
-    @media(prefers-reduced-motion:reduce){.mh-extra-editorial-photo img{transition:none}}
-
-    /* Shop "Golden, Genuine" block: portrait photo, fully visible, nothing cropped. */
-    .mh-shop-editorial{grid-template-columns:minmax(0,1fr) minmax(0,.7fr) !important}
-    .mh-shop-editorial .mh-extra-editorial-photo{
-      width:min(100%,420px) !important;
-      height:auto !important;
-      aspect-ratio:2/3 !important;      /* matches the image exactly */
-      justify-self:center;
-      background:#0c0704;
-      border-radius:24px 120px 24px 24px;
-      border:1px solid rgba(237,193,110,.5);
-      box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 8px rgba(237,193,110,.07);
-    }
-    .mh-shop-editorial .mh-extra-editorial-photo img{
-      width:100%;height:100%;
-      object-fit:cover !important;
-      object-position:center !important;
-      filter:brightness(1.04) contrast(1.03);
-    }
-    .mh-shop-editorial .mh-extra-editorial-photo:hover img{transform:scale(1.025);filter:brightness(1.08) contrast(1.03)}
-    .mh-shop-editorial .mh-extra-editorial-photo figcaption{padding:46px 22px 16px;background:linear-gradient(transparent,rgba(8,4,2,.8))}
-    @media(max-width:700px){
-      .mh-shop-editorial{grid-template-columns:1fr !important}
-      .mh-shop-editorial .mh-extra-editorial-photo{width:min(100%,340px) !important;border-radius:20px 90px 20px 20px}
-    }
-/* ---------- BOTTLE SIZE: automatic from weight (set by JS below) ---------- */
-body[data-page="shop"] #shop-products .product-card{--jar-max:285px}
-body[data-page="shop"] #shop-products .product-card .product-visual{align-items:flex-end !important}
-body[data-page="shop"] #shop-products .product-card .product-visual img{
-  transform-origin:bottom center;
-  height:calc(var(--jar-max) * var(--jar-f,.8)) !important;
-  max-height:none !important;
-  transition:height .3s ease,transform .4s ease;
+<style>
+:root {
+  --forest: #143d2c;
+  --dark: #102b20;
+  --gold: #d6aa56;
+  --cream: #faf7f0;
+  --ink: #26382c;
+  --muted: #77796e;
 }
-@media (max-width:600px){
-  body[data-page="shop"] #shop-products .product-card{--jar-max:245px}
-}
-  </style>
 
-  <link rel="stylesheet" href="nav.css?v=20261012">
-  <link rel="stylesheet" href="shop-cart-editorial.css?v=20261017">
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body[data-page="shop-luxe"] {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+}
+.luxe-shop { overflow: clip; }
+.luxe-shop a { text-decoration: none; }
+.luxe-shop button, .luxe-shop input,
+.luxe-shop select { font: inherit; }
+.luxe-shop button { cursor: pointer; }
+.luxe-shop button:focus-visible,
+.luxe-shop a:focus-visible,
+.luxe-shop input:focus-visible,
+.luxe-shop select:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+.luxe-container {
+  width: min(1250px, calc(100% - 44px));
+  margin: auto;
+}
+.luxe-serif {
+  font-family: "Playfair Display", Georgia, serif;
+}
+.luxe-eyebrow {
+  font-size: 11px;
+  letter-spacing: .22em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #b8893d;
+}
+.luxe-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 27px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  transition: .25s;
+}
+.luxe-btn:hover { transform: translateY(-3px); }
+.luxe-btn-gold {
+  background: linear-gradient(125deg,#f7db98,#d6a54c);
+  color: #183325;
+  border: 1px solid #f7db98;
+}
+.luxe-btn-outline {
+  color: var(--forest);
+  border: 1px solid #b8bba8;
+}
+
+/* Announcement */
+.luxe-announcement {
+  background: #092419;
+  color: #f5dda4;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: .13em;
+  font-weight: 700;
+}
+.luxe-announcement strong { color: white; }
+
+/* Hero */
+.luxe-hero {
+  min-height: 680px;
+  display: grid;
+  grid-template-columns: 51% 49%;
+  background: var(--dark);
+  position: relative;
+}
+.luxe-hero-copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding: 75px clamp(24px,6vw,110px);
+}
+.luxe-hero-copy .luxe-eyebrow { color: #e6c784; }
+.luxe-hero h1 {
+  color: #fff9ec;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(52px,6vw,94px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  margin: 24px 0;
+}
+.luxe-hero h1 em {
+  color: #e6bf72;
+  font-weight: 400;
+}
+.luxe-hero-copy > p {
+  max-width: 430px;
+  color: #c6d1c4;
+  font-size: 14px;
+  line-height: 2;
+}
+.luxe-hero-actions {
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.luxe-hero-actions .luxe-btn-outline {
+  color: #f9eed9;
+  border-color: #ffffff60;
+}
+.luxe-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 19px;
+  margin-top: 45px;
+  color: #e1d5b8;
+  font-size: 11px;
+}
+.luxe-hero-trust span::before {
+  content: "✦ ";
+  color: #e6bd69;
+}
+.luxe-hero-art {
+  position: relative;
+  overflow: hidden;
+  background: #d6bb83;
+  min-height: 490px;
+}
+.luxe-hero-art img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+}
+.luxe-hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,#102b2033,transparent 45%);
+  pointer-events: none;
+}
+.luxe-round-seal {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  z-index: 2;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  background: #143d2ce8;
+  border: 1px solid #f1d08c;
+  color: #f4d18b;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: .13em;
+  font-weight: 800;
+  transform: rotate(10deg);
+}
+.luxe-hero-bottom {
+  position: absolute;
+  z-index: 2;
+  bottom: 28px;
+  right: 28px;
+  padding: 12px 19px;
+  background: #102b20d9;
+  border: 1px solid #ffffff44;
+  color: white;
+  font-size: 10px;
+  letter-spacing: .12em;
+  border-radius: 30px;
+}
+
+/* Benefits */
+.luxe-benefits {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  background: #fffdf7;
+  border-bottom: 1px solid #e8e0ce;
+}
+.luxe-benefit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 30px 15px;
+  border-right: 1px solid #e9e1d1;
+}
+.luxe-benefit:last-child { border: none; }
+.luxe-benefit-icon { font-size: 27px; }
+.luxe-benefit strong {
+  display: block;
+  color: var(--forest);
+  font-size: 12px;
+}
+.luxe-benefit small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* Collection */
+.luxe-collection {
+  padding: 100px 0 110px;
+  background:
+    radial-gradient(circle at 10% 10%,#f4e7c9,transparent 36%),
+    #faf7f0;
+}
+.luxe-heading { text-align: center; margin-bottom: 45px; }
+.luxe-heading h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(40px,5vw,68px);
+  font-weight: 400;
+  letter-spacing: -.045em;
+  color: var(--forest);
+  margin: 16px 0;
+}
+.luxe-heading h2 em { color: #b88a45; }
+.luxe-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+#shop-products { scroll-margin-top: 100px; }
+
+/* Shipping progress */
+.luxe-delivery {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  margin-bottom: 32px;
+  background: #fffefb;
+  border: 1px solid #e9dfca;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px #253c2210;
+}
+.luxe-delivery-icon {
+  flex: 0 0 55px;
+  height: 55px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  background: #eaf0e5;
+}
+.luxe-delivery-body { flex: 1; min-width: 0; }
+.luxe-delivery-body strong {
+  color: var(--forest);
+  font-size: 13px;
+}
+.luxe-delivery-body p {
+  margin: 7px 0 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.luxe-track {
+  height: 7px;
+  border-radius: 20px;
+  background: #e8e2d4;
+  overflow: hidden;
+}
+.luxe-track-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg,#50845a,#e0b457);
+  transition: width .35s;
+}
+.luxe-delivery-badge {
+  background: #e7f0e6;
+  color: #306742;
+  border-radius: 30px;
+  padding: 11px 15px;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Toolbar */
+.luxe-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.luxe-toolbar strong {
+  color: var(--forest);
+  font-size: 13px;
+}
+.luxe-toolbar-right {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.luxe-search, .luxe-sort {
+  border: 1px solid #ded6c6;
+  background: white;
+  color: var(--forest);
+  border-radius: 30px;
+  padding: 12px 17px;
+  font-size: 12px;
+}
+.luxe-search { width: 220px; }
+
+/* Cards */
+.luxe-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 26px;
+}
+.luxe-product {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fffefa;
+  border: 1px solid #e9dfcd;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 14px 35px #2638200d;
+  transition: transform .3s,box-shadow .3s;
+}
+.luxe-product:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 25px 55px #26382020;
+}
+.luxe-product-image {
+  position: relative;
+  height: 355px;
+  background:
+    radial-gradient(ellipse at 50% 65%,#f9e6b7,#e9d6a7 58%,#c8d0b0);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 25px;
+  overflow: hidden;
+}
+.luxe-product:nth-child(3n+2) .luxe-product-image {
+  background: radial-gradient(ellipse at 50% 65%,#f5e5bd,#d9e0c7 70%,#bdcbb0);
+}
+.luxe-product:nth-child(3n+3) .luxe-product-image {
+  background: radial-gradient(ellipse at 50% 65%,#fff0c7,#ead6b6 70%,#d9c0a2);
+}
+.luxe-product-image::before {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  top: 12%;
+  border: 1px solid #ffffff88;
+  border-radius: 50%;
+}
+.luxe-product-image::after {
+  content: "";
+  position: absolute;
+  width: 48%;
+  height: 17px;
+  bottom: 23px;
+  background: #46351c33;
+  filter: blur(12px);
+  border-radius: 50%;
+}
+.luxe-product-image img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: auto;
+  max-width: 95%;
+  height: var(--bottle-height,220px);
+  max-height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 15px 13px #4b361145);
+  transition: transform .35s,height .25s;
+}
+.luxe-product:hover .luxe-product-image img {
+  transform: translateY(-6px) scale(1.03);
+}
+.luxe-product-tag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 3;
+  background: #fffaf0;
+  color: #496849;
+  border-radius: 30px;
+  padding: 9px 12px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+.luxe-product-arrow {
+  position: absolute;
+  z-index: 3;
+  top: 17px;
+  right: 17px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fffefa;
+  color: var(--forest);
+  font-size: 21px;
+}
+.luxe-product-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 25px;
+}
+.luxe-product-kicker {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: #b58a48;
+}
+.luxe-product-info h3 {
+  color: var(--forest);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 11px 0;
+}
+.luxe-product-desc {
+  color: #797c70;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 0 0 23px;
+  min-height: 43px;
+}
+.luxe-size-label {
+  display: block;
+  font-size: 10px;
+  color: var(--forest);
+  font-weight: 800;
+  letter-spacing: .1em;
+  margin-bottom: 12px;
+}
+.luxe-sizes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.luxe-size {
+  flex: 1;
+  min-width: 65px;
+  padding: 11px 8px;
+  background: #fffefa;
+  border: 1px solid #d9d7c9;
+  color: #58634e;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.luxe-size.active {
+  color: white;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+.luxe-price-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 24px 0 19px;
+  margin-top: auto;
+  border-bottom: 1px solid #eee8db;
+}
+.luxe-price-row small {
+  display: block;
+  font-size: 10px;
+  color: #969486;
+  margin-bottom: 6px;
+}
+.luxe-price {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--forest);
+}
+.luxe-stock {
+  color: #3c824d;
+  font-size: 10px;
+  font-weight: 800;
+}
+.luxe-stock.out { color: #b45749; }
+.luxe-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 19px;
+}
+.luxe-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dcd9cd;
+  border-radius: 12px;
+  background: white;
+}
+.luxe-qty button {
+  width: 35px;
+  height: 47px;
+  background: transparent;
+  border: none;
+  color: var(--forest);
+  font-size: 19px;
+}
+.luxe-qty output {
+  min-width: 22px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 13px;
+}
+.luxe-add {
+  flex: 1;
+  background: var(--forest);
+  border: none;
+  color: white;
+  border-radius: 12px;
+  padding: 13px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.luxe-add:hover:not(:disabled) { background: #286346; }
+.luxe-add:disabled { opacity: .45; cursor: not-allowed; }
+.luxe-view {
+  display: grid;
+  place-items: center;
+  min-height: 46px;
+  border: 1px solid var(--forest);
+  border-radius: 12px;
+  color: var(--forest);
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  transition: .2s;
+}
+.luxe-view:hover { background: #eaf1e8; }
+.luxe-card-note {
+  margin-top: 15px;
+  color: #969285;
+  font-size: 10px;
+  text-align: center;
+}
+.luxe-empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 65px 20px;
+  background: white;
+  border-radius: 20px;
+  color: var(--forest);
+}
+
+/* Story and promotional section */
+.luxe-promo {
+  padding: 0 22px 100px;
+}
+.luxe-promo-inner {
+  max-width: 1250px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #143b2a;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.luxe-promo-copy { padding: clamp(35px,6vw,80px); }
+.luxe-promo-copy h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  color: white;
+  font-size: clamp(40px,5vw,65px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+.luxe-promo-copy h2 em { color: #e9c47e; }
+.luxe-promo-copy p {
+  color: #cdd8ca;
+  font-size: 13px;
+  line-height: 1.9;
+}
+.luxe-promo-visual {
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle,#54734d,#183e2c 65%);
+}
+.luxe-promo-circle {
+  width: 260px;
+  height: 260px;
+  border: 1px solid #f4d58c99;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f3d18b;
+  font-family: "Playfair Display",Georgia,serif;
+  font-size: 76px;
+}
+.luxe-promo-circle small {
+  font: 800 11px "DM Sans",sans-serif;
+  letter-spacing: .13em;
+  margin-top: 10px;
+}
+.luxe-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 65px;
+  max-width: 1200px;
+  margin: 0 auto 110px;
+  padding: 0 22px;
+}
+.luxe-story-image img {
+  width: 100%;
+  height: 490px;
+  border-radius: 240px 240px 18px 18px;
+  object-fit: cover;
+}
+.luxe-story-copy h2 {
+  font: 400 clamp(40px,5vw,65px)/1.2 "Playfair Display",Georgia,serif;
+  color: var(--forest);
+  margin: 20px 0;
+}
+.luxe-story-copy h2 em { color: #b68a46; }
+.luxe-story-copy p {
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: 13px;
+}
+
+/* Floating cart */
+.luxe-floating-cart {
+  position: fixed;
+  z-index: 900;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #dcb767;
+  border-radius: 50px;
+  padding: 13px 20px;
+  color: white;
+  background: var(--forest);
+  box-shadow: 0 12px 35px #0003;
+  font-size: 12px;
+  font-weight: 800;
+}
+.luxe-floating-count {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #e6b95e;
+  color: var(--forest);
+}
+
+/* Cart modal */
+#luxe-cart-modal[hidden] { display: none !important; }
+#luxe-cart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #07180fca;
+  backdrop-filter: blur(7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+.luxe-modal {
+  width: min(510px,100%);
+  max-height: 92dvh;
+  background: #fffaf1;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 90px #0006;
+}
+.luxe-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 25px;
+  background: var(--forest);
+  color: white;
+}
+.luxe-modal-head small {
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: #e8c57d;
+  font-weight: 800;
+}
+.luxe-modal-head h2 {
+  font: 400 28px "Playfair Display",Georgia,serif;
+  margin: 9px 0 0;
+}
+.luxe-close {
+  width: 39px;
+  height: 39px;
+  border: 1px solid #ffffff66;
+  border-radius: 50%;
+  background: #ffffff22;
+  color: white;
+  font-size: 23px;
+}
+.luxe-modal-items {
+  padding: 8px 23px;
+  overflow-y: auto;
+}
+.luxe-cart-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 17px 0;
+  border-bottom: 1px solid #e8ddc7;
+}
+.luxe-cart-image {
+  width: 85px;
+  height: 105px;
+  flex: 0 0 85px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle,#fff0bc,#e4d6b6);
+  border-radius: 14px;
+}
+.luxe-cart-image img {
+  max-width: 90%;
+  height: var(--mini-height,75px);
+  object-fit: contain;
+}
+.luxe-cart-details { flex: 1; min-width: 0; }
+.luxe-cart-details h3 {
+  font: 500 18px "Playfair Display",Georgia,serif;
+  color: var(--forest);
+  margin: 0 0 6px;
+}
+.luxe-cart-details small { color: #827a69; }
+.luxe-cart-details strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--forest);
+}
+.luxe-cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 11px;
+}
+.luxe-cart-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9cdb8;
+  border-radius: 9px;
+  background: white;
+}
+.luxe-cart-qty button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--forest);
+}
+.luxe-cart-qty span {
+  min-width: 24px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+}
+.luxe-remove {
+  border: none;
+  background: transparent;
+  color: #a45b40;
+  text-decoration: underline;
+  font-size: 11px;
+}
+.luxe-modal-bottom {
+  padding: 23px;
+  background: #fff5e5;
+  border-top: 1px solid #e8dcc4;
+}
+.luxe-modal-delivery {
+  font-size: 12px;
+  font-weight: 800;
+  color: #37734a;
+}
+.luxe-modal-bottom .luxe-track { margin: 12px 0 20px; }
+.luxe-total-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 13px 0;
+  font-size: 13px;
+  color: #747466;
+}
+.luxe-total-row strong { color: var(--forest); }
+.luxe-total-row.grand {
+  padding-top: 16px;
+  border-top: 1px solid #e5dac6;
+  font-size: 18px;
+  font-weight: 800;
+}
+.luxe-modal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+.luxe-modal-buttons button,
+.luxe-modal-buttons a {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-height: 47px;
+  border-radius: 11px;
+  padding: 12px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.luxe-continue {
+  background: transparent;
+  border: 1px solid #b9a47b;
+  color: var(--forest);
+}
+.luxe-checkout {
+  background: var(--forest);
+  border: 1px solid var(--forest);
+  color: white;
+}
+.luxe-modal-note {
+  color: #8c8271;
+  font-size: 10px;
+  line-height: 1.6;
+  margin: 16px 0 0;
+}
+
+@media(max-width:1050px) {
+  .luxe-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .luxe-hero { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:760px) {
+  .luxe-hero,.luxe-promo-inner,.luxe-story {
+    grid-template-columns: 1fr;
+  }
+  .luxe-hero-copy { padding: 65px 25px; }
+  .luxe-hero h1 { font-size: clamp(48px,11vw,70px); }
+  .luxe-hero-art { min-height: 390px; }
+  .luxe-benefits { grid-template-columns: 1fr; }
+  .luxe-benefit {
+    justify-content: flex-start;
+    padding: 19px 28px;
+    border-right: 0;
+    border-bottom: 1px solid #e9e1d1;
+  }
+  .luxe-collection { padding: 70px 0; }
+  .luxe-story { gap: 35px; }
+  .luxe-story-image img { height: 380px; }
+}
+@media(max-width:560px) {
+  .luxe-container { width: calc(100% - 30px); }
+  .luxe-grid { grid-template-columns: 1fr; }
+  .luxe-product-image { height: 320px; }
+  .luxe-delivery { flex-wrap: wrap; padding: 19px; }
+  .luxe-delivery-badge { margin-left: 75px; }
+  .luxe-toolbar-right { width: 100%; }
+  .luxe-search { width: 100%; }
+  .luxe-sort { flex: 1; }
+  .luxe-promo { padding: 0 15px 70px; }
+  .luxe-promo-copy { padding: 40px 25px; }
+  .luxe-promo-circle { width: 220px; height: 220px; font-size: 60px; }
+  .luxe-promo-visual { min-height: 275px; }
+  .luxe-round-seal { width: 90px; height: 90px; font-size: 9px; }
+  .luxe-modal-buttons { grid-template-columns: 1fr; }
+  .luxe-modal-head,.luxe-modal-bottom { padding: 19px; }
+  .luxe-floating-cart { right: 13px; bottom: 13px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
+</style>
 </head>
-<body data-page="shop">
-  <div id="site-header"></div>
-  <main>
-    <section class="page-hero shop-hero">
-      <span class="bee b1" aria-hidden="true">🐝</span>
-      <span class="bee b2" aria-hidden="true">🐝</span>
-      <div class="shop-hero-inner">
 
-        <figure class="shop-hero-photo">
-          <img src="images/editorial-dark-detail.jpg" width="1620" height="1080" alt="MADHURAVANA Pure Honey jar with a wooden honey dipper in warm golden light" fetchpriority="high" decoding="async">
-        </figure>
+<body data-page="shop-luxe">
+<div id="site-header"></div>
 
-        <div class="shop-hero-copy">
-          <span class="eyebrow">SHOP · THE COLLECTION</span>
-          <h1>Shop pure honey, <em>your way.</em></h1>
-          <p>Pick your jar — 200g, 250g or 500g. Order in a minute and pay when it arrives.</p>
-          <a class="shop-cta" href="#shop-products">Choose your jar <span aria-hidden="true">↓</span></a>
-          <div class="shop-marks"><span>🍯 100% Natural</span><span>🌴 Kerala &amp; Tamil Nadu Heritage</span><span>💵 Cash on Delivery</span></div>
+<main class="luxe-shop">
+
+<div class="luxe-announcement">
+  ✦ THE GOLDEN COLLECTION ✦
+  <strong>FREE DELIVERY ON ORDERS ABOVE ₹999</strong>
+</div>
+
+<section class="luxe-hero">
+  <div class="luxe-hero-copy">
+    <span class="luxe-eyebrow">✦ MADHURAVANA · PURE HONEY</span>
+    <h1>Nature's<br>sweetest<br><em>little luxury.</em></h1>
+    <p>
+      A golden gift from nature. Discover our carefully
+      curated honey collection, find your perfect jar,
+      and savour the sweetness of every moment.
+    </p>
+    <div class="luxe-hero-actions">
+      <a class="luxe-btn luxe-btn-gold" href="#shop-products">
+        EXPLORE COLLECTION ↗
+      </a>
+      <a class="luxe-btn luxe-btn-outline" href="#our-story">
+        OUR STORY ↗
+      </a>
+    </div>
+    <div class="luxe-hero-trust">
+      <span>Raw &amp; Unprocessed</span>
+      <span>Nature Inspired</span>
+      <span>Golden Goodness</span>
+    </div>
+  </div>
+
+  <div class="luxe-hero-art">
+    <img src="images/editorial-golden-closeup.jpg"
+         alt="MADHURAVANA golden honey collection"
+         fetchpriority="high">
+    <div class="luxe-round-seal">
+      PURE<br>GOLDEN<br>GOODNESS
+    </div>
+    <div class="luxe-hero-bottom">
+      MADHURAVANA · MADE WITH CARE
+    </div>
+  </div>
+</section>
+
+<section class="luxe-benefits">
+  <div class="luxe-benefit">
+    <span class="luxe-benefit-icon">🍯</span>
+    <div><strong>Golden Honey</strong>
+      <small>Nature's sweetest creation</small></div>
+  </div>
+  <div class="luxe-benefit">
+    <span class="luxe-benefit-icon">🚚</span>
+    <div><strong>Free Delivery Above ₹999</strong>
+      <small>More honey, more happiness</small></div>
+  </div>
+  <div class="luxe-benefit">
+    <span class="luxe-benefit-icon">🌿</span>
+    <div><strong>Nature Inspired</strong>
+      <small>Rooted in Kerala &amp; Tamil Nadu</small></div>
+  </div>
+</section>
+
+<section class="luxe-collection" id="collection">
+  <div class="luxe-container">
+
+    <div class="luxe-heading">
+      <span class="luxe-eyebrow">✦ DISCOVER THE COLLECTION ✦</span>
+      <h2>Find your <em>golden moment.</em></h2>
+      <p>Every jar holds a little piece of nature.<br>
+         Choose your favourite and make it yours.</p>
+    </div>
+
+    <div class="luxe-delivery">
+      <div class="luxe-delivery-icon">🚚</div>
+      <div class="luxe-delivery-body">
+        <strong id="delivery-title">Your golden delivery reward</strong>
+        <p id="delivery-text">Add honey to unlock free delivery.</p>
+        <div class="luxe-track" id="delivery-track"
+             role="progressbar" aria-label="Free delivery progress"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="luxe-track-fill" id="delivery-fill"></div>
         </div>
-
       </div>
-      <svg class="honey-drips" viewBox="0 0 1200 64" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 0H1200V12C1170 12 1160 12 1150 30C1142 48 1126 48 1118 30C1110 12 1090 12 1060 12C1030 12 1020 12 1012 24C1004 36 992 36 984 24C976 12 940 12 900 12C860 12 850 12 842 40C834 64 814 64 806 40C798 12 760 12 720 12C680 12 668 12 660 26C652 40 640 40 632 26C624 12 590 12 540 12C490 12 478 12 470 34C462 54 446 54 438 34C430 12 400 12 360 12C320 12 308 12 300 24C292 36 280 36 272 24C264 12 230 12 190 12C150 12 138 12 130 44C122 64 104 64 96 44C88 12 60 12 0 12Z"/>
-      </svg>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="shop-title">Choose your jar<small>200g · 250g · 500g — tap “Add to cart” to order</small></h2>
+      <div class="luxe-delivery-badge" id="delivery-badge">
+        FREE ABOVE ₹999
       </div>
+    </div>
 
-      <div class="container shop-toolbar">
-        <div><strong id="shop-count">3 products</strong><span class="muted"> · Natural sweetness, beautifully presented</span></div>
-        <select id="shop-sort" aria-label="Sort products"><option value="default">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select>
+    <div class="luxe-toolbar">
+      <strong id="product-count">Our Honey Collection</strong>
+      <div class="luxe-toolbar-right">
+        <input class="luxe-search" id="product-search"
+               type="search" placeholder="⌕ Search honey..."
+               aria-label="Search products">
+        <select class="luxe-sort" id="product-sort"
+                aria-label="Sort products">
+          <option value="featured">Featured</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
       </div>
+    </div>
 
-      <div class="container product-grid product-grid-wide" id="shop-products"></div>
+    <div id="shop-products" class="luxe-grid"></div>
 
-      <section class="mh-extra-editorial mh-shop-editorial" aria-label="A closer look at Madhuravana honey">
-        <div class="mh-extra-editorial-copy">
-          <span class="mh-extra-kicker">GOLDEN, GENUINE, MADE WITH CARE</span>
-          <h2>A little jar of <em>natural goodness.</em></h2>
-          <p>Bring the warmth of Kerala &amp; Tamil Nadu’s natural heritage to your everyday table.</p>
-        </div>
-        <figure class="mh-extra-editorial-photo">
-          <img src="images/editorial-golden-closeup.jpg" width="682" height="1024" alt="MADHURAVANA Pure Honey jar with its Kerala houseboat label, a wooden honey dipper and white flowers" loading="lazy" decoding="async">
-          <figcaption>Nature’s golden touch</figcaption>
-        </figure>
-      </section>
-      <div class="container">
-        <div class="shop-promise">
-          <div><b>🍯</b><strong>Raw &amp; Unprocessed</strong><small>Nothing added, nothing removed</small></div>
-          <div><b>🐝</b><strong>Supports Beekeepers</strong><small>Sourced with care in Kerala &amp; Tamil Nadu</small></div>
-          <div><b>💵</b><strong>Pay on Delivery</strong><small>Pay at your door</small></div>
-        </div>
+  </div>
+</section>
+
+<section class="luxe-promo">
+  <div class="luxe-promo-inner">
+    <div class="luxe-promo-copy">
+      <span class="luxe-eyebrow">✦ A SWEETER REWARD</span>
+      <h2>More honey.<br><em>More happiness.</em></h2>
+      <p>
+        Fill your basket with more than ₹999 worth of
+        golden goodness and enjoy complimentary delivery.
+      </p>
+      <a href="#shop-products" class="luxe-btn luxe-btn-gold">
+        SHOP THE COLLECTION ↗
+      </a>
+    </div>
+    <div class="luxe-promo-visual">
+      <div class="luxe-promo-circle">
+        ₹999
+        <small>FREE DELIVERY ABOVE</small>
       </div>
-    </section>
-  </main>
-  <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
-  <script>
-(function(){
-  var grid=document.getElementById("shop-products");
-  if(!grid) return;
+    </div>
+  </div>
+</section>
 
-  function grams(text){
-    var m=String(text||"").toLowerCase().match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/);
-    if(!m) return 0;
-    return parseFloat(m[1])*(m[2]==="kg"?1000:1);
+<section class="luxe-story" id="our-story">
+  <div class="luxe-story-image">
+    <img src="images/editorial-golden-closeup.jpg"
+         alt="Golden natural honey" loading="lazy">
+  </div>
+  <div class="luxe-story-copy">
+    <span class="luxe-eyebrow">✦ THE MADHURAVANA WAY</span>
+    <h2>A little taste<br>of <em>nature's magic.</em></h2>
+    <p>
+      Inspired by the natural heritage of Kerala and
+      Tamil Nadu, MADHURAVANA celebrates the timeless
+      sweetness that nature has to offer.
+    </p>
+    <p>
+      From your morning routine to thoughtful gifts,
+      every golden jar brings a little warmth to
+      life's everyday moments.
+    </p>
+    <a href="index.html#about" class="luxe-btn luxe-btn-outline">
+      DISCOVER OUR STORY ↗
+    </a>
+  </div>
+</section>
+
+<button type="button" class="luxe-floating-cart"
+        id="floating-cart">
+  🛍 YOUR CART
+  <span class="luxe-floating-count" id="floating-count">0</span>
+  ↗
+</button>
+
+</main>
+
+<div id="site-footer"></div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+
+<!-- Cart popup -->
+<div id="luxe-cart-modal" role="dialog" aria-modal="true"
+     aria-label="Your shopping cart" hidden>
+  <div class="luxe-modal">
+    <div class="luxe-modal-head">
+      <div>
+        <small>✦ MADHURAVANA · YOUR CART</small>
+        <h2>Your golden picks 🍯</h2>
+      </div>
+      <button class="luxe-close" id="close-cart"
+              type="button" aria-label="Close cart">×</button>
+    </div>
+
+    <div class="luxe-modal-items" id="modal-items"></div>
+
+    <div class="luxe-modal-bottom">
+      <div class="luxe-modal-delivery" id="modal-delivery"></div>
+      <div class="luxe-track">
+        <div class="luxe-track-fill" id="modal-delivery-fill"></div>
+      </div>
+      <div class="luxe-total-row">
+        <span>Subtotal</span><strong id="modal-subtotal">₹0</strong>
+      </div>
+      <div class="luxe-total-row">
+        <span>Delivery</span><strong id="modal-shipping">At checkout</strong>
+      </div>
+      <div class="luxe-total-row grand">
+        <span>Total</span><strong id="modal-total">₹0</strong>
+      </div>
+      <div class="luxe-modal-buttons">
+        <button class="luxe-continue" id="continue-shopping"
+                type="button">CONTINUE SHOPPING</button>
+        <a class="luxe-checkout" id="checkout-link" href="cart.html">
+          VIEW CART &amp; CHECKOUT ↗
+        </a>
+      </div>
+      <p class="luxe-modal-note">
+        Free delivery on orders above ₹999.
+        Other delivery charges are calculated at checkout.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Existing website scripts -->
+<script src="supabase-config.js"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+  const grid = $("shop-products");
+  const popup = $("luxe-cart-modal");
+  const selected = new Map();
+  const FREE_MIN = 1000;
+  let previousFocus = null;
+
+  const money = n =>
+    "₹" + Number(n || 0).toLocaleString("en-IN");
+
+  const esc = value =>
+    String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    })[c]);
+
+  const api = () => window.MADHURAVANA;
+  const same = (a,b) => String(a) === String(b);
+
+  function catalog() {
+    const result = api()?.getProducts?.();
+    return Array.isArray(result) ? result : [];
   }
-  /* 100g≈45% of max size, 1kg or more = 100%. Smooth curve for any weight. */
-  function factor(g){
-    if(!g) return .8;
-    var f=.45+.55*Math.log(g/100)/Math.log(10);
-    return Math.max(.4,Math.min(1,f));
+
+  function cart() {
+    const result = api()?.getCart?.();
+    return Array.isArray(result) ? result : [];
   }
-  function sizeAll(){
-    var cards=grid.querySelectorAll(".product-card"); 
-    for(var i=0;i<cards.length;i++){
-      var c=cards[i], img=c.querySelector(".product-visual img");
-      if(!img) continue;
-      var sm=c.querySelector(".p-name small");
-      var g=grams(sm&&sm.textContent)||grams(img.getAttribute("alt"));
-      c.style.setProperty("--jar-f",factor(g).toFixed(3));
+
+  function grams(weight) {
+    const match = String(weight || "")
+      .toLowerCase().match(/([\d.]+)\s*(kg|g)/);
+    if (!match) return 250;
+    return Number(match[1]) * (match[2] === "kg" ? 1000 : 1);
+  }
+
+  function bottleHeight(weight) {
+    const sizes = {100:155,200:190,250:215,500:270,1000:315};
+    const g = grams(weight);
+    const height = sizes[g] ||
+      Math.max(120,Math.min(315,Math.round(215*Math.cbrt(g/250))));
+    return window.innerWidth <= 560 ? Math.round(height*.85) : height;
+  }
+
+  function imageOf(p) {
+    const src = p?.image || p?.imageUrl || "";
+    if (typeof src === "string" &&
+        (/^images\/[\w./-]+$/i.test(src) ||
+         /^https?:\/\/\S+$/i.test(src))) {
+      return src;
+    }
+    return "images/madhuravana-front-bottle.png";
+  }
+
+  function groups() {
+    const map = new Map();
+
+    catalog().forEach(p => {
+      const name = String(p.name || "MADHURAVANA Pure Honey").trim();
+      const key = name.toLowerCase();
+
+      if (!map.has(key)) map.set(key,{key,name,items:[]});
+      map.get(key).items.push(p);
+    });
+
+    return [...map.values()].map(g => {
+      g.items.sort((a,b) => grams(a.weight)-grams(b.weight));
+
+      const state = selected.get(g.key);
+      if (!state || !g.items.some(p => same(p.id,state.id))) {
+        selected.set(g.key,{id:g.items[0].id,qty:1});
+      }
+      return g;
+    });
+  }
+
+  function picked(group) {
+    const state = selected.get(group.key);
+    return group.items.find(p => same(p.id,state.id)) || group.items[0];
+  }
+
+  function showProducts() {
+    let all = groups();
+    const search = $("product-search").value.trim().toLowerCase();
+    const sort = $("product-sort").value;
+
+    if (search) {
+      all = all.filter(g =>
+        g.name.toLowerCase().includes(search) ||
+        g.items.some(p =>
+          String(p.description || "").toLowerCase().includes(search)
+        )
+      );
+    }
+
+    if (sort === "low")
+      all.sort((a,b) => Number(picked(a).price)-Number(picked(b).price));
+    if (sort === "high")
+      all.sort((a,b) => Number(picked(b).price)-Number(picked(a).price));
+    if (sort === "name")
+      all.sort((a,b) => a.name.localeCompare(b.name));
+
+    $("product-count").textContent =
+      all.length + " honey collection" + (all.length===1?"":"s");
+
+    if (!all.length) {
+      grid.innerHTML = `<div class="luxe-empty">
+        <h3>No honey found 🍯</h3>
+        <p>Try another search or check your product catalog.</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = all.map((g,index) => {
+      const p = picked(g);
+      const state = selected.get(g.key);
+      const stock = p.inStock !== false;
+      const url = "product.html?id=" + encodeURIComponent(p.id);
+
+      const sizes = g.items.map(item => `
+        <button type="button"
+          class="luxe-size ${same(item.id,p.id)?"active":""}"
+          data-size-id="${esc(item.id)}"
+          aria-pressed="${same(item.id,p.id)}">
+          ${esc(item.weight || "Jar")}
+        </button>
+      `).join("");
+
+      return `
+      <article class="luxe-product" data-group="${esc(g.key)}">
+        <div class="luxe-product-image">
+          <span class="luxe-product-tag">
+            ${index===0?"✦ GOLDEN FAVOURITE":"✦ NATURE'S GOLD"}
+          </span>
+          <a href="${url}" class="luxe-product-arrow"
+             aria-label="View ${esc(g.name)}">↗</a>
+          <img src="${esc(imageOf(p))}"
+               alt="${esc(g.name)} ${esc(p.weight)}"
+               style="--bottle-height:${bottleHeight(p.weight)}px"
+               loading="lazy">
+        </div>
+
+        <div class="luxe-product-info">
+          <span class="luxe-product-kicker">PURE · GOLDEN · NATURAL</span>
+          <h3>${esc(g.name)}</h3>
+          <p class="luxe-product-desc">
+            ${esc(p.description ||
+              "Discover the naturally golden goodness of MADHURAVANA honey.")}
+          </p>
+
+          <span class="luxe-size-label">CHOOSE YOUR JAR</span>
+          <div class="luxe-sizes" role="group"
+               aria-label="Choose jar size">${sizes}</div>
+
+          <div class="luxe-price-row">
+            <div>
+              <small>YOUR PRICE</small>
+              <strong class="luxe-price">${money(p.price)}</strong>
+            </div>
+            <span class="luxe-stock ${stock?"":"out"}">
+              ${stock?"● In stock":"● Out of stock"}
+            </span>
+          </div>
+
+          <div class="luxe-card-actions">
+            <div class="luxe-qty">
+              <button type="button" data-action="minus"
+                      aria-label="Decrease quantity">−</button>
+              <output>${state.qty}</output>
+              <button type="button" data-action="plus"
+                      aria-label="Increase quantity">+</button>
+            </div>
+            <button type="button" class="luxe-add"
+                    data-action="add" ${stock?"":"disabled"}>
+              ${stock?"ADD TO CART ↗":"UNAVAILABLE"}
+            </button>
+          </div>
+
+          <a class="luxe-view" href="${url}">VIEW PRODUCT ↗</a>
+          <div class="luxe-card-note">
+            ✦ Naturally sweet · Made with care
+          </div>
+        </div>
+      </article>`;
+    }).join("");
+  }
+
+  function summary() {
+    const all = catalog();
+    const lines = [];
+    let subtotal = 0, count = 0;
+
+    cart().forEach((item,index) => {
+      const p = all.find(x => same(x.id,item.id));
+      if (!p) return;
+      const qty = Math.max(0,Math.floor(Number(item.quantity)||0));
+      if (!qty) return;
+
+      subtotal += Number(p.price || 0)*qty;
+      count += qty;
+      lines.push({p,qty,index});
+    });
+
+    return {lines,subtotal,count};
+  }
+
+  function updateDelivery() {
+    const {subtotal,count} = summary();
+    const free = subtotal >= FREE_MIN;
+    const remaining = Math.max(0,FREE_MIN-subtotal);
+    const progress = Math.min(100,subtotal/FREE_MIN*100);
+
+    $("floating-count").textContent = count;
+    $("delivery-title").textContent = free
+      ? "🎉 Your FREE delivery is unlocked!"
+      : "Your golden delivery reward";
+    $("delivery-text").textContent = free
+      ? "Your basket qualifies for complimentary delivery."
+      : "Add " + money(remaining) + " more to unlock FREE delivery.";
+    $("delivery-badge").textContent =
+      free ? "✓ FREE DELIVERY" : "FREE ABOVE ₹999";
+    $("delivery-fill").style.width = progress + "%";
+    $("delivery-track").setAttribute(
+      "aria-valuenow",String(Math.round(progress))
+    );
+    api()?.updateCartCount?.();
+  }
+
+  function save(next) {
+    if (!api()?.saveCart) {
+      alert("Cart service is unavailable. Check script.js.");
+      return false;
+    }
+    try {
+      if (api().saveCart(next) === false) {
+        alert("Could not save cart.");
+        return false;
+      }
+      updateDelivery();
+      return true;
+    } catch(err) {
+      console.error(err);
+      alert("Unable to update cart.");
+      return false;
     }
   }
-  sizeAll();
-  new MutationObserver(sizeAll).observe(grid,{childList:true,subtree:true});
+
+  function showModal() {
+    const {lines,subtotal} = summary();
+    const free = subtotal >= FREE_MIN;
+
+    $("modal-items").innerHTML = lines.length
+      ? lines.map(({p,qty,index}) => `
+        <div class="luxe-cart-item" data-cart-index="${index}">
+          <div class="luxe-cart-image">
+            <img src="${esc(imageOf(p))}" alt="${esc(p.name)}"
+              style="--mini-height:${Math.min(85,Math.max(40,bottleHeight(p.weight)*.3))}px">
+          </div>
+          <div class="luxe-cart-details">
+            <h3>${esc(p.name)}</h3>
+            <small>${esc(p.weight || "Jar")}</small>
+            <strong>${money(Number(p.price)*qty)}</strong>
+            <div class="luxe-cart-controls">
+              <div class="luxe-cart-qty">
+                <button type="button" data-cart-action="minus"
+                        aria-label="Decrease quantity">−</button>
+                <span>${qty}</span>
+                <button type="button" data-cart-action="plus"
+                        aria-label="Increase quantity">+</button>
+              </div>
+              <button type="button" class="luxe-remove"
+                      data-cart-action="remove">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join("")
+      : `<div class="luxe-empty">
+          <h3>Your cart is empty 🍯</h3>
+          <p>Your next golden favourite is waiting.</p>
+        </div>`;
+
+    $("modal-delivery").textContent = free
+      ? "🎉 Congratulations! FREE delivery unlocked!"
+      : "🚚 Add " + money(Math.max(0,FREE_MIN-subtotal)) +
+        " more for FREE delivery.";
+    $("modal-delivery-fill").style.width =
+      Math.min(100,subtotal/FREE_MIN*100) + "%";
+    $("modal-subtotal").textContent = money(subtotal);
+    $("modal-shipping").textContent =
+      free ? "FREE ✓" : "Calculated at checkout";
+    $("modal-total").textContent =
+      free ? money(subtotal) : money(subtotal)+" + delivery";
+    $("checkout-link").style.pointerEvents =
+      lines.length ? "auto" : "none";
+    $("checkout-link").style.opacity = lines.length ? "1" : ".5";
+
+    updateDelivery();
+  }
+
+  function openModal() {
+    previousFocus = document.activeElement;
+    showModal();
+    popup.hidden = false;
+    document.body.style.overflow = "hidden";
+    $("close-cart").focus();
+  }
+
+  function closeModal() {
+    popup.hidden = true;
+    document.body.style.overflow = "";
+    if (previousFocus?.isConnected) previousFocus.focus();
+  }
+
+  // Product size, quantity and add-to-cart
+  grid.addEventListener("click",event => {
+    const card = event.target.closest(".luxe-product");
+    if (!card) return;
+
+    const group = groups().find(g => g.key===card.dataset.group);
+    if (!group) return;
+
+    const state = selected.get(group.key);
+    const size = event.target.closest("[data-size-id]");
+
+    if (size) {
+      state.id = size.dataset.sizeId;
+      state.qty = 1;
+      showProducts();
+      return;
+    }
+
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+
+    const action = button.dataset.action;
+    if (action==="plus") {
+      state.qty = Math.min(20,state.qty+1);
+      showProducts();
+    } else if (action==="minus") {
+      state.qty = Math.max(1,state.qty-1);
+      showProducts();
+    } else if (action==="add") {
+      const p = picked(group);
+      if (p.inStock===false) return;
+
+      const next = cart();
+      const existing = next.find(item =>
+        same(item.id,p.id) && !item.gift
+      );
+
+      if (existing) {
+        existing.quantity = Number(existing.quantity||0)+state.qty;
+      } else {
+        next.push({id:p.id,quantity:state.qty});
+      }
+
+      if (save(next)) {
+        state.qty = 1;
+        showProducts();
+        openModal();
+      }
+    }
+  });
+
+  // Cart popup quantity and remove
+  $("modal-items").addEventListener("click",event => {
+    const button = event.target.closest("[data-cart-action]");
+    if (!button) return;
+
+    const row = button.closest("[data-cart-index]");
+    if (!row) return;
+
+    const index = Number(row.dataset.cartIndex);
+    const next = cart();
+    if (!next[index]) return;
+
+    const action = button.dataset.cartAction;
+
+    if (action==="remove") {
+      next.splice(index,1);
+    } else if (action==="plus") {
+      next[index].quantity =
+        Math.min(99,Number(next[index].quantity||0)+1);
+    } else if (action==="minus") {
+      const qty = Number(next[index].quantity||0)-1;
+      if (qty<=0) next.splice(index,1);
+      else next[index].quantity = qty;
+    }
+
+    if (save(next)) showModal();
+  });
+
+  $("floating-cart").addEventListener("click",openModal);
+  $("close-cart").addEventListener("click",closeModal);
+  $("continue-shopping").addEventListener("click",closeModal);
+
+  popup.addEventListener("click",event => {
+    if (event.target===popup) closeModal();
+  });
+
+  document.addEventListener("keydown",event => {
+    if (popup.hidden) return;
+    if (event.key==="Escape") {
+      closeModal();
+      return;
+    }
+    if (event.key==="Tab") {
+      const focusable = [...popup.querySelectorAll(
+        'button:not(:disabled),a[href]:not([style*="pointer-events: none"])'
+      )].filter(el => el.getClientRects().length);
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable.at(-1);
+      if (event.shiftKey && document.activeElement===first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement===last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  $("product-sort").addEventListener("change",showProducts);
+  $("product-search").addEventListener("input",showProducts);
+
+  window.addEventListener("storage",event => {
+    if (event.key==="madhuravana_cart") {
+      updateDelivery();
+      if (!popup.hidden) showModal();
+    }
+    if (event.key==="madhuravana_products") {
+      showProducts();
+      updateDelivery();
+    }
+  });
+
+  window.addEventListener("pageshow",updateDelivery);
+
+  function start() {
+    if (!api()?.getProducts) {
+      grid.innerHTML = `<div class="luxe-empty">
+        <h3>Product catalog could not load.</h3>
+        <p>Check that script.js is correctly linked.</p>
+      </div>`;
+      return;
+    }
+    showProducts();
+    updateDelivery();
+  }
+
+  if (document.readyState==="loading") {
+    document.addEventListener("DOMContentLoaded",start);
+  } else {
+    start();
+  }
 })();
 </script>
-  <script src="supabase-config.js"></script><script src="supabase.js"></script><script src="script.js?v=2"></script><script src="admin.js"></script><script src="motion.js"></script>
-  <script defer src="lenis.min.js"></script>
-<script defer src="smooth-scroll.js?v=20261018"></script>
 </body>
 </html>
