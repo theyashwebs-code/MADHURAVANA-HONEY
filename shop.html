@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#fff7e5">
 
 <title>MADHURAVANA | The Golden Honey Collection</title>
-<meta name="description" content="Discover MADHURAVANA's golden honey collection. Choose your perfect jar and enjoy free delivery on orders above ₹999.">
+<meta name="description" content="Discover MADHURAVANA's golden honey collection. Choose your perfect jar and enjoy free delivery on orders above ₹1499.">
 
 <link rel="icon" href="images/madhuravana-favicon.jpg">
 
@@ -1146,7 +1146,7 @@ body[data-page="shop-luxe"] .luxe-shop {
 #luxe-cart-modal {
   position: fixed;
   inset: 0;
-  z-index: 999999;
+  z-index: 1499;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1778,6 +1778,13 @@ body[data-page="shop-luxe"] .luxe-shop {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Hide delivery amount row in shop cart modal */
+#luxe-cart-modal .luxe-shipping-row {
+  display: none !important;
+}
+
 </style>
 </head>
 
@@ -1791,7 +1798,7 @@ body[data-page="shop-luxe"] .luxe-shop {
 
 <div class="luxe-announcement">
   ✦ STRAIGHT FROM NATURE ✦
-  <strong>FREE DELIVERY ON ORDERS ABOVE ₹999</strong>
+  <strong>FREE DELIVERY ON ORDERS ABOVE ₹1499</strong>
 </div>
 
 <!-- HERO -->
@@ -1872,7 +1879,7 @@ body[data-page="shop-luxe"] .luxe-shop {
   <div class="luxe-benefit">
     <span class="luxe-benefit-icon">🚚</span>
     <div>
-      <strong>Free Delivery Above ₹999</strong>
+      <strong>Free Delivery Above ₹1499</strong>
       <small>More honey, more happiness</small>
     </div>
   </div>
@@ -1949,7 +1956,7 @@ body[data-page="shop-luxe"] .luxe-shop {
         class="luxe-delivery-badge"
         id="delivery-badge">
 
-        FREE ABOVE ₹999
+        FREE ABOVE ₹1499
 
       </div>
 
@@ -2014,7 +2021,7 @@ body[data-page="shop-luxe"] .luxe-shop {
       </h2>
 
       <p>
-        Fill your basket with more than ₹999
+        Fill your basket with more than ₹1499
         worth of golden goodness and enjoy
         complimentary delivery.
         Sweetness delivered to your doorstep.
@@ -2034,7 +2041,7 @@ body[data-page="shop-luxe"] .luxe-shop {
 
       <div class="luxe-promo-circle">
 
-        ₹999
+        ₹1499
 
         <small>FREE DELIVERY ABOVE</small>
 
@@ -2222,8 +2229,8 @@ body[data-page="shop-luxe"] .luxe-shop {
       </div>
 
       <p class="luxe-modal-note">
-        Free delivery on orders above ₹999.
-        Other delivery charges are calculated at checkout.
+        Free delivery on orders above ₹1499.
+        Other delivery charges are calculated Via WhatsApp.
       </p>
 
     </div>
@@ -2254,7 +2261,7 @@ body[data-page="shop-luxe"] .luxe-shop {
 
   const selected = new Map();
 
-  const FREE_MIN = 1000;
+  const FREE_MIN = 1499;
 
   let previousFocus = null;
   let previousOverflow = "";
@@ -2689,7 +2696,7 @@ body[data-page="shop-luxe"] .luxe-shop {
 
     $("delivery-badge").textContent = free
       ? "✓ FREE DELIVERY"
-      : "FREE ABOVE ₹999";
+      : "FREE ABOVE ₹1499";
 
     $("delivery-fill").style.width =
       progress + "%";
@@ -2840,11 +2847,10 @@ body[data-page="shop-luxe"] .luxe-shop {
 
     $("modal-shipping").textContent = free
       ? "FREE ✓"
-      : "Calculated at checkout";
+      : "Via WhatsApp";
 
-    $("modal-total").textContent = free
-      ? money(subtotal)
-      : money(subtotal) + " + delivery";
+
+$("modal-total").textContent = money(subtotal);
 
     $("checkout-link").style.pointerEvents =
       lines.length ? "auto" : "none";
@@ -2951,7 +2957,9 @@ body[data-page="shop-luxe"] .luxe-shop {
 
       if (p.inStock === false) return;
 
-      const next = cart();
+   
+const next = cart().map(item => ({ ...item }));
+
 
       const existing = next.find(item =>
         same(item.id,p.id) &&
