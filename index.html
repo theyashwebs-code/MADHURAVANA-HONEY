@@ -1202,6 +1202,7 @@ body.madhuravana-home .lx-marquee-content i {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.75;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
@@ -3061,14 +3062,9 @@ body.madhuravana-home .ab-stage .ab-hero {
 
 /* Fix huge overlapping circle */
 body.madhuravana-home .ab-stage .ab-hero::before {
+  content: "";
+}
 
-  }
-
-  body.madhuravana-home .ab-stage .ab-hero {
-    grid-column: auto !important;
-    grid-row: auto !important;
-  }
-      }
         
 /* ==========================================
    MADHURAVANA — SAME DESIGN ON ALL DEVICES
@@ -3515,7 +3511,7 @@ body.madhuravana-home .mj-view-product:hover {
       <span>100% Pure Honey</span><i>✦</i>
       <span>Never Heated</span><i>✦</i>
       <span>No Added Sugar</span><i>✦</i>
-      <   >Rich in Natural Enzymes</span><i>✦</i>
+      <span>Enzyme Rich</span><i>✦</i>
       <span>Straight from the Forest</span><i>✦</i>
       <span>Traditional Bee-Keepers</span><i>✦</i>
       <span>Pure &amp; Unfiltered</span><i>✦</i>
@@ -4001,8 +3997,8 @@ body.madhuravana-home .mj-view-product:hover {
     <div class="mv-trust-item">
       <span class="mv-trust-icon">🚚</span>
       <div class="mv-trust-text">
-        <strong>Free Shipping ₹999+</strong>
-        <small>₹50 shipping below ₹999</small>
+        <strong>Free Shipping Above ₹1499+</strong>
+        <small><small>Delivery charges below ₹1,499 will be confirmed on WhatsApp.</small></small>
       </div>
     </div>
 
@@ -4280,8 +4276,7 @@ aria-label="Healthy and meaningful gifts">
       <span>✦</span>
       <span>
         A little more sweetness!
-        <b>FREE DELIVERY</b> on orders ₹999 and above.
-        Just ₹50 shipping below ₹999.
+      <b>FREE DELIVERY</b> on orders of ₹1,499 and above.
       </span>
       <span>✦</span>
     </div>
@@ -4843,7 +4838,9 @@ aria-label="Frequently asked questions">
       }
 
       try {
-        const next = getCurrentCart();
+        
+const next = getCurrentCart().map(item => ({ ...item }));
+
 
         const existing = next.find(
           item =>
