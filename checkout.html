@@ -460,6 +460,22 @@ body[data-page="checkout"] *{-webkit-tap-highlight-color:transparent}
   color: #806329;
 }
 
+
+/* Clear delivery information at checkout */
+body[data-page="checkout"] .ck-shipping-message {
+  padding: 15px 16px;
+  margin-top: 15px;
+  background: #fff7e4;
+  border: 1px solid #e8cc8d;
+  border-radius: 12px;
+  color: #654716;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+
 </style>
 
   <link rel="stylesheet" href="nav.css?v=20261012">
@@ -639,7 +655,14 @@ body[data-page="checkout"] *{-webkit-tap-highlight-color:transparent}
         </div>
         <p class="ck-note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-          <span>Your order opens in WhatsApp, ready to send. Nothing is charged now.</span>
+         
+<span>
+  Your order will open in WhatsApp for confirmation.
+  Delivery charges, if applicable, will be discussed
+  and confirmed separately before your order is finalized.
+  No payment is collected now.
+</span>
+
         </p>
 
         <div class="ck-trust">
@@ -1073,7 +1096,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!items.length) return;
 
   const SHIPPING_FEE = 50;
-  const FREE_SHIPPING_MIN = 999;
+  const FREE_SHIPPING_MIN = 1499;
 
   const normal = items.filter(i => !i.gift);
   const gifts = items.filter(i => i.gift);
@@ -1107,7 +1130,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ? 0
     : SHIPPING_FEE;
 
-  const grandTotal = subtotal + shipping;
+
+const grandTotal = subtotal;
+
 
   // Display cart items
   function row(i) {
@@ -1182,9 +1207,13 @@ document.addEventListener("DOMContentLoaded", function () {
     subtotal / FREE_SHIPPING_MIN * 100
   );
 
-  const shippingMessage = shipping === 0
-    ? "🎉 Congratulations! You've unlocked FREE delivery."
-    : `🍯 Add ${formatMoney(remaining)} more for FREE delivery!`;
+
+const shippingMessage = subtotal >= FREE_SHIPPING_MIN
+  ? "🎉 Congratulations! Your order qualifies for FREE delivery."
+  : "🚚 Delivery charges are not included in the items subtotal. Our team will discuss and confirm the delivery charges with you separately on WhatsApp before your order is finalized. Add " +
+    formatMoney(remaining) +
+    " more to unlock FREE delivery.";
+
 
   box.innerHTML = `
     <div class="ck-sum-head">
@@ -1201,12 +1230,6 @@ document.addEventListener("DOMContentLoaded", function () {
         <strong>${formatMoney(subtotal)}</strong>
       </div>
 
-      <div class="ck-shipping-row">
-        <span>🚚 Delivery charges</span>
-        <strong class="${shipping === 0 ? "ck-shipping-free" : ""}">
-          ${shipping === 0 ? "FREE" : formatMoney(shipping)}
-        </strong>
-      </div>
 
       <div class="ck-shipping-progress">
         <span style="width:${progress}%"></span>
@@ -1218,7 +1241,7 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
     <div class="ck-sum-total">
-      <span>Total payable</span>
+  <span>Items subtotal</span>
       <strong>${formatMoney(grandTotal)}</strong>
     </div>
 
