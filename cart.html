@@ -289,6 +289,284 @@
   }
 }
 
+
+/* ==========================================
+   MADHURAVANA - CLEAR PREMIUM ORDER SUMMARY
+   ========================================== */
+
+body[data-page="cart"] .ct-summary {
+  background: #fffaf0;
+  color: #263b2c;
+  border: 1px solid #e7dcc5;
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 18px 50px rgba(40, 55, 30, .10);
+  overflow: hidden;
+}
+
+/* Heading */
+body[data-page="cart"] .ct-summary h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #143a23;
+  margin: 0 0 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e6dcc8;
+}
+
+/* Product prices */
+body[data-page="cart"] .ct-sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  color: #263b2c;
+  font-size: .95rem;
+  border-bottom: 1px solid #eee5d4;
+}
+
+body[data-page="cart"] .ct-sum-row span {
+  min-width: 0;
+  font-weight: 600;
+}
+
+body[data-page="cart"] .ct-sum-row span small {
+  display: block;
+  margin-top: 6px;
+  color: #756d5b;
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+body[data-page="cart"] .ct-sum-row strong {
+  color: #143a23;
+  font-size: 1.05rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Free delivery reward */
+body[data-page="cart"] .ct-free-delivery {
+  background: #edf5e9;
+  border: 1px solid #cde0c6;
+  border-radius: 17px;
+  padding: 18px;
+  margin: 20px 0;
+}
+
+body[data-page="cart"] .ct-free-delivery-top {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+body[data-page="cart"] .ct-free-delivery-top > div {
+  min-width: 0;
+}
+
+body[data-page="cart"] .ct-free-delivery-title {
+  color: #276338;
+  font-size: .85rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+body[data-page="cart"] .ct-free-delivery-description {
+  color: #425844;
+  font-size: .83rem;
+  line-height: 1.6;
+  margin-top: 7px;
+}
+
+body[data-page="cart"] .ct-free-delivery-track {
+  background: #d2dec9;
+  height: 9px;
+}
+
+body[data-page="cart"] .ct-free-delivery-fill {
+  background: linear-gradient(90deg, #398b4a, #83b84b);
+}
+
+/* Delivery charges */
+body[data-page="cart"] .ct-delivery-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e6dcc8;
+  color: #263b2c;
+  font-size: .94rem;
+}
+
+body[data-page="cart"] .ct-delivery-price-row > span {
+  flex: 1 1 160px;
+  min-width: 0;
+  font-weight: 700;
+}
+
+body[data-page="cart"] .ct-delivery-price-row small {
+  display: block;
+  margin-top: 8px;
+  color: #766b54;
+  font-size: .78rem;
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+body[data-page="cart"] .ct-delivery-price-row strong {
+  color: #276338;
+  font-size: .85rem;
+  font-weight: 800;
+  text-align: right;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+body[data-page="cart"] .ct-delivery-pending strong {
+  color: #94621a;
+}
+
+/* Total */
+body[data-page="cart"] .ct-sum-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  background: #f4eedf;
+  border: 1px solid #e5d9bd;
+  border-radius: 16px;
+  padding: 18px;
+  margin: 20px 0;
+}
+
+body[data-page="cart"] .ct-sum-total span {
+  color: #143a23;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+body[data-page="cart"] .ct-sum-total strong {
+  color: #143a23;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Gift note */
+body[data-page="cart"] .ct-gift-note {
+  background: #fff0c9;
+  border: 1px solid #e6c47c;
+  border-radius: 15px;
+  color: #47341d;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* Checkout button */
+body[data-page="cart"] .ct-summary .ct-btn {
+  background: #143a23;
+  color: #fffaf0;
+  min-height: 54px;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(20,58,35,.16);
+}
+
+/* Continue shopping */
+body[data-page="cart"] .ct-summary .ct-link-btn {
+  color: #143a23;
+  border: 1px solid #cbbd9f;
+  box-shadow: none;
+  border-radius: 50px;
+  background: transparent;
+  padding: 14px;
+  font-weight: 700;
+}
+
+body[data-page="cart"] .ct-summary #empty-cart {
+  color: #a44033;
+  border: none;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 12px;
+}
+
+/* Footer information */
+body[data-page="cart"] .ct-summary .ct-fine {
+  color: #766b54;
+  font-size: .78rem;
+  line-height: 1.6;
+}
+
+/* Successful free delivery */
+body[data-page="cart"] .ct-free-delivery-unlocked {
+  background: #e5f4df;
+  border-color: #9fcb91;
+}
+
+body[data-page="cart"] .ct-free-delivery-unlocked
+.ct-free-delivery-title {
+  color: #216536;
+}
+
+/* Mobile layout */
+@media (max-width: 640px) {
+  body[data-page="cart"] .ct-summary {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+
+  body[data-page="cart"] .ct-summary h3 {
+    font-size: 1.45rem;
+  }
+
+  body[data-page="cart"] .ct-free-delivery {
+    padding: 15px;
+  }
+
+  body[data-page="cart"] .ct-delivery-price-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  body[data-page="cart"] .ct-delivery-price-row > span {
+    flex: none;
+  }
+
+  body[data-page="cart"] .ct-delivery-price-row strong {
+    text-align: left;
+  }
+
+  body[data-page="cart"] .ct-sum-total {
+    padding: 15px;
+  }
+
+  body[data-page="cart"] .ct-sum-total strong {
+    font-size: 1.7rem;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  body[data-page="cart"] .ct-summary .ct-btn:hover {
+    background: #235537;
+    color: #fff;
+  }
+
+  body[data-page="cart"] .ct-summary .ct-link-btn:hover {
+    background: #f0e8d6;
+  }
+}
+
+
   </style>
 </head>
 <body data-page="cart">
@@ -394,7 +672,8 @@
       '<h3>Order summary</h3>' +
       (normal.length ? '<div class="ct-sum-row"><span>Regular order<small>' + jars(count(normal)) + '</small></span><strong>' + money(sum(normal)) + '</strong></div>' : '') +
       (gifts.length  ? '<div class="ct-sum-row"><span>🎁 Gift pack<small>' + jars(count(gifts)) + '</small></span><strong>' + money(sum(gifts)) + '</strong></div>' : '') +
-      '<div class="ct-sum-total"><span>Total</span><strong>' + money(total) + '</strong></div>' +
+     '<div class="ct-sum-total"><span>Items subtotal</span><strong>' + money(total) + '</strong></div>' +
+
       noteHtml +
       '<a class="ct-btn" href="checkout.html">Proceed to Checkout</a>' +
       '<a class="ct-link-btn" href="shop.html">Continue Shopping</a>' +
@@ -423,12 +702,12 @@
   "use strict";
 
   /*
-    Above ₹999 means subtotal >= ₹1000.
+    Free shipping on orders of ₹1,499 or more.
     Read the real total from the website's
     existing cartTotal() function.
   */
 
-  const FREE_DELIVERY_MINIMUM = 1000;
+  const FREE_DELIVERY_MINIMUM = 1499;
 
   function rupees(amount) {
     return "₹" + Number(amount || 0)
@@ -576,18 +855,20 @@
           ${
             freeDelivery
               ? "Free delivery applied"
-              : "Free for orders above ₹999"
+           : "Delivery charges will be shared separately on WhatsApp."
           }
         </small>
       </span>
 
-      <strong>
-        ${
-          freeDelivery
-            ? "FREE ₹0"
-            : "Calculated at checkout"
-        }
-      </strong>
+
+<strong>
+  ${
+    freeDelivery
+      ? "FREE ₹0"
+      : "Via WhatsApp"
+  }
+</strong>
+
     `;
 
     /*
