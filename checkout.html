@@ -1210,7 +1210,7 @@ const grandTotal = subtotal;
 
 const shippingMessage = subtotal >= FREE_SHIPPING_MIN
   ? "🎉 Congratulations! Your order qualifies for FREE delivery."
-  : `Add ${formatMoney(remaining)} more to your order for FREE delivery.`;
+  : "🚚 Delivery charges are applicable for orders below 1499.  " ;
 
 
   box.innerHTML = `
