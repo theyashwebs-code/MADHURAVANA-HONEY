@@ -1,1058 +1,2231 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10291f">
+
 <title>Track Your Order | MADHURAVANA Pure Honey</title>
+<meta name="description" content="Track your MADHURAVANA honey order from our hive to your home.">
 
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/favicon-16x16.png">
-<link rel="apple-touch-icon" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/apple-touch-icon.png">
-<link rel="manifest" href="https://theyashwebs-code.github.io/MADHURAVANA-HONEY/images/site.webmanifest">
-
+<link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..650,0..100&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
-<!-- Site-wide styles (header / footer / buttons) -->
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="premium.css">
 <link rel="stylesheet" href="magic-upgrade.css">
 <link rel="stylesheet" href="wow.css">
 <link rel="stylesheet" href="static-premium.css">
 <link rel="stylesheet" href="mobile-premium.css">
+<link rel="stylesheet" href="nav.css?v=20261012">
 
 <style>
-/* =====================================================================
-   MADHURAVANA · ORDER TRACKING  (all track styles live here)
-===================================================================== */
-.tk-page{
-  --tk-ink:#1f1a14;
-  --tk-text:#3d352b;
-  --tk-muted:#6b6258;
-  --tk-line:#e6dfd2;
-  --tk-line-strong:#d4cab8;
-  --tk-bg:#f7f4ee;
-  --tk-surface:#ffffff;
-  --tk-brand:#3a2415;
-  --tk-gold:#b7791f;
-  --tk-gold-dark:#8a5a0b;
-  --tk-gold-soft:#fbf1da;
-  --tk-green:#2f7d4f;
-  --tk-green-soft:#e6f3ea;
-  --tk-red:#b3382c;
-  --tk-red-soft:#fbeae7;
-  --tk-sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --tk-serif:"Fraunces",Georgia,serif;
-}
-.tk-page .tk-section,
-.tk-page .tk-section button,
-.tk-page .tk-section input{font-family:var(--tk-sans)}
+/* ================================
+   MADHURAVANA TRACKING REDESIGN
+================================ */
 
-/* =====================================================================
-   SECTION: bright honey background + photo (full bottle) | form
-===================================================================== */
-.tk-section{
-  position:relative !important;
-  isolation:isolate;
-  overflow:hidden;
-  padding:72px 0 104px !important;
-  color:#3b2008 !important;
+body.tk-page {
+  margin: 0;
+  background: #f9f7f0;
+}
+
+.tk-page {
+  --forest: #10291f;
+  --forest2: #1a4430;
+  --gold: #d9a44a;
+  --gold-light: #f5dfab;
+  --cream: #f9f7f0;
+  --ink: #182b21;
+  --muted: #778076;
+  --line: #e7e5da;
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "DM Sans", sans-serif;
+}
+
+.tk-page .tk-main,
+.tk-page .tk-main * {
+  box-sizing: border-box;
+}
+
+.tk-page .tk-main {
+  overflow: hidden;
+  font-family: var(--sans);
+}
+
+.tk-page .tk-main button,
+.tk-page .tk-main input {
+  font-family: var(--sans);
+}
+
+.tk-main button {
+  cursor: pointer;
+}
+
+.tk-main button:focus-visible,
+.tk-main a:focus-visible,
+.tk-main input:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.tk-container {
+  width: min(1180px, calc(100% - 48px));
+  margin: auto;
+}
+
+/* HERO */
+
+.tk-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 92px 0 112px;
+  background: var(--forest);
+  color: white;
+}
+
+.tk-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 50% at 20% 10%, rgba(255,255,255,.65), transparent 70%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23c88a10' stroke-opacity='.14' stroke-width='2'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23c88a10' stroke-opacity='.14' stroke-width='2'/%3E%3C/svg%3E"),
-    linear-gradient(180deg,#fff3c9 0%,#ffdf85 55%,#ffc83d 100%) !important;
-  background-attachment:scroll !important;
-}
-.tk-section::before,
-.tk-section::after{content:none !important;display:none !important}
-.tk-section .container{position:relative;z-index:1}
-.tk-section .container.narrow{max-width:1120px !important}
-
-/* ---------- two columns: photo | form ---------- */
-.tk-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
-  gap:clamp(28px,4.5vw,64px);
-  align-items:center;
+    radial-gradient(circle at 85% 12%,
+      rgba(225,171,75,.13),transparent 35%),
+    radial-gradient(circle at 6% 90%,
+      rgba(86,149,100,.15),transparent 40%);
+  z-index: -1;
 }
 
-/* ---------- the photo: full image, nothing cropped ---------- */
-.tk-photo{
-  margin:0;
-  aspect-ratio:3/2;                 /* same shape as the image = no cropping */
-  border-radius:28px 140px 28px 28px;
-  overflow:hidden;
-  background:#0c0704;
-  border:3px solid #f2c04a;
-  box-shadow:0 28px 70px rgba(110,55,0,.45),0 0 0 9px rgba(255,255,255,.35);
-}
-.tk-photo img{
-  display:block;width:100%;height:100%;
-  object-fit:cover;object-position:center;
-  filter:brightness(1.4) contrast(1.06) saturate(1.12);   /* lifts the dark photo */
-}
-
-/* ---------- Intro ---------- */
-.tk-intro{text-align:left;margin:0 0 22px}
-.tk-intro h1{
-  font-family:var(--tk-serif);font-weight:600;
-  font-size:clamp(2rem,4.2vw,2.9rem);line-height:1.1;letter-spacing:-.015em;
-  color:#3b2008 !important;text-shadow:none !important;margin:0 0 10px;
-}
-.tk-intro p{
-  max-width:48ch;margin:0;font-size:1rem;line-height:1.6;
-  color:#6a4410 !important;text-shadow:none !important;font-weight:500;
+.tk-hero::after {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  top: -160px;
+  right: -160px;
+  border-radius: 50%;
+  border: 1px solid rgba(230,192,105,.16);
+  box-shadow:
+    0 0 0 55px rgba(230,192,105,.025),
+    0 0 0 110px rgba(230,192,105,.018);
+  pointer-events: none;
 }
 
-/* ---------- Lookup form ---------- */
-.tk-form{
-  display:grid;grid-template-columns:1.3fr 1fr auto;gap:14px;align-items:end;
-  margin:0;padding:22px;
-  background:var(--tk-surface);
-  border:1px solid var(--tk-line);
-  border-radius:14px;
-  box-shadow:0 1px 2px rgba(31,26,20,.05),0 8px 24px -12px rgba(31,26,20,.12);
-}
-.tk-grid .tk-form{
-  grid-template-columns:1fr !important;
-  background:#fffaf0 !important;
-  border:2px solid #f2c04a !important;
-  border-radius:22px !important;
-  box-shadow:0 18px 44px rgba(110,55,0,.28) !important;
-}
-.tk-field{display:block;font-size:.85rem;font-weight:600;color:var(--tk-ink)}
-.tk-field span{display:block;margin:0 0 7px}
-.tk-form input{
-  display:block;width:100%;box-sizing:border-box;height:48px;
-  padding:0 14px;border-radius:8px;
-  border:1px solid var(--tk-line-strong);background:#fff;
-  font:500 .95rem/1.2 var(--tk-sans);color:var(--tk-ink);
-  outline:none;transition:border-color .15s,box-shadow .15s;
-}
-.tk-form input::placeholder{color:#a69c8d;font-weight:400}
-.tk-form input:hover{border-color:#b8ad98}
-.tk-form input:focus{border-color:var(--tk-gold);box-shadow:0 0 0 3px rgba(183,121,31,.2)}
-.tk-go{
-  cursor:pointer;border:0;height:48px;padding:0 28px;border-radius:8px;
-  font:600 .95rem/1 var(--tk-sans);color:#fff;
-  background:var(--tk-brand);
-  transition:background .15s,box-shadow .15s;
-}
-.tk-go:hover{background:#2a190d}
-.tk-go:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(183,121,31,.45)}
-.tk-go:disabled{opacity:.65;cursor:progress}
-.tk-grid .tk-go{
-  width:100%;
-  background:linear-gradient(180deg,#ffc83d,#f19a00) !important;
-  color:#3b2008 !important;
-  box-shadow:0 8px 18px rgba(228,138,0,.45),inset 0 2px 0 rgba(255,255,255,.5);
-}
-.tk-grid .tk-go:hover{background:linear-gradient(180deg,#ffd460,#f5a512) !important}
-
-.tk-secure{
-  display:flex;align-items:center;justify-content:flex-start;gap:8px;
-  width:max-content;max-width:100%;
-  margin:16px 0 0;padding:9px 16px;border-radius:99px;
-  font-size:.82rem;font-weight:600;
-  background:rgba(255,255,255,.75);
-  color:#6a4410 !important;text-shadow:none !important;
-  box-shadow:0 6px 16px rgba(110,55,0,.15);
-}
-.tk-secure svg{flex:none}
-
-/* ---------- Result card ---------- */
-#tk-result,#tk-orders{max-width:760px;margin-left:auto;margin-right:auto}
-#tk-result{margin-top:44px}
-.tk-card{
-  position:relative;
-  background:var(--tk-surface);color:var(--tk-text);
-  border:1px solid var(--tk-line);border-radius:14px;
-  padding:clamp(22px,4vw,36px);
-  box-shadow:0 1px 2px rgba(31,26,20,.05),0 12px 32px -16px rgba(31,26,20,.18);
-  animation:tkRise .35s ease-out both;
-}
-.tk-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
-.tk-head h2{
-  margin:0 0 10px;font-family:var(--tk-serif);font-weight:600;
-  font-size:clamp(1.35rem,3vw,1.7rem);line-height:1.2;letter-spacing:-.01em;color:var(--tk-ink);
-}
-.tk-meta{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;color:var(--tk-muted);font-size:.87rem}
-.tk-meta .dotsep{width:3px;height:3px;border-radius:50%;background:#b8ad98}
-.tk-idchip{
-  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
-  padding:5px 6px 5px 10px;border-radius:6px;
-  background:#f3eee3;border:1px solid var(--tk-line);
-  color:var(--tk-ink);font:600 .8rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;
-  transition:background .15s,border-color .15s;
-}
-.tk-idchip:hover{background:#ece5d6;border-color:var(--tk-line-strong)}
-.tk-idchip:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(183,121,31,.4)}
-.tk-idchip b{
-  font:600 .7rem/1 var(--tk-sans);padding:4px 7px;border-radius:4px;
-  background:#fff;color:var(--tk-muted);border:1px solid var(--tk-line);
+.tk-topline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  color: #e6c98a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
 }
 
-/* status pill */
-.tk-pill{
-  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
-  padding:7px 13px;border-radius:99px;font-size:.82rem;font-weight:600;
-  background:var(--tk-gold-soft);color:var(--tk-gold-dark);border:1px solid #efd9a6;
+.tk-topline::before {
+  content: "";
+  width: 33px;
+  height: 1px;
+  background: var(--gold);
 }
-.tk-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.tk-pill.done{background:var(--tk-green-soft);color:var(--tk-green);border-color:#bfdcca}
-.tk-pill.bad{background:var(--tk-red-soft);color:var(--tk-red);border-color:#f0c5be}
 
-/* current status panel */
-.tk-now{
-  display:block;margin:26px 0 0;padding:14px 18px;border-radius:8px;
-  background:var(--tk-gold-soft);border-left:3px solid var(--tk-gold);
+.tk-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  align-items: center;
+  gap: clamp(35px,6vw,95px);
 }
-.tk-now strong{display:block;font-weight:600;font-size:1rem;color:var(--tk-ink)}
-.tk-now span{display:block;margin-top:3px;font-size:.9rem;color:var(--tk-text);line-height:1.5}
 
-/* ---------- Stepper (horizontal ≥720px, vertical below) ---------- */
-.tk-steps{
-  position:relative;list-style:none;margin:30px 0 4px;padding:0;
-  display:grid;grid-template-columns:repeat(5,1fr);
+.tk-eyebrow {
+  margin: 0 0 22px;
+  color: #e0bd77;
+  letter-spacing: 2.3px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
-.tk-steps li{position:relative;text-align:center;padding:0 4px}
-.tk-steps li::before{ /* rail to next step */
-  content:"";position:absolute;top:17px;left:50%;width:100%;height:2px;
-  background:var(--tk-line);
-}
-.tk-steps li.on::before{background:var(--tk-gold)}
-.tk-steps li:last-child::before{display:none}
-.tk-dot{
-  position:relative;z-index:1;width:36px;height:36px;margin:0 auto 10px;box-sizing:border-box;
-  display:grid;place-items:center;border-radius:50%;
-  font-weight:600;font-size:.85rem;color:var(--tk-muted);
-  background:#fff;border:2px solid var(--tk-line-strong);
-}
-.tk-steps li.on .tk-dot{background:var(--tk-gold);border-color:var(--tk-gold);color:#fff}
-.tk-steps li.now .tk-dot{
-  border-color:var(--tk-gold);color:var(--tk-gold-dark);background:#fff;
-  box-shadow:0 0 0 4px rgba(183,121,31,.18);
-}
-.tk-steps strong{display:block;font-weight:500;font-size:.86rem;line-height:1.3;color:var(--tk-muted)}
-.tk-steps li.on strong{color:var(--tk-text)}
-.tk-steps li.now strong{color:var(--tk-ink);font-weight:600}
 
-/* ---------- Cancel order ---------- */
-.tk-cancel-actions{
-  margin:24px 0 0;padding:16px 18px;border-radius:10px;
-  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-  background:#fdf6f4;border:1px solid #f1d6d1;
+.tk-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(45px,5.8vw,82px);
+  font-weight: 500;
+  line-height: 1.09;
+  letter-spacing: -2.8px;
+  color: #fffaf1;
 }
-.tk-cancel-actions p{margin:0;color:var(--tk-muted);font-size:.86rem;line-height:1.5;order:-1;flex:1 1 220px}
-.tk-cancel-btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  height:42px;padding:0 18px;border-radius:8px;
-  border:1px solid #d9a199;background:#fff;color:var(--tk-red);
-  font:600 .88rem/1 var(--tk-sans);cursor:pointer;
-  transition:background .15s,border-color .15s;
-}
-.tk-cancel-btn:hover{background:var(--tk-red-soft);border-color:var(--tk-red)}
-.tk-cancel-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(179,56,44,.3)}
-.tk-cancel-btn:disabled{opacity:.55;cursor:not-allowed}
-@media(max-width:480px){.tk-cancel-btn{width:100%}}
 
-/* ---------- Cancel confirmation dialog ---------- */
-.tk-modal-backdrop{
-  position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
-  padding:20px;background:rgba(31,26,20,.55);backdrop-filter:blur(3px);
-  animation:tkModalFade .15s ease both;
+.tk-title em {
+  display: block;
+  color: #e7bf73;
+  font-weight: 400;
 }
-.tk-modal-card{
-  width:min(100%,420px);box-sizing:border-box;
-  padding:28px;border-radius:14px;text-align:center;
-  background:#fff;color:var(--tk-text);font-family:var(--tk-sans);
-  border:1px solid var(--tk-line);box-shadow:0 24px 60px rgba(31,26,20,.3);
-  animation:tkModalRise .2s ease-out both;
-}
-.tk-modal-mark{
-  width:48px;height:48px;display:grid;place-items:center;margin:0 auto 16px;border-radius:50%;
-  background:var(--tk-gold-soft);color:var(--tk-gold-dark);font-size:1.3rem;font-weight:700;
-}
-.tk-modal-card h3{margin:0 0 8px;color:var(--tk-ink);font:600 1.3rem/1.25 var(--tk-serif)}
-.tk-modal-card p{margin:0 auto 16px;max-width:36ch;color:var(--tk-muted);font-size:.93rem;line-height:1.6}
-.tk-modal-order{
-  margin:0 auto 20px;padding:10px 12px;border-radius:8px;background:#f3eee3;border:1px solid var(--tk-line);
-  color:var(--tk-ink);font:600 .82rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere;
-}
-.tk-modal-actions{display:flex;gap:10px;flex-direction:column}
-.tk-modal-actions button{
-  width:100%;height:46px;border-radius:8px;padding:0 16px;
-  font:600 .92rem/1 var(--tk-sans);cursor:pointer;transition:background .15s,border-color .15s;
-}
-.tk-modal-wa{display:flex;align-items:center;justify-content:center;width:100%;height:46px;box-sizing:border-box;border-radius:8px;padding:0 16px;
-  background:#1f9d55;border:1px solid #1f9d55;color:#fff;font:600 .92rem/1 var(--tk-sans);text-decoration:none;transition:background .15s}
-.tk-modal-wa:hover{background:#188147;color:#fff}
-.tk-modal-wa:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(31,157,85,.4)}
-.tk-modal-confirm{border:1px solid var(--tk-red);background:var(--tk-red);color:#fff}
-.tk-modal-confirm:hover{background:#992f24}
-.tk-modal-keep{border:1px solid var(--tk-line-strong);background:#fff;color:var(--tk-ink)}
-.tk-modal-keep:hover{background:#f7f4ee}
-.tk-modal-actions button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(183,121,31,.4)}
-.tk-modal-actions button:disabled{opacity:.6;cursor:wait}
-.tk-modal-card.tk-modal-success .tk-modal-mark{background:var(--tk-green-soft);color:var(--tk-green)}
-.tk-modal-card.tk-modal-error .tk-modal-mark{background:var(--tk-red-soft);color:var(--tk-red)}
-@keyframes tkModalFade{from{opacity:0}to{opacity:1}}
-@keyframes tkModalRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media(max-width:480px){.tk-modal-card{padding:24px 20px}}
 
-/* ---------- Cancelled notice ---------- */
-.tk-cancel{
-  display:flex;gap:14px;align-items:flex-start;margin:26px 0 4px;
-  padding:16px 18px;border-radius:8px;background:var(--tk-red-soft);border-left:3px solid var(--tk-red);
+.tk-description {
+  max-width: 445px;
+  margin: 25px 0 0;
+  color: #c7d0c4;
+  line-height: 1.85;
+  font-size: 15px;
 }
-.tk-cancel .hex{
-  flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;
-  background:var(--tk-red);color:#fff;font-size:.8rem;font-weight:700;
-}
-.tk-cancel strong{display:block;font-weight:600;font-size:1rem;color:#7d261d}
-.tk-cancel span{display:block;margin-top:3px;font-size:.9rem;color:#8a3a31;line-height:1.5}
 
-/* ---------- Items ---------- */
-.tk-items{margin-top:30px;padding-top:4px;border-top:1px solid var(--tk-line)}
-.tk-items h3{margin:20px 0 6px;font:600 .95rem/1.2 var(--tk-sans);color:var(--tk-ink)}
-.tk-line{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--tk-line);font-size:.94rem;color:var(--tk-text)}
-.tk-line span:last-child{font-variant-numeric:tabular-nums;color:var(--tk-ink);font-weight:600}
-.tk-line em{font-style:normal;color:var(--tk-muted)}
-.tk-tot{
-  display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:14px;padding:16px 18px;border-radius:8px;
-  background:#f7f4ee;border:1px solid var(--tk-line);
+.tk-hero-visual {
+  position: relative;
+  padding: 15px 24px 45px 8px;
 }
-.tk-tot span:first-child{font-size:.9rem;color:var(--tk-muted)}
-.tk-tot span:last-child{font-family:var(--tk-serif);font-weight:600;font-size:1.5rem;color:var(--tk-ink);font-variant-numeric:tabular-nums}
-.tk-note{display:flex;align-items:center;gap:10px;margin:20px 0 0;font-size:.82rem;color:var(--tk-muted)}
-.tk-live{width:8px;height:8px;border-radius:50%;background:#4aa56d;flex:none}
 
-/* ---------- Messages & skeleton ---------- */
-.tk-msg{
-  display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border-radius:10px;
-  background:var(--tk-red-soft);border:1px solid #f0c5be;color:#7d261d;font-size:.93rem;line-height:1.55;
-  animation:tkRise .3s ease-out both;
+.tk-image-frame {
+  position: relative;
+  aspect-ratio: 4/4.5;
+  border-radius: 200px 200px 26px 26px;
+  overflow: hidden;
+  border: 1px solid rgba(245,223,171,.36);
+  background: #302817;
+  box-shadow: 0 40px 90px rgba(0,0,0,.28);
 }
-.tk-msg b{display:block;margin-bottom:2px;font-weight:600;font-size:1rem}
-.tk-msg .ic{
-  flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;
-  background:var(--tk-red);color:#fff;font-weight:700;font-size:.85rem;
-}
-.tk-skel{border-radius:14px;padding:32px;background:#fff;border:1px solid var(--tk-line)}
-.tk-skel i{
-  display:block;height:14px;border-radius:6px;margin-bottom:14px;
-  background:linear-gradient(90deg,#eee8da 25%,#f7f3ea 50%,#eee8da 75%);
-  background-size:200% 100%;animation:tkShimmer 1.4s linear infinite;
-}
-.tk-skel i:nth-child(1){width:50%;height:22px}
-.tk-skel i:nth-child(2){width:30%}
-.tk-skel i:nth-child(3){width:100%;height:56px;border-radius:8px;margin-top:22px}
-.tk-skel i:nth-child(4){width:75%}
 
-/* ---------- My orders ---------- */
-#tk-orders:not(:empty){
-  margin-top:28px;padding:20px 22px 12px;border-radius:20px;
-  background:rgba(255,250,240,.92);
-  border:2px solid #f2c04a;
-  box-shadow:0 14px 36px rgba(110,55,0,.2);
+.tk-image-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .7s ease;
 }
-.tk-my-title{margin:0 0 4px;font-family:var(--tk-serif);font-weight:600;font-size:1.4rem;color:var(--tk-ink);letter-spacing:-.01em}
-.tk-my-sub{margin:0 0 16px;color:var(--tk-muted);font-size:.9rem}
-.tk-my{
-  width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;text-align:left;
-  font:inherit;cursor:pointer;margin-bottom:10px;padding:14px 18px;color:inherit;
-  background:var(--tk-surface);
-  border:1px solid var(--tk-line);border-radius:10px;
-  transition:border-color .15s,box-shadow .15s;
-}
-.tk-my:hover,.tk-my:focus-visible{border-color:var(--tk-gold);box-shadow:0 4px 14px -6px rgba(31,26,20,.18);outline:none}
-.tk-my:focus-visible{box-shadow:0 0 0 3px rgba(183,121,31,.35)}
-.tk-my .lead{display:flex;align-items:center;gap:14px;min-width:0}
-.tk-my .hx{display:none}
-.tk-my strong{display:block;font:600 .88rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--tk-ink);word-break:break-all}
-.tk-my small{display:block;margin-top:5px;color:var(--tk-muted);font-size:.82rem}
-.tk-my .tk-pill{flex:none;font-size:.76rem;padding:5px 11px}
 
-/* ---------- Motion ---------- */
-@keyframes tkRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes tkShimmer{to{background-position:-200% 0}}
+.tk-image-frame:hover img {
+  transform: scale(1.04);
+}
 
-/* ---------- Responsive ---------- */
-/* tablet & phone: photo on top (whole bottle visible), form below */
-@media(max-width:900px){
-  .tk-grid{grid-template-columns:1fr;gap:28px}
-  .tk-photo{border-radius:22px 90px 22px 22px}
-  .tk-intro{text-align:center}
-  .tk-intro p{margin-left:auto;margin-right:auto}
-  .tk-secure{margin:16px auto 0}
+.tk-image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg,
+    rgba(8,30,19,.4),transparent 55%);
+  pointer-events: none;
 }
-@media(max-width:720px){
-  .tk-section{padding:48px 0 72px !important}
-  .tk-form{grid-template-columns:1fr;padding:18px}
-  .tk-go{width:100%}
-  .tk-steps{grid-template-columns:1fr;margin-top:24px}
-  .tk-steps li{display:flex;align-items:center;gap:14px;text-align:left;padding:0 0 20px}
-  .tk-steps li:last-child{padding-bottom:0}
-  .tk-steps li::before{top:36px;left:17px;width:2px;height:calc(100% - 36px)}
-  .tk-dot{margin:0;flex:none}
-  .tk-steps strong{font-size:.95rem}
-  .tk-my{padding:12px 14px}
+
+.tk-image-seal {
+  position: absolute;
+  right: -4px;
+  bottom: 6px;
+  width: 125px;
+  height: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #203024;
+  border: 6px solid var(--forest);
+  transform: rotate(10deg);
+  text-align: center;
 }
-@media(max-width:600px){
-  .tk-section{padding:36px 0 64px !important}
-  .tk-secure{width:auto;border-radius:16px;text-align:center;justify-content:center}
+
+.tk-image-seal span {
+  font-family: var(--serif);
+  font-size: 28px;
 }
-@media(prefers-reduced-motion:reduce){
-  .tk-card,.tk-msg,.tk-skel i,.tk-modal-backdrop,.tk-modal-card{animation:none}
+
+.tk-image-seal small {
+  font-size: 9px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
-/* ---------- Regular vs gift groups ---------- */
-.tk-grp{margin:14px 0 0;border:1px solid var(--tk-line);border-radius:12px;overflow:hidden;background:#fff}
-.tk-grp-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 16px;
-  background:linear-gradient(135deg,#1d4a2f,#143a23);color:#fff7e2;font:600 .88rem var(--tk-sans)}
-.tk-grp-head b{font-weight:700}
-.tk-grp.is-gift .tk-grp-head{background:linear-gradient(135deg,#b87a0c,#e9a21c);color:#2a1706}
-.tk-grp .tk-line{padding:12px 16px}
-.tk-grp .tk-line:last-child{border-bottom:0}
-.tk-grp-note{margin:0;padding:0 16px 12px;font-size:.78rem;color:var(--tk-muted)}
+
+/* LOOKUP PANEL */
+
+.tk-lookup-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -54px;
+}
+
+.tk-lookup {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  min-height: 230px;
+  background: #fff;
+  border: 1px solid #e9e7de;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 25px 75px rgba(27,40,31,.1);
+}
+
+.tk-lookup-intro {
+  padding: 42px;
+  background: #f0efe4;
+  border-right: 1px solid var(--line);
+}
+
+.tk-lookup-number {
+  color: #ac8746;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.tk-lookup-intro h2 {
+  margin: 14px 0 10px;
+  font: 500 clamp(25px,2.5vw,36px)/1.2 var(--serif);
+  color: var(--ink);
+}
+
+.tk-lookup-intro p {
+  margin: 0;
+  color: #777e72;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.tk-form-area {
+  padding: 40px;
+}
+
+.tk-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: end;
+}
+
+.tk-field {
+  display: block;
+  min-width: 0;
+}
+
+.tk-field > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #314035;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tk-field input {
+  display: block;
+  width: 100%;
+  height: 54px;
+  border: 1px solid #dedfd7;
+  background: #fafaf7;
+  border-radius: 11px;
+  padding: 0 15px;
+  color: var(--ink);
+  font-size: 13px;
+  outline: 0;
+  transition: .2s;
+}
+
+.tk-field input:focus {
+  border-color: #b58b43;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(217,164,74,.12);
+}
+
+.tk-field input::placeholder {
+  color: #a0a59a;
+}
+
+.tk-go {
+  grid-column: 1/-1;
+  width: 100%;
+  height: 55px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--forest);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  transition: transform .2s,background .2s;
+}
+
+.tk-go:hover {
+  transform: translateY(-2px);
+  background: #27563b;
+}
+
+.tk-go:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
+.tk-secure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 17px 0 0;
+  color: #7a8379;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* RESULTS */
+
+.tk-results-section {
+  padding: 64px 0 100px;
+  background: var(--cream);
+}
+
+#tk-result,
+#tk-orders {
+  width: min(880px,100%);
+  margin: 0 auto;
+  scroll-margin-top: 100px;
+}
+
+#tk-orders:not(:empty) {
+  margin-top: 34px;
+}
+
+.tk-result-card {
+  overflow: hidden;
+  background: white;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 70px rgba(19,43,27,.07);
+  animation: tkEnter .4s ease both;
+}
+
+.tk-result-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 30px;
+  background: var(--forest);
+  color: white;
+}
+
+.tk-result-banner small {
+  color: #d6b77d;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.tk-result-banner h2 {
+  margin: 6px 0 0;
+  color: #fff8e9;
+  font: 500 clamp(23px,3vw,32px)/1.25 var(--serif);
+}
+
+.tk-result-body {
+  padding: 30px;
+}
+
+.tk-id-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 27px;
+}
+
+.tk-order-id {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.tk-order-id small {
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  color: #91988b;
+  text-transform: uppercase;
+}
+
+.tk-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: 100%;
+  border: 0;
+  background: transparent;
+  color: #253c2c;
+  padding: 0;
+  font-weight: 700;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.tk-copy span {
+  padding: 4px 8px;
+  border-radius: 5px;
+  background: #f1f1ea;
+  color: #687468;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.tk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 50px;
+  background: #fbf0d9;
+  padding: 9px 13px;
+  color: #97691d;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tk-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.tk-pill.done {
+  background: #e4f3e8;
+  color: #237c45;
+}
+
+.tk-pill.bad {
+  background: #fbe8e5;
+  color: #b24537;
+}
+
+.tk-current {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 35px;
+  padding: 23px;
+  border: 1px solid #e5eadd;
+  border-radius: 15px;
+  background: #f5f8f1;
+}
+
+.tk-current-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e0ebdb;
+  color: var(--forest2);
+  font-size: 22px;
+}
+
+.tk-current small {
+  display: block;
+  margin-bottom: 5px;
+  color: #829080;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.tk-current strong {
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.tk-current p {
+  margin: 5px 0 0;
+  color: #758070;
+  line-height: 1.6;
+  font-size: 12px;
+}
+
+/* DELIVERY TIMELINE */
+
+.tk-timeline-title {
+  margin: 0 0 28px;
+  color: var(--ink);
+  font: 500 23px var(--serif);
+}
+
+.tk-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  list-style: none;
+  margin: 0 0 35px;
+  padding: 0;
+}
+
+.tk-step {
+  position: relative;
+  text-align: center;
+  min-width: 0;
+}
+
+.tk-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 21px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #e7e9e1;
+}
+
+.tk-step.passed:not(:last-child)::after {
+  background: #cda65c;
+}
+
+.tk-step-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 2px solid #e5e8df;
+  background: white;
+  color: #a7afa3;
+  font-size: 17px;
+}
+
+.tk-step.passed .tk-step-icon {
+  background: #1f5436;
+  border-color: #1f5436;
+  color: #fff;
+}
+
+.tk-step.active .tk-step-icon {
+  background: #e5b75e;
+  border-color: #e5b75e;
+  color: #213326;
+  box-shadow: 0 0 0 6px #f9edda;
+}
+
+.tk-step strong {
+  display: block;
+  max-width: 115px;
+  margin: auto;
+  color: #9a9f96;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.tk-step.active strong,
+.tk-step.passed strong {
+  color: #24432f;
+}
+
+.tk-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.tk-meta-box {
+  padding: 16px;
+  border: 1px solid #e8e9e2;
+  border-radius: 12px;
+  background: #fafaf7;
+  min-width: 0;
+}
+
+.tk-meta-box small {
+  display: block;
+  margin-bottom: 7px;
+  color: #91988f;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.tk-meta-box strong {
+  color: #263c2e;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.tk-divider {
+  height: 1px;
+  margin: 32px 0;
+  background: var(--line);
+}
+
+.tk-items-title {
+  margin: 0 0 18px;
+  color: var(--ink);
+  font: 500 23px var(--serif);
+}
+
+.tk-group {
+  margin-bottom: 15px;
+  border: 1px solid #e6e8df;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tk-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 18px;
+  background: #eff5ed;
+  color: #254b31;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tk-group.gift .tk-group-header {
+  background: #fff1d5;
+  color: #79531a;
+}
+
+.tk-item-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 18px;
+  border-top: 1px solid #eeeee9;
+  font-size: 12px;
+  color: #4f5b50;
+}
+
+.tk-item-line strong {
+  color: #253d2b;
+  white-space: nowrap;
+}
+
+.tk-group-note {
+  margin: 0;
+  padding: 0 18px 14px;
+  font-size: 11px;
+  color: #858579;
+}
+
+.tk-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+  padding: 22px;
+  border-radius: 13px;
+  background: #142e21;
+  color: #fff;
+}
+
+.tk-total small {
+  display: block;
+  color: #bdcbbd;
+  font-size: 11px;
+}
+
+.tk-total strong {
+  color: #f4d494;
+  font: 500 25px var(--serif);
+}
+
+.tk-cancel-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px;
+  margin-top: 23px;
+  background: #fff9f7;
+  border: 1px solid #f3e1dc;
+  border-radius: 12px;
+}
+
+.tk-cancel-actions p {
+  margin: 0;
+  font-size: 12px;
+  color: #8e7069;
+}
+
+.tk-cancel-btn {
+  border: 1px solid #d9aea5;
+  border-radius: 8px;
+  background: white;
+  color: #a83b30;
+  padding: 11px 17px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tk-cancel-btn:hover {
+  background: #fbe7e3;
+}
+
+.tk-cancel-notice {
+  padding: 22px;
+  border-radius: 13px;
+  background: #fff0ec;
+  color: #a33d32;
+}
+
+.tk-cancel-notice strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.tk-cancel-notice p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.tk-refresh-note {
+  margin: 23px 0 0;
+  color: #889188;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.tk-refresh-note span {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #52a46a;
+  margin-right: 7px;
+}
+
+/* MY ORDERS */
+
+.tk-my-wrap {
+  padding: 28px;
+  background: white;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+}
+
+.tk-my-wrap h2 {
+  margin: 0 0 7px;
+  font: 500 27px var(--serif);
+  color: var(--ink);
+}
+
+.tk-my-wrap > p {
+  color: #899087;
+  margin: 0 0 20px;
+  font-size: 12px;
+}
+
+.tk-my {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  padding: 17px;
+  margin-top: 10px;
+  background: #fafbf8;
+  border: 1px solid #e8ebe4;
+  border-radius: 12px;
+  text-align: left;
+  transition: .2s;
+}
+
+.tk-my:hover {
+  border-color: #c5a165;
+  background: #fffdf7;
+}
+
+.tk-my strong {
+  display: block;
+  color: #263b2c;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.tk-my small {
+  display: block;
+  color: #929b91;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+/* MESSAGE / LOADING */
+
+.tk-message {
+  display: flex;
+  gap: 15px;
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid #efddd5;
+  background: #fff8f3;
+  color: #854b35;
+}
+
+.tk-message-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f8e6d8;
+  font-weight: 700;
+}
+
+.tk-message strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.tk-message p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.tk-skeleton {
+  padding: 30px;
+  border-radius: 20px;
+  background: white;
+}
+
+.tk-skeleton i {
+  display: block;
+  height: 15px;
+  margin-bottom: 17px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#eee,#fafafa,#eee);
+  background-size: 200% 100%;
+  animation: tkShimmer 1.4s infinite linear;
+}
+
+.tk-skeleton i:nth-child(1) {
+  width: 50%;
+  height: 28px;
+}
+
+.tk-skeleton i:nth-child(2) {
+  width: 75%;
+}
+
+.tk-skeleton i:nth-child(3) {
+  height: 90px;
+}
+
+/* HELP SECTION */
+
+.tk-help {
+  padding: 70px 24px;
+  text-align: center;
+  background: #eaece1;
+}
+
+.tk-help-mark {
+  color: #af8641;
+  letter-spacing: 3px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tk-help h2 {
+  margin: 15px 0;
+  color: #193628;
+  font: 500 clamp(29px,4vw,46px)/1.2 var(--serif);
+}
+
+.tk-help p {
+  margin: 0 auto 25px;
+  max-width: 450px;
+  color: #748173;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.tk-help a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 47px;
+  padding: 0 25px;
+  background: #193d2b;
+  border-radius: 50px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tk-help a:hover {
+  background: #2c6143;
+  color: white;
+}
+
+/* MODAL */
+
+.tk-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(9,23,14,.7);
+  backdrop-filter: blur(7px);
+}
+
+.tk-modal {
+  width: min(100%,430px);
+  max-height: min(90vh,700px);
+  overflow-y: auto;
+  padding: 32px;
+  background: white;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 30px 100px rgba(0,0,0,.2);
+}
+
+.tk-modal-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #fff2e8;
+  color: #b74436;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.tk-modal h3 {
+  margin: 0 0 10px;
+  color: #1d3426;
+  font: 500 29px var(--serif);
+}
+
+.tk-modal p {
+  color: #808a7f;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.tk-modal-order {
+  padding: 13px;
+  margin: 20px 0;
+  border-radius: 9px;
+  background: #f4f5ef;
+  color: #334636;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.tk-modal-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.tk-modal-actions button,
+.tk-modal-actions a {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tk-modal-confirm {
+  border: 0;
+  background: #b53e32;
+  color: white;
+}
+
+.tk-modal-keep {
+  border: 1px solid #e0e5dd;
+  background: white;
+  color: #243b2d;
+}
+
+.tk-modal-wa {
+  border: 0;
+  background: #218c51;
+  color: white;
+}
+
+.tk-modal button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+@keyframes tkEnter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tkShimmer {
+  to { background-position: -200% 0; }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px) {
+  .tk-hero-grid {
+    gap: 30px;
+  }
+
+  .tk-lookup-intro {
+    padding: 30px;
+  }
+
+  .tk-form-area {
+    padding: 30px;
+  }
+}
+
+@media(max-width:760px) {
+  .tk-hero {
+    padding: 55px 0 100px;
+  }
+
+  .tk-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-hero-content {
+    text-align: center;
+  }
+
+  .tk-topline {
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .tk-eyebrow {
+    font-size: 10px;
+  }
+
+  .tk-title {
+    font-size: clamp(41px,9vw,60px);
+    letter-spacing: -1.5px;
+  }
+
+  .tk-description {
+    margin: 18px auto 0;
+  }
+
+  .tk-hero-visual {
+    width: min(85%,420px);
+    margin: 15px auto 0;
+    padding: 0 12px 30px 0;
+  }
+
+  .tk-image-frame {
+    aspect-ratio: 4/3.5;
+  }
+
+  .tk-image-seal {
+    width: 95px;
+    height: 95px;
+  }
+
+  .tk-image-seal span {
+    font-size: 22px;
+  }
+
+  .tk-lookup {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-lookup-intro {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media(max-width:520px) {
+  .tk-container {
+    width: calc(100% - 28px);
+  }
+
+  .tk-hero {
+    padding: 38px 0 90px;
+  }
+
+  .tk-hero-visual {
+    width: 92%;
+  }
+
+  .tk-lookup-wrap {
+    margin-top: -43px;
+  }
+
+  .tk-lookup {
+    border-radius: 19px;
+  }
+
+  .tk-lookup-intro {
+    padding: 25px 22px;
+  }
+
+  .tk-lookup-intro h2 {
+    font-size: 27px;
+  }
+
+  .tk-form-area {
+    padding: 23px 19px 26px;
+  }
+
+  .tk-form {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .tk-field input {
+    font-size: 16px;
+  }
+
+  .tk-results-section {
+    padding: 35px 0 65px;
+  }
+
+  .tk-result-banner {
+    padding: 23px 20px;
+  }
+
+  .tk-result-body {
+    padding: 21px 17px;
+  }
+
+  .tk-id-row {
+    align-items: flex-start;
+  }
+
+  .tk-current {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .tk-current-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .tk-timeline {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    gap: 0;
+  }
+
+  .tk-step {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    text-align: left;
+  }
+
+  .tk-step:last-child {
+    padding-bottom: 0;
+  }
+
+  .tk-step:not(:last-child)::after {
+    top: 42px;
+    left: 20px;
+    height: calc(100% - 42px);
+    width: 2px;
+  }
+
+  .tk-step-icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    margin: 0;
+  }
+
+  .tk-step strong {
+    max-width: none;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .tk-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-meta-box {
+    padding: 13px 15px;
+  }
+
+  .tk-total strong {
+    font-size: 22px;
+  }
+
+  .tk-my-wrap {
+    padding: 20px 15px;
+  }
+
+  .tk-my {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tk-cancel-btn {
+    width: 100%;
+  }
+
+  .tk-modal {
+    padding: 27px 20px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .tk-page *,
+  .tk-page *::before,
+  .tk-page *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
-
-  <link rel="stylesheet" href="nav.css?v=20261012">
 </head>
 
 <body data-page="track" class="tk-page">
-  <div id="site-header"></div>
 
-  <main>
-    <section class="section tk-section">
-      <div class="container narrow">
+<div id="site-header"></div>
 
-        <div class="tk-grid">
+<main class="tk-main">
 
-          <figure class="tk-photo">
-            <img src="images/editorial-wooden-dipper.jpg" width="1620" height="1080"
-                 alt="MADHURAVANA Pure Honey jar with a wooden honey dipper"
-                 fetchpriority="high" decoding="async">
-          </figure>
+  <section class="tk-hero">
+    <div class="tk-container">
 
-          <div class="tk-panel">
-            <header class="tk-intro">
-              <h1>Track your order</h1>
-              <p>Enter your order ID and the phone number you used at checkout to see the latest status.</p>
-            </header>
+      <div class="tk-topline">
+        MADHURAVANA · ORDER JOURNEY
+      </div>
 
-            <form class="tk-form" id="tk-form" autocomplete="off">
-              <label class="tk-field"><span>Order ID</span>
-                <input id="tk-id" placeholder="e.g. MH20261007ABCD1234" required autocapitalize="characters" spellcheck="false">
-              </label>
-              <label class="tk-field"><span>Phone number</span>
-                <input id="tk-phone" inputmode="numeric" placeholder="10-digit mobile number" maxlength="14" required>
-              </label>
-              <button class="tk-go" type="submit" id="tk-btn">Track order</button>
-            </form>
+      <div class="tk-hero-grid">
 
-            <p class="tk-secure">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-              Your order is shown only when the ID and phone number both match.
-            </p>
+        <div class="tk-hero-content">
+          <p class="tk-eyebrow">
+            ✦ FROM OUR HIVE TO YOUR HOME
+          </p>
+
+          <h1 class="tk-title">
+            Every drop<br>
+            has a
+            <em>journey.</em>
+          </h1>
+
+          <p class="tk-description">
+            Your golden goodness is on its way.
+            Follow every little step of your
+            MADHURAVANA honey order, from careful
+            packing to your doorstep.
+          </p>
+        </div>
+
+        <div class="tk-hero-visual">
+          <div class="tk-image-frame">
+            <img
+              src="images/editorial-wooden-dipper.jpg"
+              alt="MADHURAVANA pure honey"
+              fetchpriority="high"
+            >
           </div>
+
+          <div class="tk-image-seal">
+            <span>✦</span>
+            <small>Pure honey<br>Pure love</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="tk-lookup-wrap">
+    <div class="tk-container">
+
+      <div class="tk-lookup">
+
+        <div class="tk-lookup-intro">
+          <span class="tk-lookup-number">
+            01 / FIND YOUR ORDER
+          </span>
+
+          <h2>Track your<br>golden goodness.</h2>
+
+          <p>
+            Enter your order details and we'll
+            show you the latest journey of
+            your honey.
+          </p>
+        </div>
+
+        <div class="tk-form-area">
+
+          <form id="tk-form" class="tk-form" autocomplete="off">
+
+            <label class="tk-field">
+              <span>YOUR ORDER ID</span>
+              <input
+                type="text"
+                id="tk-id"
+                placeholder="e.g. MH2026XXXXXXXX"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+                required
+              >
+            </label>
+
+            <label class="tk-field">
+              <span>REGISTERED MOBILE NUMBER</span>
+              <input
+                type="tel"
+                id="tk-phone"
+                placeholder="10-digit mobile number"
+                inputmode="numeric"
+                autocomplete="tel"
+                maxlength="15"
+                required
+              >
+            </label>
+
+            <button type="submit" id="tk-btn" class="tk-go">
+              TRACK MY ORDER ↗
+            </button>
+
+          </form>
+
+          <p class="tk-secure">
+            ♧ Your order details are protected by
+            order ID and phone verification.
+          </p>
 
         </div>
 
-        <div id="tk-result" aria-live="polite"></div>
-        <div id="tk-orders"></div>
-
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <div id="site-footer"></div><div id="modal-root"></div><div id="toast-root"></div>
+  <section class="tk-results-section">
+    <div class="tk-container">
+      <div id="tk-result" aria-live="polite"></div>
+      <div id="tk-orders"></div>
+    </div>
+  </section>
 
-  <script src="supabase-config.js"></script>
-  <script src="supabase.js"></script>
-  <script src="script.js"></script>
-  <script src="admin.js"></script>
-  <script src="motion.js"></script>
+  <section class="tk-help">
+    <div class="tk-help-mark">✦ WE'RE HERE FOR YOU</div>
 
-  <script>
-/* MADHURAVANA order tracking
-   Supabase RPC: track_order(id, phone)
-   Same-browser fallback included
-*/
+    <h2>A little help, with love.</h2>
+
+    <p>
+      Have a question about your delivery?
+      Our team is happy to help you with
+      your honey order.
+    </p>
+
+    <a
+      href="https://wa.me/917092722605"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      CHAT WITH US ON WHATSAPP ↗
+    </a>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+
+<script src="supabase-config.js"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+<script src="admin.js"></script>
+<script src="motion.js"></script>
+
+<script>
 (function () {
   "use strict";
 
-  var STEPS = [
-    ["Order placed", "We have received your order."],
-    ["Processing", "Your honey is being packed with care."],
-    ["Shipped", "Your parcel has left us and is on the way."],
-    ["Out for delivery", "The delivery partner is bringing it to your door."],
-    ["Delivered", "Your order has been delivered. Enjoy your pure honey!"]
+  const $ = s => document.querySelector(s);
+  const form = $("#tk-form");
+  const output = $("#tk-result");
+  const button = $("#tk-btn");
+
+  const STATUSES = [
+    "Order Placed",
+    "Processing",
+    "Shipped",
+    "Out for Delivery",
+    "Delivered"
   ];
 
-  /* Status values stored in the database (must match admin panel / RPC) */
-  var STATUS_KEYS = ["Order Placed", "Processing", "Shipped", "Out for Delivery", "Delivered"];
+  const STEP_INFO = [
+    ["✓", "Order placed", "Your order is confirmed."],
+    ["◈", "Processing", "Your honey is being packed."],
+    ["↗", "Shipped", "Your parcel is on its way."],
+    ["⌂", "Out for delivery", "Almost at your doorstep."],
+    ["♥", "Delivered", "Enjoy your golden goodness!"]
+  ];
 
-  var $ = function (s) { return document.querySelector(s); };
+  const WA_NUMBER = "917092722605";
 
-  var form = $("#tk-form");
-  var out = $("#tk-result");
-  var timer = null;
+  let refreshTimer = null;
+  let requestVersion = 0;
+  let lastOrder = null;
 
-  /* ---------- Safe fallbacks for helpers from script.js ---------- */
-  function E(s) {
-    if (typeof window.esc === "function") return window.esc(s);
-    return String(s == null ? "" : s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  function escapeHTML(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
-  function M(n) {
-    if (typeof window.money === "function") return window.money(n);
-    return "₹" + Number(n || 0).toLocaleString("en-IN");
+  function money(value) {
+    const amount = Number(value);
+    return "₹" + (Number.isFinite(amount) ? amount : 0)
+      .toLocaleString("en-IN", {
+        maximumFractionDigits: 2
+      });
   }
 
-  function orders() {
+  function digits(value) {
+    return String(value || "")
+      .replace(/\D/g, "")
+      .slice(-10);
+  }
+
+  function validPhone(value) {
+    return /^[6-9]\d{9}$/.test(digits(value));
+  }
+
+  function getOrders() {
     try {
-      if (typeof getOnlineOrders === "function") return getOnlineOrders() || [];
-    } catch (e) {}
+      if (typeof getOnlineOrders === "function") {
+        return getOnlineOrders() || [];
+      }
+    } catch (error) {
+      console.warn(error);
+    }
     return [];
   }
 
-  /* =========================================================
-     PHONE NORMALIZATION
-  ========================================================= */
-  function digits(s) {
-    return String(s || "").replace(/\D/g, "").slice(-10);
-  }
-
-  /* =========================================================
-     SUPABASE
-  ========================================================= */
   function cloud() {
-    var sb = window.MADHURAVANA_SUPABASE;
-    return sb && (typeof sb.client === "function" ? sb.client() : sb.client);
+    const sb = window.MADHURAVANA_SUPABASE;
+    if (!sb) return null;
+    return typeof sb.client === "function"
+      ? sb.client()
+      : sb.client;
   }
 
   function configured() {
-    var sb = window.MADHURAVANA_SUPABASE;
-    return !!(sb && sb.isConfigured && sb.isConfigured() && cloud());
+    const sb = window.MADHURAVANA_SUPABASE;
+    return Boolean(
+      sb &&
+      typeof sb.isConfigured === "function" &&
+      sb.isConfigured() &&
+      cloud()
+    );
   }
 
-  /* =========================================================
-     LOOKUP ONE ORDER
-     Order ID + phone number are BOTH required.
-  ========================================================= */
-  async function lookup(id, phone) {
-
-    if (window.MADHURAVANA_SUPABASE && window.MADHURAVANA_SUPABASE.readyPromise) {
-      try { await window.MADHURAVANA_SUPABASE.readyPromise; } catch (e) {}
+  async function ready() {
+    const sb = window.MADHURAVANA_SUPABASE;
+    if (sb && sb.readyPromise) {
+      await sb.readyPromise;
     }
+  }
 
-    /* ---- Supabase ---- */
-    if (configured()) {
+  function localOrder(id, phone) {
+    const found = getOrders().find(o =>
+      String(o.id || "").toUpperCase() === id.toUpperCase() &&
+      digits(o.phone) === digits(phone)
+    );
 
-      var r = await cloud().rpc("track_order", { p_id: id, p_phone: phone });
-
-      if (r.error) {
-        console.warn("track_order:", r.error.message);
-        return null;
-      }
-
-      if (r.data && r.data.length) {
-        var d = r.data[0];
-        return {
-          id: d.id,
-          status: d.status,
-          date: d.order_date,
-          time: d.order_time,
-          total: d.total,
-          products: d.products || [],
-          name: d.customer_name,
-          city: d.city,
-          phone: phone
-        };
-      }
-      return null;
-    }
-
-    /* ---- Same-browser fallback (ID + PHONE must match) ---- */
-    var normalizedPhone = digits(phone);
-
-    var o = orders().filter(function (x) {
-      return (
-        String(x.id || "").toUpperCase() === String(id || "").toUpperCase() &&
-        digits(x.phone) === normalizedPhone
-      );
-    })[0];
-
-    if (!o) return null;
+    if (!found) return null;
 
     return {
-      id: o.id,
-      status: o.status,
-      date: o.orderDate,
-      time: o.orderTime,
-      total: o.total,
-      products: o.products || [],
-      name: String(o.customerName || "").split(" ")[0],
-      city: (o.address || {}).city,
-      phone: normalizedPhone
+      id: found.id,
+      status: found.status,
+      date: found.orderDate,
+      time: found.orderTime,
+      total: found.total,
+      products: found.products || [],
+      name: found.customerName || "",
+      city: found.address?.city || "",
+      phone: digits(phone)
     };
   }
 
-  /* =========================================================
-     RENDER SINGLE ORDER
-  ========================================================= */
+  async function lookup(id, phone) {
+    await ready();
+
+    if (configured()) {
+      const response = await cloud().rpc("track_order", {
+        p_id: id,
+        p_phone: phone
+      });
+
+      if (response.error) {
+        throw response.error;
+      }
+
+      const data = Array.isArray(response.data)
+        ? response.data[0]
+        : response.data;
+
+      if (!data) return null;
+
+      return {
+        id: data.id,
+        status: data.status,
+        date: data.order_date,
+        time: data.order_time,
+        total: data.total,
+        products: data.products || [],
+        name: data.customer_name || "",
+        city: data.city || "",
+        phone
+      };
+    }
+
+    return localOrder(id, phone);
+  }
+
   function statusLabel(status) {
-    var i = STATUS_KEYS.indexOf(status);
-    return i >= 0 ? STEPS[i][0] : (status || "Order placed");
+    const index = STATUSES.indexOf(status);
+    return index >= 0 ? STEP_INFO[index][1] : (status || "Order placed");
+  }
+
+  function message(title, detail, icon = "!") {
+    output.innerHTML = `
+      <div class="tk-message" role="status">
+        <div class="tk-message-icon">${escapeHTML(icon)}</div>
+        <div>
+          <strong>${escapeHTML(title)}</strong>
+          <p>${escapeHTML(detail)}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderTimeline(status) {
+    if (status === "Cancelled") {
+      return `
+        <div class="tk-cancel-notice">
+          <strong>✕ Your order was cancelled</strong>
+          <p>
+            This order is no longer being processed.
+            If you need help, please contact our support team.
+          </p>
+        </div>
+      `;
+    }
+
+    const rawIndex = STATUSES.indexOf(status);
+    const index = rawIndex >= 0 ? rawIndex : 0;
+
+    const current = STEP_INFO[index];
+
+    const steps = STEP_INFO.map((step, i) => {
+      const cls = i < index
+        ? "passed"
+        : i === index ? "active" : "";
+
+      return `
+        <li class="tk-step ${cls}"
+          ${i === index ? 'aria-current="step"' : ""}>
+          <div class="tk-step-icon">
+            ${i < index ? "✓" : step[0]}
+          </div>
+          <strong>${escapeHTML(step[1])}</strong>
+        </li>
+      `;
+    }).join("");
+
+    return `
+      <div class="tk-current">
+        <div class="tk-current-icon">${current[0]}</div>
+        <div>
+          <small>CURRENT ORDER STATUS</small>
+          <strong>${escapeHTML(current[1])}</strong>
+          <p>${escapeHTML(current[2])}</p>
+        </div>
+      </div>
+
+      <h3 class="tk-timeline-title">
+        Your delivery journey
+      </h3>
+
+      <ol class="tk-timeline">
+        ${steps}
+      </ol>
+    `;
+  }
+
+  function renderGroup(items, gift) {
+    if (!items.length) return "";
+
+    const qty = items.reduce(
+      (sum, p) => sum + Number(p.quantity || 0), 0
+    );
+
+    const subtotal = items.reduce(
+      (sum, p) =>
+        sum + Number(p.price || 0) * Number(p.quantity || 0),
+      0
+    );
+
+    return `
+      <div class="tk-group ${gift ? "gift" : ""}">
+        <div class="tk-group-header">
+          <span>
+            ${gift ? "🎁 Gift collection" : "🍯 Pure honey collection"}
+            · ${qty} ${qty === 1 ? "jar" : "jars"}
+          </span>
+          <strong>${money(subtotal)}</strong>
+        </div>
+
+        ${items.map(p => `
+          <div class="tk-item-line">
+            <span>
+              ${escapeHTML(p.name || "Pure Honey")}
+              ${escapeHTML(p.weight || "")}
+              × ${Number(p.quantity || 0)}
+            </span>
+            <strong>
+              ${money(
+                Number(p.price || 0) *
+                Number(p.quantity || 0)
+              )}
+            </strong>
+          </div>
+        `).join("")}
+
+        ${gift ? `
+          <p class="tk-group-note">
+            ✦ Carefully prepared as a special gift.
+          </p>
+        ` : ""}
+      </div>
+    `;
   }
 
   function render(o) {
+    lastOrder = o;
 
-    var cancelled = o.status === "Cancelled";
-    var idx = STATUS_KEYS.indexOf(o.status);
-    if (!cancelled && idx < 0) idx = 0;
+    const status = o.status || "Order Placed";
+    const finished = status === "Delivered";
+    const cancelled = status === "Cancelled";
 
-    var pill = cancelled ? "bad" : (idx === 4 ? "done" : "");
+    const items = Array.isArray(o.products) ? o.products : [];
+    const regular = items.filter(p => !p.gift);
+    const gifts = items.filter(p => Boolean(p.gift));
 
-    var progress;
+    const dateText = [o.date, o.time].filter(Boolean).join(" ");
+    const customerName = String(o.name || "").trim();
+    const firstName = customerName.split(/\s+/)[0] || "";
 
-    if (cancelled) {
-      progress =
-        '<div class="tk-cancel">' +
-          '<div class="hex" aria-hidden="true">✕</div>' +
-          '<div>' +
-            '<strong>Order cancelled</strong>' +
-            '<span>This order was cancelled. If this is a mistake, contact us on WhatsApp.</span>' +
-          '</div>' +
-        '</div>';
-    } else {
+    output.innerHTML = `
+      <article class="tk-result-card">
 
-      var now =
-        '<div class="tk-now">' +
-          '<strong>' + E(STEPS[idx][0]) + '</strong>' +
-          '<span>' + E(STEPS[idx][1]) + '</span>' +
-        '</div>';
+        <div class="tk-result-banner">
+          <div>
+            <small>✦ YOUR GOLDEN JOURNEY</small>
+            <h2>
+              ${cancelled
+                ? "Order cancelled"
+                : finished
+                  ? "Delivered with love."
+                  : "Your honey is on its way."}
+            </h2>
+          </div>
+          <span style="color:#e6c485;font-size:25px">✦</span>
+        </div>
 
-      var steps = STEPS.map(function (s, i) {
-        var c = i < idx ? "on" : (i === idx ? "now" : "");
-        var mark = (i < idx || (idx === 4 && i === 4)) ? "✓" : (i + 1);
-        return (
-          '<li class="' + c + '"' + (i === idx ? ' aria-current="step"' : '') + '>' +
-            '<span class="tk-dot">' + mark + '</span>' +
-            '<strong>' + s[0] + '</strong>' +
-          '</li>'
-        );
-      }).join("");
+        <div class="tk-result-body">
 
-      progress = now + '<ol class="tk-steps">' + steps + '</ol>';
-    }
+          <div class="tk-id-row">
 
-    function lineHtml(p) {
-      return (
-        '<div class="tk-line">' +
-          '<span>' +
-            E(p.name || "Honey") + " " + E(p.weight || "") +
-            ' <em>× ' + Number(p.quantity || 0) + '</em>' +
-          '</span>' +
-          '<span>' + M(Number(p.price || 0) * Number(p.quantity || 0)) + '</span>' +
-        '</div>'
-      );
-    }
-    function groupHtml(cls, ico, title, list, note) {
-      if (!list.length) return "";
-      var n = list.reduce(function (s, p) { return s + Number(p.quantity || 0); }, 0);
-      var sub = list.reduce(function (s, p) { return s + Number(p.price || 0) * Number(p.quantity || 0); }, 0);
-      return (
-        '<div class="tk-grp ' + cls + '">' +
-          '<div class="tk-grp-head"><span>' + ico + ' ' + title + ' · ' + n + (n === 1 ? ' jar' : ' jars') + '</span><b>' + M(sub) + '</b></div>' +
-          list.map(lineHtml).join("") +
-          (note ? '<p class="tk-grp-note">' + note + '</p>' : '') +
-        '</div>'
-      );
-    }
-    var allItems = o.products || [];
-    var regularItems = allItems.filter(function (p) { return !p.gift; });
-    var giftItems = allItems.filter(function (p) { return p.gift; });
-    var items =
-      groupHtml("is-regular", "🍯", "Regular order", regularItems, "") +
-      groupHtml("is-gift", "🎁", "Gift pack", giftItems, "Packed separately with your gift card.");
-    var meta = [];
-    if (o.date || o.time) meta.push(E((o.date || "") + " " + (o.time || "")).trim());
-    if (o.city) meta.push(E(o.city));
-    if (o.name) meta.push("Ordered by " + E(o.name));
+            <div class="tk-order-id">
+              <small>ORDER REFERENCE</small>
 
-    out.innerHTML =
-      '<div class="tk-card">' +
+              <button type="button"
+                id="tk-copy"
+                class="tk-copy"
+                title="Copy order ID">
+                ${escapeHTML(o.id)}
+                <span>Copy</span>
+              </button>
+            </div>
 
-        '<div class="tk-head">' +
-          '<div>' +
-            '<h2>Order details</h2>' +
-            '<div class="tk-meta">' +
-              '<button type="button" class="tk-idchip" id="tk-copy" title="Copy order ID">' +
-                E(o.id) + '<b>Copy</b>' +
-              '</button>' +
-              (meta.length ? '<i class="dotsep"></i><span>' + meta.join('</span><i class="dotsep"></i><span>') + '</span>' : '') +
-            '</div>' +
-          '</div>' +
-          '<span class="tk-pill ' + pill + '">' + E(statusLabel(o.status)) + '</span>' +
-        '</div>' +
+            <div class="tk-pill ${
+              cancelled ? "bad" : finished ? "done" : ""
+            }">
+              ${escapeHTML(statusLabel(status))}
+            </div>
+          </div>
 
-        progress +
+          ${renderTimeline(status)}
 
-        '<div class="tk-items">' +
-          '<h3>Items in this order</h3>' +
-          items +
-          '<div class="tk-tot">' +
-            '<span>Total (pay on delivery)</span>' +
-            '<span>' + M(o.total || 0) + '</span>' +
-          '</div>' +
-        '</div>' +
+          <div class="tk-meta-grid">
+            <div class="tk-meta-box">
+              <small>ORDER DATE</small>
+              <strong>${escapeHTML(dateText || "—")}</strong>
+            </div>
 
-        ((o.status === "Order Placed" || o.status === "Processing")
-          ? '<div class="tk-cancel-actions">' +
-              '<p>You can cancel this order until it is dispatched.</p>' +
-              '<button type="button" id="tk-cancel-btn" class="tk-cancel-btn">Cancel order</button>' +
-            '</div>'
-          : '') +
+            <div class="tk-meta-box">
+              <small>DELIVERY CITY</small>
+              <strong>${escapeHTML(o.city || "—")}</strong>
+            </div>
 
-        '<p class="tk-note"><span class="tk-live"></span>' +
-          'This page refreshes automatically. Questions? Message us on WhatsApp.' +
-        '</p>' +
+            <div class="tk-meta-box">
+              <small>ORDERED BY</small>
+              <strong>${escapeHTML(firstName || "Customer")}</strong>
+            </div>
+          </div>
 
-      '</div>';
+          <div class="tk-divider"></div>
 
-    var copy = $("#tk-copy");
-    if (copy) {
-      copy.addEventListener("click", function () {
-        var b = copy.querySelector("b");
-        try {
-          navigator.clipboard.writeText(o.id).then(function () {
-            b.textContent = "Copied";
-            setTimeout(function () { b.textContent = "Copy"; }, 1600);
-          });
-        } catch (e) {}
-      });
-    }
+          <h3 class="tk-items-title">
+            Your golden selection
+          </h3>
 
-    /* In-page cancellation dialog; no browser alert/confirm. */
-    var cancelBtn = $("#tk-cancel-btn");
-    if (cancelBtn) {
-      cancelBtn.addEventListener("click", function () {
-        openCancelDialog(o, cancelBtn);
-      });
-    }
+          ${renderGroup(regular, false)}
+          ${renderGroup(gifts, true)}
+
+          ${!items.length ? `
+            <p style="color:#879087;font-size:13px">
+              Item details are currently unavailable.
+            </p>
+          ` : ""}
+
+          <div class="tk-total">
+            <div>
+              <small>ORDER TOTAL</small>
+              <small>Pay on delivery</small>
+            </div>
+            <strong>${money(o.total)}</strong>
+          </div>
+
+          ${status === "Order Placed" || status === "Processing"
+            ? `
+              <div class="tk-cancel-actions">
+                <p>
+                  Need to change your mind?
+                  Cancellation is available before dispatch.
+                </p>
+                <button type="button"
+                  class="tk-cancel-btn"
+                  id="tk-cancel-btn">
+                  Cancel order
+                </button>
+              </div>
+            `
+            : ""}
+
+          <p class="tk-refresh-note">
+            <span></span>
+            ${cancelled || finished
+              ? "This order has reached its final status."
+              : "Order status updates automatically every 30 seconds."}
+          </p>
+
+        </div>
+      </article>
+    `;
+
+    const copyBtn = $("#tk-copy");
+
+    copyBtn?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(String(o.id));
+        copyBtn.querySelector("span").textContent = "Copied!";
+      } catch (error) {
+        copyBtn.querySelector("span").textContent = "Copy failed";
+      }
+    });
+
+    $("#tk-cancel-btn")?.addEventListener("click", () => {
+      openCancelDialog(o);
+    });
   }
 
-  function openCancelDialog(o, cancelBtn) {
-    var old = document.querySelector(".tk-modal-backdrop");
-    if (old) old.remove();
+  function openCancelDialog(o) {
+    if (document.querySelector(".tk-modal-backdrop")) return;
 
-    var backdrop = document.createElement("div");
+    const backdrop = document.createElement("div");
     backdrop.className = "tk-modal-backdrop";
-    backdrop.setAttribute("role", "presentation");
-    backdrop.innerHTML =
-      '<section class="tk-modal-card" role="dialog" aria-modal="true" aria-labelledby="tk-modal-title" aria-describedby="tk-modal-desc">' +
-        '<div class="tk-modal-mark" aria-hidden="true">!</div>' +
-        '<h3 id="tk-modal-title">Cancel this order?</h3>' +
-        '<p id="tk-modal-desc">This will cancel your honey order and cannot be undone.</p>' +
-        '<div class="tk-modal-order">Order ' + E(o.id) + '</div>' +
-        '<div class="tk-modal-actions">' +
-          '<button type="button" class="tk-modal-confirm" id="tk-modal-confirm">Yes, cancel order</button>' +
-          '<button type="button" class="tk-modal-keep" id="tk-modal-keep">Keep my order</button>' +
-        '</div>' +
-      '</section>';
+
+    backdrop.innerHTML = `
+      <div class="tk-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tk-dialog-title">
+
+        <div class="tk-modal-icon" id="tk-modal-icon">!</div>
+
+        <h3 id="tk-dialog-title">
+          Cancel your order?
+        </h3>
+
+        <p id="tk-dialog-desc">
+          Are you sure you want to cancel
+          your MADHURAVANA order?
+          This action cannot be undone.
+        </p>
+
+        <div class="tk-modal-order">
+          ${escapeHTML(o.id)}
+        </div>
+
+        <div class="tk-modal-actions" id="tk-modal-actions">
+          <button class="tk-modal-confirm"
+            id="tk-confirm-cancel" type="button">
+            Yes, cancel my order
+          </button>
+
+          <button class="tk-modal-keep"
+            id="tk-keep-order" type="button">
+            No, keep my order
+          </button>
+        </div>
+      </div>
+    `;
+
     document.body.appendChild(backdrop);
 
-    var card = backdrop.querySelector(".tk-modal-card");
-    var title = backdrop.querySelector("#tk-modal-title");
-    var desc = backdrop.querySelector("#tk-modal-desc");
-    var mark = backdrop.querySelector(".tk-modal-mark");
-    var confirmBtn = backdrop.querySelector("#tk-modal-confirm");
-    var keepBtn = backdrop.querySelector("#tk-modal-keep");
+    const confirm = backdrop.querySelector("#tk-confirm-cancel");
+    const keep = backdrop.querySelector("#tk-keep-order");
+    const heading = backdrop.querySelector("#tk-dialog-title");
+    const desc = backdrop.querySelector("#tk-dialog-desc");
+    const icon = backdrop.querySelector("#tk-modal-icon");
+    const actions = backdrop.querySelector("#tk-modal-actions");
 
-    function closeDialog() {
-      document.removeEventListener("keydown", onKeydown);
+    const close = () => {
+      document.removeEventListener("keydown", onKey);
       backdrop.remove();
-    }
-    function onKeydown(e) {
-      if (e.key === "Escape" && !confirmBtn.disabled) closeDialog();
-    }
-    function showResult(kind, heading, message, symbol) {
-      card.classList.remove("tk-modal-success", "tk-modal-error");
-      card.classList.add(kind === "success" ? "tk-modal-success" : "tk-modal-error");
-      mark.textContent = symbol;
-      title.textContent = heading;
-      desc.textContent = message;
-      confirmBtn.style.display = "none";
-      keepBtn.textContent = "Done";
-      keepBtn.focus();
-    }
+    };
 
-    keepBtn.addEventListener("click", closeDialog);
-    backdrop.addEventListener("click", function (e) {
-      if (e.target === backdrop && !confirmBtn.disabled) closeDialog();
+    const onKey = e => {
+      if (e.key === "Escape" && !confirm.disabled) close();
+    };
+
+    document.addEventListener("keydown", onKey);
+
+    backdrop.addEventListener("click", e => {
+      if (e.target === backdrop && !confirm.disabled) close();
     });
-    document.addEventListener("keydown", onKeydown);
 
-    confirmBtn.addEventListener("click", async function () {
-      if (o.status !== "Order Placed" && o.status !== "Processing") {
-        showResult("error", "Cancellation unavailable", "This order can no longer be cancelled. The status is being refreshed.", "×");
-        await run(true);
-        return;
-      }
-      if (!configured()) {
-        showResult("error", "Service unavailable", "We couldn't reach the order service. Please try again later or contact us on WhatsApp.", "!");
-        return;
-      }
+    keep.addEventListener("click", close);
 
-      confirmBtn.disabled = true;
-      keepBtn.disabled = true;
-      confirmBtn.textContent = "Cancelling…";
-      mark.textContent = "…";
-      title.textContent = "Please wait";
-      desc.textContent = "We're updating your order status.";
+    function showFinal(success, title, detail) {
+      heading.textContent = title;
+      desc.textContent = detail;
+      icon.textContent = success ? "✓" : "!";
+      icon.style.color = success ? "#247a46" : "#b74436";
+      icon.style.background = success ? "#e3f3e7" : "#fff2e8";
+      confirm.remove();
+      keep.disabled = false;
+      keep.textContent = "Done";
+      keep.focus();
+    }
+
+    confirm.addEventListener("click", async () => {
+      confirm.disabled = true;
+      keep.disabled = true;
+      confirm.textContent = "Cancelling...";
+      heading.textContent = "Updating your order";
 
       try {
-        if (window.MADHURAVANA_SUPABASE && window.MADHURAVANA_SUPABASE.readyPromise) {
-          await window.MADHURAVANA_SUPABASE.readyPromise;
+        await ready();
+
+        if (!configured()) {
+          throw new Error("Order service unavailable");
         }
-        var result = await cloud().rpc("cancel_order", {
+
+        const response = await cloud().rpc("cancel_order", {
           p_id: String(o.id),
           p_phone: digits(o.phone)
         });
-        if (result.error) throw result.error;
 
-        if (result.data !== true) {
-          showResult("error", "Order not cancelled", "This order may already be dispatched or cancelled. The status is being refreshed.", "×");
-          keepBtn.disabled = false;
+        if (response.error) throw response.error;
+
+        if (response.data !== true) {
+          showFinal(
+            false,
+            "Cancellation unavailable",
+            "Your order may already be dispatched or cancelled."
+          );
           await run(true);
           return;
         }
 
-        showResult("success", "Order cancelled", "Your order has been cancelled. Tap the button below to notify us on WhatsApp.", "✓");
+        showFinal(
+          true,
+          "Order cancelled",
+          "Your cancellation was successful. You can also notify our support team."
+        );
 
-        /* A real link tap is never blocked by the browser (unlike window.open after an await). */
-        var message = [
-          "❌ MADHURAVANA ORDER CANCELLED",
+        const waText = [
+          "MADHURAVANA ORDER CANCELLED",
           "",
-          "A customer has cancelled their honey order.",
-          "Order ID: " + String(o.id || "Not available"),
-          "Customer: " + String(o.name || "Not available"),
-          "Phone: " + String(o.phone || "Not available"),
-          "Order Total: ₹" + Number(o.total || 0).toLocaleString("en-IN"),
+          "Order ID: " + o.id,
+          "Customer: " + (o.name || "Customer"),
+          "Phone: " + digits(o.phone),
+          "Total: " + money(o.total),
           "",
           "Please check the admin panel."
         ].join("\n");
-        var wa = document.createElement("a");
+
+        const wa = document.createElement("a");
         wa.className = "tk-modal-wa";
-        wa.href = "https://wa.me/917092722605?text=" + encodeURIComponent(message);
+        wa.href = "https://wa.me/" + WA_NUMBER +
+          "?text=" + encodeURIComponent(waText);
         wa.target = "_blank";
         wa.rel = "noopener noreferrer";
-        wa.textContent = "Notify us on WhatsApp";
-        keepBtn.parentNode.insertBefore(wa, keepBtn);
-        keepBtn.disabled = false;
-        cancelBtn.disabled = true;
+        wa.textContent = "Notify on WhatsApp ↗";
+
+        actions.insertBefore(wa, keep);
+
         await run(true);
+
       } catch (error) {
-        console.error("Order cancellation failed:", error);
-        showResult("error", "Couldn't cancel the order", "Something went wrong. Please try again or contact us on WhatsApp.", "!");
-        keepBtn.disabled = false;
+        console.error("Cancellation failed:", error);
+        showFinal(
+          false,
+          "Couldn't cancel your order",
+          "Please try again or contact our support team on WhatsApp."
+        );
       }
     });
-    confirmBtn.focus();
+
+    keep.focus();
   }
 
-  /* =========================================================
-     MY ORDERS — only orders matching the customer's phone
-  ========================================================= */
-  function renderMyOrders(phoneFilter) {
+  function renderMyOrders(phone) {
+    const container = $("#tk-orders");
+    container.innerHTML = "";
 
-    var box = $("#tk-orders");
-    if (!box) return;
+    if (!validPhone(phone)) return;
 
-    var phone = digits(phoneFilter || "");
+    const list = getOrders()
+      .filter(o => digits(o.phone) === digits(phone))
+      .slice(0, 10);
 
-    /* Never show all orders. No valid phone = show nothing. */
-    if (phone.length !== 10) {
-      box.innerHTML = "";
-      return;
-    }
+    if (!list.length) return;
 
-    var list = orders().filter(function (o) {
-      return digits(o.phone) === phone;
-    });
+    container.innerHTML = `
+      <div class="tk-my-wrap">
+        <h2>Your recent orders</h2>
+        <p>Orders saved in this browser for your mobile number.</p>
 
-    if (!list.length) {
-      box.innerHTML = "";
-      return;
-    }
+        ${list.map(o => {
+          const status = o.status || "Order Placed";
+          const cls = status === "Cancelled"
+            ? "bad"
+            : status === "Delivered" ? "done" : "";
 
-    list = list.slice(0, 10);
+          return `
+            <button class="tk-my" type="button">
+              <div>
+                <strong>${escapeHTML(o.id)}</strong>
+                <small>
+                  ${escapeHTML(o.orderDate || "")}
+                  · ${money(o.total)}
+                </small>
+              </div>
 
-    box.innerHTML =
-      '<h2 class="tk-my-title">Your orders</h2>' +
-      '<p class="tk-my-sub">Orders placed with this phone number.</p>' +
-      list.map(function (o) {
+              <span class="tk-pill ${cls}">
+                ${escapeHTML(statusLabel(status))}
+              </span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+    `;
 
-        var n = (o.products || []).reduce(function (s, p) {
-          return s + Number(p.quantity || 0);
-        }, 0);
+    const buttons = container.querySelectorAll(".tk-my");
 
-        var st = o.status || "Order Placed";
-        var cls = st === "Cancelled" ? " bad" : (st === "Delivered" ? " done" : "");
-
-        return (
-          '<button type="button" class="tk-my" data-id="' + E(o.id) + '" data-phone="' + E(o.phone) + '">' +
-            '<div class="lead">' +
-              '<div>' +
-                '<strong>' + E(o.id) + '</strong>' +
-                '<small>' +
-                  E(o.orderDate || "") + " · " + n + " item" + (n !== 1 ? "s" : "") + " · " + M(o.total || 0) +
-                '</small>' +
-              '</div>' +
-            '</div>' +
-            '<span class="tk-pill' + cls + '" data-pill="' + E(o.id) + '">' + E(statusLabel(st)) + '</span>' +
-          '</button>'
-        );
-      }).join("");
-
-    /* ---- click an order ---- */
-    box.querySelectorAll(".tk-my").forEach(function (b) {
-      b.addEventListener("click", function () {
-        $("#tk-id").value = b.dataset.id;
-        $("#tk-phone").value = digits(b.dataset.phone);
+    buttons.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        $("#tk-id").value = list[index].id;
+        $("#tk-phone").value = digits(phone);
         run(false);
-        out.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
-
-    /* ---- refresh status for this customer's orders only ---- */
-    (async function () {
-      for (var i = 0; i < list.length; i++) {
-        try {
-          var r = await lookup(list[i].id, phone);
-          if (!r) continue;
-
-          var pills = box.querySelectorAll(".tk-my .tk-pill");
-          for (var k = 0; k < pills.length; k++) {
-            if (pills[k].getAttribute("data-pill") === list[i].id) {
-              pills[k].textContent = statusLabel(r.status);
-              pills[k].className = "tk-pill" +
-                (r.status === "Cancelled" ? " bad" : r.status === "Delivered" ? " done" : "");
-            }
-          }
-        } catch (e) {}
-      }
-    })();
   }
 
-  /* =========================================================
-     TRACK ORDER
-  ========================================================= */
-  async function run(quiet) {
+  function stopRefresh() {
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = null;
+  }
 
-    var id = $("#tk-id").value.trim();
-    var phone = $("#tk-phone").value.trim();
-    var normalizedPhone = digits(phone);
+  async function run(quiet = false) {
+    const id = $("#tk-id").value.trim().toUpperCase();
+    const phone = digits($("#tk-phone").value);
+    const version = ++requestVersion;
 
-    if (normalizedPhone.length !== 10) {
-      out.innerHTML =
-        '<div class="tk-msg"><span class="ic">!</span><div>' +
-          '<b>Check the phone number</b>' +
-          'Enter the 10-digit phone number used for the order.' +
-        '</div></div>';
-      clearInterval(timer);
-      renderMyOrders("");
+    stopRefresh();
+
+    if (!id) {
+      message("Order ID required", "Please enter your order ID.");
       return;
     }
 
-    renderMyOrders(normalizedPhone);
+    if (!validPhone(phone)) {
+      message(
+        "Check your mobile number",
+        "Please enter the valid 10-digit Indian mobile number used at checkout."
+      );
+      return;
+    }
 
-    var btn = $("#tk-btn");
+    $("#tk-id").value = id;
+    $("#tk-phone").value = phone;
 
     if (!quiet) {
-      btn.disabled = true;
-      btn.textContent = "Checking…";
-      out.innerHTML = '<div class="tk-skel"><i></i><i></i><i></i><i></i></div>';
-    }
+      button.disabled = true;
+      button.textContent = "FINDING YOUR ORDER...";
 
-    var done = false;
+      output.innerHTML = `
+        <div class="tk-skeleton" role="status"
+          aria-label="Loading your order">
+          <i></i><i></i><i></i>
+        </div>
+      `;
+
+      renderMyOrders(phone);
+    }
 
     try {
-      var o = await lookup(id, normalizedPhone);
+      const order = await lookup(id, phone);
+      if (version !== requestVersion) return;
 
-      if (o) {
-        render(o);
-        done = (o.status === "Delivered" || o.status === "Cancelled");
+      if (order) {
+        render(order);
+
+        if (
+          order.status !== "Delivered" &&
+          order.status !== "Cancelled"
+        ) {
+          refreshTimer = setInterval(() => {
+            if (!document.hidden) run(true);
+          }, 30000);
+        }
       } else {
-        out.innerHTML =
-          '<div class="tk-msg"><span class="ic">?</span><div>' +
-            '<b>No order found</b>' +
-            'Check the order ID and phone number, then try again. Order IDs start with MH.' +
-          '</div></div>';
+        lastOrder = null;
+
+        message(
+          "We couldn't find that order",
+          "Please check that your order ID and registered phone number match.",
+          "?"
+        );
+      }
+    } catch (error) {
+      if (version !== requestVersion) return;
+
+      console.error("Tracking failed:", error);
+
+      if (!quiet) {
+        message(
+          "Tracking temporarily unavailable",
+          "We couldn't reach the order service. Please try again shortly."
+        );
       }
 
-    } catch (e) {
-      out.innerHTML =
-        '<div class="tk-msg"><span class="ic">!</span><div>' +
-          '<b>Could not check right now</b>' +
-          'Please try again in a moment.' +
-        '</div></div>';
-      console.error(e);
-    }
+      if (quiet) {
+        refreshTimer = setInterval(() => {
+          if (!document.hidden) run(true);
+        }, 30000);
+      }
+    } finally {
+      if (version === requestVersion) {
+        button.disabled = false;
+        button.textContent = "TRACK MY ORDER ↗";
 
-    btn.disabled = false;
-    btn.textContent = "Track order";
-
-    clearInterval(timer);
-
-    /* Auto-refresh only while the order is still moving */
-    if (out.querySelector(".tk-card") && !done) {
-      timer = setInterval(function () {
-        if (!document.hidden) run(true);
-      }, 30000);
+        if (!quiet && output.innerHTML) {
+          output.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      }
     }
   }
 
-  /* =========================================================
-     FORM SUBMIT
-  ========================================================= */
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", e => {
     e.preventDefault();
     run(false);
   });
 
-  /* =========================================================
-     INITIAL LOAD (single initialization block)
-  ========================================================= */
-  var q = new URLSearchParams(location.search);
-  var last = null;
+  /* Prefill from order URL / saved checkout */
 
-  try { last = safeParse(KEYS.lastOrder, null); } catch (e) {}
+  const params = new URLSearchParams(location.search);
+  let savedOrder = null;
 
-  var pre = q.get("order") || (last && last.id) || "";
-
-  $("#tk-id").value = pre;
-
-  /* Restore only this customer's orders if this browser knows their phone */
-  if (last && last.id === pre && last.phone) {
-
-    var savedPhone = digits(last.phone);
-    $("#tk-phone").value = savedPhone;
-    renderMyOrders(savedPhone);
-    run(false);
-
-  } else if (pre) {
-    $("#tk-phone").focus();
+  try {
+    if (
+      typeof safeParse === "function" &&
+      typeof KEYS !== "undefined" &&
+      KEYS.lastOrder
+    ) {
+      savedOrder = safeParse(KEYS.lastOrder, null);
+    }
+  } catch (error) {
+    console.warn("Saved order unavailable:", error);
   }
 
+  const initialId = params.get("order") ||
+    (savedOrder && savedOrder.id) || "";
+
+  if (initialId) {
+    $("#tk-id").value = initialId;
+  }
+
+  if (
+    savedOrder &&
+    savedOrder.phone &&
+    String(savedOrder.id || "").toUpperCase() ===
+      String(initialId).toUpperCase()
+  ) {
+    const phone = digits(savedOrder.phone);
+    $("#tk-phone").value = phone;
+
+    if (validPhone(phone)) {
+      renderMyOrders(phone);
+      run(false);
+    }
+  }
+
+  window.addEventListener("pagehide", stopRefresh);
+
 })();
-  </script>
-  <script defer src="lenis.min.js"></script>
+</script>
+
+<script defer src="lenis.min.js"></script>
 <script defer src="smooth-scroll.js?v=20261018"></script>
+
 </body>
 </html>
