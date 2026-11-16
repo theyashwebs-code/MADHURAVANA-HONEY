@@ -1210,9 +1210,7 @@ const grandTotal = subtotal;
 
 const shippingMessage = subtotal >= FREE_SHIPPING_MIN
   ? "🎉 Congratulations! Your order qualifies for FREE delivery."
-  : "🚚 Delivery charges are not included in the items subtotal. Our team will discuss and confirm the delivery charges with you separately on WhatsApp before your order is finalized. Add " +
-    formatMoney(remaining) +
-    " more to unlock FREE delivery.";
+  : `Add ${formatMoney(remaining)} more to your order for FREE delivery.`;
 
 
   box.innerHTML = `
